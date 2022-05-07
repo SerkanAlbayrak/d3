@@ -1,10 +1,20 @@
 ---
-title: "D3"
+title: "Çeşme"
+
+listing:
+    - id: posts
+      contents: content/posts
+      sort: "date desc"
+      type: default
+      categories: true
+      sort-ui: false
+      filter-ui: false
 ---
 
-This is a Quarto website.
+Sayfanın mimarisinde <https://github.com/WillemSleegers/willemsleegers-quarto/blob/main/index.qmd> adresindeki yapıyı kopyalayacağım. Mantık partial page kullanma üzerine. Blog listesi yapmanın yolu listing oluşturulan bir sayfa belirlemek. Onu about sayfasında yapmış. Ben farklı bir yerde yapmayı planlıyorum. 
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+
+
 
 ```{r}
 1 + 1
