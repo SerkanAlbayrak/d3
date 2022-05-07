@@ -1,10 +1,14 @@
 project:
   type: website
+  preview:
+    port: 4200
+    browser: false
 
 website:
   title: "D3"
+  favicon: images/olive_fav.png
   navbar:
-    background: primary
+    background: secondary
     left:
       - href: index.qmd
         text: Home
