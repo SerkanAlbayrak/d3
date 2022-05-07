@@ -1,5 +1,11 @@
 [
   {
+    "listing": "/content/blog.html",
+    "items": [
+      "/content/posts/yksBaraj.html"
+    ]
+  },
+  {
     "listing": "/index.html",
     "items": [
       "/content/posts/yksBaraj.html"

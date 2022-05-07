@@ -7,6 +7,13 @@
     "text": "1 + 1\n\n[1] 2"
   },
   {
+    "objectID": "content/blog.html",
+    "href": "content/blog.html",
+    "title": "blogLists",
+    "section": "",
+    "text": "statistics\n\n\ntutorial\n\n\nregression\n\n\n\n\nThis is Part 1 of a series of blog posts on how to understand regression. The goal is to develop an intuitive understanding of the different components of regression. In this first post, we figure out where the estimate of an intercept-only regression model comes from.\n\n\n\n\n\n\nAug 1, 2020\n\n\nRSA\n\n\n3 min\n\n\n\n\n\n\nNo matching items"
+  },
+  {
     "objectID": "content/posts/yksBaraj.html",
     "href": "content/posts/yksBaraj.html",
     "title": "yksBaraj",
@@ -18,13 +25,27 @@
     "href": "content/posts/yksBaraj.html#setup",
     "title": "yksBaraj",
     "section": "Setup",
-    "text": "Setup\nTo figure out regression, we need data. We could make up some data on the spot, but I’d rather use data that is a bit more meaningful (to me, anyway). Since I’m a big Pokémon fan, I’ll use a data set containing Pokémon statistics.\nIn case you’re following along, start by loading some packages and reading in the data. In the code section below I use the here package to read in the data, but I recommend that you simply specify the path to the file. After that, I subset the data to make the data a bit more manageable and define a custom mode function because R does not have one (and I need it later)."
+    "text": "Setup\nTo figure out regression, we need data. We could make up some data on the spot, but I’d rather use data that is a bit more meaningful (to me, anyway). Since I’m a big Pokémon fan, I’ll use a data set containing Pokémon statistics.\nIn case you’re following along, start by loading some packages and reading in the data. In the code section below I use the here package to read in the data, but I recommend that you simply specify the path to the file. After that, I subset the data to make the data a bit more manageable and define a custom mode function because R does not have one (and I need it later).\n\n\nCode\n# Load packages\nlibrary(tidyverse)\nlibrary(here)\nlibrary(knitr)\n# Read in Pokémon data\npokemon <- read_csv(here(\"data\", \"pokemon.csv\"))\n# Create a subset with only the first 25 Pokémon\npokemon25 <- filter(pokemon, pokedex <= 25)\n# Load a custom function to calculate the mode\nmode <- function(x) {\n  ux <- unique(x)\n  ux[which.max(tabulate(match(x, ux)))]\n}\n# Set the default ggplot theme\ntheme_set(theme_minimal())\n\n\nLet’s take a look at several attributes of some Pokémon to see what they’re about:\n\n\nCode\npokemon25 %>%\n  filter(pokedex <= 10) %>%\n  select(name, type_primary, type_secondary, height, weight, \n    evolution) %>%\n  kable(digits = 2)\n\n\n\n\n\nname\ntype_primary\ntype_secondary\nheight\nweight\nevolution\n\n\n\n\nBulbasaur\nGrass\nPoison\n0.7\n6.9\n0\n\n\nIvysaur\nGrass\nPoison\n1.0\n13.0\n1\n\n\nVenusaur\nGrass\nPoison\n2.0\n100.0\n2\n\n\nCharmander\nFire\nNA\n0.6\n8.5\n0\n\n\nCharmeleon\nFire\nNA\n1.1\n19.0\n1\n\n\nCharizard\nFire\nFlying\n1.7\n90.5\n2\n\n\nSquirtle\nWater\nNA\n0.5\n9.0\n0\n\n\nWartortle\nWater\nNA\n1.0\n22.5\n1\n\n\nBlastoise\nWater\nNA\n1.6\n85.5\n2\n\n\nCaterpie\nBug\nNA\n0.3\n2.9\n0\n\n\n\n\n\nPokémon have different types (e.g., grass, fire, water), a height, some weight, and they are of a particular evolutionary stage (0, 1, or 2). This last variable refers to a Pokémon’s ability to evolve and when they do, they tend to become bigger and more powerful.\nLet’s say that we are interested in understanding the weight of different Pokémon. Below I have plotted the weight of the first 25 Pokémon, from Bulbasaur to Pikachu.\n\n\nCode\nggplot(pokemon25, aes(x = reorder(name, pokedex), y = weight)) +\n  geom_bar(stat = \"identity\", alpha = .85) +\n  labs(x = \"\", y = \"Weight (kg)\") +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))\n\n\n\n\n\n\n\n\n\nWe see that the lightest Pokémon is Pidgey, with a weight of 1.8 kg. The heaviest Pokémon is Venusaur, with a weight of 100 kg. The average weight is 26.144 kg."
+  },
+  {
+    "objectID": "content/posts/yksBaraj.html#the-simplest-model",
+    "href": "content/posts/yksBaraj.html#the-simplest-model",
+    "title": "yksBaraj",
+    "section": "The simplest model",
+    "text": "The simplest model\nIn order to understand the weights of different Pokémon, we need to come up with a statistical model. In a way, this can be considered a description problem. How can we best describe the different weights that we have observed? The simplest description is a single number. We can say that all Pokémon have a weight of say… 6 kg. In other words:\n\nweight = 6 kg Of course, this is just one among many possible models. Below I plot three different models, including our weight = 6 kg model."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Çeşme",
     "section": "",
-    "text": "1 + 1\n\n[1] 2\n\n\n\n\n\n\n\n\n\n\n\n\nyksBaraj\n\n\n\n\n\n\n\nstatistics\n\n\ntutorial\n\n\nregression\n\n\n\n\nThis is Part 1 of a series of blog posts on how to understand regression. The goal is to develop an intuitive understanding of the different components of regression. In this first post, we figure out where the estimate of an intercept-only regression model comes from.\n\n\n\n\n\n\nAug 1, 2020\n\n\nRSA\n\n\n\n\n\n\nNo matching items"
+    "text": "Sayfanın mimarisinde https://github.com/WillemSleegers/willemsleegers-quarto/blob/main/index.qmd adresindeki yapıyı kopyalayacağım. Mantık partial page kullanma üzerine. Blog listesi yapmanın yolu listing oluşturulan bir sayfa belirlemek. Onu about sayfasında yapmış. Ben farklı bir yerde yapmayı planlıyorum."
+  },
+  {
+    "objectID": "index.html#blog-posts",
+    "href": "index.html#blog-posts",
+    "title": "Çeşme",
+    "section": "Blog posts",
+    "text": "Blog posts\n\n\n\n\n\n\n\n\n\n\n\n\n\nyksBaraj\n\n\n\n\n\n\n\nstatistics\n\n\ntutorial\n\n\nregression\n\n\n\n\nThis is Part 1 of a series of blog posts on how to understand regression. The goal is to develop an intuitive understanding of the different components of regression. In this first post, we figure out where the estimate of an intercept-only regression model comes from.\n\n\n\n\n\n\nAug 1, 2020\n\n\nRSA\n\n\n3 min\n\n\n\n\n\n\nNo matching items\n\n\nMore posts\n\n1 + 1\n\n[1] 2"
   }
 ]

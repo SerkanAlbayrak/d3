@@ -6,6 +6,7 @@ listing:
       contents: content/posts
       sort: "date desc"
       type: default
+      fields: [image, date, title, author, reading-time, description,categories]
       categories: true
       sort-ui: false
       filter-ui: false
@@ -13,6 +14,12 @@ listing:
 
 Sayfanın mimarisinde <https://github.com/WillemSleegers/willemsleegers-quarto/blob/main/index.qmd> adresindeki yapıyı kopyalayacağım. Mantık partial page kullanma üzerine. Blog listesi yapmanın yolu listing oluşturulan bir sayfa belirlemek. Onu about sayfasında yapmış. Ben farklı bir yerde yapmayı planlıyorum. 
 
+## Blog posts
+
+::: {#posts}
+:::
+
+[More posts](content/blog.qmd "See more blog posts")
 
 
 

@@ -9,7 +9,7 @@ categories:
   - regression
 code-fold: true
 toc: true
-toc-location: body
+toc-location: left
 ---
 
 ## The Black Box of Regression
@@ -24,4 +24,56 @@ Feel free to follow me along by copy-pasting the code from each step. I'll add a
 
 To figure out regression, we need data. We could make up some data on the spot, but I'd rather use data that is a bit more meaningful (to me, anyway). Since I'm a big Pokémon fan, I'll use a data set containing Pokémon statistics.
 
-In case you're following along, start by loading some packages and reading in the [data](https://www.willemsleegers.com/data/pokemon.csv). In the code section below I use the `here` package to read in the data, but I recommend that you simply specify the path to the file. After that, I subset the data to make the data a bit more manageable and define a custom `mode` function because R does not have one (and I need it later).
+In case you're following along, start by loading some packages and reading in the [data](https://www.willemsleegers.com/data/pokemon.csv). In the code section below I use the `here` package to read in the data, but I recommend that you simply specify the path to the file. After that, I subset the data to make the data a bit more manageable and define a custom `mode` function because R does not have one (and I need it later).    
+
+```{r}
+#| label: setup
+#| message: false
+# Load packages
+library(tidyverse)
+library(here)
+library(knitr)
+# Read in Pokémon data
+pokemon <- read_csv(here("data", "pokemon.csv"))
+# Create a subset with only the first 25 Pokémon
+pokemon25 <- filter(pokemon, pokedex <= 25)
+# Load a custom function to calculate the mode
+mode <- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x, ux)))]
+}
+# Set the default ggplot theme
+theme_set(theme_minimal())
+```
+
+Let's take a look at several attributes of some Pokémon to see what they're about:
+
+```{r}
+pokemon25 %>%
+  filter(pokedex <= 10) %>%
+  select(name, type_primary, type_secondary, height, weight, 
+    evolution) %>%
+  kable(digits = 2)
+```
+
+Pokémon have different types (e.g., grass, fire, water), a height, some weight, and they are of a particular evolutionary stage (0, 1, or 2). This last variable refers to a Pokémon's ability to evolve and when they do, they tend to become bigger and more powerful.
+
+Let's say that we are interested in understanding the weight of different Pokémon. Below I have plotted the weight of the first 25 Pokémon, from Bulbasaur to Pikachu.
+
+```{r}
+#| column: screen
+#| fig-align: center
+ggplot(pokemon25, aes(x = reorder(name, pokedex), y = weight)) +
+  geom_bar(stat = "identity", alpha = .85) +
+  labs(x = "", y = "Weight (kg)") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+We see that the lightest Pokémon is Pidgey, with a weight of `r min(pull(pokemon25, weight))` kg. The heaviest Pokémon is Venusaur, with a weight of `r max(pull(pokemon25, weight))` kg. The average weight is `r mean(pull(pokemon25, weight))` kg.
+
+## The simplest model
+
+In order to understand the weights of different Pokémon, we need to come up with a statistical model. In a way, this can be considered a description problem. How can we best describe the different weights that we have observed? The simplest description is a single number. We can say that all Pokémon have a weight of say... 6 kg. In other words:
+
+> weight = 6 kg
+Of course, this is just one among many possible models. Below I plot three different models, including our `weight = 6 kg` model.

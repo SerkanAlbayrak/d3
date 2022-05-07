@@ -1,0 +1,13 @@
+---
+title: "blogLists"
+
+listing:
+    - id: posts
+      contents: posts
+      sort: "date desc"
+      type: default
+      fields: [image, date, title, author, reading-time, description,categories]
+      categories: true
+      sort-ui: false
+      filter-ui: false
+---
