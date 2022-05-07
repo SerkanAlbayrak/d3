@@ -8,6 +8,6 @@ listing:
       type: default
       fields: [image, date, title, author, reading-time, description,categories]
       categories: true
-      sort-ui: false
-      filter-ui: false
+      sort-ui: true
+      filter-ui: true
 ---

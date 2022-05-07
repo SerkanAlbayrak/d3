@@ -1,5 +1,8 @@
 ---
 title: "Çeşme"
+toc: true
+toc-title: Table of contents
+toc-location: left
 
 listing:
     - id: posts
@@ -8,8 +11,8 @@ listing:
       type: default
       fields: [image, date, title, author, reading-time, description,categories]
       categories: true
-      sort-ui: false
-      filter-ui: false
+      sort-ui: true
+      filter-ui: true
 ---
 
 Sayfanın mimarisinde <https://github.com/WillemSleegers/willemsleegers-quarto/blob/main/index.qmd> adresindeki yapıyı kopyalayacağım. Mantık partial page kullanma üzerine. Blog listesi yapmanın yolu listing oluşturulan bir sayfa belirlemek. Onu about sayfasında yapmış. Ben farklı bir yerde yapmayı planlıyorum. 

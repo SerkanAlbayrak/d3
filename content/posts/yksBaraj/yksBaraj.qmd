@@ -1,6 +1,6 @@
 ---
 title: "yksBaraj"
-author: "RSA"
+author: Raif Serkan Albayrak
 description: "This is Part 1 of a series of blog posts on how to understand regression. The goal is to develop an intuitive understanding of the different components of regression. In this first post, we figure out where the estimate of an intercept-only regression model comes from."
 date: 2020-08-01
 categories:
@@ -8,8 +8,6 @@ categories:
   - tutorial
   - regression
 code-fold: true
-toc: true
-toc-location: left
 image: "img/preview.png"
 ---
 
