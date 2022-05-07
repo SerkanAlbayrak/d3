@@ -2,13 +2,13 @@
   {
     "listing": "/content/blog.html",
     "items": [
-      "/content/posts/yksBaraj.html"
+      "/content/posts/yksBaraj/yksBaraj.html"
     ]
   },
   {
     "listing": "/index.html",
     "items": [
-      "/content/posts/yksBaraj.html"
+      "/content/posts/yksBaraj/yksBaraj.html"
     ]
   }
 ]

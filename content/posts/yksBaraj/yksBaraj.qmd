@@ -10,6 +10,7 @@ categories:
 code-fold: true
 toc: true
 toc-location: left
+image: "img/preview.png"
 ---
 
 ## The Black Box of Regression
