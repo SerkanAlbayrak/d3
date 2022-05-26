@@ -1,1 +1,17 @@
 /* css styles */
+div.quarto-post .metadata{
+    flex-basis: 13%;
+    font-size: 0.9em;
+}
+div.quarto-post .body{
+    flex-basis: 30%;
+    font-size: 0.8em;
+}
+
+div.quarto-post .thumbnail{
+    flex-basis: 45%;
+}
+
+div.quarto-post .listing-description{
+    font-size: 0.9em;
+}

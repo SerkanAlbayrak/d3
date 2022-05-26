@@ -2,50 +2,64 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "İletişim",
     "section": "",
-    "text": "1 + 1\n\n[1] 2"
+    "text": "serkan.albayrak@ieu.edu.tr"
   },
   {
     "objectID": "content/blog.html",
     "href": "content/blog.html",
     "title": "blogLists",
     "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nstatistics\n\n\ntutorial\n\n\nregression\n\n\n\n\nThis is Part 1 of a series of blog posts on how to understand regression. The goal is to develop an intuitive understanding of the different components of regression. In this first post, we figure out where the estimate of an intercept-only regression model comes from.\n\n\n\n\n\n\nAug 1, 2020\n\n\nRaif Serkan Albayrak\n\n\n3 min\n\n\n\n\n\n\nNo matching items"
+    "text": "veri\n\n\nanaliz\n\n\nYKS\n\n\nsimülasyon\n\n\n \n\n\n\n\nJun 1, 2022\n\n\n3 min\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nYKS\n\n\nPuan türleri\n\n\nModelleme\n\n\nR\n\n\n \n\n\n\n\nMay 27, 2022\n\n\n1 min\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nYKS\n\n\nPuan türleri\n\n\n \n\n\n\n\nMay 23, 2022\n\n\n4 min\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "content/posts/yksBaraj/yksBaraj.html",
-    "href": "content/posts/yksBaraj/yksBaraj.html",
-    "title": "yksBaraj",
+    "objectID": "content/posts/05_2022_ yks_baraj/yksBaraj.html",
+    "href": "content/posts/05_2022_ yks_baraj/yksBaraj.html",
+    "title": "YKS Baraj Sıralamaları Üzerine",
     "section": "",
-    "text": "Statistical regression techniques are an important concept in data analysis. As a social scientist, I use it to test hypotheses by comparing differences between groups or testing relationships between variables. While it is easy to run regression analyses in a variety of software packages, like SPSS or R, it often remains a black box that is not well understood. I, in fact, do not believe I actually understand regression. Not fully understanding the mechanics of regression could be okay, though. After all, you also don’t need to know exactly how car engines work in order to drive a car. However, I think many users of regression have isolated themselves too much from the mechanics of regression. This may be the source of some errors, such as applying regression to data that is not suitable for the regression method. If you’re using regression to try and make inferences about the world, it’s probably also a good idea to feel like you know what you’re doing.\nSo, there are some reasons to figure out regression. This post is Part 1 of a series of blog posts called ‘Understanding Regression’ in which I try to figure it out.\nFeel free to follow me along by copy-pasting the code from each step. I’ll add a note in case you need to slightly adjust the code for it to work on your computer."
+    "text": "YKS sınav sonuçları ilk açıklandığında, üniversite öğrencisi adaylarının henüz tercihlerini kullanmadıkları ancak doğru ve yanlış yanıtlarla beraber\nStatistical regression techniques are an important concept in data analysis. As a social scientist, I use it to test hypotheses by comparing differences between groups or testing relationships between variables. While it is easy to run regression analyses in a variety of software packages, like SPSS or R, it often remains a black box that is not well understood. I, in fact, do not believe I actually understand regression. Not fully understanding the mechanics of regression could be okay, though. After all, you also don’t need to know exactly how car engines work in order to drive a car. However, I think many users of regression have isolated themselves too much from the mechanics of regression. This may be the source of some errors, such as applying regression to data that is not suitable for the regression method. If you’re using regression to try and make inferences about the world, it’s probably also a good idea to feel like you know what you’re doing.\nSo, there are some reasons to figure out regression. This post is Part 1 of a series of blog posts called ‘Understanding Regression’ in which I try to figure it out.\nFeel free to follow me along by copy-pasting the code from each step. I’ll add a note in case you need to slightly adjust the code for it to work on your computer."
   },
   {
-    "objectID": "content/posts/yksBaraj/yksBaraj.html#setup",
-    "href": "content/posts/yksBaraj/yksBaraj.html#setup",
-    "title": "yksBaraj",
+    "objectID": "content/posts/05_2022_ yks_baraj/yksBaraj.html#setup",
+    "href": "content/posts/05_2022_ yks_baraj/yksBaraj.html#setup",
+    "title": "YKS Baraj Sıralamaları Üzerine",
     "section": "Setup",
     "text": "Setup\nTo figure out regression, we need data. We could make up some data on the spot, but I’d rather use data that is a bit more meaningful (to me, anyway). Since I’m a big Pokémon fan, I’ll use a data set containing Pokémon statistics.\nIn case you’re following along, start by loading some packages and reading in the data. In the code section below I use the here package to read in the data, but I recommend that you simply specify the path to the file. After that, I subset the data to make the data a bit more manageable and define a custom mode function because R does not have one (and I need it later).\n\n\nCode\n# Load packages\nlibrary(tidyverse)\nlibrary(here)\nlibrary(knitr)\n# Read in Pokémon data\npokemon <- read_csv(here(\"data\", \"pokemon.csv\"))\n# Create a subset with only the first 25 Pokémon\npokemon25 <- filter(pokemon, pokedex <= 25)\n# Load a custom function to calculate the mode\nmode <- function(x) {\n  ux <- unique(x)\n  ux[which.max(tabulate(match(x, ux)))]\n}\n# Set the default ggplot theme\ntheme_set(theme_minimal())\n\n\nLet’s take a look at several attributes of some Pokémon to see what they’re about:\n\n\nCode\npokemon25 %>%\n  filter(pokedex <= 10) %>%\n  select(name, type_primary, type_secondary, height, weight, \n    evolution) %>%\n  kable(digits = 2)\n\n\n\n\n\nname\ntype_primary\ntype_secondary\nheight\nweight\nevolution\n\n\n\n\nBulbasaur\nGrass\nPoison\n0.7\n6.9\n0\n\n\nIvysaur\nGrass\nPoison\n1.0\n13.0\n1\n\n\nVenusaur\nGrass\nPoison\n2.0\n100.0\n2\n\n\nCharmander\nFire\nNA\n0.6\n8.5\n0\n\n\nCharmeleon\nFire\nNA\n1.1\n19.0\n1\n\n\nCharizard\nFire\nFlying\n1.7\n90.5\n2\n\n\nSquirtle\nWater\nNA\n0.5\n9.0\n0\n\n\nWartortle\nWater\nNA\n1.0\n22.5\n1\n\n\nBlastoise\nWater\nNA\n1.6\n85.5\n2\n\n\nCaterpie\nBug\nNA\n0.3\n2.9\n0\n\n\n\n\n\nPokémon have different types (e.g., grass, fire, water), a height, some weight, and they are of a particular evolutionary stage (0, 1, or 2). This last variable refers to a Pokémon’s ability to evolve and when they do, they tend to become bigger and more powerful.\nLet’s say that we are interested in understanding the weight of different Pokémon. Below I have plotted the weight of the first 25 Pokémon, from Bulbasaur to Pikachu.\n\n\nCode\nggplot(pokemon25, aes(x = reorder(name, pokedex), y = weight)) +\n  geom_bar(stat = \"identity\", alpha = .85) +\n  labs(x = \"\", y = \"Weight (kg)\") +\n  theme(axis.text.x = element_text(angle = 45, hjust = 1))\n\n\n\n\n\n\n\n\n\nWe see that the lightest Pokémon is Pidgey, with a weight of 1.8 kg. The heaviest Pokémon is Venusaur, with a weight of 100 kg. The average weight is 26.144 kg."
   },
   {
-    "objectID": "content/posts/yksBaraj/yksBaraj.html#the-simplest-model",
-    "href": "content/posts/yksBaraj/yksBaraj.html#the-simplest-model",
-    "title": "yksBaraj",
+    "objectID": "content/posts/05_2022_ yks_baraj/yksBaraj.html#the-simplest-model",
+    "href": "content/posts/05_2022_ yks_baraj/yksBaraj.html#the-simplest-model",
+    "title": "YKS Baraj Sıralamaları Üzerine",
     "section": "The simplest model",
     "text": "The simplest model\nIn order to understand the weights of different Pokémon, we need to come up with a statistical model. In a way, this can be considered a description problem. How can we best describe the different weights that we have observed? The simplest description is a single number. We can say that all Pokémon have a weight of say… 6 kg. In other words:\n\nweight = 6 kg Of course, this is just one among many possible models. Below I plot three different models, including our weight = 6 kg model."
   },
   {
+    "objectID": "content/posts/05_2022_yks_puan_diagram/yks_puan_diagram.html",
+    "href": "content/posts/05_2022_yks_puan_diagram/yks_puan_diagram.html",
+    "title": "YKS Puanlama Sistemi",
+    "section": "",
+    "text": "Dipnotlar\n\n\nVikipedia sayfasında 2017-2018 yılından itibaren uygulanmaya başlandığı yazılmış. Bu bilgi hatalı.↩︎\n\nYeniden kullanınhttps://creativecommons.org/licenses/by/4.0/deed.trAlıntıBibTeX@online{serkanalbayrak2022,\n  author = {Raif Serkan Albayrak},\n  title = {YKS Puanlama Sistemi},\n  date = {2022-05-23},\n  langid = {tr}\n}\nLütfen bu çalışmayı şu şekilde alıntılayın:\nRaif Serkan Albayrak. 2022. “YKS Puanlama Sistemi.” May 23,\n2022."
+  },
+  {
+    "objectID": "content/posts/05_2022_yks_siralama_dagilim/rank_dist.html",
+    "href": "content/posts/05_2022_yks_siralama_dagilim/rank_dist.html",
+    "title": "YKS Sıralama Dağılımı Tahminleme Modeli",
+    "section": "",
+    "text": "Yeniden kullanınhttps://creativecommons.org/licenses/by/4.0/deed.trAlıntıBibTeX@online{serkanalbayrak2022,\n  author = {Raif Serkan Albayrak},\n  title = {YKS Sıralama Dağılımı Tahminleme Modeli},\n  date = {2022-05-27},\n  langid = {tr}\n}\nLütfen bu çalışmayı şu şekilde alıntılayın:\nRaif Serkan Albayrak. 2022. “YKS Sıralama Dağılımı Tahminleme\nModeli.” May 27, 2022."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Çeşme",
+    "title": "Zeytin",
     "section": "",
     "text": "Sayfanın mimarisinde https://github.com/WillemSleegers/willemsleegers-quarto/blob/main/index.qmd adresindeki yapıyı kopyalayacağım. Mantık partial page kullanma üzerine. Blog listesi yapmanın yolu listing oluşturulan bir sayfa belirlemek. Onu about sayfasında yapmış. Ben farklı bir yerde yapmayı planlıyorum."
   },
   {
     "objectID": "index.html#blog-posts",
     "href": "index.html#blog-posts",
-    "title": "Çeşme",
+    "title": "Zeytin",
     "section": "Blog posts",
-    "text": "Blog posts\n\n\n   \n     \n     \n       Order By\n       Default\n         \n          Title\n        \n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n  \n\n\n\n\nyksBaraj\n\n\n\n\n\n\n\nstatistics\n\n\ntutorial\n\n\nregression\n\n\n\n\nThis is Part 1 of a series of blog posts on how to understand regression. The goal is to develop an intuitive understanding of the different components of regression. In this first post, we figure out where the estimate of an intercept-only regression model comes from.\n\n\n\n\n\n\nAug 1, 2020\n\n\nRaif Serkan Albayrak\n\n\n3 min\n\n\n\n\n\n\nNo matching items\n\n\nMore posts\n\n1 + 1\n\n[1] 2"
+    "text": "Blog posts\n\n\n\n\n  \n\n\n\n\nYKS Baraj Sıralamaları Üzerine\n\n\n\n\n\n\n\nveri\n\n\nanaliz\n\n\nYKS\n\n\nsimülasyon\n\n\n\n\nYükseköğretim Kurumları Sınavlarında (YKS) bazı bölümlere baraj sıralaması konulma kararı uzun süredir çeşitli tartışmalara konu olmuş ve YÖK’ün sınav sistemine yönelik aldığı en kritik kararlardan biri olarak görülmüştür. Bu önemli kararla birlikte; Tıp, hukuk, mimarlık, mühendislik, diş hekimliği, eczacılık, öğretmenlik gibi ‘meslek icrasına yönelik’ alanlara baraj sıralamaları getirilmiştir. YÖK, bu kararın alınmasında rol oynayan en önemli nedenleri; farklı başarı sırasındaki öğrencilerin aynı sınıfta bulunmasının eğitim ortamını olumsuz etkilemesi, özellikle devlet ve vakıf üniversitelerinde bu programlara yerleşen öğrencilerin sıralamaları arasındaki makasın açıklığı olarak özetlemiştir. Baraj sıralamalarının amacına hizmet etmediği, pratikte öngörülenden farklı şekilde bir etki yarattığı ve sonuçların bölüm talepleri ve genel olarak kontenjanlar üzerinde yanlış okumalara neden olduğunun tartışıldığı bu yazıda; tartışma 2021 yılında baraj sıralaması 125 binden 100 bine getirileceği açıklanan Hukuk fakülteleri üzerinden yapılacaktır.\n\n\n\n\n\n\nJun 1, 2022\n\n\n3 min\n\n\n\n\n\n\n  \n\n\n\n\nYKS Sıralama Dağılımı Tahminleme Modeli\n\n\n\n\n\n\n\nYKS\n\n\nPuan türleri\n\n\nModelleme\n\n\nR\n\n\n\n\nYKS’nin karar birimi sıralamalardır. Adaylar kendi sıralamalarına bakarak tercih yapar ve gene sıralamalara göre yerleştirilir. Burslar sıralamalara göre verilir. Üniversiteler kendi performanslarını yıldan yıla karşılaştırmak istediklerinde sıralamaları kullanırlar. Bu yazının amacı, tavan ve taban başarı sıralarını kullanarak bir bölüme yerleşen öğrencilerin sıralama dağılımlarını tahmin edecek basit bir yaklaşım sunmaktır.\n\n\n\n\n\n\nMay 27, 2022\n\n\n1 min\n\n\n\n\n\n\n  \n\n\n\n\nYKS Puanlama Sistemi\n\n\n\n\n\n\n\nYKS\n\n\nPuan türleri\n\n\n\n\nYKS hali hazırda oldukça karmaşık bir sistemdir. Sınavın kurgusu, uygulanışı, puanlanma sistemi gibi iç içe girmiş çok sayıda bileşenden oluşur. Bu yazıda YKS’nin puanlama sistemini özetlenmektedir.\n\n\n\n\n\n\nMay 23, 2022\n\n\n4 min\n\n\n\n\n\n\nNo matching items\n\n\nMore posts\n\n1 + 1\n\n[1] 2"
   }
 ]

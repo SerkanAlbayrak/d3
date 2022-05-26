@@ -5,13 +5,13 @@ project:
     browser: false
 
 website:
-  title: "D3"
+  title: "Zeytin"
   favicon: images/olive_fav.png
   navbar:
     background: secondary
     left:
       - href: index.qmd
-        text: Home
+        text: Ana Sayfa
       - about.qmd
 
 format:
@@ -19,6 +19,7 @@ format:
     theme: cosmo
     css: styles.css
     toc: true
+    page-layout: full
 
 editor: visual
 

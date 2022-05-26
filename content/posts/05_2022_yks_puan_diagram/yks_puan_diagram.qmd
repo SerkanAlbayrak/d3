@@ -1,0 +1,50 @@
+---
+title: "YKS Puanlama Sistemi"
+author: Raif Serkan Albayrak
+description: "YKS hali hazırda oldukça karmaşık bir sistemdir. Sınavın kurgusu, uygulanışı, puanlanma sistemi gibi iç içe girmiş çok sayıda bileşenden oluşur. Bu yazıda YKS'nin puanlama sistemini özetlenmektedir."
+date: 2022-05-23
+categories:
+  - YKS
+  - Puan türleri
+code-fold: true
+image: "img/preview.png"
+lang: tr
+---
+
+# YKS 101
+
+Üniversite öğrencisi adayları sınav sonuçlarının açıklandığı dönemde, hayatlarındaki en kritik kararlardan birini vermek için epey çetrefilli bir problemin üstesinden gelmeye çalışırlar. Aslında YKS sistemine yönelik ilk kararlarını henüz lisenin ilk yıllarında alan seçerek vermişlerdir. Üniversitede mühendislik, tıp, sağlık bilimleri gibi bölümleri okumayı hedefleyenler sayısal alanı seçer. Hukuk veya işletme fakülteleri ile psikoloji gibi bölümlere yerleşmek isteyenler Türkçe-Matematik alanını tercih etmiştir. Son olarak üniversitede İletişim Fakültesi veya Gastronomi ve Mutfak Sanatları ve benzeri programları okumak isteyen öğrencilerin tercihi sosyal alan olur. Öğrenci ve velisi bu kararı 9. sınıftan 10. sınıfa geçerken verirler. Üniversite eğitimine hak kazanmak için gireceği YKS'ye üç yılı vardır. Genel olarak öğrencinin ilgi duydukları ve başarı oldukları dersler alan seçiminde baş rolü oynar. Yapmak istediği mesleği kafasında şekillendirmeye başlayabilmiş az sayıda öğrenci için bu seçim kısmen daha kolaydır.
+
+Alan seçimi yapıldığı anda YKS sisteminin kapısından içeri girilmiştir. YKS hali hazırda oldukça karmaşık bir sistemdir. Sınavın kurgusu, uygulanışı, puanlanma sistemi gibi iç içe girmiş çok sayıda bileşenden oluşur. Bu yazıda YKS'nin puanlama sistemini özetlenmektedir.
+
+## TYT & AYT
+
+2018 yılından beri uygulanan YKS[^1] , peş peşe iki gün yapılan iki sınavı ifade eder. İlk aşama Temel Yeterlilik Testi (TYT) ikinci aşama ise Alan Yeterlilik Testidir (AYT) . AYT sınavını takiben dil puanıyla öğrenci kabul eden Mütercim Tercümanlık veya İngiliz Dili Edebiyatı gibi bölümlere girmek isteyen öğrenciler Yabancı Dil Testine girerler. Yabancı Dil Testi ile ilgili kavramlar bu yazının kapsamının dışında tutulmuştur. Adaylar TYT sınavındaki tüm sorulardan sorumludur. AYT sınavında ise tercih yapacakları alana yönelik soruları yanıtlarlar.
+
+[^1]: [Vikipedia](https://tr.wikipedia.org/wiki/Yükseköğretim_Kurumları_Sınavı) sayfasında 2017-2018 yılından itibaren uygulanmaya başlandığı yazılmış. Bu bilgi hatalı.
+
+## Puan Türleri - SAY, EA, SÖZ
+
+Üniversitede okunacak bölüme göre öğrencilerin başarı göstermeleri gereken soru blokları yıllardır ufak tefek değişikliklere rağmen artık jenerasyonları aşan bir genel kültür bilgisidir. Örneğin Tıp, Diş Hekimliği, Eczacılık ve benzeri sağlık bilimlerini içeren lisans programları ile Mühendislik ve Mimarlık lisans programları aday öğrencilerin Sayısal (SAY) puan türünde başarı olmasını isterler . Hukuk, Psikoloji ve genel olarak İşletme Fakültesinde bulunan lisans programlarını tercih edecek öğrencilerden ise Eşit Ağırlık (EA) puan türünde başarılı olmaları beklenir. Sosyal (SOS) puan türü ise örneğin İletişim Fakültesinde bulunan bölümlere yerleşmek isteyen öğrencileri ilgilendirir. Son olarak iki yıllık önlisans programlarına yerleşmeyi hedefleyen öğrenciler ise sadece ilk adımda girdikleri TYT sınavı sonucuna göre sıralandıkları için onların hedefi TYT puan türünde başarılı olmaktır. Daha önce de bahsedildiği gibi lisans programlarını kazanmayı hedefleyen öğrencilerin tamamı TYT sınavının tüm bölümlerini yanıtlamaya çalışır.
+
+## Soru Blokları
+
+Puan türleri aslında soru blokları için kullanılan kısaltmalardır. Örneğin SAY puan türü TYT sınavındaki soruların tamamına ek olarak AYT sınavındaki Matematik, Fizik, Kimya ve Biyoloji kısımlarından oluşan soru bloğunun adıdır (Şekil). Buna göre SAY puanının %40'ı TYT, geri kalan %60'ı AYT'den oluşmaktadır. Benzer şekilde EA puanının %40'ı TYT'den,gelir. Geriye kalan AYT puanı ise Matematik (%30), Türk Dili ve Edebiyatı (%18), Tarih-1 (%7) ve Coğrafya-1(%5) şeklinde toplam puanının %60'ına denk gelir. Aşağıdaki Şekil sınav puanlarının hesaplamalarında hangi soru grubunun ne kadar ağırlıklandırıldığını göstermektedir.
+
+![Puanların hesaplanmasında soru gruplarının ağırlığı](img%5Cpreview.png){#fig-puanlama}
+
+## Barajlar
+
+Bu yıla kadar TYT sınavında uygulanan iki puan barajı bulunuyordu. Birinci baraj olan 150 puanında altında kalan öğrenciler ister ön lisans ister lisans olsun hiçbir yüksek öğretim programına başvuramıyorlardı. İkinci baraj ise 180 puan barajıydı. 150-180 puan aralığında kalan öğrenciler ön lisans programlarını tercih edebiliyor, lisans programlarına yönelik tercih yapamıyorlar, AYT sınavına girdilerse bile bu sınav değerlendirilmiyordu. 2022 yılından itibaren bu barajlar kaldırılmıştır.
+
+## Sınav Sonuç Belgesi
+
+Adaya tercih kararına ışık tutması amacıyla sınav sonuç belgesinde yaptığı netlerin ve bu netlere denk gelen puanların yanı sıra başarı sıralamaları da yazar. Yıldan yıla TYT ve AYT sorularının zorluk seviyeleri arasında farklılıkların olduğu bilindiği için, net sayılarına ve dolayısıyla puanlara bakarak tercih yapmak yanıltıcı olabilmektedir. Bu nedenle öğrencilerin ve ailelerinin danışmanlık hizmeti için başvurduğu rehber öğretmenler, karar aşamasında, puanlardan ziyade sıralamaların dikkate alınması gerektiğini söylerler.
+
+Aday tercih ettiği programlara önceki yılda son sırada yerleşenlerin sıralaması ile kendi sırlamasını karşılaştırarak bir strateji belirlemektedir. Konuyu somutlaştırmak adına internetten bulunan aşağıdaki sınav sonuç belgesi örneği kullanılabilir (@fig-sonucbelgesi). Belgenin ilk kısmında TYT sınavında sorulara verilen doğru ve yanlış yanıtlar bulunur. Devamında AYT sınavının soru bloklarındaki doğrular ve yanlışlar listelenir. Yanıtlanan soru bloklarına bakınca sınav belgesinin SAY puan türünde bir programa yerleşmeyi hedefleyen adayın olduğu anlıyoruz.
+
+Bir alttaki kısımda orta öğretim başarı puanı (OÖBP) bilgileri verilmiştir. Son ve en önemli kısımda ise başarı sıralamaları bulunur. Soldaki tabloda OÖBP hariç adayın sıralaması, sağda ise OÖBP eklendikten sonra sıralaması verilmiştir. Karar verilirken esas alınması gereken tablo sağdaki tablodur. Bu örneğe göre adayın SAY puan türünde sıralamasının 108.337 olduğu görülüyor. Aday, danışmanları ile tercih ettiği programları bu bilgi ışığında tercih formuna işaretler ve yerleşme sonuçlarını bekler.
+
+Yerleştirme puanları ve başarı sıraları kısmında SAY puan türüne ek olarak EA puan türünde de 181 bin seviyesinde bir sıralamanın yazıldığı görülmektedir. Öğrenci, TYT sınavındaki performansına ek olarak AYT Matematik sorularına verdiği yanıtlarla bu sıralamayı elbette hakketmiştir ve YKS, oldukça başarılı bir şekilde, adayın o ana kadar hiç aklında olmasa bile ona EA türünde de tercih yapabileceğini hatırlatmaktadır. Bu amaçla YKS, EA puan türünde 181,328'inci sırayı, aday EA tercihi yapsın yapmasın rezerve etmiştir. Bu çeşit çapraz rezervasyonlar, bir başka yazıda detaylıca gösterileceği üzere, bazı bölümlere getirilen baraj sıralaması kısıtlarının amacını aşmasına neden olmaktadır.
+
+![Sınav sonuç belgesi örneği](img/d2.jpeg){#fig-sonucbelgesi}

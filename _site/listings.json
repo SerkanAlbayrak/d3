@@ -2,13 +2,17 @@
   {
     "listing": "/content/blog.html",
     "items": [
-      "/content/posts/yksBaraj/yksBaraj.html"
+      "/content/posts/05_2022_ yks_baraj/yksBaraj.html",
+      "/content/posts/05_2022_yks_siralama_dagilim/rank_dist.html",
+      "/content/posts/05_2022_yks_puan_diagram/yks_puan_diagram.html"
     ]
   },
   {
     "listing": "/index.html",
     "items": [
-      "/content/posts/yksBaraj/yksBaraj.html"
+      "/content/posts/05_2022_ yks_baraj/yksBaraj.html",
+      "/content/posts/05_2022_yks_siralama_dagilim/rank_dist.html",
+      "/content/posts/05_2022_yks_puan_diagram/yks_puan_diagram.html"
     ]
   }
 ]

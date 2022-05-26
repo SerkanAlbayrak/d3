@@ -1,9 +1,5 @@
 ---
-title: "About"
+title: "İletişim"
 ---
 
-About this site
-
-```{r}
-1 + 1
-```
+<serkan.albayrak@ieu.edu.tr>

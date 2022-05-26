@@ -1,0 +1,27 @@
+---
+title: "YKS Sıralama Dağılımı Tahminleme Modeli"
+author: Raif Serkan Albayrak
+description: "YKS’nin karar birimi sıralamalardır. Adaylar kendi sıralamalarına bakarak tercih yapar ve gene sıralamalara göre yerleştirilir. Burslar sıralamalara göre verilir. Üniversiteler kendi performanslarını yıldan yıla karşılaştırmak istediklerinde sıralamaları kullanırlar. Bu yazının amacı, tavan ve taban başarı sıralarını kullanarak bir bölüme yerleşen öğrencilerin sıralama dağılımlarını tahmin edecek basit bir yaklaşım sunmaktır."
+date: 2022-05-27
+categories:
+  - YKS
+  - Puan türleri
+  - Modelleme
+  - R
+code-fold: true
+image: "img/preview.png"
+lang: tr
+---
+
+# Sıralama Dağılımları
+
+YÖK Atlas sistemi üzerinden program bazında tavan ve taban başarı sıralamalarına ulaşmak mümkündür. Bu yazının amacı, tavan ve taban başarı sıralarını kullanarak bir bölüme yerleşen öğrencilerin sıralama dağılımlarını tahmin edecek basit bir yaklaşım sunmaktır. Aşağıdaki 2018-2021 yılları arasında Türkiye genelinde hukuk bölümlerine yerleşen öğrencilerin sıralama dağılımları gösterilmektedir. Adım adım bu grafiği elde etmek için atılması gereken adımlar gösterilmektedir.
+
+![Devlet & Vakıf Üniversitelerinin Hukuk Fakültelerine yerleşen öğrencilerin sıralama dağılımları](img%5Cpreview.png){#fig-resultingChart}
+
+## Veri
+
+Herhangi bir puan türünde (SAY, EA, SÖZ), 2018-2021 yılları arasında devlet veya vakıf üniversiteleri bünyesinde bulunan tüm kontenjanlar için tavan ve taban sıralama bilgisi kullanılmıştır. Bu veri YÖK Atlas’ta hali hazırda bulunmaktadır. Örneğin güncel İzmir Ekonomi Üniversitesi’nin %50 İndirimli Hukuk Fakültesi kontenjanı için bu veriye [bölümün ATLAS adresi](https://yokatlas.yok.gov.tr/lisans-panel.php?y=203510807&p=1000_1&pr=1)  üzerinden ulaşmak mümkündür. Herhangi bir yıla ait veriye ulaşmak için ise web sorgusuna adres bilgisinin girilmesi yeterlidir. Mesela 2020 yılı verisi için [2020 yılını içeren sorgu](https://yokatlas.yok.gov.tr/lisans-panel.php?y=203510807&p=1000_1&pr=1) kullanılacaktır. 
+Web sayfalarından veri derleme konusunda deneyimli analistler ilgili bölümün tüm kontenjanları için döngüler kullanarak bu veriyi derleyebilir. Alternatif olarak tercih robotu yazılımlarının hemen hepsinin veri tabanlarında da aynı bilgi bulunur. 
+Örnek olarak Hukuk fakülteleri için sıralama dağılımları çıkartılacağı için EA puan türünde bilgiye ihtiyaç duyulmaktadır. 2020 yılı için EA türünde tüm bölümlerin tavan ve taban sıralama bilgileri …dosyasındadır.
+

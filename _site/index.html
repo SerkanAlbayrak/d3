@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>D3 - Çeşme</title>
+<title>Zeytin</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -128,9 +128,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     }
 
     const options = {
-      valueNames: ['listing-image','listing-date','listing-title','listing-author','listing-reading-time','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-image','listing-date','listing-title','listing-reading-time','listing-categories','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -147,14 +147,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="floating nav-fixed">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">D3</span>
+    <span class="navbar-title">Zeytin</span>
   </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
@@ -162,10 +162,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page">Home</a>
+    <a class="nav-link active" href="./index.html" aria-current="page">Ana Sayfa</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html">About</a>
+    <a class="nav-link" href="./about.html">İletişim</a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -174,26 +174,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#blog-posts" id="toc-blog-posts" class="nav-link active" data-scroll-target="#blog-posts">Blog posts</a></li>
-  </ul>
-</nav>
-</nav>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="regression">regression <span class="quarto-category-count">(1)</span></div><div class="category" data-category="statistics">statistics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="tutorial">tutorial <span class="quarto-category-count">(1)</span></div></div></div>
+    
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-page" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Çeşme</h1>
+<h1 class="title">Zeytin</h1>
 </div>
 
 
@@ -213,72 +203,129 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="blog-posts" class="level2">
 <h2 class="anchored" data-anchor-id="blog-posts">Blog posts</h2>
 <div id="listing-posts" class="quarto-listing quarto-listing-container-default">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-     <select id="listing-posts-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-posts'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-       <option value="" disabled="" selected="" hidden="">Order By</option>
-       <option value="index" data-direction="asc">Default</option>
-         <option value="listing-title" data-direction="asc">
-          Title
-        </option>
-         <option value="listing-date-sort" data-direction="asc">
-          Date - Oldest
-        </option>
-         <option value="listing-date-sort" data-direction="desc">
-          Date - Newest
-        </option>
-         <option value="listing-author" data-direction="asc">
-          Author
-        </option>
-     </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
-</div>
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="statistics,tutorial,regression" data-listing-date-sort="1596229200000" data-listing-file-modified-sort="1651928101922" data-listing-reading-time-sort="3.345">
+<div class="quarto-post image-right" data-index="0" data-categories="veri,analiz,YKS,simülasyon" data-listing-date-sort="1654030800000" data-listing-file-modified-sort="1653287785854" data-listing-reading-time-sort="3.41">
 <div class="thumbnail">
-<p><a href="./content/posts/yksBaraj/yksBaraj.html"> <img src="./content/posts/yksBaraj/img/preview.png" class="thumnail-image"> </a></p>
+<p><a href="./content/posts/05_2022_ yks_baraj/yksBaraj.html"> <img src="./content/posts/05_2022_ yks_baraj/img/preview.png" class="thumnail-image"> </a></p>
 </div>
 <div class="body">
-<a href="./content/posts/yksBaraj/yksBaraj.html">
+<a href="./content/posts/05_2022_ yks_baraj/yksBaraj.html">
 <h3 class="no-anchor listing-title">
-yksBaraj
+YKS Baraj Sıralamaları Üzerine
 </h3>
 <div class="listing-subtitle">
 
 </div>
 </a>
 <div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('statistics'); return false;">
-statistics
+<div class="listing-category" onclick="window.quartoListingCategory('veri'); return false;">
+veri
 </div>
-<div class="listing-category" onclick="window.quartoListingCategory('tutorial'); return false;">
-tutorial
+<div class="listing-category" onclick="window.quartoListingCategory('analiz'); return false;">
+analiz
 </div>
-<div class="listing-category" onclick="window.quartoListingCategory('regression'); return false;">
-regression
+<div class="listing-category" onclick="window.quartoListingCategory('YKS'); return false;">
+YKS
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('simülasyon'); return false;">
+simülasyon
 </div>
 </div>
-<a href="./content/posts/yksBaraj/yksBaraj.html">
+<a href="./content/posts/05_2022_ yks_baraj/yksBaraj.html">
 <div class="listing-description">
-<p>This is Part 1 of a series of blog posts on how to understand regression. The goal is to develop an intuitive understanding of the different components of regression. In this first post, we figure out where the estimate of an intercept-only regression model comes from.</p>
+<p>Yükseköğretim Kurumları Sınavlarında (YKS) bazı bölümlere baraj sıralaması konulma kararı uzun süredir çeşitli tartışmalara konu olmuş ve YÖK’ün sınav sistemine yönelik aldığı en kritik kararlardan biri olarak görülmüştür. Bu önemli kararla birlikte; Tıp, hukuk, mimarlık, mühendislik, diş hekimliği, eczacılık, öğretmenlik gibi ‘meslek icrasına yönelik’ alanlara baraj sıralamaları getirilmiştir. YÖK, bu kararın alınmasında rol oynayan en önemli nedenleri; farklı başarı sırasındaki öğrencilerin aynı sınıfta bulunmasının eğitim ortamını olumsuz etkilemesi, özellikle devlet ve vakıf üniversitelerinde bu programlara yerleşen öğrencilerin sıralamaları arasındaki makasın açıklığı olarak özetlemiştir. Baraj sıralamalarının amacına hizmet etmediği, pratikte öngörülenden farklı şekilde bir etki yarattığı ve sonuçların bölüm talepleri ve genel olarak kontenjanlar üzerinde yanlış okumalara neden olduğunun tartışıldığı bu yazıda; tartışma 2021 yılında baraj sıralaması 125 binden 100 bine getirileceği açıklanan Hukuk fakülteleri üzerinden yapılacaktır.</p>
 </div>
 </a>
 </div>
 <div class="metadata">
-<a href="./content/posts/yksBaraj/yksBaraj.html">
+<a href="./content/posts/05_2022_ yks_baraj/yksBaraj.html">
 <div class="listing-date">
-Aug 1, 2020
-</div>
-<div class="listing-author">
-Raif Serkan Albayrak
+Jun 1, 2022
 </div>
 <div class="listing-reading-time">
 3 min
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="YKS,Puan türleri,Modelleme,R" data-listing-date-sort="1653598800000" data-listing-file-modified-sort="1653570561965" data-listing-reading-time-sort="1.005">
+<div class="thumbnail">
+<p><a href="./content/posts/05_2022_yks_siralama_dagilim/rank_dist.html"> <img src="./content/posts/05_2022_yks_siralama_dagilim/img/preview.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./content/posts/05_2022_yks_siralama_dagilim/rank_dist.html">
+<h3 class="no-anchor listing-title">
+YKS Sıralama Dağılımı Tahminleme Modeli
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('YKS'); return false;">
+YKS
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Puan türleri'); return false;">
+Puan türleri
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Modelleme'); return false;">
+Modelleme
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
+R
+</div>
+</div>
+<a href="./content/posts/05_2022_yks_siralama_dagilim/rank_dist.html">
+<div class="listing-description">
+<p>YKS’nin karar birimi sıralamalardır. Adaylar kendi sıralamalarına bakarak tercih yapar ve gene sıralamalara göre yerleştirilir. Burslar sıralamalara göre verilir. Üniversiteler kendi performanslarını yıldan yıla karşılaştırmak istediklerinde sıralamaları kullanırlar. Bu yazının amacı, tavan ve taban başarı sıralarını kullanarak bir bölüme yerleşen öğrencilerin sıralama dağılımlarını tahmin edecek basit bir yaklaşım sunmaktır.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./content/posts/05_2022_yks_siralama_dagilim/rank_dist.html">
+<div class="listing-date">
+May 27, 2022
+</div>
+<div class="listing-reading-time">
+1 min
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="YKS,Puan türleri" data-listing-date-sort="1653253200000" data-listing-file-modified-sort="1653570256199" data-listing-reading-time-sort="4.17">
+<div class="thumbnail">
+<p><a href="./content/posts/05_2022_yks_puan_diagram/yks_puan_diagram.html"> <img src="./content/posts/05_2022_yks_puan_diagram/img/preview.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./content/posts/05_2022_yks_puan_diagram/yks_puan_diagram.html">
+<h3 class="no-anchor listing-title">
+YKS Puanlama Sistemi
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('YKS'); return false;">
+YKS
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Puan türleri'); return false;">
+Puan türleri
+</div>
+</div>
+<a href="./content/posts/05_2022_yks_puan_diagram/yks_puan_diagram.html">
+<div class="listing-description">
+<p>YKS hali hazırda oldukça karmaşık bir sistemdir. Sınavın kurgusu, uygulanışı, puanlanma sistemi gibi iç içe girmiş çok sayıda bileşenden oluşur. Bu yazıda YKS’nin puanlama sistemini özetlenmektedir.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./content/posts/05_2022_yks_puan_diagram/yks_puan_diagram.html">
+<div class="listing-date">
+May 23, 2022
+</div>
+<div class="listing-reading-time">
+4 min
 </div>
 </a>
 </div>

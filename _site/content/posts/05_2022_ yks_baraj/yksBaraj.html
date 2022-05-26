@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Raif Serkan Albayrak">
-<meta name="dcterms.date" content="2020-08-01">
-<meta name="description" content="This is Part 1 of a series of blog posts on how to understand regression. The goal is to develop an intuitive understanding of the different components of regression. In this first post, we figure out where the estimate of an intercept-only regression model comes from.">
+<meta name="dcterms.date" content="2022-06-01">
+<meta name="description" content="Yükseköğretim Kurumları Sınavlarında (YKS) bazı bölümlere baraj sıralaması konulma kararı uzun süredir çeşitli tartışmalara konu olmuş ve YÖK’ün sınav sistemine yönelik aldığı en kritik kararlardan biri olarak görülmüştür. Bu önemli kararla birlikte; Tıp, hukuk, mimarlık, mühendislik, diş hekimliği, eczacılık, öğretmenlik gibi ‘meslek icrasına yönelik’ alanlara baraj sıralamaları getirilmiştir. YÖK, bu kararın alınmasında rol oynayan en önemli nedenleri; farklı başarı sırasındaki öğrencilerin aynı sınıfta bulunmasının eğitim ortamını olumsuz etkilemesi, özellikle devlet ve vakıf üniversitelerinde bu programlara yerleşen öğrencilerin sıralamaları arasındaki makasın açıklığı olarak özetlemiştir. Baraj sıralamalarının amacına hizmet etmediği, pratikte öngörülenden farklı şekilde bir etki yarattığı ve sonuçların bölüm talepleri ve genel olarak kontenjanlar üzerinde yanlış okumalara neden olduğunun tartışıldığı bu yazıda; tartışma 2021 yılında baraj sıralaması 125 binden 100 bine getirileceği açıklanan Hukuk fakülteleri üzerinden yapılacaktır.">
 
-<title>D3 - yksBaraj</title>
+<title>Zeytin - YKS Baraj Sıralamaları Üzerine</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -131,7 +131,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <a class="navbar-brand" href="../../../index.html">
-    <span class="navbar-title">D3</span>
+    <span class="navbar-title">Zeytin</span>
   </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
@@ -139,10 +139,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../index.html">Home</a>
+    <a class="nav-link" href="../../../index.html">Ana Sayfa</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../about.html">About</a>
+    <a class="nav-link" href="../../../about.html">İletişim</a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -151,14 +151,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
     <nav id="TOC" role="doc-toc">
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#the-black-box-of-regression" id="toc-the-black-box-of-regression" class="nav-link active" data-scroll-target="#the-black-box-of-regression">The Black Box of Regression</a></li>
+  <li><a href="#öğrenci-sıralamalarındaki-siyah-kutu" id="toc-öğrenci-sıralamalarındaki-siyah-kutu" class="nav-link active" data-scroll-target="#öğrenci-sıralamalarındaki-siyah-kutu">Öğrenci Sıralamalarındaki Siyah Kutu</a></li>
   <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup">Setup</a></li>
   <li><a href="#the-simplest-model" id="toc-the-simplest-model" class="nav-link" data-scroll-target="#the-simplest-model">The simplest model</a></li>
   </ul>
@@ -168,21 +168,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content page-columns page-full column-body" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">yksBaraj</h1>
+<h1 class="title">YKS Baraj Sıralamaları Üzerine</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">statistics</div>
-    <div class="quarto-category">tutorial</div>
-    <div class="quarto-category">regression</div>
+    <div class="quarto-category">veri</div>
+    <div class="quarto-category">analiz</div>
+    <div class="quarto-category">YKS</div>
+    <div class="quarto-category">simülasyon</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    This is Part 1 of a series of blog posts on how to understand regression. The goal is to develop an intuitive understanding of the different components of regression. In this first post, we figure out where the estimate of an intercept-only regression model comes from.
+    Yükseköğretim Kurumları Sınavlarında (YKS) bazı bölümlere baraj sıralaması konulma kararı uzun süredir çeşitli tartışmalara konu olmuş ve YÖK’ün sınav sistemine yönelik aldığı en kritik kararlardan biri olarak görülmüştür. Bu önemli kararla birlikte; Tıp, hukuk, mimarlık, mühendislik, diş hekimliği, eczacılık, öğretmenlik gibi ‘meslek icrasına yönelik’ alanlara baraj sıralamaları getirilmiştir. YÖK, bu kararın alınmasında rol oynayan en önemli nedenleri; farklı başarı sırasındaki öğrencilerin aynı sınıfta bulunmasının eğitim ortamını olumsuz etkilemesi, özellikle devlet ve vakıf üniversitelerinde bu programlara yerleşen öğrencilerin sıralamaları arasındaki makasın açıklığı olarak özetlemiştir. Baraj sıralamalarının amacına hizmet etmediği, pratikte öngörülenden farklı şekilde bir etki yarattığı ve sonuçların bölüm talepleri ve genel olarak kontenjanlar üzerinde yanlış okumalara neden olduğunun tartışıldığı bu yazıda; tartışma 2021 yılında baraj sıralaması 125 binden 100 bine getirileceği açıklanan Hukuk fakülteleri üzerinden yapılacaktır.
   </div>
 </div>
 
@@ -201,7 +202,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 1, 2020</p>
+      <p class="date">June 1, 2022</p>
     </div>
   </div>
     
@@ -210,8 +211,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="the-black-box-of-regression" class="level2">
-<h2 class="anchored" data-anchor-id="the-black-box-of-regression">The Black Box of Regression</h2>
+<section id="öğrenci-sıralamalarındaki-siyah-kutu" class="level2">
+<h2 class="anchored" data-anchor-id="öğrenci-sıralamalarındaki-siyah-kutu">Öğrenci Sıralamalarındaki Siyah Kutu</h2>
+<p>YKS sınav sonuçları ilk açıklandığında, üniversite öğrencisi adaylarının henüz tercihlerini kullanmadıkları ancak doğru ve yanlış yanıtlarla beraber</p>
 <p>Statistical regression techniques are an important concept in data analysis. As a social scientist, I use it to test hypotheses by comparing differences between groups or testing relationships between variables. While it is easy to run regression analyses in a variety of software packages, like SPSS or R, it often remains a black box that is not well understood. I, in fact, do not believe I actually understand regression. Not fully understanding the mechanics of regression could be okay, though. After all, you also don’t need to know exactly how car engines work in order to drive a car. However, I think many users of regression have isolated themselves too much from the mechanics of regression. This may be the source of some errors, such as applying regression to data that is not suitable for the regression method. If you’re using regression to try and make inferences about the world, it’s probably also a good idea to feel like you know what you’re doing.</p>
 <p>So, there are some reasons to figure out regression. This post is Part 1 of a series of blog posts called ‘Understanding Regression’ in which I try to figure it out.</p>
 <p>Feel free to follow me along by copy-pasting the code from each step. I’ll add a note in case you need to slightly adjust the code for it to work on your computer.</p>
@@ -377,14 +379,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div quarto-reuse="quarto-reuse" class="quarto-appendix-contents"><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">https://creativecommons.org/licenses/by/4.0/</a></div></section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{serkanalbayrak2020,
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Reuse</h2><div quarto-reuse="quarto-reuse" class="quarto-appendix-contents"><a rel="license" href="https://creativecommons.org/licenses/by/4.0/">https://creativecommons.org/licenses/by/4.0/</a></div></section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Citation</h2><div><div class="quarto-appendix-secondary-label">BibTeX citation:</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{serkanalbayrak2022,
   author = {Raif Serkan Albayrak},
-  title = {yksBaraj},
-  date = {2020-08-01},
+  title = {YKS {Baraj} {Sıralamaları} {Üzerine}},
+  date = {2022-06-01},
   langid = {en}
 }
-</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-serkanalbayrak2020" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
-Raif Serkan Albayrak. 2020. <span>“yksBaraj.”</span> August 1, 2020.
+</code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">For attribution, please cite this work as:</div><div id="ref-serkanalbayrak2022" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
+Raif Serkan Albayrak. 2022. <span>“YKS Baraj Sıralamaları
+Üzerine.”</span> June 1, 2022.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

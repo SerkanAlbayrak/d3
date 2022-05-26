@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>D3 - blogLists</title>
+<title>Zeytin - blogLists</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,7 +65,7 @@ ul.task-list{list-style: none;}
     }
 
     const options = {
-      valueNames: ['listing-image','listing-date','listing-title','listing-author','listing-reading-time','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-image','listing-date','listing-title','listing-reading-time','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
       searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
     };
@@ -91,7 +91,7 @@ ul.task-list{list-style: none;}
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">D3</span>
+    <span class="navbar-title">Zeytin</span>
   </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
@@ -99,10 +99,10 @@ ul.task-list{list-style: none;}
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html">Home</a>
+    <a class="nav-link" href="../index.html">Ana Sayfa</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html">About</a>
+    <a class="nav-link" href="../about.html">İletişim</a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -111,14 +111,14 @@ ul.task-list{list-style: none;}
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="regression">regression <span class="quarto-category-count">(1)</span></div><div class="category" data-category="statistics">statistics <span class="quarto-category-count">(1)</span></div><div class="category" data-category="tutorial">tutorial <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Modelleme">Modelleme <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Puan türleri">Puan türleri <span class="quarto-category-count">(2)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(1)</span></div><div class="category" data-category="YKS">YKS <span class="quarto-category-count">(3)</span></div><div class="category" data-category="analiz">analiz <span class="quarto-category-count">(1)</span></div><div class="category" data-category="simülasyon">simülasyon <span class="quarto-category-count">(1)</span></div><div class="category" data-category="veri">veri <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-page-left" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -143,72 +143,117 @@ ul.task-list{list-style: none;}
 
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-posts">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-     <select id="listing-posts-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-posts'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
-       <option value="" disabled="" selected="" hidden="">Order By</option>
-       <option value="index" data-direction="asc">Default</option>
-         <option value="listing-title" data-direction="asc">
-          Title
-        </option>
-         <option value="listing-date-sort" data-direction="asc">
-          Date - Oldest
-        </option>
-         <option value="listing-date-sort" data-direction="desc">
-          Date - Newest
-        </option>
-         <option value="listing-author" data-direction="asc">
-          Author
-        </option>
-     </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
-    </div>
-</div>
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="statistics,tutorial,regression" data-listing-date-sort="1596229200000" data-listing-file-modified-sort="1651928101922" data-listing-reading-time-sort="3.345">
+<div class="quarto-post image-right" data-index="0" data-categories="veri,analiz,YKS,simülasyon" data-listing-date-sort="1654030800000" data-listing-file-modified-sort="1653287785854" data-listing-reading-time-sort="3.41">
 <div class="thumbnail">
-<p><a href="../content/posts/yksBaraj/yksBaraj.html"> <img src="../content/posts/yksBaraj/img/preview.png" class="thumnail-image"> </a></p>
+<p><a href="../content/posts/05_2022_ yks_baraj/yksBaraj.html"> <img src="../content/posts/05_2022_ yks_baraj/img/preview.png" class="thumnail-image"> </a></p>
 </div>
 <div class="body">
-<a href="../content/posts/yksBaraj/yksBaraj.html">
+<a href="../content/posts/05_2022_ yks_baraj/yksBaraj.html">
 <h3 class="no-anchor listing-title">
-yksBaraj
+YKS Baraj Sıralamaları Üzerine
 </h3>
 <div class="listing-subtitle">
 
 </div>
 </a>
 <div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('statistics'); return false;">
-statistics
+<div class="listing-category" onclick="window.quartoListingCategory('veri'); return false;">
+veri
 </div>
-<div class="listing-category" onclick="window.quartoListingCategory('tutorial'); return false;">
-tutorial
+<div class="listing-category" onclick="window.quartoListingCategory('analiz'); return false;">
+analiz
 </div>
-<div class="listing-category" onclick="window.quartoListingCategory('regression'); return false;">
-regression
+<div class="listing-category" onclick="window.quartoListingCategory('YKS'); return false;">
+YKS
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('simülasyon'); return false;">
+simülasyon
 </div>
 </div>
-<a href="../content/posts/yksBaraj/yksBaraj.html">
-<div class="listing-description">
-<p>This is Part 1 of a series of blog posts on how to understand regression. The goal is to develop an intuitive understanding of the different components of regression. In this first post, we figure out where the estimate of an intercept-only regression model comes from.</p>
-</div>
-</a>
+<a href="../content/posts/05_2022_ yks_baraj/yksBaraj.html"> </a>
 </div>
 <div class="metadata">
-<a href="../content/posts/yksBaraj/yksBaraj.html">
+<a href="../content/posts/05_2022_ yks_baraj/yksBaraj.html">
 <div class="listing-date">
-Aug 1, 2020
-</div>
-<div class="listing-author">
-Raif Serkan Albayrak
+Jun 1, 2022
 </div>
 <div class="listing-reading-time">
 3 min
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="YKS,Puan türleri,Modelleme,R" data-listing-date-sort="1653598800000" data-listing-file-modified-sort="1653570561965" data-listing-reading-time-sort="1.005">
+<div class="thumbnail">
+<p><a href="../content/posts/05_2022_yks_siralama_dagilim/rank_dist.html"> <img src="../content/posts/05_2022_yks_siralama_dagilim/img/preview.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="../content/posts/05_2022_yks_siralama_dagilim/rank_dist.html">
+<h3 class="no-anchor listing-title">
+YKS Sıralama Dağılımı Tahminleme Modeli
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('YKS'); return false;">
+YKS
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Puan türleri'); return false;">
+Puan türleri
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Modelleme'); return false;">
+Modelleme
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
+R
+</div>
+</div>
+<a href="../content/posts/05_2022_yks_siralama_dagilim/rank_dist.html"> </a>
+</div>
+<div class="metadata">
+<a href="../content/posts/05_2022_yks_siralama_dagilim/rank_dist.html">
+<div class="listing-date">
+May 27, 2022
+</div>
+<div class="listing-reading-time">
+1 min
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="YKS,Puan türleri" data-listing-date-sort="1653253200000" data-listing-file-modified-sort="1653570256199" data-listing-reading-time-sort="4.17">
+<div class="thumbnail">
+<p><a href="../content/posts/05_2022_yks_puan_diagram/yks_puan_diagram.html"> <img src="../content/posts/05_2022_yks_puan_diagram/img/preview.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="../content/posts/05_2022_yks_puan_diagram/yks_puan_diagram.html">
+<h3 class="no-anchor listing-title">
+YKS Puanlama Sistemi
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('YKS'); return false;">
+YKS
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('Puan türleri'); return false;">
+Puan türleri
+</div>
+</div>
+<a href="../content/posts/05_2022_yks_puan_diagram/yks_puan_diagram.html"> </a>
+</div>
+<div class="metadata">
+<a href="../content/posts/05_2022_yks_puan_diagram/yks_puan_diagram.html">
+<div class="listing-date">
+May 23, 2022
+</div>
+<div class="listing-reading-time">
+4 min
 </div>
 </a>
 </div>
