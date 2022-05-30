@@ -1,7 +1,7 @@
 ---
 title: "YKS Sıralama Dağılımı Tahminleme Modeli"
 author: Raif Serkan Albayrak
-description: "YKS’nin karar birimi sıralamalardır. Adaylar kendi sıralamalarına bakarak tercih yapar ve gene sıralamalara göre yerleştirilir. Burslar sıralamalara göre verilir. Üniversiteler kendi performanslarını yıldan yıla karşılaştırmak istediklerinde sıralamaları kullanırlar. Bu yazının amacı, tavan ve taban başarı sıralarını kullanarak bir bölüme yerleşen öğrencilerin sıralama dağılımlarını tahmin edecek basit bir yaklaşım sunmaktır."
+description: "YKS’nin karar birimi sıralamalardır. Adaylar kendi sıralamalarına bakarak tercih yapar ve gene sıralamalara göre yerleştirilir. Burslar sıralamalara göre verilir. Üniversiteler kendi performanslarını yıldan yıla karşılaştırmak istediklerinde sıralamaları kullanırlar. Bu yazının amacı, tavan ve taban başarı sıralarını kullanarak bir bölüme yerleşen öğrencilerin sıralama dağılımlarını tahmin edecek basit bir yaklaşım sunmaktır. Üniversite yönetimlerinin çeşitli karar verme aşamalarında bu bilgiyi nasıl kullanabilecekleri de tartışılmıştır."
 date: 2022-05-27
 categories:
   - YKS
@@ -11,6 +11,8 @@ categories:
 code-fold: true
 image: "img/preview.png"
 lang: tr
+code-line-numbers: false
+toc-title: İçerik
 ---
 
 # Sıralama Dağılımları
@@ -21,16 +23,151 @@ YÖK Atlas sistemi üzerinden program bazında tavan ve taban başarı sıralama
 
 ## Veri
 
-Herhangi bir puan türünde (SAY, EA, SÖZ), 2018-2021 yılları arasında devlet veya vakıf üniversiteleri bünyesinde bulunan tüm kontenjanlar için tavan ve taban sıralama bilgisi kullanılmıştır. Bu veri YÖK Atlas’ta hali hazırda bulunmaktadır. Örneğin güncel İzmir Ekonomi Üniversitesi’nin %50 İndirimli Hukuk Fakültesi kontenjanı için bu veriye [bölümün ATLAS adresi](https://yokatlas.yok.gov.tr/lisans-panel.php?y=203510807&p=1000_1&pr=1)  üzerinden ulaşmak mümkündür. Herhangi bir yıla ait veriye ulaşmak için ise web sorgusuna adres bilgisinin girilmesi yeterlidir. Mesela 2020 yılı verisi için [2020 yılını içeren sorgu](https://yokatlas.yok.gov.tr/lisans-panel.php?y=203510807&p=1000_1&pr=1) kullanılacaktır. 
-Web sayfalarından veri derleme konusunda deneyimli analistler ilgili bölümün tüm kontenjanları için döngüler kullanarak bu veriyi derleyebilir. Alternatif olarak tercih robotu yazılımlarının hemen hepsinin veri tabanlarında da aynı bilgi bulunur. 
-Örnek olarak Hukuk fakülteleri için sıralama dağılımları çıkartılacağı için EA puan türünde bilgiye ihtiyaç duyulmaktadır. 2020 yılı için EA türünde tüm bölümlerin tavan ve taban sıralama bilgileri ..dosyasındadır.
+Herhangi bir puan türünde (SAY, EA, SÖZ), 2018-2021 yılları arasında devlet veya vakıf üniversiteleri bünyesinde bulunan tüm kontenjanlar için tavan ve taban sıralama bilgisi kullanılmıştır. Bu veri YÖK Atlas'ta hali hazırda bulunmaktadır. Örneğin güncel İzmir Ekonomi Üniversitesi'nin %50 İndirimli Hukuk Fakültesi kontenjanı için bu veriye [bölümün ATLAS adresi](https://yokatlas.yok.gov.tr/lisans-panel.php?y=203510807&p=1000_1&pr=1) üzerinden ulaşmak mümkündür. Herhangi bir yıla ait veriye ulaşmak için ise web sorgusuna adres bilgisinin girilmesi yeterlidir. Mesela 2020 yılı verisi için [2020 yılını içeren sorgu](https://yokatlas.yok.gov.tr/lisans-panel.php?y=203510807&p=1000_1&pr=1) kullanılacaktır. Web sayfalarından veri derleme konusunda deneyimli analistler ilgili bölümün tüm kontenjanları için döngüler kullanarak bu veriyi derleyebilir. Alternatif olarak tercih robotu yazılımlarının hemen hepsinin veri tabanlarında da aynı bilgi bulunur. Örnek olarak Hukuk fakülteleri için sıralama dağılımları çıkartılacağı için EA puan türünde bilgiye ihtiyaç duyulmaktadır. 2020 yılı için EA türünde tüm bölümlerin tavan ve taban sıralama bilgileri [bu Excel](https://github.com/SerkanAlbayrak/d3/raw/master/content/posts/05_2022_yks_siralama_dagilim/EA2020Data.xlsx) dosyasındadır.
 
 ```{r}
-library(readxl)
 
+library(readxl)
 EA2020Data <- read_excel("EA2020Data.xlsx")
+EA2020Data
+```
+
+Verinin içeriği şu şekildedir.
+
+|          |                                                                              |
+|-----------------|-------------------------------------------------------|
+| Kod      | Programın YKS kodu                                                           |
+| Kont     | Genel kontenjan (bölüm birincisi kontenjanı vb hariç)                        |
+| Yer      | Genel kontenjana yerleşen                                                    |
+| MinR     | Taban sıralama                                                               |
+| MaxR     | Tavan sıralama                                                               |
+| PuanTuru | Puan türü (SAY, EA, SÖZ, DİL, TYT)                                           |
+| Bolum    | Bölüm ismi                                                                   |
+| Uni      | Üniversite ismi                                                              |
+| Burs     | Burs tipi (NA, Burslu, %75 İndirimli, %50 İndirimli, %25 İndirimli, Ücretli) |
+| UniTip   | Universite tipi (Devlet, Vakıf, KKTC Vakıf, Yurtdışı Devlet, Yurtdışı Vakıf) |
+    
+2020 yılında EA puan türünde kontenjanı olmasına rağmen hiçbir öğrencinin yerleşmediği programlar bu verinin dışında tutuldu. 
+
+## Sıralamalar - Doğrusal İnterpolasyon
+
+Veride her programa yerleşen adayların taban ve tavan sıralamaları bulunmakta. Mevcut veride 3389 program olduğu görülmekte. Bu 3389 programa ise yerleşen toplam aday sayısı 154826. Amaç bu yerleşen öğrencilerin tamamının sıralamasını tahmin etmeye çalışmak.
+
+```{r}
+sum(EA2020Data$Yer)
+```
+Bunun için basit doğrusal interpolasyon kullanılacak. Aslında R’da bu işi `approx` fonksiyonu ile yapmak mümkün. Bu fonksiyon iki değer arasında istenen sayıda değer üretir. Ancak `approx` fonksiyonuyla tamamen aynı mantıkta çalışan bir kod [^1] kullanarak üretilen sıralamalar ana veriye yerleştirilecek. 
+```{r}
+#| code-line-numbers: true
+#| warnings: false
+#| message: false
+    library(dplyr)
+    simD <- data.frame(Kod=rep(EA2020Data$Kod,EA2020Data$Yer),foo=1)
+    simD <- simD %>% group_by(Kod) %>% mutate(carpan=cumsum(foo))
+    simD <- simD[,-2]
+    RankData <- merge(simD,EA2020Data,all.x = TRUE,sort = FALSE)
+    RankData <- RankData %>% rowwise(Kod) %>% mutate(simR=ifelse(Yer==1,MaxR,MaxR+(carpan-1)*((MinR-MaxR)/(Yer-1))))
+    # simD1$Year <- i
+    # simD1 <- simD1[order(simD1$Year,simD1$simR),]
+    # simD1$simR2 <- 1:length(simD1$Year)
+    # simRData <- rbind(simRData,simD1)
+    
+```
+
+Kod aslında oldukça basit ama açıklaması şu şekilde verilebilir. İkinci satırda 154 bin öğrenci için yer rezervasyonu yapılıyor. Üç ve dördüncü satırda yerleşen öğrencilere indexler atanıyor. RankData matrisi ile istenen yapının iskeleti hazırlanıyor. Beşinci satırda ise `approx` fonksiyonu mantğı kullanılarak yerleşen adayların sıralamaları oluşturuluyor.  
+
+Örneğin Galatasaray Hukuk Fakültesine yerleşen öğrencilerin sıralamaları şu şekilde tahmin ediliyor:
+
+```{r}
+RankData$simR[RankData$Kod==104010052]
+```
+2020 yılında Galatasaray Hukuk Fakültesine birinci yerleşenin EA sıralaması 4, son sırada yerleşenin ise 91 olmuş. Tüm öğrencilerin sıralamalarının grafiği doğrusal interpolasyon uygulamasının daha net görülmesini sağlar. Arada tahmin edilen sıralama değerlerinin tam sayı olmaması yapılacak analizler açısından bir problem oluşturmayacaktır.
+
+```{r}
+#| warnings: false
+#| message: false
+library(plotly)
+fig <- plot_ly(x = RankData$carpan[RankData$Kod==104010052], y =RankData$simR[RankData$Kod==104010052],
+               marker = list(size = 10,
+                             color = 'rgba(255, 182, 193, .9)',
+                             line = list(color = 'rgba(152, 0, 0, .8)',
+                                         width = 2)))
+fig <- fig %>% layout(title = 'Galatasaray Hukuk Fakültesine Yerleşen Öğrencilerin Tahmini EA Sıraları',
+         yaxis = list(zeroline = FALSE),
+         xaxis = list(zeroline = FALSE))
+
+fig
 
 ```
+
+
+## Sıralama Dağılımları
+
+Bu aşamadan sonra istenen bölümün sıralama dağılımlarını elde etmek, `RankData` matrisini filtrelemek ve dağılım çizmekten ibarettir. Eğer doğrusal interpolasyon işlemi 2018, 2019 ve 2021 yılları verisine de uygulanırsa konu başlığındaki dağılım grafiği elde edilir. Sadece 2020 yılı Hukuk Fakültelerine yerleşen öğrencilerin tahmini sıralamalarının dağılım grafiği için aşağıdaki kod kullanılabilir.
+
+```{r}
+library(ggplot2)
+library(scales) # force decimal display of numbers for x axis
+
+
+hukukData <- RankData[RankData$Bolum=="HUKUK",]
+plotData_x <- hukukData$simR
+dens_y <- density(plotData_x,n=2^16)
+plotData <- data.frame(x=dens_y$x,y=dens_y$y)
+plotData <- plotData[plotData$x>0,]
+
+ggplot(plotData, aes(x, y)) + geom_line(size=2) + 
+  xlab(NULL) + ylab(NULL) +
+  geom_segment(aes(xend = x, yend = 0, colour = x)) + 
+  scale_colour_viridis_c(option = "C", direction = -1,guide = "none") +
+  theme(axis.text.y=element_blank()) + scale_x_continuous(labels = label_comma()) 
+
+```
+
+Devlet, Vakıf ve KKTC Vakıf üniversiteleri bazında hukuk fakültelerine yerleşen öğrencilerin sıralamları da elde edilebilir. 
+
+```{r}
+library(ggridges)
+
+hukukData$UniTip <- as.factor(hukukData$UniTip)
+ggplot(
+  hukukData,
+  aes(x = `simR`, y = `UniTip`, fill = stat(x))) +
+  geom_density_ridges_gradient(scale = 1, size = 0.5, rel_min_height = 0.01, alpha=0.7) +
+  scale_fill_viridis_c(option = "C", direction = -1,guide = "none") +
+  xlab(NULL) + ylab(NULL) + scale_x_continuous(labels = label_comma()) + xlim(0,150000)
+```
+
+
+
+Sıralamalar bazında öğrencilerin Devlet ve vakıf üniversitelerine hangi oranlarda yerleştiğini görmek için `full stacked chart` kullanılabilir. Grafikten ilk 3000 sıralamada yerleşenlerin yaklaşık dörte birinin vakıf üniversitelerine yerleştikleri anlaşılıyor. Ayrıca sıralamalar 14 bini geçtikten sonra Kıbrıs'ta bulunan vakıf üniversitelerine öğrencilerin yerleşmeye başladıkları görülüyor.Devlet üniversitelerine yerleşen öğrenciler arasında 40 bin sıralamanın üzerine öğrenci olmadığı da görülebilmektedir.
+
+```{r}
+
+g <- ggplot(hukukData, aes(x=simR, y=..density..)) + 
+  geom_density(aes(fill=UniTip), position="fill") +
+  xlab(NULL) + ylab(NULL) +
+  scale_x_continuous(labels = label_comma())
+
+ggplotly(g)
+```
+
+
+
+## Başka Interpolasyon Yöntemleri
+
+Özellikle Hukuk gibi başarı sıralaması olan bölümlerde, yerleşen öğrencilerin sıralamalarının çoğunlukla tavan sıralamaya doğru yoğunlaştıkları gözlemlenmektedir. Bu gözlemle uyumlu olabilecek interpolasyon yöntemleri de sıralama dağılımları elde etmek için kullanılabilir. Örneğin [interp](https://cran.r-project.org/web/packages/interp/interp.pdf) paketi içinde bu amaçla kullanılabilecek fonksiyonlar bulunmaktadır.
+
+## Sıralama Dağılımlarının Stratejik Kullanımı
+
+Bu bölümde sıralama dağılımlarının stratejik kullanımına yönelik birkaç örnek sunulmaktadır. Burada sunulanın ötesinde farklı bir çok analizin içinde de sıralama dağılımları kullanılmaktadır.
+
+### 
+
+
+
+[^1]: Her zaman olduğu gibi amaçlanan işi çok daha basit ve hızlı yapabilecek başka bir kod mutlaka vardır.
+
 
 
 
