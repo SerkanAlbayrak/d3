@@ -106,6 +106,9 @@ fig
 Bu aşamadan sonra istenen bölümün sıralama dağılımlarını elde etmek, `RankData` matrisini filtrelemek ve dağılım çizmekten ibarettir. Eğer doğrusal interpolasyon işlemi 2018, 2019 ve 2021 yılları verisine de uygulanırsa konu başlığındaki dağılım grafiği elde edilir. Sadece 2020 yılı Hukuk Fakültelerine yerleşen öğrencilerin tahmini sıralamalarının dağılım grafiği için aşağıdaki kod kullanılabilir.
 
 ```{r}
+#| code-line-numbers: true
+#| warnings: false
+#| message: false
 library(ggplot2)
 library(scales) # force decimal display of numbers for x axis
 
@@ -124,9 +127,12 @@ ggplot(plotData, aes(x, y)) + geom_line(size=2) +
 
 ```
 
-Devlet, Vakıf ve KKTC Vakıf üniversiteleri bazında hukuk fakültelerine yerleşen öğrencilerin sıralamları da elde edilebilir. 
+Devlet, Vakıf ve KKTC Vakıf üniversiteleri bazında hukuk fakültelerine yerleşen öğrencilerin sıralamaları da elde edilebilir. Bu grafik farklı üniversite tiplerine yerleşen öğrencilerim sıralama dağılımlarının şekillerindeki farklılıkları göstermesi açısından önemlidir. Ancak içinde daha çok bilgi barındıran grafik bir aşağıda verilmiştir.
 
 ```{r}
+#| code-line-numbers: true
+#| warnings: false
+#| message: false
 library(ggridges)
 
 hukukData$UniTip <- as.factor(hukukData$UniTip)
@@ -143,7 +149,9 @@ ggplot(
 Sıralamalar bazında öğrencilerin Devlet ve vakıf üniversitelerine hangi oranlarda yerleştiğini görmek için `full stacked chart` kullanılabilir. Grafikten ilk 3000 sıralamada yerleşenlerin yaklaşık dörte birinin vakıf üniversitelerine yerleştikleri anlaşılıyor. Ayrıca sıralamalar 14 bini geçtikten sonra Kıbrıs'ta bulunan vakıf üniversitelerine öğrencilerin yerleşmeye başladıkları görülüyor.Devlet üniversitelerine yerleşen öğrenciler arasında 40 bin sıralamanın üzerine öğrenci olmadığı da görülebilmektedir.
 
 ```{r}
-
+#| code-line-numbers: true
+#| warnings: false
+#| message: false
 g <- ggplot(hukukData, aes(x=simR, y=..density..)) + 
   geom_density(aes(fill=UniTip), position="fill") +
   xlab(NULL) + ylab(NULL) +
