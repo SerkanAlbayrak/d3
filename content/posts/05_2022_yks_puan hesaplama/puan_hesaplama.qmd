@@ -43,30 +43,28 @@ $$
 TYTPuan=c+\beta_1 \cdot TemelMatematik+\beta_2 \cdot Türkçe+\beta_3 \cdot FenBilimleri+\beta_4 \cdot SosyalBilimler+\varepsilon
 $$
 
-Katsayılar hesaplanmadan önce verideki yerleştirme puanlarından OBP etkisinin ayıklanması gerekmekte. Ayrıca katsayılardan bağımsız OSYM tarafından eklenen 100 puan da çıkarılıyor.
+Katsayılar hesaplanmadan önce verideki yerleştirme puanlarından OBP etkisinin ayıklanması gerekmekte. OBP etkisi öğrencinin mezun olduğu lise ile yerleştiği program arasında bir bağlantı olmasına göre 0.18 ile 0.12 değerlerinden birini alıyor. Ayrıca katsayılardan bağımsız OSYM tarafından eklenen 100 puan da çıkarılıyor.
 
 $$
-TYT_{Sınav} = TYT_{Yerleştirme}-0.12\cdot OBP-100
+TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP-100
 $$
 
 ```{r}
-all$PuanS <- all$puan-0.12*all$obp-100
+all$PuanS <- all$puan-all$Katsayı*all$obp-100
 ```
 
-Verinin TYT ile yerleştirme yapılan kısmı kullanılarak katsayılar tahminleniyor. 
+Verinin TYT ile yerleştirme yapılan kısmı filtrelenerek katsayılar aşağıda kurulan model ile tahminleniyor. Model veriyi %97.8 oranda başarıyla açıklıyor ancak geri kalan %2.2 fark, yuvarlama hatasından kaynaklanmak için fazla büyük. Daha sonra geri dönmek üzere şimdilik bu farkın yuvarlama hatasından kaynaklandığı varsayılmıştır. 
 
 
 ```{r}
 #| code-line-numbers: true
 #| warnings: false
 #| message: false
-TYTdata <- all[all$`Puan Türü`=="TYT",]
-TYTModel <- lm(PuanS~0+`TYT Mat`+`TYT Türkçe`+`TYT Fen`+`TYT Sosyal`, data=TYTdata)
-# labels <- c("Temel Matematik Neti",
-#             "Türkçe Neti",
-#             "Fen Bilimleri Neti",
-#             "Sosyal Bilimler Neti")
+
 library(jtools)
+TYTdata <- all[all$`Puan Türü`=="TYT",] # TYT ile yerleşilen programlar
+TYTModel <- lm(PuanS~0+`TYT Mat`+`TYT Türkçe`+`TYT Fen`+`TYT Sosyal`, data=TYTdata)
+
 summ(TYTModel,digits = 5)
 plot_summs(TYTModel)
 ```

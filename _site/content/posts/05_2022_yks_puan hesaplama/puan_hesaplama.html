@@ -281,28 +281,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span class="math display">\[
 TYTPuan=c+\beta_1 \cdot TemelMatematik+\beta_2 \cdot Türkçe+\beta_3 \cdot FenBilimleri+\beta_4 \cdot SosyalBilimler+\varepsilon
 \]</span></p>
-<p>Katsayılar hesaplanmadan önce verideki yerleştirme puanlarından OBP etkisinin ayıklanması gerekmekte. Ayrıca katsayılardan bağımsız OSYM tarafından eklenen 100 puan da çıkarılıyor.</p>
+<p>Katsayılar hesaplanmadan önce verideki yerleştirme puanlarından OBP etkisinin ayıklanması gerekmekte. OBP etkisi öğrencinin mezun olduğu lise ile yerleştiği program arasında bir bağlantı olmasına göre 0.18 ile 0.12 değerlerinden birini alıyor. Ayrıca katsayılardan bağımsız OSYM tarafından eklenen 100 puan da çıkarılıyor.</p>
 <p><span class="math display">\[
-TYT_{Sınav} = TYT_{Yerleştirme}-0.12\cdot OBP-100
+TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP-100
 \]</span></p>
 <div class="cell">
 <details>
 <summary>Kod</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>all<span class="sc">$</span>PuanS <span class="ot">&lt;-</span> all<span class="sc">$</span>puan<span class="fl">-0.12</span><span class="sc">*</span>all<span class="sc">$</span>obp<span class="dv">-100</span></span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>all<span class="sc">$</span>PuanS <span class="ot">&lt;-</span> all<span class="sc">$</span>puan<span class="sc">-</span>all<span class="sc">$</span>Katsayı<span class="sc">*</span>all<span class="sc">$</span>obp<span class="dv">-100</span></span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Verinin TYT ile yerleştirme yapılan kısmı kullanılarak katsayılar tahminleniyor.</p>
+<p>Verinin TYT ile yerleştirme yapılan kısmı filtrelenerek katsayılar aşağıda kurulan model ile tahminleniyor. Model veriyi %97.8 oranda başarıyla açıklıyor ancak geri kalan %2.2 fark, yuvarlama hatasından kaynaklanmak için fazla büyük. Daha sonra geri dönmek üzere şimdilik bu farkın yuvarlama hatasından kaynaklandığı varsayılmıştır.</p>
 <div class="cell" data-warnings="false">
 <details>
 <summary>Kod</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>TYTdata <span class="ot">&lt;-</span> all[all<span class="sc">$</span><span class="st">`</span><span class="at">Puan Türü</span><span class="st">`</span><span class="sc">==</span><span class="st">"TYT"</span>,]</span>
-<span id="cb6-2"><a href="#cb6-2"></a>TYTModel <span class="ot">&lt;-</span> <span class="fu">lm</span>(PuanS<span class="sc">~</span><span class="dv">0</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Mat</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Türkçe</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Fen</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Sosyal</span><span class="st">`</span>, <span class="at">data=</span>TYTdata)</span>
-<span id="cb6-3"><a href="#cb6-3"></a><span class="co"># labels &lt;- c("Temel Matematik Neti",</span></span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="co">#             "Türkçe Neti",</span></span>
-<span id="cb6-5"><a href="#cb6-5"></a><span class="co">#             "Fen Bilimleri Neti",</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a><span class="co">#             "Sosyal Bilimler Neti")</span></span>
-<span id="cb6-7"><a href="#cb6-7"></a><span class="fu">library</span>(jtools)</span>
-<span id="cb6-8"><a href="#cb6-8"></a><span class="fu">summ</span>(TYTModel,<span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">library</span>(jtools)</span>
+<span id="cb6-2"><a href="#cb6-2"></a>TYTdata <span class="ot">&lt;-</span> all[all<span class="sc">$</span><span class="st">`</span><span class="at">Puan Türü</span><span class="st">`</span><span class="sc">==</span><span class="st">"TYT"</span>,] <span class="co"># TYT ile yerleşilen programlar</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>TYTModel <span class="ot">&lt;-</span> <span class="fu">lm</span>(PuanS<span class="sc">~</span><span class="dv">0</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Mat</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Türkçe</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Fen</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Sosyal</span><span class="st">`</span>, <span class="at">data=</span>TYTdata)</span>
+<span id="cb6-4"><a href="#cb6-4"></a></span>
+<span id="cb6-5"><a href="#cb6-5"></a><span class="fu">summ</span>(TYTModel,<span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>MODEL INFO:
@@ -311,18 +308,18 @@ Dependent Variable: PuanS
 Type: OLS linear regression 
 
 MODEL FIT:
-F(4,9658) = 80610.38177, p = 0.00000
-R² = 0.97092
-Adj. R² = 0.97091 
+F(4,9658) = 107155.16440, p = 0.00000
+R² = 0.97796
+Adj. R² = 0.97795 
 
 Standard errors: OLS
 ------------------------------------------------------------
                         Est.      S.E.      t val.         p
 ------------------ --------- --------- ----------- ---------
-TYT Mat              4.73531   0.05309    89.19692   0.00000
-TYT Türkçe           2.91264   0.02090   139.36811   0.00000
-TYT Fen              4.06911   0.07344    55.40712   0.00000
-TYT Sosyal           2.74414   0.04324    63.46865   0.00000
+TYT Mat              4.78067   0.04423   108.09607   0.00000
+TYT Türkçe           2.75025   0.01741   157.96815   0.00000
+TYT Fen              3.74233   0.06118    61.16855   0.00000
+TYT Sosyal           2.68962   0.03602    74.67282   0.00000
 ------------------------------------------------------------</code></pre>
 </div>
 <details>
