@@ -73,6 +73,6 @@ plot_summs(TYTModel)
 
 
 [^1]:SAY, EA, SÖZ, DİL, TYT
-[^2]:Puanların da bulunduğunu görmek için sayfanın kaynak koduna bakılabilir.
+[^2]:Tabloda görülmemesine rağmen aslında yüklenen sayfada puanların da bulunduğunu görmek için sayfanın kaynak koduna bakılabilir.
 [^3]:<https://yokatlas.yok.gov.tr/2020/netler-tablo.php?b=19001>
 [^4]:Regresyon modeli hemen her lisans programında gösterilen en temel istatistiki modeldir.
