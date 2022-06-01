@@ -1,0 +1,78 @@
+---
+title: "YKS Puanı Hesaplama Formülleri"
+author: Raif Serkan Albayrak
+description: "Soru gruplarının puan hesaplanmasında katsayıları nedir? YKS çoğunlukla sıralamalaarla ilgili olsa da analizlerin bir noktasında puanlarla ilgili bilgiye başvurulabiliyor. Örneğin bir bölüme yerleşen ortalama öğrenci bilgisi ATLAS'da netler üzerinden veriliyor. Bu bilgi bölüme yerleşen öğrencilerin sıralama dağılımlarının belirlenmesinde, farklı kontenjan (indirim) tiplerinden öğrenci alan bölümlere yerleşen ortalama öğrencinin belirlenmesinde ve bu sayede de bölüm bazında üniversite sıralamasında kullanılıyor."
+date: 2022-05-31
+categories:
+  - YKS
+  - Modelleme
+  - R
+code-fold: true
+image: "img/preview.png"
+lang: tr
+code-line-numbers: false
+toc-title: İçerik
+---
+
+# Veri
+
+Her puan türü[^1] için soru gruplarının çarpan değerini hesaplayabilmek için ATLAS'da yayınlanan [TYT-AYT Net Sihirbazında](https://yokatlas.yok.gov.tr/netler-tablo.php?b=19001) bulunan veriden faydalanılmıştır. Önlisans verisine de adreste [minik bir değişiklikle](https://yokatlas.yok.gov.tr/netler-onlisans-tablo.php?b=30001) ulaşılmaktadır. Dikkat edilirse sayfada seçilen bölüm için kontenjan bazında son yerleşen öğrencinin netleri ve orta-öğretim başarı puanı (OBP) verilmekte ancak bu öğrencinin puanı verilmemektedir. Aslında sayfada bu bilgi de mevcuttur[^2] fakat ATLAS bu bilgiyi göstermemeyi tercih etmektedir. En güncel veri üzerinden çalışıldı ancak istenirse 2020 ve daha eski veriye de ulaşmak mümkündür[^3]. Bu sayfada bulunan tüm lisans ve önlisans bölüm isimlerine gene sayfanın kodu içinden ulaşmak mümkündür. Bölüm isimlerinin bulunduğu dosya buradan indirilebilir.
+
+```{r}
+library(readxl)
+kodlar <- read_excel("kodlar.xlsx")
+kodlar
+```
+Verinin ilk 480 satırı lisans gerisi onlisans bölümlerden oluşmakta. Her bölüm için adres çubuğundaki bölüm kodu değiştirilerek o bölümle ilgili tüm kontenjanlarda bulunan detaylara ulaşmak mümkündür. Basit bir döngü ve veri üzerinde her zamanki kadar zahmetli olan düzenlemeleri yaparak parametrelerin tahmininde kullanılan veri hazırlanmış olur. Verinin hazır formu buradan indirilebilir.
+
+```{r}
+all <- read_excel("fullData.xlsx")
+all$`Puan Türü` <- as.factor(all$`Puan Türü`)
+all
+```
+
+
+## TYT Puanı
+
+[YKS puanlama sisteminin](../05_2022_yks_puan_diagram/yks_puan_diagram.html) anlatıldığı daha önceki bir yazıda aşağıdaki diagram kullanılmıştı. Buna göre TYT Sınav puanı Temel Matematik, Türkçe, Fen Bilimleri ve Sosyal Bilimleri soru gruplarından toplanan puanlardan oluşur. Her soru grubunun etkisi farklıdır. Bazı soru gruplarından yapılan netler sonuçta hesaplanan puanı diğerlerinden daha fazla etkiler. İşte amaç soru gruplarının bu etkilerini tahmin etmektir. Bu amaçla basit bir regresyon modeli kurulmuştur. 
+
+![Puan Diagramı](puandiagram.png){#fig-puandiagram}
+
+Regresyon modeli[^4] ile soru gruplarının sonuç puan üzerindeki etkisini gösteren **katsayılar** hesaplanacaktır. Modelin yapısı şu şekilde gösterilebilir:
+$$
+TYTPuan=c+\beta_1 \cdot TemelMatematik+\beta_2 \cdot Türkçe+\beta_3 \cdot FenBilimleri+\beta_4 \cdot SosyalBilimler+\varepsilon
+$$
+
+Katsayılar hesaplanmadan önce verideki yerleştirme puanlarından OBP etkisinin ayıklanması gerekmekte. Ayrıca katsayılardan bağımsız OSYM tarafından eklenen 100 puan da çıkarılıyor.
+
+$$
+TYT_{Sınav} = TYT_{Yerleştirme}-0.12\cdot OBP-100
+$$
+
+```{r}
+all$PuanS <- all$puan-0.12*all$obp-100
+```
+
+Verinin TYT ile yerleştirme yapılan kısmı kullanılarak katsayılar tahminleniyor. 
+
+
+```{r}
+#| code-line-numbers: true
+#| warnings: false
+#| message: false
+TYTdata <- all[all$`Puan Türü`=="TYT",]
+TYTModel <- lm(PuanS~0+`TYT Mat`+`TYT Türkçe`+`TYT Fen`+`TYT Sosyal`, data=TYTdata)
+# labels <- c("Temel Matematik Neti",
+#             "Türkçe Neti",
+#             "Fen Bilimleri Neti",
+#             "Sosyal Bilimler Neti")
+library(jtools)
+summ(TYTModel,digits = 5)
+plot_summs(TYTModel)
+```
+
+
+[^1]:SAY, EA, SÖZ, DİL, TYT
+[^2]:Puanların da bulunduğunu görmek için sayfanın kaynak koduna bakılabilir.
+[^3]:<https://yokatlas.yok.gov.tr/2020/netler-tablo.php?b=19001>
+[^4]:Regresyon modeli hemen her lisans programında gösterilen en temel istatistiki modeldir.

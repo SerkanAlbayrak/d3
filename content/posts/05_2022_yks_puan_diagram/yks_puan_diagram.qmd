@@ -9,6 +9,8 @@ categories:
 code-fold: true
 image: "img/preview.png"
 lang: tr
+code-line-numbers: false
+toc-title: İçerik
 ---
 
 # YKS 101
@@ -31,7 +33,7 @@ Alan seçimi yapıldığı anda YKS sisteminin kapısından içeri girilmiştir.
 
 Puan türleri aslında soru blokları için kullanılan kısaltmalardır. Örneğin SAY puan türü TYT sınavındaki soruların tamamına ek olarak AYT sınavındaki Matematik, Fizik, Kimya ve Biyoloji kısımlarından oluşan soru bloğunun adıdır (Şekil). Buna göre SAY puanının %40'ı TYT, geri kalan %60'ı AYT'den oluşmaktadır. Benzer şekilde EA puanının %40'ı TYT'den,gelir. Geriye kalan AYT puanı ise Matematik (%30), Türk Dili ve Edebiyatı (%18), Tarih-1 (%7) ve Coğrafya-1(%5) şeklinde toplam puanının %60'ına denk gelir. Aşağıdaki Şekil sınav puanlarının hesaplamalarında hangi soru grubunun ne kadar ağırlıklandırıldığını göstermektedir.
 
-![Puanların hesaplanmasında soru gruplarının ağırlığı](img%5Cpreview.png){#fig-puanlama}
+![Puanların hesaplanmasında soru gruplarının ağırlığı](img/preview.png){#fig-puanlama}
 
 ## Barajlar
 
@@ -48,3 +50,12 @@ Bir alttaki kısımda orta öğretim başarı puanı (OÖBP) bilgileri verilmiş
 Yerleştirme puanları ve başarı sıraları kısmında SAY puan türüne ek olarak EA puan türünde de 181 bin seviyesinde bir sıralamanın yazıldığı görülmektedir. Öğrenci, TYT sınavındaki performansına ek olarak AYT Matematik sorularına verdiği yanıtlarla bu sıralamayı elbette hakketmiştir ve YKS, oldukça başarılı bir şekilde, adayın o ana kadar hiç aklında olmasa bile ona EA türünde de tercih yapabileceğini hatırlatmaktadır. Bu amaçla YKS, EA puan türünde 181,328'inci sırayı, aday EA tercihi yapsın yapmasın rezerve etmiştir. Bu çeşit çapraz rezervasyonlar, bir başka yazıda detaylıca gösterileceği üzere, bazı bölümlere getirilen baraj sıralaması kısıtlarının amacını aşmasına neden olmaktadır.
 
 ![Sınav sonuç belgesi örneği](img/d2.jpeg){#fig-sonucbelgesi}
+
+## Puan Hesaplama Formülü
+
+Her ne kadar YKS puanları öğrencilerin tercihlerinde önemli bir rol oynamıyor olsa da başka bazı analizlerde kilit rol oynamaktadır. Örneğin sıralama dağılımlarının hesaplanmasında veya bölümlere yerleşen ortalama öğrenci üzerinden yapılan bölüm sıralamalarında ve bunun gibi daha başka analizlerin içinde kullanılmaktadır. Bu bölümde netlerden yola çıkarak 2019-2020-2021 yıllarında puan hesaplanmasına yönelik tahmin üreten bir model paylaşılacaktır[^2].    
+
+[^2]: Yazının bu ilk versiyonunda parametreler başka bir web sayfasında kullanılan jscript dosyasından alınmıştır. Yazının devamı versiyonlarda [ATLAS](https://yokatlas.yok.gov.tr/netler-tablo.php?b=10024) verisi üzerine basit regresyon kullanarak kendi parametrelerimi bulacağım. ATLAS'ta bölüm detayı kısmında bulunan [Yerleşenlerin YKS Net Ortalamaları tablosu](https://yokatlas.yok.gov.tr/lisans-panel.php?y=203510676&p=1210a&pr=1) kullanarak bölüme yerleşen ortalama öğrencinin sıralaması hesaplanacaktır.
+
+
+
