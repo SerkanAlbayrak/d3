@@ -16,7 +16,7 @@ toc-title: İçerik
 
 # Veri
 
-Her puan türü[^1] için soru gruplarının çarpan değerini hesaplayabilmek için ATLAS'da yayınlanan [TYT-AYT Net Sihirbazında](https://yokatlas.yok.gov.tr/netler-tablo.php?b=19001) bulunan veriden faydalanılmıştır. Önlisans verisine de adreste [minik bir değişiklikle](https://yokatlas.yok.gov.tr/netler-onlisans-tablo.php?b=30001) ulaşılmaktadır. Dikkat edilirse sayfada seçilen bölüm için kontenjan bazında son yerleşen öğrencinin netleri ve orta-öğretim başarı puanı (OBP) verilmekte ancak bu öğrencinin puanı verilmemektedir. Aslında sayfada bu bilgi de mevcuttur[^2] fakat ATLAS bu bilgiyi göstermemeyi tercih etmektedir. En güncel veri üzerinden çalışıldı ancak istenirse 2020 ve daha eski veriye de ulaşmak mümkündür[^3]. Bu sayfada bulunan tüm lisans ve önlisans bölüm isimlerine gene sayfanın kodu içinden ulaşmak mümkündür. Bölüm isimlerinin bulunduğu dosya [buradan](https://github.com/SerkanAlbayrak/d3/raw/master/content/posts/05_2022_yks_puan%20hesaplama/kodlar.xlsx) indirilebilir.
+Her puan türü[^1] için soru gruplarının çarpan değerini hesaplayabilmek için ATLAS'da yayınlanan [TYT-AYT Net Sihirbazında](https://yokatlas.yok.gov.tr/netler-tablo.php?b=19001) bulunan veriden faydalanılmıştır. Önlisans verisine de adreste [ufak bir değişiklikle](https://yokatlas.yok.gov.tr/netler-onlisans-tablo.php?b=30001) ulaşılmaktadır. Dikkat edilirse sayfada seçilen bölüm için kontenjan bazında son yerleşen öğrencinin netleri ve orta-öğretim başarı puanı (OBP) verilmekte ancak bu öğrencinin puanı verilmemektedir. Aslında sayfada bu bilgi de mevcuttur[^2] fakat ATLAS bu bilgiyi göstermemeyi tercih etmektedir. En güncel veri üzerinden çalışıldı ancak istenirse 2020 ve daha eski veriye de ulaşmak mümkündür[^3]. Bu sayfada bulunan tüm lisans ve önlisans bölüm isimlerine gene sayfanın kodu içinden ulaşmak mümkündür. Bölüm isimlerinin bulunduğu dosya [buradan](https://github.com/SerkanAlbayrak/d3/raw/master/content/posts/05_2022_yks_puan%20hesaplama/kodlar.xlsx) indirilebilir.
 
 ```{r}
 library(readxl)
@@ -53,7 +53,7 @@ $$
 all$PuanS <- all$puan-all$Katsayı*all$obp-100
 ```
 
-Verinin TYT ile yerleştirme yapılan kısmı filtrelenerek katsayılar aşağıda kurulan model ile tahminleniyor. Model veriyi %97.8 oranda başarıyla açıklıyor ancak geri kalan %2.2 fark, yuvarlama hatasından kaynaklanmak için fazla büyük. Daha sonra geri dönmek üzere şimdilik bu farkın yuvarlama hatasından kaynaklandığı varsayılmıştır. 
+Verinin TYT ile yerleştirme yapılan kısmı filtrelenerek katsayılar aşağıda kurulan model ile tahminleniyor. Model veriyi %97.8 oranda başarıyla açıklıyor ancak geri kalan %2.2 fark, yuvarlama hatasından kaynaklanmak için fazla büyük. Daha sonra geri dönmek üzere şimdilik bu farkın yuvarlama hatasından kaynaklandığı varsayılmıştır. Katsayılar incelendiğinde soru bazında puana en fazla etkili soruların Temel Matematik Soruları olduğu görülüyor. Bir temel matematik sorusunun TYT puanına etkisi 4.78 puan olarak tahmin edilmektedir[^5].
 
 
 ```{r}
@@ -70,7 +70,9 @@ plot_summs(TYTModel)
 ```
 
 
+
 [^1]:SAY, EA, SÖZ, DİL, TYT
 [^2]:Tabloda görülmemesine rağmen aslında yüklenen sayfada puanların da bulunduğunu görmek için sayfanın kaynak koduna bakılabilir.
 [^3]:<https://yokatlas.yok.gov.tr/2020/netler-tablo.php?b=19001>
 [^4]:Regresyon modeli hemen her lisans programında gösterilen en temel istatistiki modeldir.
+[^5]:Modelin hata terimleri incelendiğinde açıklanmaya muhtaç durumların olduğu fark ediliyor. Bu durum başka bir yazının konusu.
