@@ -18,42 +18,95 @@ toc-title: İçerik
 
 Her puan türü[^1] için soru gruplarının çarpan değerini hesaplayabilmek için ATLAS'da yayınlanan [TYT-AYT Net Sihirbazında](https://yokatlas.yok.gov.tr/netler-tablo.php?b=19001) bulunan veriden faydalanılmıştır. Önlisans verisine de adreste [ufak bir değişiklikle](https://yokatlas.yok.gov.tr/netler-onlisans-tablo.php?b=30001) ulaşılmaktadır. Dikkat edilirse sayfada seçilen bölüm için kontenjan bazında son yerleşen öğrencinin netleri ve orta-öğretim başarı puanı (OBP) verilmekte ancak bu öğrencinin puanı verilmemektedir. Aslında sayfada bu bilgi de mevcuttur[^2] fakat ATLAS bu bilgiyi göstermemeyi tercih etmektedir. En güncel veri üzerinden çalışıldı ancak istenirse 2020 ve daha eski veriye de ulaşmak mümkündür[^3]. Bu sayfada bulunan tüm lisans ve önlisans bölüm isimlerine gene sayfanın kodu içinden ulaşmak mümkündür. Bölüm isimlerinin bulunduğu dosya [buradan](https://github.com/SerkanAlbayrak/d3/raw/master/content/posts/05_2022_yks_puan%20hesaplama/kodlar.xlsx) indirilebilir.
 
+[^1]: SAY, EA, SÖZ, DİL, TYT
+
+[^2]: Tabloda görülmemesine rağmen aslında yüklenen sayfada puanların da bulunduğunu görmek için sayfanın kaynak koduna bakılabilir.
+
+[^3]: <https://yokatlas.yok.gov.tr/2020/netler-tablo.php?b=19001>
+
 ```{r}
 library(readxl)
 kodlar <- read_excel("kodlar.xlsx")
 kodlar
 ```
-Verinin ilk 480 satırı lisans gerisi onlisans bölümlerden oluşmakta. Her bölüm için adres çubuğundaki bölüm kodu değiştirilerek o bölümle ilgili tüm kontenjanlarda bulunan detaylara ulaşmak mümkündür. Basit bir döngü ve veri üzerinde her zamanki kadar zahmetli olan düzenlemeleri yaparak parametrelerin tahmininde kullanılan veri hazırlanmış olur. Verinin hazır formu [buradan](https://github.com/SerkanAlbayrak/d3/raw/master/content/posts/05_2022_yks_puan%20hesaplama/fullData.xlsx) indirilebilir.
+
+Verinin ilk 480 satırı lisans gerisi onlisans bölümlerden oluşmakta. Her bölüm için adres çubuğundaki bölüm kodu değiştirilerek o bölümle ilgili tüm kontenjanlarda bulunan detaylara ulaşmak mümkündür. Basit bir döngü ve veri üzerinde her zamanki kadar zahmetli olan düzenlemeleri yaparak parametrelerin tahmininde kullanılan veri hazırlanmış olur. Ek olarak puanlar hesaplanırken OBP katsayısının cezalı kullanılıp kullanılmadığını anlamak amacıyla her programın detay sayfasından yerleşen son öğrencinin Öğrenim durumu bilgisi de çekilip veriye eklenmiştir. Verinin hazır formu [buradan](https://github.com/SerkanAlbayrak/d3/raw/master/content/posts/05_2022_yks_puan%20hesaplama/puanData.xlsx) indirilebilir.
 
 ```{r}
-all <- read_excel("fullData.xlsx")
-all$`Puan Türü` <- as.factor(all$`Puan Türü`)
+all <- read_excel("puanData.xlsx")
+all$PuanTuru <- as.factor(all$`PuanTuru`)
 all
 ```
 
-
 ## TYT Puanı
 
-[YKS puanlama sisteminin](../05_2022_yks_puan_diagram/yks_puan_diagram.html) anlatıldığı daha önceki bir yazıda aşağıdaki diagram kullanılmıştı. Buna göre TYT Sınav puanı Temel Matematik, Türkçe, Fen Bilimleri ve Sosyal Bilimleri soru gruplarından toplanan puanlardan oluşur. Her soru grubunun etkisi farklıdır. Bazı soru gruplarından yapılan netler sonuçta hesaplanan puanı diğerlerinden daha fazla etkiler. İşte amaç soru gruplarının bu etkilerini tahmin etmektir. Bu amaçla basit bir regresyon modeli kurulmuştur. 
+[YKS puanlama sisteminin](../05_2022_yks_puan_diagram/yks_puan_diagram.html) anlatıldığı daha önceki bir yazıda aşağıdaki diagram kullanılmıştı. Buna göre TYT Sınav puanı Temel Matematik, Türkçe, Fen Bilimleri ve Sosyal Bilimleri soru gruplarından toplanan puanlardan oluşur. Her soru grubunun etkisi farklıdır. Bazı soru gruplarından yapılan netler sonuçta hesaplanan puanı diğerlerinden daha fazla etkiler. İşte amaç soru gruplarının bu etkilerini tahmin etmektir. Bu amaçla basit bir regresyon modeli kurulmuştur.
 
 ![Puan Diagramı](puandiagram.png){#fig-puandiagram}
 
-Regresyon modeli[^4] ile soru gruplarının sonuç puan üzerindeki etkisini gösteren **katsayılar** hesaplanacaktır. Modelin yapısı şu şekilde gösterilebilir:
-$$
+Regresyon modeli[^4] ile soru gruplarının sonuç puan üzerindeki etkisini gösteren **katsayılar** hesaplanacaktır. Modelin yapısı şu şekilde gösterilebilir: $$
 TYTPuan=c+\beta_1 \cdot TemelMatematik+\beta_2 \cdot Türkçe+\beta_3 \cdot FenBilimleri+\beta_4 \cdot SosyalBilimler+\varepsilon
-$$
+$$ Katsayılar hesaplanmadan önce verideki yerleştirme puanlarından OBP etkisinin ayıklanması gerekmekte. OBP etkisi öğrencinin mezun olduğu lise ile yerleştiği program arasında bir bağlantı olmasına göre 0.18 ile 0.12 değerlerinden birini alıyor. 
 
-Katsayılar hesaplanmadan önce verideki yerleştirme puanlarından OBP etkisinin ayıklanması gerekmekte. OBP etkisi öğrencinin mezun olduğu lise ile yerleştiği program arasında bir bağlantı olmasına göre 0.18 ile 0.12 değerlerinden birini alıyor. Ayrıca katsayılardan bağımsız OSYM tarafından eklenen 100 puan da çıkarılıyor.
+[^4]: Regresyon modeli hemen her lisans programında gösterilen en temel istatistiki modeldir.
 
 $$
-TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP-100
+TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 $$
 
 ```{r}
-all$PuanS <- all$puan-all$Katsayı*all$obp-100
+all$SinavPuan <- all$Puan-all$Katsayı*all$OBP
 ```
 
-Verinin TYT ile yerleştirme yapılan kısmı filtrelenerek katsayılar aşağıda kurulan model ile tahminleniyor. Model veriyi %97.8 oranda başarıyla açıklıyor ancak geri kalan %2.2 fark, yuvarlama hatasından kaynaklanmak için fazla büyük. Daha sonra geri dönmek üzere şimdilik bu farkın yuvarlama hatasından kaynaklandığı varsayılmıştır. Katsayılar incelendiğinde soru bazında puana en fazla etkili soruların Temel Matematik Soruları olduğu görülüyor. Bir temel matematik sorusunun TYT puanına etkisi 4.78 puan olarak tahmin edilmektedir[^5].
+Regresyon modelinin katsayılarının hesaplanacağı veride modellemeye başlamadan önce yapılması gereken detay gibi görünen ama oldukça kritik bir filtreleme gerekmektedir. Eğer bir öğrenci YKS sınavında bir programa yerleşirse bir sonraki yıl OBP katsayısı yarı yarıya kesiliyor. Diğer bir deyişle YKS Yerleşme Puanını hesaplamak için, normalde OBP puanı 0.12 (veya 0.18) ile çarpılıp YKS sınav sonuç puan ekleneceğine 0.06 (veya 0.09) ile çarpılıp eklenmektedir. Dolayısıyla regresyon katsayılarının hesaplanacağı veride bu gibi durumların filtrelenmesi gerekmekte. Ne var ki, YÖK ATLAS bu konuda net bilgi içermemekte. Aşağıdaki grafikte $TYT_{Sınav}$ hesaplandıktan sonra yerleştirme ve sınav puanlarının çapraz grafiği gösterilmektedir. Açık renkli bölgeler 150 puanın altında kalan sınav puanlarını göstermektedir. Bu puanlar mümkün olmadığına göre, bu programa son yerleşen adayların OBP katsayıları cezalı hesaplanmış olmalıdır.
+
+```{r}
+#| code-line-numbers: true
+#| warnings: false
+#| message: false
+
+
+library(ggplot2)
+library(dplyr)
+all$l50 <- ifelse(all$SinavPuan<150,150-all$SinavPuan,0)
+ggplot(all, aes(x=Puan, y=SinavPuan, colour=l50))+geom_point() + 
+  labs(title = "TYT Puanı Modelinde Hata Terimleri",
+       x = "Yerleşme Puanı",
+       y = "Sınav Puanı",
+       colour= "Hata") + 
+  geom_abline(slope = 0, intercept = 0, colour="orange", size=1)
+
+```
+
+Mesela yukarıdaki grafikte 150 puan altında sınav puanlarına sahip öğrencilerin yerleştiği görünen programlara son sırada yerleşen öğrencilerin bilgilerine program detay sayfalarından da ulaşıldığında öğrencinin **Öğrenim Durumu** bilgisi aşağıdaki tablodaki gibi çıkıyor.
+
+```{r}
+#| code-line-numbers: true
+#| warnings: false
+#| message: false
+library(kableExtra)
+table(all$stuType[all$l50>0]) |> kbl(col.names = c("Yerleşen Öğrencinin Öğrenim Durumu", "Frekans"))
+```
+
+Ancak verideki tüm programlar için bu tablo oluşturulduğunda, sadece **Liseden yeni mezun ÖSYSye ilk girişinde yerleşti** değerinin yukarıdaki tablodan farklı olduğu net görülüyor. Dolayısıyla bu öğrencilerin hiçbiri için OBP'nin cezalı hesaplanmadığı anlaşılmaktadır. Her ne kadar bu duum aslında daha en baştan açık görünse de aynı mantıkla **Lise mezunu, daha önce hiç üniversiteye yerleşmemişti** öğrenim durumuna sahip bir öğrencinin de OBP katsayısının cezalı hesaplanmaması beklenirdi. Ancak yukarıdaki tabloya göre en az 234 adet böyle durum var.
+
+```{r}
+table(all$stuType) |> kbl(col.names = c("Yerleşen Öğrencinin Öğrenim Durumu", "Frekans"))
+```
+
+OBP'nin puan üzerindeki etkisini kontrol altına alabilmek amacıyla verinin sadece **Liseden yeni mezun ÖSYSye ilk girişinde yerleşti** öğrenim durumuna sahip kısmı filtreleniyor.
+
+```{r}
+modeldata <- all[all$stuType=="Liseden yeni mezun ÖSYSye ilk girişinde yerleşti",]
+```
+
+Veriyi modele beslemeden önce son olarak TYT puanı ile yerleşim yapılan bölümler filtreleniyor.
+
+```{r}
+modeldataTYT <- modeldata[modeldata$PuanTuru=="TYT",]
+```
+
+Verinin TYT ile yerleştirme yapılan kısmı filtrelenerek katsayılar aşağıda kurulan model ile tahminleniyor. Model veriyi %99.9 oranda başarıyla açıklıyor. 
 
 
 ```{r}
@@ -62,17 +115,63 @@ Verinin TYT ile yerleştirme yapılan kısmı filtrelenerek katsayılar aşağı
 #| message: false
 
 library(jtools)
-TYTdata <- all[all$`Puan Türü`=="TYT",] # TYT ile yerleşilen programlar
-TYTModel <- lm(PuanS~0+`TYT Mat`+`TYT Türkçe`+`TYT Fen`+`TYT Sosyal`, data=TYTdata)
+TYTModel <- lm(SinavPuan~`TYT Mat`+`TYT Türkçe`+`TYT Fen`+`TYT Sosyal`, data=modeldataTYT)
 
 summ(TYTModel,digits = 5)
 plot_summs(TYTModel)
 ```
+### Hata Analizi    
+
+Her istatistiki model hata içerir ve bu hataların incelenmesi sonucu genellikle modelin iyileşmesine yönelik adımlar atılır.  Burada hata ile kastedilen modelin tahmini ile gerçek puan arasındaki farklılıktır. Aşağıdaki garfikte iki gözlemdeki hatanın büyüklüğü dikkat çekmektedir.
+
+```{r}
+results <- data.frame(real = modeldataTYT$SinavPuan,model=predict(TYTModel))
+results$fark <- results$real-results$model
+results$absfark <- abs(results$real-results$model)
+ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() + 
+  labs(title = "TYT Puanı Modelinde Hata Terimleri",
+       x = "Gözlem",
+       y = "Gözlem - Model",
+       colour= "Hata") + 
+  geom_abline(slope = 0, intercept = 0, colour="orange", size=1)
+```
+Hataların ekstrem olduğu bu gözlemler çekildiğinde Üsküdar Üniversitesi Çocuk Gelişimi Burslu kontenjanına yerleşen öğrencini ve Avrasya Üniversitesi Diş Protez Teknolojisi Burslu programına yerleşen öğrencilerin puanları olması gerekenden 7.45 ve 16.67 puan daha **fazla** hesaplanmış görünüyor. Umarız buradaki maddi hata ATLAS veri tabanındaki netlerdedir. 
+
+```{r}
+h <- which(results$absfark>5)
+t(modeldataTYT[h,-c(13:25,28,30)]) |> kbl()
+```
+
+Bu gözlemler veriden çıkarıp model katsayıları tekrar hesaplanıyor. Artık modelde hata yok. Model veriyi %100 oranında açıklıyor. TYT sınavına giren öğrencilerin başarılarına göre standardize edilen soru gruplarının puan karşılıkları regresyon modelinin katsayıları olarak bulundu.    
+
+OSYM tarafından eklenen 100 puan çeşitli transformasyonlar sonucu 97.34'e düşmüştür. Her soru grubunun puanlamaya etkisi regresyon modelinin katsayılarında temsil edilmektedir. Buna göre en değerli sorular Matematik sorularıdır. Her matematik neti 4.53 puan anlamına gelmektedir. 2021 yılı için ikinci sırada en değerli puanların Fen Bilimleri soru grubunda olduğu görülmektedir. Bir fen bilimleri neti 3.18 puana denk gelmektedir. Türkçe ve Sosyal bilimler sorularının puanları yaklaşık olarak aynıdır. Grafikte soru gruplarının ağırlıkları görsel olarak ifade edilmiştir. Yıldan yıla bu katsayılar sınava katılan öğrencilerin performansına bağlı olarak değişmektedir. Bir soru grubunda Türkiye genelinde az başarılı olunursa bu soru grubunun değeri artmaktadır. Burada amaç öğrencileri birbirinden mümkün olduğunca ayırabilmektir.
+
+
+```{r}
+modeldataTYT1 <- modeldataTYT[-h,]
+TYTModel <- lm(SinavPuan~`TYT Mat`+`TYT Türkçe`+`TYT Fen`+`TYT Sosyal`, data=modeldataTYT1)
+
+summ(TYTModel,digits = 5)
+plot_summs(TYTModel)
+
+results <- data.frame(real = modeldataTYT1$SinavPuan,model=predict(TYTModel))
+results$fark <- results$real-results$model
+results$absfark <- abs(results$real-results$model)
+```
+
+Yıldan yıla bu katsayılar sınava katılan öğrencilerin performansına bağlı olarak değişmektedir. Bir soru grubunda Türkiye genelinde az başarılı olunursa bu soru grubunun değeri artmaktadır. Burada amaç öğrencileri birbirinden mümkün olduğunca ayırabilmektir.     
+
+
+```{r}
+TYTKatsayilar <- read.csv("TYTKatsayilar.csv")
+TYTKatsayilar |> kbl(col.names = c("Soru Grubu", "2019","2020","2021"),booktabs = TRUE) |> 
+  kable_styling()
+```
+
+
+```{r}
+
+```
 
 
 
-[^1]:SAY, EA, SÖZ, DİL, TYT
-[^2]:Tabloda görülmemesine rağmen aslında yüklenen sayfada puanların da bulunduğunu görmek için sayfanın kaynak koduna bakılabilir.
-[^3]:<https://yokatlas.yok.gov.tr/2020/netler-tablo.php?b=19001>
-[^4]:Regresyon modeli hemen her lisans programında gösterilen en temel istatistiki modeldir.
-[^5]:Modelin hata terimleri incelendiğinde açıklanmaya muhtaç durumların olduğu fark ediliyor. Bu durum başka bir yazının konusu.
