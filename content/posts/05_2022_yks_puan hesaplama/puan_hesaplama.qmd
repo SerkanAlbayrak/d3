@@ -7,6 +7,7 @@ categories:
   - YKS
   - Modelleme
   - R
+  - Üniversite Analitiği
 code-fold: true
 image: "img/preview.png"
 lang: tr
@@ -185,7 +186,7 @@ Bu tablonun yorumu buraya
 
 ## SAY
 
-SAYılsal puanlarının da hesaplanmasında kullanılan katsayılar benzer şekilde bulunabilir. SAY puanın TYT puanı ve AYT'den Matematik, Fizik, Kimya ve Biyoloji sorularından oluştuğu biliniyor. Kurulan modelde herhangi bir belirsizlik bulunmuyor. Veri %100 başarıyla açıklanabiliyor.  
+SAYısal puanlarının da hesaplanmasında kullanılan katsayılar benzer şekilde bulunabilir. SAY puanın TYT puanı ve AYT'den Matematik, Fizik, Kimya ve Biyoloji sorularından oluştuğu biliniyor. Kurulan modelde herhangi bir belirsizlik bulunmuyor. Veri %100 başarıyla açıklanabiliyor.  
 
 ```{r}
 modeldataSAY <- modeldata[modeldata$PuanTuru=="SAY",]
@@ -194,6 +195,7 @@ SAYModel <- lm(SinavPuan~`TYT Mat`+`TYT Türkçe`+`TYT Fen`+`TYT Sosyal`+
 summ(SAYModel,digits = 5)
 plot_summs(SAYModel)
 ```
+
 
 ## EA
 
@@ -311,4 +313,14 @@ ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() +
        colour= "Hata") + 
   geom_abline(slope = 0, intercept = 0, colour="orange", size=1)
 ```
+Dil puanını için yapılan modelde yapılan hatanın 5'ten büyük olduğu çok sayıda durum olduğu görülüyor. 
 
+```{r}
+h <- which(results$absfark>5)
+t(modeldataDIL[h,-c(13:24,28,30)]) |> kbl()
+```
+Dil modeliyle ilgili gözden kaçan bir durum olduğu açık. Henüz problemin kaynağı bulunabilmiş değil. 
+
+# Sonuç ve Tartışma
+
+Bu yazıda hesaplanan model parametreleri ilgili puan türünde her soru grubunda yapılan bir netin kaç puana denk geldiğini göstermektedir. DİL puanının hesaplanmasına yönelik gözden kaçan bir unsur olduğu açık. Henüz çözüm getiremediğimiz için çalışan en iyi model parametreleri yazıda sunuldu. Genel olarak puan hesaplanma yöntemine yönelik tartışma yazının ikinci bölümüne ertelendi. 

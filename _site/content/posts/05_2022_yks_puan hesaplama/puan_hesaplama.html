@@ -171,6 +171,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#söz" id="toc-söz" class="nav-link" data-scroll-target="#söz">SÖZ</a></li>
   <li><a href="#dil" id="toc-dil" class="nav-link" data-scroll-target="#dil">DİL</a></li>
   </ul></li>
+  <li><a href="#sonuç-ve-tartışma" id="toc-sonuç-ve-tartışma" class="nav-link" data-scroll-target="#sonuç-ve-tartışma">Sonuç ve Tartışma</a></li>
   </ul>
 </nav>
 </nav>
@@ -187,6 +188,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div class="quarto-category">YKS</div>
     <div class="quarto-category">Modelleme</div>
     <div class="quarto-category">R</div>
+    <div class="quarto-category">Üniversite Analitiği</div>
   </div>
   </div>
 
@@ -877,7 +879,7 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 </section>
 <section id="say" class="level2">
 <h2 class="anchored" data-anchor-id="say">SAY</h2>
-<p>SAYılsal puanlarının da hesaplanmasında kullanılan katsayılar benzer şekilde bulunabilir. SAY puanın TYT puanı ve AYT’den Matematik, Fizik, Kimya ve Biyoloji sorularından oluştuğu biliniyor. Kurulan modelde herhangi bir belirsizlik bulunmuyor. Veri %100 başarıyla açıklanabiliyor.</p>
+<p>SAYısal puanlarının da hesaplanmasında kullanılan katsayılar benzer şekilde bulunabilir. SAY puanın TYT puanı ve AYT’den Matematik, Fizik, Kimya ve Biyoloji sorularından oluştuğu biliniyor. Kurulan modelde herhangi bir belirsizlik bulunmuyor. Veri %100 başarıyla açıklanabiliyor.</p>
 <div class="cell">
 <details>
 <summary>Kod</summary>
@@ -1919,9 +1921,237 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 <p><img src="puan_hesaplama_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>Dil puanını için yapılan modelde yapılan hatanın 5’ten büyük olduğu çok sayıda durum olduğu görülüyor.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">which</span>(results<span class="sc">$</span>absfark<span class="sc">&gt;</span><span class="dv">5</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(modeldataDIL[h,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">13</span><span class="sc">:</span><span class="dv">24</span>,<span class="dv">28</span>,<span class="dv">30</span>)]) <span class="sc">|&gt;</span> <span class="fu">kbl</span>()</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> ProgramKodu </td>
+   <td style="text-align:left;"> 105610088 </td>
+   <td style="text-align:left;"> 202210340 </td>
+   <td style="text-align:left;"> 110090093 </td>
+   <td style="text-align:left;"> 204090121 </td>
+   <td style="text-align:left;"> 202210344 </td>
+   <td style="text-align:left;"> 203211095 </td>
+   <td style="text-align:left;"> 107090216 </td>
+   <td style="text-align:left;"> 109290320 </td>
+   <td style="text-align:left;"> 104010025 </td>
+   <td style="text-align:left;"> 206010981 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Üniversite </td>
+   <td style="text-align:left;"> İSTANBUL ÜNİV.   - (4 Yıllık) </td>
+   <td style="text-align:left;"> İSTANBUL 29 MAYIS ÜNİV.  - (Burslu) (4 Yıllık) </td>
+   <td style="text-align:left;"> ANKARA YILDIRIM BEYAZIT ÜNİV.  - (4 Yıllık) </td>
+   <td style="text-align:left;"> KTO KARATAY ÜNİV.  - (Burslu) (4 Yıllık) </td>
+   <td style="text-align:left;"> İSTANBUL 29 MAYIS ÜNİV.  - (Burslu) (4 Yıllık) </td>
+   <td style="text-align:left;"> İSTANBUL SABAHATTİN ZAİM ÜNİV.   - (Burslu) (4 Yıllık) </td>
+   <td style="text-align:left;"> NECMETTİN ERBAKAN ÜNİV.  - (4 Yıllık) </td>
+   <td style="text-align:left;"> SÜLEYMAN DEMİREL ÜNİV.  - (4 Yıllık) </td>
+   <td style="text-align:left;"> GALATASARAY ÜNİV.  - (Fransızca) (4 Yıllık) </td>
+   <td style="text-align:left;"> YAŞAR ÜNİV.  - (İngilizce) (Burslu) (4 Yıllık) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Yılı </td>
+   <td style="text-align:left;"> 2021 </td>
+   <td style="text-align:left;"> 2021 </td>
+   <td style="text-align:left;"> 2021 </td>
+   <td style="text-align:left;"> 2021 </td>
+   <td style="text-align:left;"> 2021 </td>
+   <td style="text-align:left;"> 2021 </td>
+   <td style="text-align:left;"> 2021 </td>
+   <td style="text-align:left;"> 2021 </td>
+   <td style="text-align:left;"> 2021 </td>
+   <td style="text-align:left;"> 2021 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Türü </td>
+   <td style="text-align:left;"> Devlet </td>
+   <td style="text-align:left;"> Vakıf </td>
+   <td style="text-align:left;"> Devlet </td>
+   <td style="text-align:left;"> Vakıf </td>
+   <td style="text-align:left;"> Vakıf </td>
+   <td style="text-align:left;"> Vakıf </td>
+   <td style="text-align:left;"> Devlet </td>
+   <td style="text-align:left;"> Devlet </td>
+   <td style="text-align:left;"> Devlet </td>
+   <td style="text-align:left;"> Vakıf </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Katsayı </td>
+   <td style="text-align:left;"> 0.12 </td>
+   <td style="text-align:left;"> 0.12 </td>
+   <td style="text-align:left;"> 0.12 </td>
+   <td style="text-align:left;"> 0.12 </td>
+   <td style="text-align:left;"> 0.12 </td>
+   <td style="text-align:left;"> 0.12 </td>
+   <td style="text-align:left;"> 0.12 </td>
+   <td style="text-align:left;"> 0.12 </td>
+   <td style="text-align:left;"> 0.12 </td>
+   <td style="text-align:left;"> 0.12 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> OBP </td>
+   <td style="text-align:left;"> 336.300 </td>
+   <td style="text-align:left;"> 410.350 </td>
+   <td style="text-align:left;"> 371.800 </td>
+   <td style="text-align:left;"> 357.150 </td>
+   <td style="text-align:left;"> 434.169 </td>
+   <td style="text-align:left;"> 379.000 </td>
+   <td style="text-align:left;"> 341.150 </td>
+   <td style="text-align:left;"> 299.850 </td>
+   <td style="text-align:left;"> 493.319 </td>
+   <td style="text-align:left;"> 395.744 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Puan </td>
+   <td style="text-align:left;"> 363.1316 </td>
+   <td style="text-align:left;"> 467.4378 </td>
+   <td style="text-align:left;"> 291.6421 </td>
+   <td style="text-align:left;"> 302.7523 </td>
+   <td style="text-align:left;"> 437.2313 </td>
+   <td style="text-align:left;"> 428.7592 </td>
+   <td style="text-align:left;"> 327.8465 </td>
+   <td style="text-align:left;"> 295.2964 </td>
+   <td style="text-align:left;"> 457.4196 </td>
+   <td style="text-align:left;"> 395.5457 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Yerl. </td>
+   <td style="text-align:left;"> 82 </td>
+   <td style="text-align:left;"> 5 </td>
+   <td style="text-align:left;"> 62 </td>
+   <td style="text-align:left;"> 15 </td>
+   <td style="text-align:left;"> 6 </td>
+   <td style="text-align:left;"> 5 </td>
+   <td style="text-align:left;"> 41 </td>
+   <td style="text-align:left;"> 62 </td>
+   <td style="text-align:left;"> 31 </td>
+   <td style="text-align:left;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TYT Türkçe </td>
+   <td style="text-align:left;"> 17.25 </td>
+   <td style="text-align:left;"> 29.00 </td>
+   <td style="text-align:left;"> 16.00 </td>
+   <td style="text-align:left;"> 12.25 </td>
+   <td style="text-align:left;"> 32.50 </td>
+   <td style="text-align:left;"> 26.50 </td>
+   <td style="text-align:left;"> 17.25 </td>
+   <td style="text-align:left;"> 9.00 </td>
+   <td style="text-align:left;"> 33.75 </td>
+   <td style="text-align:left;"> 9.25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TYT Sosyal </td>
+   <td style="text-align:left;"> 9.50 </td>
+   <td style="text-align:left;"> 14.00 </td>
+   <td style="text-align:left;"> 3.25 </td>
+   <td style="text-align:left;"> 7.75 </td>
+   <td style="text-align:left;"> 14.00 </td>
+   <td style="text-align:left;"> 5.00 </td>
+   <td style="text-align:left;"> 6.50 </td>
+   <td style="text-align:left;"> 5.75 </td>
+   <td style="text-align:left;"> 16.50 </td>
+   <td style="text-align:left;"> 11.50 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TYT Mat </td>
+   <td style="text-align:left;"> 1.00 </td>
+   <td style="text-align:left;"> 10.75 </td>
+   <td style="text-align:left;"> 3.25 </td>
+   <td style="text-align:left;"> -0.75 </td>
+   <td style="text-align:left;"> 0.00 </td>
+   <td style="text-align:left;"> 8.75 </td>
+   <td style="text-align:left;"> 2.00 </td>
+   <td style="text-align:left;"> 2.00 </td>
+   <td style="text-align:left;"> 0.00 </td>
+   <td style="text-align:left;"> 5.25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TYT Fen </td>
+   <td style="text-align:left;"> 0.00 </td>
+   <td style="text-align:left;"> 5.50 </td>
+   <td style="text-align:left;"> 0.00 </td>
+   <td style="text-align:left;"> 0.00 </td>
+   <td style="text-align:left;"> 9.25 </td>
+   <td style="text-align:left;"> 4.25 </td>
+   <td style="text-align:left;"> 0.00 </td>
+   <td style="text-align:left;"> 1.00 </td>
+   <td style="text-align:left;"> 8.25 </td>
+   <td style="text-align:left;"> 6.25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> YDT Dil </td>
+   <td style="text-align:left;"> 67.75 </td>
+   <td style="text-align:left;"> 78.75 </td>
+   <td style="text-align:left;"> 43.00 </td>
+   <td style="text-align:left;"> 51.00 </td>
+   <td style="text-align:left;"> 72.50 </td>
+   <td style="text-align:left;"> 76.25 </td>
+   <td style="text-align:left;"> 55.75 </td>
+   <td style="text-align:left;"> 50.75 </td>
+   <td style="text-align:left;"> 73.75 </td>
+   <td style="text-align:left;"> 73.75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> PuanTuru </td>
+   <td style="text-align:left;"> DİL </td>
+   <td style="text-align:left;"> DİL </td>
+   <td style="text-align:left;"> DİL </td>
+   <td style="text-align:left;"> DİL </td>
+   <td style="text-align:left;"> DİL </td>
+   <td style="text-align:left;"> DİL </td>
+   <td style="text-align:left;"> DİL </td>
+   <td style="text-align:left;"> DİL </td>
+   <td style="text-align:left;"> DİL </td>
+   <td style="text-align:left;"> DİL </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> BoluMKodu </td>
+   <td style="text-align:left;"> 10007 </td>
+   <td style="text-align:left;"> 97105 </td>
+   <td style="text-align:left;"> 97105 </td>
+   <td style="text-align:left;"> 97106 </td>
+   <td style="text-align:left;"> 10008 </td>
+   <td style="text-align:left;"> 10008 </td>
+   <td style="text-align:left;"> 10008 </td>
+   <td style="text-align:left;"> 10008 </td>
+   <td style="text-align:left;"> 10075 </td>
+   <td style="text-align:left;"> 72100 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SinavPuan </td>
+   <td style="text-align:left;"> 322.7756 </td>
+   <td style="text-align:left;"> 418.1958 </td>
+   <td style="text-align:left;"> 247.0261 </td>
+   <td style="text-align:left;"> 259.8943 </td>
+   <td style="text-align:left;"> 385.1310 </td>
+   <td style="text-align:left;"> 383.2792 </td>
+   <td style="text-align:left;"> 286.9085 </td>
+   <td style="text-align:left;"> 259.3144 </td>
+   <td style="text-align:left;"> 398.2213 </td>
+   <td style="text-align:left;"> 348.0565 </td>
+  </tr>
+</tbody>
+</table>
 
-
+</div>
+</div>
+<p>Dil modeliyle ilgili gözden kaçan bir durum olduğu açık. Henüz problemin kaynağı bulunabilmiş değil.</p>
 </section>
+</section>
+<section id="sonuç-ve-tartışma" class="level1">
+<h1>Sonuç ve Tartışma</h1>
+<p>Bu yazıda hesaplanan model parametreleri ilgili puan türünde her soru grubunda yapılan bir netin kaç puana denk geldiğini göstermektedir. DİL puanının hesaplanmasına yönelik gözden kaçan bir unsur olduğu açık. Henüz çözüm getiremediğimiz için çalışan en iyi model parametreleri yazıda sunuldu. Genel olarak puan hesaplanma yöntemine yönelik tartışma yazının ikinci bölümüne ertelendi.</p>
+
+
 </section>
 
 
