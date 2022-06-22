@@ -15,6 +15,12 @@ code-line-numbers: false
 toc-title: İçerik
 ---
 
+Bu yazıda farklı puan tipleri için soru bloklarının puan karşılığının nasıl hesaplandığı incelenmiştir. Örneğin SAY puan türünde, AYT sınavının Matematik bloğunda bir netin kaç puana denk geldiği bu yazıda açıklanan yöntemlerle bulunabilir. OSYM tarafından açıklanan dokümanlarda sınav puanlarının soru gruplarında elde edilen netlerin lineer bir fonksiyonu olduğu bilgisi verilmekte. Dolayısıyla kurulacak bir regresyon modeli sayesinde yuvarlama hataları dışında sınav puanı ile soru bloklarındaki netler arasında %100 açıklayıcılığa sahip modellerin elde edilebilmesi gerekmekte. Gerçekten de DİL puan türü dışında bu modeller bulunabildi. Ancak gene de bazı teknik sorunlarla da karşılaşıldı. Bazı bölümlere son sırada yerleşen öğrencilerin yaptığı netlerle açıklanan puanı arasında büyük tutarsızlıklar görüldü. Tutarsızlığın ne olduğu, bölümün ne olduğu, puanın ne olması gerekirken ne açıklandığı gösterildi.     
+
+Yazı iki bölümden oluşuyor. Birinci bölüm, puan hesaplama modellerinin anlatıldığı teknik kısım. İkinci bölüm ise bulgular üzerine bir tartışmayı, meta analizi içeriyor. 
+
+Geliştirilecek modeller, grafikler ve tablolar için ihtiyaç duyulan R kütüphaneleri yüklenerek başlanıyor.
+
 ```{r}
 #| warnings: false
 #| message: false
@@ -23,12 +29,16 @@ library(readxl)
 library(ggplot2)
 library(dplyr)
 library(jtools)
+library(DT)
 ```
+
 
 
 # Veri
 
-Her puan türü[^1] için soru gruplarının çarpan değerini hesaplayabilmek için ATLAS'da yayınlanan [TYT-AYT Net Sihirbazında](https://yokatlas.yok.gov.tr/netler-tablo.php?b=19001) bulunan veriden faydalanılmıştır. Önlisans verisine de adreste [ufak bir değişiklikle](https://yokatlas.yok.gov.tr/netler-onlisans-tablo.php?b=30001) ulaşılmaktadır. Dikkat edilirse sayfada seçilen bölüm için kontenjan bazında son yerleşen öğrencinin netleri ve orta-öğretim başarı puanı (OBP) verilmekte ancak bu öğrencinin puanı verilmemektedir. Aslında sayfada bu bilgi de mevcuttur[^2] fakat ATLAS bu bilgiyi göstermemeyi tercih etmektedir. En güncel veri üzerinden çalışıldı ancak istenirse 2020 ve daha eski veriye de ulaşmak mümkündür[^3]. Bu sayfada bulunan tüm lisans ve önlisans bölüm isimlerine gene sayfanın kodu içinden ulaşmak mümkündür. Bölüm isimlerinin bulunduğu dosya [buradan](https://github.com/SerkanAlbayrak/d3/raw/master/content/posts/05_2022_yks_puan%20hesaplama/kodlar.xlsx) indirilebilir.
+Her puan türü[^1] için soru gruplarının çarpan değerini hesaplayabilmek için ATLAS'da yayınlanan [TYT-AYT Net Sihirbazında](https://yokatlas.yok.gov.tr/netler-tablo.php?b=19001) bulunan veriden faydalanılmıştır. Önlisans verisine de adreste [ufak bir değişiklikle](https://yokatlas.yok.gov.tr/netler-onlisans-tablo.php?b=30001) ulaşılmaktadır. Dikkat edilirse sayfada seçilen bölüm için kontenjan bazında son yerleşen öğrencinin netleri ve orta-öğretim başarı puanı (OBP) verilmekte ancak bu öğrencinin puanı verilmemektedir. Aslında sayfada bu bilgi de mevcuttur[^2] fakat ATLAS bu bilgiyi göstermemeyi tercih etmektedir.     
+
+En güncel veri üzerinden çalışıldı ancak istenirse 2020 ve daha eski veriye de ulaşmak mümkündür[^3]. Bu sayfada bulunan tüm lisans ve önlisans bölüm isimlerine gene sayfanın kodu içinden ulaşmak mümkündür. Bölüm isimlerinin bulunduğu dosya [buradan](https://github.com/SerkanAlbayrak/d3/raw/master/content/posts/05_2022_yks_puan%20hesaplama/kodlar.xlsx) indirilebilir.
 
 [^1]: SAY, EA, SÖZ, DİL, TYT
 
@@ -81,7 +91,9 @@ $$
 all$SinavPuan <- all$Puan-all$Katsayı*all$OBP
 ```
 
-Regresyon modelinin katsayılarının hesaplanacağı veride modellemeye başlamadan önce yapılması gereken detay gibi görünen ama oldukça kritik bir filtreleme gerekmektedir. Eğer bir öğrenci YKS sınavında bir programa yerleşirse bir sonraki yıl OBP katsayısı yarı yarıya kesiliyor. Diğer bir deyişle YKS Yerleşme Puanını hesaplamak için, normalde OBP puanı 0.12 (veya 0.18) ile çarpılıp YKS sınav sonuç puan ekleneceğine 0.06 (veya 0.09) ile çarpılıp eklenmektedir. Dolayısıyla regresyon katsayılarının hesaplanacağı veride bu gibi durumların filtrelenmesi gerekmekte. Ne var ki, YÖK ATLAS bu konuda net bilgi içermemekte. Aşağıdaki grafikte $TYT_{Sınav}$ hesaplandıktan sonra yerleştirme ve sınav puanlarının çapraz grafiği gösterilmektedir. Açık renkli bölgeler 150 puanın altında kalan sınav puanlarını göstermektedir. Bu puanlar mümkün olmadığına göre, bu programa son yerleşen adayların OBP katsayıları cezalı hesaplanmış olmalıdır.
+Regresyon modelinin katsayılarının hesaplanacağı veride modellemeye başlamadan önce yapılması gereken detay gibi görünen ama oldukça kritik bir filtreleme gerekmektedir. Eğer bir öğrenci YKS sınavında bir programa yerleşirse bir sonraki yıl OBP katsayısı yarı yarıya kesiliyor. Diğer bir deyişle YKS Yerleşme Puanını hesaplamak için, normalde OBP puanı 0.12 (veya 0.18) ile çarpılıp YKS sınav sonuç puan ekleneceğine 0.06 (veya 0.09) ile çarpılıp eklenmektedir. Dolayısıyla regresyon katsayılarının hesaplanacağı veride bu gibi durumların filtrelenmesi gerekmekte. Ne var ki, YÖK ATLAS bu konuda net bilgi içermemekte. Aşağıdaki grafikte $TYT_{Sınav}$ hesaplandıktan sonra yerleştirme ve sınav puanlarının çapraz grafiği gösterilmektedir. Açık renkli bölgeler 150 puanın altında kalan sınav puanlarını göstermektedir. Bu puanlar mümkün olmadığına göre[^5], bu programa son yerleşen adayların OBP katsayıları cezalı hesaplanmış olmalıdır.     
+
+[^5]: 2021 yılında 150 puan barajı uygulanmıştır.
 
 ```{r}
 #| code-line-numbers: true
@@ -106,7 +118,7 @@ Mesela yukarıdaki grafikte 150 puan altında sınav puanlarına sahip öğrenci
 table(all$stuType[all$l50>0]) |> kbl(col.names = c("Yerleşen Öğrencinin Öğrenim Durumu", "Frekans"))
 ```
 
-Ancak verideki tüm programlar için bu tablo oluşturulduğunda, sadece **Liseden yeni mezun ÖSYSye ilk girişinde yerleşti** değerinin yukarıdaki tablodan farklı olduğu net görülüyor. Dolayısıyla bu öğrencilerin hiçbiri için OBP'nin cezalı hesaplanmadığı anlaşılmaktadır. Her ne kadar bu duum aslında daha en baştan açık görünse de aynı mantıkla **Lise mezunu, daha önce hiç üniversiteye yerleşmemişti** öğrenim durumuna sahip bir öğrencinin de OBP katsayısının cezalı hesaplanmaması beklenirdi. Ancak yukarıdaki tabloya göre en az 234 adet böyle durum var.
+Ancak verideki tüm programlar için bu tablo oluşturulduğunda, sadece **Liseden yeni mezun ÖSYSye ilk girişinde yerleşti** değerinin yukarıdaki tablodan farklı olduğu net görülüyor. Dolayısıyla bu öğrencilerin hiçbiri için OBP'nin cezalı hesaplanmadığı anlaşılmaktadır. Her ne kadar bu durum aslında daha en baştan açık görünse de aynı mantıkla **Lise mezunu, daha önce hiç üniversiteye yerleşmemişti** öğrenim durumuna sahip bir öğrencinin de OBP katsayısının cezalı hesaplanmaması beklenirdi. Ancak yukarıdaki tabloya göre en az 234 adet böyle durum var.
 
 ```{r}
 table(all$stuType) |> kbl(col.names = c("Yerleşen Öğrencinin Öğrenim Durumu", "Frekans"))
@@ -152,14 +164,14 @@ ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() +
        colour= "Hata") + 
   geom_abline(slope = 0, intercept = 0, colour="orange", size=1)
 ```
-Hataların ekstrem olduğu bu gözlemler çekildiğinde Üsküdar Üniversitesi Çocuk Gelişimi Burslu kontenjanına yerleşen öğrencini ve Avrasya Üniversitesi Diş Protez Teknolojisi Burslu programına yerleşen öğrencilerin puanları olması gerekenden 7.45 ve 16.67 puan daha **fazla** hesaplanmış görünüyor. Umarız buradaki maddi hata ATLAS veri tabanındaki netlerdedir. 
+Hataların ekstrem olduğu bu gözlemler çekildiğinde Üsküdar Üniversitesi Çocuk Gelişimi Burslu kontenjanına ve Avrasya Üniversitesi Diş Protez Teknolojisi Burslu programına yerleşen öğrencilerin puanları olması gerekenden 7.45 ve 16.67 puan daha **fazla** hesaplanmış görünüyor. Umarız buradaki maddi hata ATLAS veri tabanındaki netlerdedir. 
 
 ```{r}
 h <- which(results$absfark>5)
 t(modeldataTYT[h,-c(13:25,28,30)]) |> kbl()
 ```
 
-Bu gözlemler veriden çıkarıp model katsayıları tekrar hesaplanıyor. Artık modelde hata yok. Model veriyi %100 oranında açıklıyor. TYT sınavına giren öğrencilerin başarılarına göre standardize edilen soru gruplarının puan karşılıkları regresyon modelinin katsayıları olarak bulundu.    
+Bu gözlemleri veriden çıkarıp model katsayıları tekrar hesaplanıyor. Artık modelde hata yok. Model veriyi %100 oranında açıklıyor. TYT sınavına giren öğrencilerin başarılarına göre standardize edilen soru gruplarının puan karşılıkları regresyon modelinin katsayıları olarak bulundu.    
 
 OSYM tarafından eklenen 100 puan çeşitli transformasyonlar sonucu 97.34'e düşmüştür. Her soru grubunun puanlamaya etkisi regresyon modelinin katsayılarında temsil edilmektedir. Buna göre en değerli sorular Matematik sorularıdır. Her matematik neti 4.53 puan anlamına gelmektedir. 2021 yılı için ikinci sırada en değerli puanların Fen Bilimleri soru grubunda olduğu görülmektedir. Bir fen bilimleri neti 3.18 puana denk gelmektedir. Türkçe ve Sosyal bilimler sorularının puanları yaklaşık olarak aynıdır. Grafikte soru gruplarının ağırlıkları görsel olarak ifade edilmiştir. Yıldan yıla bu katsayılar sınava katılan öğrencilerin performansına bağlı olarak değişmektedir. Bir soru grubunda Türkiye genelinde az başarılı olunursa bu soru grubunun değeri artmaktadır. Burada amaç öğrencileri birbirinden mümkün olduğunca ayırabilmektir.
 
@@ -173,7 +185,7 @@ plot_summs(TYTModel)
 
 ```
 
-Yıldan yıla bu katsayılar sınava katılan öğrencilerin performansına bağlı olarak değişmektedir. Bir soru grubunda Türkiye genelinde az başarılı olunursa bu soru grubunun değeri artmaktadır. Standardizasyonun burada görevi  öğrenciler arasındaki başarı farkını iyi bilinen istatistiki parametreler üzerinden ifade edebilme yeteneği vermesidir. Bu sayede puanlar belli değerler arasına taşınabilmektedir. Örneğin sınavda en başarı öğrenci saoruların tamamını doğru yanıtlamış olmasa bile puanı 500'e taşınabilir.      
+Yıldan yıla bu katsayılar sınava katılan öğrencilerin performansına bağlı olarak değişmektedir. Bir soru grubunda Türkiye genelinde az başarılı olunursa bu soru grubunun değeri artmaktadır. Standardizasyonun burada görevi  öğrenciler arasındaki başarı farkını iyi bilinen istatistiki parametreler üzerinden ifade edebilme yeteneği vermesidir. Bu sayede puanlar belli değerler arasına taşınabilmektedir. Örneğin sınavda en başarı öğrenci soruların tamamını doğru yanıtlamış olmasa bile puanı 500'e taşınabilir.      
 
 
 ```{r}
@@ -242,9 +254,9 @@ plot_summs(EAModel)
 
 ## SÖZ
 
-SÖZ puanı TYT sorularına ek olarak AYT'den Türk Dili ve Edebiyatı[^5], Tarih-1, Coğrafya-1, Tarih-2, Coğrafya-2, Felsefe ve DKAB soru gruplarından oluşmaktadır.
+SÖZ puanı TYT sorularına ek olarak AYT'den Türk Dili ve Edebiyatı[^6], Tarih-1, Coğrafya-1, Tarih-2, Coğrafya-2, Felsefe ve DKAB soru gruplarından oluşmaktadır.
 
-[^5]:YÖK ATLAS sayfasında EA puanı için bu soru grubu AYT Türkçe olarak nitelendirilmişken, SÖZ puan soru grubu için AYT TDE olarak kullanılıyor.
+[^6]:YÖK ATLAS sayfasında EA puanı için bu soru grubu AYT Türkçe olarak nitelendirilmişken, SÖZ puan soru grubu için AYT TDE olarak kullanılıyor.
 
 ```{r}
 modeldataSOZ <- modeldata[modeldata$PuanTuru=="SÖZ",]
@@ -289,7 +301,7 @@ plot_summs(SOZModel)
 
 ## DİL
 
-
+Dil puan türü TYT sınavına ek olarak Dil sınavında alınan netler üzerinden hesaplanır.
 
 ```{r}
 modeldataDIL <- modeldata[modeldata$PuanTuru=="DİL",]
@@ -299,8 +311,7 @@ summ(DILModel,digits = 5)
 plot_summs(DILModel)
 ```
 
-
-Hatalar
+İlk modelin açıklayıcılığı %100 olmadığı için hatalar inceleniyor. Sonuçta sadece bir iki programda değil hemen her programda modelin hesapladığı değer ile gerçek değer arasında sapma olduğu görülüyor. 
 
 ```{r}
 results <- data.frame(real = modeldataDIL$SinavPuan,model=predict(DILModel))
@@ -313,14 +324,120 @@ ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() +
        colour= "Hata") + 
   geom_abline(slope = 0, intercept = 0, colour="orange", size=1)
 ```
-Dil puanını için yapılan modelde yapılan hatanın 5'ten büyük olduğu çok sayıda durum olduğu görülüyor. 
+Hatanın beşten büyük olduğu durumlar filtrelendiğinde ve bu programlar için detaylı çalışma yapıldığında hatanın kaynağına ulaşılamıyor. 
 
 ```{r}
 h <- which(results$absfark>5)
 t(modeldataDIL[h,-c(13:24,28,30)]) |> kbl()
 ```
-Dil modeliyle ilgili gözden kaçan bir durum olduğu açık. Henüz problemin kaynağı bulunabilmiş değil. Yukarıda sunulan model eldekiler arasında mevcut veriyi en başarılı şekilde açıklayabilen modeldir.
+Dil modeliyle ilgili gözden kaçan bir durum olduğu açık. Yukarıda sunulan model eldekiler arasında mevcut veriyi en başarılı şekilde açıklayabilen modeldir.
 
 # Sonuç ve Tartışma
 
-Bu yazıda hesaplanan model parametreleri ilgili puan türünde her soru grubunda yapılan bir netin kaç puana denk geldiğini göstermektedir. DİL puanının hesaplanmasına yönelik bir problemla karşılaşıldı. Şu an için bir çözüm getirilemedi. Genel olarak puan hesaplanma yöntemine yönelik tartışma yazının ikinci bölümüne ertelendi. 
+Bu yazıda açıklanan yöntem kullanılarak hesaplanan 2019-2021 parametreleri aşağıda gösterilmiştir. Tabloda yerden kazanmak için virgülden sonra 2 basamak kullanıldı. Genel olarak bu parametrelerdeki değişim üzerine tartışma bir sonraki yazıda yapılmıştır. Ancak OSYM tarafından puan oluşumuyla ilgili açıklanan kısıtlara uyulup uyulmadığı kontrol edilmiştir.
+
+```{r}
+params <- read_excel("params.xlsx")
+# kbl(params,digits = 2)
+# kable(params,digits = 2)
+datatable(params)
+```
+
+
+Örneğin, OSYM tarafından yapılan açıklamalarda, TYT sınavının SAY, EA ve SÖZ puanlarının hesaplanmasında %40 ağırlığa sahip olduğu belirtilmiştir. Bu tarz açıklamalar adaylara oyunun kuralları daha en baştan belirtmesi açısından çok önemlidir. Bir lisans programına girmeyi hedefleyen bir öğrenci için TYT sınavının sınav puanı içinde %40 ağırlığa sahip olacağı bilgisi son derece önemlidir. Öğrenci SAY puan türünde bir bölümü hedeflese bile, TYT sınavında sorulan Sosyal sorularının AYT sınavındaki sözgelimi Biyoloji soruları kadar değerli olduğunu anlayacak ve hazırlığını buna göre yapacaktır. Bu anlamda oyunun kurallarını baştan belirlemek aslında tutulması gereken bir söz veya uyulması gereken bir kontrattır.     
+
+Tablodaki parametrelere bakarak TYT'nin 2019-2021 yılları arasında SAY puan türündeki oranı en az iki farklı şekilde hesaplanabilir. Birincisi; soruların tamamını doğru yanıtlayan bir aday için TYT sınavından elde edeceği puanın sabit katsayı ve OBP eklenmeden hesaplanan toplam puana, yani TYT+AYT sınavlarından elde edilen puana oranı %40 olmalıdır. İkincisi ise soru grupları bazında ortalama netler üzerinden TYT sınavından elde edilen puan hesaplandığında bu puanının TYT+AYT sınavından elde edilen toplam puana oranı %40 olmalıdır. 
+
+Birinci yöntem kullanılarak 2021 yılı için hesaplamalar yapıldığında EA ve SÖZ puan türü için oranın olması gerekenden bir miktar saptığı görülüyor. 
+```{r}
+
+d2021 <- data.frame(Sınav=c("TYT","AYT","Toplam"), 
+                    SAY=c(sum(params$`Soru Sayısı`[1:4]*params$SAY2021[1:4]),
+                          sum(params$`Soru Sayısı`[5:15]*params$SAY2021[5:15]),
+                          sum(params$`Soru Sayısı`[1:15]*params$SAY2021[1:15])),
+                    EA=c(sum(params$`Soru Sayısı`[1:4]*params$EA2021[1:4]),
+                          sum(params$`Soru Sayısı`[5:15]*params$EA2021[5:15]),
+                          sum(params$`Soru Sayısı`[1:15]*params$EA2021[1:15])),
+                    SOZ=c(sum(params$`Soru Sayısı`[1:4]*params$SÖZ2021[1:4]),
+                          sum(params$`Soru Sayısı`[5:15]*params$SÖZ2021[5:15]),
+                          sum(params$`Soru Sayısı`[1:15]*params$SÖZ2021[1:15])))
+d2021[4,] <- c("TYT Oranı",d2021$SAY[1]/d2021$SAY[3],d2021$EA[1]/d2021$EA[3],
+               d2021$SOZ[1]/d2021$SOZ[3])
+d2021$SAY <- as.numeric(d2021$SAY)
+d2021$EA <- as.numeric(d2021$EA)
+d2021$SOZ <- as.numeric(d2021$SOZ)
+print(d2021, digits = 3)
+
+```
+Yuvarlama hatasına bağlanabilir mi? Bunu görebilmek için 2020 verisinde aynı hesaplamalar tekrarlandı. Hayır, sapmanın nedeni yuvarlama nedeniyle bilgi kaybı değil. 2020 yılında SAY ve EA puan türünde TYT sınavının ağırlığı önceden açıklanandan sırasıyla %2.75 ve %2 daha fazla. SÖZ puan türündeyse %0.5 daha az. 
+
+```{r}
+d2020 <- data.frame(Sınav=c("TYT","AYT","Toplam"), 
+                    SAY=c(sum(params$`Soru Sayısı`[1:4]*params$SAY2020[1:4]),
+                          sum(params$`Soru Sayısı`[5:15]*params$SAY2020[5:15]),
+                          sum(params$`Soru Sayısı`[1:15]*params$SAY2020[1:15])),
+                    EA=c(sum(params$`Soru Sayısı`[1:4]*params$EA2020[1:4]),
+                          sum(params$`Soru Sayısı`[5:15]*params$EA2020[5:15]),
+                          sum(params$`Soru Sayısı`[1:15]*params$EA2020[1:15])),
+                    SOZ=c(sum(params$`Soru Sayısı`[1:4]*params$SÖZ2020[1:4]),
+                          sum(params$`Soru Sayısı`[5:15]*params$SÖZ2020[5:15]),
+                          sum(params$`Soru Sayısı`[1:15]*params$SÖZ2020[1:15])))
+d2020[4,] <- c("TYT Oranı",d2020$SAY[1]/d2020$SAY[3],d2020$EA[1]/d2020$EA[3],
+               d2020$SOZ[1]/d2020$SOZ[3])
+d2020$SAY <- as.numeric(d2020$SAY)
+d2020$EA <- as.numeric(d2020$EA)
+d2020$SOZ <- as.numeric(d2020$SOZ)
+print(d2020, digits = 3)
+```
+Bu bilgiler ışığında 2019 verisi de incelendi.
+
+```{r}
+d2019 <- data.frame(Sınav=c("TYT","AYT","Toplam"), 
+                    SAY=c(sum(params$`Soru Sayısı`[1:4]*params$SAY2019[1:4]),
+                          sum(params$`Soru Sayısı`[5:15]*params$SAY2019[5:15]),
+                          sum(params$`Soru Sayısı`[1:15]*params$SAY2019[1:15])),
+                    EA=c(sum(params$`Soru Sayısı`[1:4]*params$EA2019[1:4]),
+                          sum(params$`Soru Sayısı`[5:15]*params$EA2019[5:15]),
+                          sum(params$`Soru Sayısı`[1:15]*params$EA2019[1:15])),
+                    SOZ=c(sum(params$`Soru Sayısı`[1:4]*params$SÖZ2019[1:4]),
+                          sum(params$`Soru Sayısı`[5:15]*params$SÖZ2019[5:15]),
+                          sum(params$`Soru Sayısı`[1:15]*params$SÖZ2019[1:15])))
+d2019[4,] <- c("TYT Oranı",d2019$SAY[1]/d2019$SAY[3],d2019$EA[1]/d2019$EA[3],
+               d2019$SOZ[1]/d2019$SOZ[3])
+d2019$SAY <- as.numeric(d2019$SAY)
+d2019$EA <- as.numeric(d2019$EA)
+d2019$SOZ <- as.numeric(d2019$SOZ)
+print(d2019, digits = 3)
+```
+Yukarıdaki tablodaki sonuçlara göre birinci yöntem uygulanmış olamaz. Çünkü aksi durumda ÖSYM adaylara verdiği taahütü yerine getirmemiş, oyunun kurallarını oyunun sonunda değiştirmiş olduğu anlamına gelir. 
+
+İkinci yöntemi uygulayabilmek için her soru grubu için ortalama net bilgisine ihtiyaç duyulmaktadır. ÖSYM bu bilgiyi sınav sonuçlarını açıkladığı güm Sayısal Veriler adıyla yayınlar. Örneğin 2021 için Sayısal Veriler dosyasına [buradan](https://dokuman.osym.gov.tr/pdfdokuman/2021/YKS/sayisal_veriler_28072021.pdf)  ulaşılabilir. Ortalamalar tablosu dokümanın dördüncü sayfasında bulunmaktadır. Aşağıda bu tablonun ilgili kısmı verilmiştir.
+
+```{r}
+ort21 <- read_excel("sayisal_veriler21.xlsx")
+datatable(ort21)
+```
+
+Ortalama bilgisi daha önce hazırlanmış olan `params` verisiyle birleştiriliyor ve TYT sınavının genel içindeki ağırlığı hesaplanıyor. Bu sonuçlara göre ÖSYM'nin uyguladığı yöntem her ne ise ortalama öğrenci için TYT sınavının toplam puan içindeki ağırlığını %40'a sabitlemediği kesin. Hatta bu sonuçlar kendi içinde başlı başına tartışma konusu. Hesaplamalara göre ortalama bir SAY öğrencisi için TYT'nin sınav puanı içindeki etkisi %56.8! Bu en başta bahsedilen değere göre müthiş bir sapma. EA ve SÖZ puan türleri için de sapma oldukça fazla.
+
+
+```{r}
+params$ortalama <- c(ort21$Ortalama[c(3,1,4,2,12:15,5:11)],NA,NA)
+e2021 <- data.frame(Sınav=c("TYT","AYT","Toplam"), 
+                    SAY=c(sum(params$ortalama[1:4]*params$SAY2021[1:4]),
+                          sum(params$ortalama[5:15]*params$SAY2021[5:15]),
+                          sum(params$ortalama[1:15]*params$SAY2021[1:15])),
+                    EA=c(sum(params$ortalama[1:4]*params$EA2021[1:4]),
+                          sum(params$ortalama[5:15]*params$EA2021[5:15]),
+                          sum(params$ortalama[1:15]*params$EA2021[1:15])),
+                    SOZ=c(sum(params$ortalama[1:4]*params$SÖZ2021[1:4]),
+                          sum(params$ortalama[5:15]*params$SÖZ2021[5:15]),
+                          sum(params$ortalama[1:15]*params$SÖZ2021[1:15])))
+e2021[4,] <- c("TYT Oranı",e2021$SAY[1]/e2021$SAY[3],e2021$EA[1]/e2021$EA[3],
+               e2021$SOZ[1]/e2021$SOZ[3])
+e2021$SAY <- as.numeric(e2021$SAY)
+e2021$EA <- as.numeric(e2021$EA)
+e2021$SOZ <- as.numeric(e2021$SOZ)
+print(e2021, digits = 3)
+```
+Fazlasıyla uzayan bu yazı TYT'nin sınav puanı içindeki %40 ağırlığını gösteremeden sona ermek durumunda. Yazının ikinci bölümünde parametrelerin yıllar içinde değişiminin etkileri üzerine tartışıldı. 
