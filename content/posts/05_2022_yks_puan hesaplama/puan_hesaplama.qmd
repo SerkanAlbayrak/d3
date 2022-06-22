@@ -145,7 +145,7 @@ results <- data.frame(real = modeldataTYT$SinavPuan,model=predict(TYTModel))
 results$fark <- results$real-results$model
 results$absfark <- abs(results$real-results$model)
 ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() + 
-  labs(title = "TYT Puanı Modelinde Hata Terimleri",
+  labs(title = "SAY Puanı Modelinde Hata Terimleri",
        x = "Gözlem",
        y = "Gözlem - Model",
        colour= "Hata") + 
@@ -214,7 +214,7 @@ results <- data.frame(real = modeldataEA$SinavPuan,model=predict(EAModel))
 results$fark <- results$real-results$model
 results$absfark <- abs(results$real-results$model)
 ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() + 
-  labs(title = "TYT Puanı Modelinde Hata Terimleri",
+  labs(title = "EA Puanı Modelinde Hata Terimleri",
        x = "Gözlem",
        y = "Gözlem - Model",
        colour= "Hata") + 
@@ -261,7 +261,7 @@ results <- data.frame(real = modeldataSOZ$SinavPuan,model=predict(SOZModel))
 results$fark <- results$real-results$model
 results$absfark <- abs(results$real-results$model)
 ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() + 
-  labs(title = "TYT Puanı Modelinde Hata Terimleri",
+  labs(title = "SÖZ Puanı Modelinde Hata Terimleri",
        x = "Gözlem",
        y = "Gözlem - Model",
        colour= "Hata") + 
@@ -305,7 +305,7 @@ results <- data.frame(real = modeldataDIL$SinavPuan,model=predict(DILModel))
 results$fark <- results$real-results$model
 results$absfark <- abs(results$real-results$model)
 ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() + 
-  labs(title = "TYT Puanı Modelinde Hata Terimleri",
+  labs(title = "DİL Puanı Modelinde Hata Terimleri",
        x = "Gözlem",
        y = "Gözlem - Model",
        colour= "Hata") + 
