@@ -16,7 +16,7 @@ toc-title: İçerik
 
 # Sıralama Dağılımları
 
-YÖK Atlas sistemi üzerinden program bazında tavan ve taban başarı sıralamalarına ulaşmak mümkündür. Bu yazının amacı, tavan ve taban başarı sıralarını kullanarak bir bölüme yerleşen öğrencilerin sıralama dağılımlarını tahmin edecek basit bir yaklaşım sunmaktır. Aşağıdaki 2018-2021 yılları arasında Türkiye genelinde hukuk bölümlerine yerleşen öğrencilerin sıralama dağılımları gösterilmektedir. Adım adım bu grafiği elde etmek için atılması gereken adımlar gösterilmektedir.
+YÖK Atlas sistemi üzerinden program bazında tavan ve taban başarı sıralamalarına ulaşmak mümkündür. Bu yazının amacı, tavan ve taban başarı sıralarını kullanarak bir bölüme yerleşen öğrencilerin sıralama dağılımlarını tahmin edecek basit bir yaklaşım sunmaktır. Aşağıdaki 2018-2021 yılları arasında Türkiye genelinde hukuk bölümlerine yerleşen öğrencilerin sıralama dağılımları gösterilmektedir. Adım adım bu grafiği elde etmek için atılması gereken adımlar ve grafiğin nasıl yorumlanabileceği gösterilmektedir.
 
 ![Devlet & Vakıf Üniversitelerinin Hukuk Fakültelerine yerleşen öğrencilerin sıralama dağılımları](img/preview.png){#fig-resultingChart}
 
@@ -34,7 +34,7 @@ EA2020Data
 Verinin içeriği şu şekildedir.
 
 |          |                                                                              |
-|-----------------|-------------------------------------------------------|
+|----------|------------------------------------------------------------------------------|
 | Kod      | Programın YKS kodu                                                           |
 | Kont     | Genel kontenjan (bölüm birincisi kontenjanı vb hariç)                        |
 | Yer      | Genel kontenjana yerleşen                                                    |
@@ -45,8 +45,8 @@ Verinin içeriği şu şekildedir.
 | Uni      | Üniversite ismi                                                              |
 | Burs     | Burs tipi (NA, Burslu, %75 İndirimli, %50 İndirimli, %25 İndirimli, Ücretli) |
 | UniTip   | Universite tipi (Devlet, Vakıf, KKTC Vakıf, Yurtdışı Devlet, Yurtdışı Vakıf) |
-    
-2020 yılında EA puan türünde kontenjanı olmasına rağmen hiçbir öğrencinin yerleşmediği programlar bu verinin dışında tutuldu. 
+
+2020 yılında EA puan türünde kontenjanı olmasına rağmen hiçbir öğrencinin yerleşmediği programlar bu verinin dışında tutuldu.
 
 ## Sıralamalar - Doğrusal İnterpolasyon
 
@@ -55,7 +55,11 @@ Veride her programa yerleşen adayların taban ve tavan sıralamaları bulunmakt
 ```{r}
 sum(EA2020Data$Yer)
 ```
-Bunun için basit doğrusal interpolasyon kullanılacak. Aslında R’da bu işi `approx` fonksiyonu ile yapmak mümkün. Bu fonksiyon iki değer arasında istenen sayıda değer üretir. Ancak `approx` fonksiyonuyla tamamen aynı mantıkta çalışan bir kod [^1] kullanarak üretilen sıralamalar ana veriye yerleştirilecek. 
+
+Bunun için basit doğrusal interpolasyon kullanılacak. Aslında R'da bu işi `approx` fonksiyonu ile yapmak mümkün. Bu fonksiyon iki değer arasında istenen sayıda değer üretir. Ancak `approx` fonksiyonuyla tamamen aynı mantıkta çalışan bir kod [^1] kullanarak üretilen sıralamalar ana veriye yerleştirilecek.
+
+[^1]: Her zaman olduğu gibi amaçlanan işi çok daha basit ve hızlı yapabilecek başka bir kod mutlaka vardır.
+
 ```{r}
 #| code-line-numbers: true
 #| warnings: false
@@ -73,13 +77,14 @@ Bunun için basit doğrusal interpolasyon kullanılacak. Aslında R’da bu işi
     
 ```
 
-Kod aslında oldukça basit ama açıklaması şu şekilde verilebilir. İkinci satırda 154 bin öğrenci için yer rezervasyonu yapılıyor. Üç ve dördüncü satırda yerleşen öğrencilere indexler atanıyor. RankData matrisi ile istenen yapının iskeleti hazırlanıyor. Beşinci satırda ise `approx` fonksiyonu mantğı kullanılarak yerleşen adayların sıralamaları oluşturuluyor.  
+Kod aslında oldukça basit ama açıklaması şu şekilde verilebilir. İkinci satırda 154 bin öğrenci için yer rezervasyonu yapılıyor. Üç ve dördüncü satırda yerleşen öğrencilere indexler atanıyor. RankData matrisi ile istenen yapının iskeleti hazırlanıyor. Beşinci satırda ise `approx` fonksiyonu mantğı kullanılarak yerleşen adayların sıralamaları oluşturuluyor.
 
 Örneğin Galatasaray Hukuk Fakültesine yerleşen öğrencilerin sıralamaları şu şekilde tahmin ediliyor:
 
 ```{r}
 RankData$simR[RankData$Kod==104010052]
 ```
+
 2020 yılında Galatasaray Hukuk Fakültesine birinci yerleşenin EA sıralaması 4, son sırada yerleşenin ise 91 olmuş. Tüm öğrencilerin sıralamalarının grafiği doğrusal interpolasyon uygulamasının daha net görülmesini sağlar. Arada tahmin edilen sıralama değerlerinin tam sayı olmaması yapılacak analizler açısından bir problem oluşturmayacaktır.
 
 ```{r}
@@ -98,7 +103,6 @@ fig <- fig %>% layout(title = 'Galatasaray Hukuk Fakültesine Yerleşen Öğrenc
 fig
 
 ```
-
 
 ## Sıralama Dağılımları
 
@@ -143,8 +147,6 @@ ggplot(
   xlab(NULL) + ylab(NULL) + scale_x_continuous(labels = label_comma()) + xlim(0,150000)
 ```
 
-
-
 Sıralamalar bazında öğrencilerin Devlet ve vakıf üniversitelerine hangi oranlarda yerleştiğini görmek için `full stacked chart` kullanılabilir. Grafikten ilk 3000 sıralamada yerleşenlerin yaklaşık dörte birinin vakıf üniversitelerine yerleştikleri anlaşılıyor. Ayrıca sıralamalar 14 bini geçtikten sonra Kıbrıs'ta bulunan vakıf üniversitelerine öğrencilerin yerleşmeye başladıkları görülüyor.Devlet üniversitelerine yerleşen öğrenciler arasında 40 bin sıralamanın üzerine öğrenci olmadığı da görülebilmektedir.
 
 ```{r}
@@ -159,8 +161,6 @@ g <- ggplot(hukukData, aes(x=simR, y=..density..)) +
 ggplotly(g)
 ```
 
-
-
 ## Başka Interpolasyon Yöntemleri
 
 Özellikle Hukuk gibi başarı sıralaması olan bölümlerde, yerleşen öğrencilerin sıralamalarının çoğunlukla tavan sıralamaya doğru yoğunlaştıkları gözlemlenmektedir. Bu gözlemle uyumlu olabilecek interpolasyon yöntemleri de sıralama dağılımları elde etmek için kullanılabilir. Örneğin [interp](https://cran.r-project.org/web/packages/interp/interp.pdf) paketi içinde bu amaçla kullanılabilecek fonksiyonlar bulunmaktadır.
@@ -170,11 +170,3 @@ ggplotly(g)
 Bu bölümde sıralama dağılımlarının stratejik kullanımına yönelik birkaç örnek sunulmaktadır. Burada sunulanın ötesinde farklı bir çok analizin içinde de sıralama dağılımları kullanılmaktadır.
 
 ### 
-
-
-
-[^1]: Her zaman olduğu gibi amaçlanan işi çok daha basit ve hızlı yapabilecek başka bir kod mutlaka vardır.
-
-
-
-

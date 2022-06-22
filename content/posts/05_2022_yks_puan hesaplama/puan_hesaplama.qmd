@@ -319,8 +319,8 @@ Dil puanını için yapılan modelde yapılan hatanın 5'ten büyük olduğu ço
 h <- which(results$absfark>5)
 t(modeldataDIL[h,-c(13:24,28,30)]) |> kbl()
 ```
-Dil modeliyle ilgili gözden kaçan bir durum olduğu açık. Henüz problemin kaynağı bulunabilmiş değil. 
+Dil modeliyle ilgili gözden kaçan bir durum olduğu açık. Henüz problemin kaynağı bulunabilmiş değil. Yukarıda sunulan model eldekiler arasında mevcut veriyi en başarılı şekilde açıklayabilen modeldir.
 
 # Sonuç ve Tartışma
 
-Bu yazıda hesaplanan model parametreleri ilgili puan türünde her soru grubunda yapılan bir netin kaç puana denk geldiğini göstermektedir. DİL puanının hesaplanmasına yönelik gözden kaçan bir unsur olduğu açık. Henüz çözüm getiremediğimiz için çalışan en iyi model parametreleri yazıda sunuldu. Genel olarak puan hesaplanma yöntemine yönelik tartışma yazının ikinci bölümüne ertelendi. 
+Bu yazıda hesaplanan model parametreleri ilgili puan türünde her soru grubunda yapılan bir netin kaç puana denk geldiğini göstermektedir. DİL puanının hesaplanmasına yönelik bir problemla karşılaşıldı. Şu an için bir çözüm getirilemedi. Genel olarak puan hesaplanma yöntemine yönelik tartışma yazının ikinci bölümüne ertelendi. 
