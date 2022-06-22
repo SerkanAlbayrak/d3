@@ -1,7 +1,7 @@
 ---
 title: "YKS Puanı Hesaplama Formülleri"
 author: Raif Serkan Albayrak
-description: "Soru gruplarının puan hesaplanmasında katsayıları nedir? YKS çoğunlukla sıralamalaarla ilgili olsa da analizlerin bir noktasında puanlarla ilgili bilgiye başvurulabiliyor. Örneğin bir bölüme yerleşen ortalama öğrenci bilgisi ATLAS'da netler üzerinden veriliyor. Bu bilgi bölüme yerleşen öğrencilerin sıralama dağılımlarının belirlenmesinde, farklı kontenjan (indirim) tiplerinden öğrenci alan bölümlere yerleşen ortalama öğrencinin belirlenmesinde ve bu sayede de bölüm bazında üniversite sıralamasında kullanılıyor."
+description: "Soru gruplarının puan hesaplanmasında katsayıları nedir? YKS çoğunlukla sıralamalarla ilgili olsa da analizlerin bir noktasında puanlarla ilgili bilgiye başvurulabiliyor. Örneğin bir bölüme yerleşen ortalama öğrenci bilgisi ATLAS'da netler üzerinden veriliyor. Bu bilgi bölüme yerleşen öğrencilerin sıralama dağılımlarının belirlenmesinde, farklı kontenjan (indirim) tiplerinden öğrenci alan bölümlere yerleşen ortalama öğrencinin belirlenmesinde ve bu sayede de bölüm bazında üniversite sıralamasında kullanılıyor."
 date: 2022-05-31
 categories:
   - YKS
@@ -14,6 +14,17 @@ code-line-numbers: false
 toc-title: İçerik
 ---
 
+```{r}
+#| warnings: false
+#| message: false
+library(kableExtra)
+library(readxl)
+library(ggplot2)
+library(dplyr)
+library(jtools)
+```
+
+
 # Veri
 
 Her puan türü[^1] için soru gruplarının çarpan değerini hesaplayabilmek için ATLAS'da yayınlanan [TYT-AYT Net Sihirbazında](https://yokatlas.yok.gov.tr/netler-tablo.php?b=19001) bulunan veriden faydalanılmıştır. Önlisans verisine de adreste [ufak bir değişiklikle](https://yokatlas.yok.gov.tr/netler-onlisans-tablo.php?b=30001) ulaşılmaktadır. Dikkat edilirse sayfada seçilen bölüm için kontenjan bazında son yerleşen öğrencinin netleri ve orta-öğretim başarı puanı (OBP) verilmekte ancak bu öğrencinin puanı verilmemektedir. Aslında sayfada bu bilgi de mevcuttur[^2] fakat ATLAS bu bilgiyi göstermemeyi tercih etmektedir. En güncel veri üzerinden çalışıldı ancak istenirse 2020 ve daha eski veriye de ulaşmak mümkündür[^3]. Bu sayfada bulunan tüm lisans ve önlisans bölüm isimlerine gene sayfanın kodu içinden ulaşmak mümkündür. Bölüm isimlerinin bulunduğu dosya [buradan](https://github.com/SerkanAlbayrak/d3/raw/master/content/posts/05_2022_yks_puan%20hesaplama/kodlar.xlsx) indirilebilir.
@@ -25,7 +36,7 @@ Her puan türü[^1] için soru gruplarının çarpan değerini hesaplayabilmek i
 [^3]: <https://yokatlas.yok.gov.tr/2020/netler-tablo.php?b=19001>
 
 ```{r}
-library(readxl)
+
 kodlar <- read_excel("kodlar.xlsx")
 kodlar
 ```
@@ -43,10 +54,21 @@ all
 [YKS puanlama sisteminin](../05_2022_yks_puan_diagram/yks_puan_diagram.html) anlatıldığı daha önceki bir yazıda aşağıdaki diagram kullanılmıştı. Buna göre TYT Sınav puanı Temel Matematik, Türkçe, Fen Bilimleri ve Sosyal Bilimleri soru gruplarından toplanan puanlardan oluşur. Her soru grubunun etkisi farklıdır. Bazı soru gruplarından yapılan netler sonuçta hesaplanan puanı diğerlerinden daha fazla etkiler. İşte amaç soru gruplarının bu etkilerini tahmin etmektir. Bu amaçla basit bir regresyon modeli kurulmuştur.
 
 ![Puan Diagramı](puandiagram.png){#fig-puandiagram}
+Her soru grubunda bulunan soru sayısı aşağıdaki tabloda verilmiştir. Bu sayıların modelleme üzerinde bir etkisi yoktur ancak model sonuçlarının yorumlanmasında kullanılacaktır.
 
-Regresyon modeli[^4] ile soru gruplarının sonuç puan üzerindeki etkisini gösteren **katsayılar** hesaplanacaktır. Modelin yapısı şu şekilde gösterilebilir: $$
+```{r}
+SoruSayilari <- read_excel("SoruSayilari.xlsx")
+SoruSayilari |> kbl(col.names = c("SINAV", "Soru Grubu", "Soru Sayısı"),booktabs = TRUE)
+```
+
+
+
+Regresyon modeli[^4] ile soru gruplarının sonuç puan üzerindeki etkisini gösteren **katsayılar** hesaplanacaktır. Modelin yapısı şu şekilde gösterilebilir: 
+
+$$
 TYTPuan=c+\beta_1 \cdot TemelMatematik+\beta_2 \cdot Türkçe+\beta_3 \cdot FenBilimleri+\beta_4 \cdot SosyalBilimler+\varepsilon
-$$ Katsayılar hesaplanmadan önce verideki yerleştirme puanlarından OBP etkisinin ayıklanması gerekmekte. OBP etkisi öğrencinin mezun olduğu lise ile yerleştiği program arasında bir bağlantı olmasına göre 0.18 ile 0.12 değerlerinden birini alıyor. 
+$$ 
+Katsayılar hesaplanmadan önce verideki yerleştirme puanlarından OBP etkisinin ayıklanması gerekmekte. OBP etkisi öğrencinin mezun olduğu lise ile yerleştiği program arasında bir bağlantı olmasına göre 0.18 ile 0.12 değerlerinden birini alıyor. 
 
 [^4]: Regresyon modeli hemen her lisans programında gösterilen en temel istatistiki modeldir.
 
@@ -62,12 +84,7 @@ Regresyon modelinin katsayılarının hesaplanacağı veride modellemeye başlam
 
 ```{r}
 #| code-line-numbers: true
-#| warnings: false
-#| message: false
 
-
-library(ggplot2)
-library(dplyr)
 all$l50 <- ifelse(all$SinavPuan<150,150-all$SinavPuan,0)
 ggplot(all, aes(x=Puan, y=SinavPuan, colour=l50))+geom_point() + 
   labs(title = "TYT Puanı Modelinde Hata Terimleri",
@@ -84,7 +101,7 @@ Mesela yukarıdaki grafikte 150 puan altında sınav puanlarına sahip öğrenci
 #| code-line-numbers: true
 #| warnings: false
 #| message: false
-library(kableExtra)
+
 table(all$stuType[all$l50>0]) |> kbl(col.names = c("Yerleşen Öğrencinin Öğrenim Durumu", "Frekans"))
 ```
 
@@ -114,9 +131,8 @@ Verinin TYT ile yerleştirme yapılan kısmı filtrelenerek katsayılar aşağı
 #| warnings: false
 #| message: false
 
-library(jtools)
-TYTModel <- lm(SinavPuan~`TYT Mat`+`TYT Türkçe`+`TYT Fen`+`TYT Sosyal`, data=modeldataTYT)
 
+TYTModel <- lm(SinavPuan~`TYT Mat`+`TYT Türkçe`+`TYT Fen`+`TYT Sosyal`, data=modeldataTYT)
 summ(TYTModel,digits = 5)
 plot_summs(TYTModel)
 ```
@@ -154,12 +170,9 @@ TYTModel <- lm(SinavPuan~`TYT Mat`+`TYT Türkçe`+`TYT Fen`+`TYT Sosyal`, data=m
 summ(TYTModel,digits = 5)
 plot_summs(TYTModel)
 
-results <- data.frame(real = modeldataTYT1$SinavPuan,model=predict(TYTModel))
-results$fark <- results$real-results$model
-results$absfark <- abs(results$real-results$model)
 ```
 
-Yıldan yıla bu katsayılar sınava katılan öğrencilerin performansına bağlı olarak değişmektedir. Bir soru grubunda Türkiye genelinde az başarılı olunursa bu soru grubunun değeri artmaktadır. Burada amaç öğrencileri birbirinden mümkün olduğunca ayırabilmektir.     
+Yıldan yıla bu katsayılar sınava katılan öğrencilerin performansına bağlı olarak değişmektedir. Bir soru grubunda Türkiye genelinde az başarılı olunursa bu soru grubunun değeri artmaktadır. Standardizasyonun burada görevi  öğrenciler arasındaki başarı farkını iyi bilinen istatistiki parametreler üzerinden ifade edebilme yeteneği vermesidir. Bu sayede puanlar belli değerler arasına taşınabilmektedir. Örneğin sınavda en başarı öğrenci saoruların tamamını doğru yanıtlamış olmasa bile puanı 500'e taşınabilir.      
 
 
 ```{r}
@@ -168,10 +181,134 @@ TYTKatsayilar |> kbl(col.names = c("Soru Grubu", "2019","2020","2021"),booktabs 
   kable_styling()
 ```
 
+Bu tablonun yorumu buraya
+
+## SAY
+
+SAYılsal puanlarının da hesaplanmasında kullanılan katsayılar benzer şekilde bulunabilir. SAY puanın TYT puanı ve AYT'den Matematik, Fizik, Kimya ve Biyoloji sorularından oluştuğu biliniyor. Kurulan modelde herhangi bir belirsizlik bulunmuyor. Veri %100 başarıyla açıklanabiliyor.  
 
 ```{r}
+modeldataSAY <- modeldata[modeldata$PuanTuru=="SAY",]
+SAYModel <- lm(SinavPuan~`TYT Mat`+`TYT Türkçe`+`TYT Fen`+`TYT Sosyal`+
+                 `AYT Mat`+`AYT Fizik`+`AYT Kimya` + `AYT Biyoloji`, data=modeldataSAY)
+summ(SAYModel,digits = 5)
+plot_summs(SAYModel)
+```
 
+## EA
+
+EA puanı TYT sorularına ek olarak AYT'den Matematik, Türk Dili ve Edebiyatı, Tarih-1 ve Coğrafya-1 soru gruplarından oluşmaktadır.
+
+```{r}
+modeldataEA <- modeldata[modeldata$PuanTuru=="EA",]
+EAModel <- lm(SinavPuan~`TYT Mat`+`TYT Türkçe`+`TYT Fen`+`TYT Sosyal`+
+                 `AYT Mat`+`AYT Türkçe`+`AYT Tarih1` + `AYT Coğrafya1`, data=modeldataEA)
+summ(EAModel,digits = 5)
+plot_summs(EAModel)
+```
+
+Modelin açıklayıcılığının tam olarak %100 olmaması nedeniyle hatalara bakılıyor. Bir programda modelin hesapladığı ile gerçek puan arasında 5 puandan fazla fark olduğu görülüyor. Hesaplama hatası yapılan programın Uluslararası Saraybosna Üniversitesi %50 İndirimli Psikoloji olduğu görülüyor. Bu program için listelenen netler o puana denk gelmiyor, hesaplanmış olan puan, olması gerekenin 5 puandan fazla üstünde. 
+
+```{r}
+results <- data.frame(real = modeldataEA$SinavPuan,model=predict(EAModel))
+results$fark <- results$real-results$model
+results$absfark <- abs(results$real-results$model)
+ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() + 
+  labs(title = "TYT Puanı Modelinde Hata Terimleri",
+       x = "Gözlem",
+       y = "Gözlem - Model",
+       colour= "Hata") + 
+  geom_abline(slope = 0, intercept = 0, colour="orange", size=1)
+```
+
+```{r}
+h <- which(results$absfark>5)
+t(modeldataEA[h,-c(14:16,20:25,28,30)]) |> kbl()
+```
+
+ÖSYM tarafından hesaplama hatası yapılan veya YÖK ATLAS sayfasında maddi hata yapılan program veriden çıkartılıp model tekrar kurulduğunda beklendiği gibi açıklayıcılık %100 oluyor.
+
+
+```{r}
+modeldataEA <- modeldata[modeldata$PuanTuru=="EA",]
+modeldataEA <- modeldataEA[-h,]
+EAModel <- lm(SinavPuan~`TYT Mat`+`TYT Türkçe`+`TYT Fen`+`TYT Sosyal`+
+                 `AYT Mat`+`AYT Türkçe`+`AYT Tarih1` + `AYT Coğrafya1`, data=modeldataEA)
+summ(EAModel,digits = 5)
+plot_summs(EAModel)
+```
+
+## SÖZ
+
+SÖZ puanı TYT sorularına ek olarak AYT'den Türk Dili ve Edebiyatı[^5], Tarih-1, Coğrafya-1, Tarih-2, Coğrafya-2, Felsefe ve DKAB soru gruplarından oluşmaktadır.
+
+[^5]:YÖK ATLAS sayfasında EA puanı için bu soru grubu AYT Türkçe olarak nitelendirilmişken, SÖZ puan soru grubu için AYT TDE olarak kullanılıyor.
+
+```{r}
+modeldataSOZ <- modeldata[modeldata$PuanTuru=="SÖZ",]
+
+SOZModel <- lm(SinavPuan~`TYT Mat`+`TYT Türkçe`+`TYT Fen`+`TYT Sosyal`+
+                 `AYT TDE`+`AYT Tarih1` +`AYT Coğrafya1`+
+                 `AYT Tar2`+`AYT Coğ2`+`AYT Fel`+`AYT Din`, data=modeldataSOZ)
+summ(SOZModel,digits = 5)
+plot_summs(SOZModel)
+```
+SÖZel puan türünde de bir programın puan hesaplamasında bir hata olduğu görülmekte. Hata yapılan program Tokat GaziOsmanPaşa Üniversitesi Sosyal Bilgiler Öğretmenliği programı. Yapılan hesaplama hatası 6 puanın üzerinde.
+
+
+```{r}
+results <- data.frame(real = modeldataSOZ$SinavPuan,model=predict(SOZModel))
+results$fark <- results$real-results$model
+results$absfark <- abs(results$real-results$model)
+ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() + 
+  labs(title = "TYT Puanı Modelinde Hata Terimleri",
+       x = "Gözlem",
+       y = "Gözlem - Model",
+       colour= "Hata") + 
+  geom_abline(slope = 0, intercept = 0, colour="orange", size=1)
+```
+
+```{r}
+h <- which(results$absfark>5)
+t(modeldataSOZ[h,-c(13:17,25,28,30)]) |> kbl()
+```
+
+Daha önce de olduğu gibi modele zarar veren bu hatalı veri silinip model tekrar kurulduğunda açıklayıcılık %100 olmuştur.
+
+```{r}
+modeldataSOZ <- modeldata[modeldata$PuanTuru=="SÖZ",]
+modeldataSOZ <- modeldataSOZ[-h,]
+SOZModel <- lm(SinavPuan~`TYT Mat`+`TYT Türkçe`+`TYT Fen`+`TYT Sosyal`+
+                 `AYT TDE`+`AYT Tarih1` +`AYT Coğrafya1`+
+                 `AYT Tar2`+`AYT Coğ2`+`AYT Fel`+`AYT Din`, data=modeldataSOZ)
+summ(SOZModel,digits = 5)
+plot_summs(SOZModel)
+```
+
+## DİL
+
+
+
+```{r}
+modeldataDIL <- modeldata[modeldata$PuanTuru=="DİL",]
+
+DILModel <- lm(SinavPuan~`TYT Mat`+`TYT Türkçe`+`TYT Fen`+`TYT Sosyal`+`YDT Dil`, data=modeldataDIL)
+summ(DILModel,digits = 5)
+plot_summs(DILModel)
 ```
 
 
+Hatalar
+
+```{r}
+results <- data.frame(real = modeldataDIL$SinavPuan,model=predict(DILModel))
+results$fark <- results$real-results$model
+results$absfark <- abs(results$real-results$model)
+ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() + 
+  labs(title = "TYT Puanı Modelinde Hata Terimleri",
+       x = "Gözlem",
+       y = "Gözlem - Model",
+       colour= "Hata") + 
+  geom_abline(slope = 0, intercept = 0, colour="orange", size=1)
+```
 

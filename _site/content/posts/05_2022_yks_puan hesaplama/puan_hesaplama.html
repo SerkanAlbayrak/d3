@@ -166,6 +166,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#hata-analizi" id="toc-hata-analizi" class="nav-link" data-scroll-target="#hata-analizi">Hata Analizi</a></li>
   </ul></li>
+  <li><a href="#say" id="toc-say" class="nav-link" data-scroll-target="#say">SAY</a></li>
+  <li><a href="#ea" id="toc-ea" class="nav-link" data-scroll-target="#ea">EA</a></li>
+  <li><a href="#söz" id="toc-söz" class="nav-link" data-scroll-target="#söz">SÖZ</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -216,15 +219,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
+<div class="cell" data-warnings="false">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jtools)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 <section id="veri" class="level1">
 <h1>Veri</h1>
 <p>Her puan türü<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> için soru gruplarının çarpan değerini hesaplayabilmek için ATLAS’da yayınlanan <a href="https://yokatlas.yok.gov.tr/netler-tablo.php?b=19001">TYT-AYT Net Sihirbazında</a> bulunan veriden faydalanılmıştır. Önlisans verisine de adreste <a href="https://yokatlas.yok.gov.tr/netler-onlisans-tablo.php?b=30001">ufak bir değişiklikle</a> ulaşılmaktadır. Dikkat edilirse sayfada seçilen bölüm için kontenjan bazında son yerleşen öğrencinin netleri ve orta-öğretim başarı puanı (OBP) verilmekte ancak bu öğrencinin puanı verilmemektedir. Aslında sayfada bu bilgi de mevcuttur<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> fakat ATLAS bu bilgiyi göstermemeyi tercih etmektedir. En güncel veri üzerinden çalışıldı ancak istenirse 2020 ve daha eski veriye de ulaşmak mümkündür<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>. Bu sayfada bulunan tüm lisans ve önlisans bölüm isimlerine gene sayfanın kodu içinden ulaşmak mümkündür. Bölüm isimlerinin bulunduğu dosya <a href="https://github.com/SerkanAlbayrak/d3/raw/master/content/posts/05_2022_yks_puan%20hesaplama/kodlar.xlsx">buradan</a> indirilebilir.</p>
 <div class="cell">
 <details>
 <summary>Kod</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>kodlar <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"kodlar.xlsx"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>kodlar</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>kodlar <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"kodlar.xlsx"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>kodlar</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 745 × 4
@@ -247,9 +259,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Kod</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>all <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"puanData.xlsx"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>all<span class="sc">$</span>PuanTuru <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(all<span class="sc">$</span><span class="st">`</span><span class="at">PuanTuru</span><span class="st">`</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>all</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>all <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"puanData.xlsx"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>all<span class="sc">$</span>PuanTuru <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(all<span class="sc">$</span><span class="st">`</span><span class="at">PuanTuru</span><span class="st">`</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>all</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 20,069 × 28
@@ -267,56 +279,153 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 10   100890057 AKSARAY ÜNİV.…  2021 Devl…    0.12  417.  210.    25         12.5
 # … with 20,059 more rows, and 19 more variables: `TYT Sosyal` &lt;dbl&gt;,
 #   `TYT Mat` &lt;dbl&gt;, `TYT Fen` &lt;dbl&gt;, `AYT Mat` &lt;dbl&gt;, `AYT Fizik` &lt;dbl&gt;,
-#   `AYT Kimya` &lt;dbl&gt;, `AYT Biyoloji` &lt;dbl&gt;, `AYT Türkçe` &lt;chr&gt;,
-#   `AYT Tarih1` &lt;chr&gt;, `AYT Coğrafya1` &lt;chr&gt;, `AYT TDE` &lt;chr&gt;,
-#   `AYT Tar2` &lt;chr&gt;, `AYT Coğ2` &lt;chr&gt;, `AYT Fel` &lt;chr&gt;, `AYT Din` &lt;chr&gt;,
-#   `YDT Dil` &lt;chr&gt;, PuanTuru &lt;fct&gt;, BoluMKodu &lt;dbl&gt;, stuType &lt;chr&gt;</code></pre>
+#   `AYT Kimya` &lt;dbl&gt;, `AYT Biyoloji` &lt;dbl&gt;, `AYT Türkçe` &lt;dbl&gt;,
+#   `AYT Tarih1` &lt;dbl&gt;, `AYT Coğrafya1` &lt;dbl&gt;, `AYT TDE` &lt;dbl&gt;,
+#   `AYT Tar2` &lt;dbl&gt;, `AYT Coğ2` &lt;dbl&gt;, `AYT Fel` &lt;dbl&gt;, `AYT Din` &lt;dbl&gt;,
+#   `YDT Dil` &lt;dbl&gt;, PuanTuru &lt;fct&gt;, BoluMKodu &lt;dbl&gt;, stuType &lt;chr&gt;</code></pre>
 </div>
 </div>
 <section id="tyt-puanı" class="level2">
 <h2 class="anchored" data-anchor-id="tyt-puanı">TYT Puanı</h2>
 <p><a href="../05_2022_yks_puan_diagram/yks_puan_diagram.html">YKS puanlama sisteminin</a> anlatıldığı daha önceki bir yazıda aşağıdaki diagram kullanılmıştı. Buna göre TYT Sınav puanı Temel Matematik, Türkçe, Fen Bilimleri ve Sosyal Bilimleri soru gruplarından toplanan puanlardan oluşur. Her soru grubunun etkisi farklıdır. Bazı soru gruplarından yapılan netler sonuçta hesaplanan puanı diğerlerinden daha fazla etkiler. İşte amaç soru gruplarının bu etkilerini tahmin etmektir. Bu amaçla basit bir regresyon modeli kurulmuştur.</p>
-<div id="fig-puandiagram" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="puandiagram.png" class="img-fluid figure-img"></p>
-<p></p><figcaption aria-hidden="true" class="figure-caption">Figür 1: Puan Diagramı</figcaption><p></p>
-</figure>
-</div>
-<p>Regresyon modeli<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> ile soru gruplarının sonuç puan üzerindeki etkisini gösteren <strong>katsayılar</strong> hesaplanacaktır. Modelin yapısı şu şekilde gösterilebilir: $$ TYTPuan=c+_1 TemelMatematik+_2 Türkçe+_3 FenBilimleri+_4 SosyalBilimler+</p>
-<p>$$ Katsayılar hesaplanmadan önce verideki yerleştirme puanlarından OBP etkisinin ayıklanması gerekmekte. OBP etkisi öğrencinin mezun olduğu lise ile yerleştiği program arasında bir bağlantı olmasına göre 0.18 ile 0.12 değerlerinden birini alıyor.</p>
-<p>$$</p>
-<p>TYT_{Sınav} = TYT_{Yerleştirme}-(0.12: veya: 0.18)OBP</p>
-<p>$$</p>
+<p><img src="puandiagram.png" id="fig-puandiagram" class="img-fluid" alt="Puan Diagramı"> Her soru grubunda bulunan soru sayısı aşağıdaki tabloda verilmiştir. Bu sayıların modelleme üzerinde bir etkisi yoktur ancak model sonuçlarının yorumlanmasında kullanılacaktır.</p>
 <div class="cell">
 <details>
 <summary>Kod</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>all<span class="sc">$</span>SinavPuan <span class="ot">&lt;-</span> all<span class="sc">$</span>Puan<span class="sc">-</span>all<span class="sc">$</span>Katsayı<span class="sc">*</span>all<span class="sc">$</span>OBP</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>SoruSayilari <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"SoruSayilari.xlsx"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>SoruSayilari <span class="sc">|&gt;</span> <span class="fu">kbl</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"SINAV"</span>, <span class="st">"Soru Grubu"</span>, <span class="st">"Soru Sayısı"</span>),<span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>()</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> SINAV </th>
+   <th style="text-align:left;"> Soru Grubu </th>
+   <th style="text-align:right;"> Soru Sayısı </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> TYT </td>
+   <td style="text-align:left;"> Temel Matematik </td>
+   <td style="text-align:right;"> 40 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TYT </td>
+   <td style="text-align:left;"> Türkçe </td>
+   <td style="text-align:right;"> 40 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TYT </td>
+   <td style="text-align:left;"> Fen Bilgisi </td>
+   <td style="text-align:right;"> 20 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TYT </td>
+   <td style="text-align:left;"> Sosyal Bilimler </td>
+   <td style="text-align:right;"> 20 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT </td>
+   <td style="text-align:left;"> Matematik </td>
+   <td style="text-align:right;"> 40 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT </td>
+   <td style="text-align:left;"> Fizik </td>
+   <td style="text-align:right;"> 14 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT </td>
+   <td style="text-align:left;"> Kimya </td>
+   <td style="text-align:right;"> 13 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT </td>
+   <td style="text-align:left;"> Biyoloji </td>
+   <td style="text-align:right;"> 13 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT </td>
+   <td style="text-align:left;"> Türk Dili ve Edebiyatı </td>
+   <td style="text-align:right;"> 24 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT </td>
+   <td style="text-align:left;"> Tarih 1 </td>
+   <td style="text-align:right;"> 10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT </td>
+   <td style="text-align:left;"> Coğrafya 1 </td>
+   <td style="text-align:right;"> 6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT </td>
+   <td style="text-align:left;"> Tarih 2 </td>
+   <td style="text-align:right;"> 11 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT </td>
+   <td style="text-align:left;"> Coğrafya 2 </td>
+   <td style="text-align:right;"> 11 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT </td>
+   <td style="text-align:left;"> Felsefe Grubu </td>
+   <td style="text-align:right;"> 12 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT </td>
+   <td style="text-align:left;"> DKAB </td>
+   <td style="text-align:right;"> 6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT </td>
+   <td style="text-align:left;"> Dil Testi </td>
+   <td style="text-align:right;"> 80 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>Regresyon modeli<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> ile soru gruplarının sonuç puan üzerindeki etkisini gösteren <strong>katsayılar</strong> hesaplanacaktır. Modelin yapısı şu şekilde gösterilebilir:</p>
+<p><span class="math display">\[
+TYTPuan=c+\beta_1 \cdot TemelMatematik+\beta_2 \cdot Türkçe+\beta_3 \cdot FenBilimleri+\beta_4 \cdot SosyalBilimler+\varepsilon
+\]</span></p>
+<p>Katsayılar hesaplanmadan önce verideki yerleştirme puanlarından OBP etkisinin ayıklanması gerekmekte. OBP etkisi öğrencinin mezun olduğu lise ile yerleştiği program arasında bir bağlantı olmasına göre 0.18 ile 0.12 değerlerinden birini alıyor.</p>
+<p><span class="math display">\[
+TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
+\]</span></p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>all<span class="sc">$</span>SinavPuan <span class="ot">&lt;-</span> all<span class="sc">$</span>Puan<span class="sc">-</span>all<span class="sc">$</span>Katsayı<span class="sc">*</span>all<span class="sc">$</span>OBP</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Regresyon modelinin katsayılarının hesaplanacağı veride modellemeye başlamadan önce yapılması gereken detay gibi görünen ama oldukça kritik bir filtreleme gerekmektedir. Eğer bir öğrenci YKS sınavında bir programa yerleşirse bir sonraki yıl OBP katsayısı yarı yarıya kesiliyor. Diğer bir deyişle YKS Yerleşme Puanını hesaplamak için, normalde OBP puanı 0.12 (veya 0.18) ile çarpılıp YKS sınav sonuç puan ekleneceğine 0.06 (veya 0.09) ile çarpılıp eklenmektedir. Dolayısıyla regresyon katsayılarının hesaplanacağı veride bu gibi durumların filtrelenmesi gerekmekte. Ne var ki, YÖK ATLAS bu konuda net bilgi içermemekte. Aşağıdaki grafikte <span class="math inline">\(TYT_{Sınav}\)</span> hesaplandıktan sonra yerleştirme ve sınav puanlarının çapraz grafiği gösterilmektedir. Açık renkli bölgeler 150 puanın altında kalan sınav puanlarını göstermektedir. Bu puanlar mümkün olmadığına göre, bu programa son yerleşen adayların OBP katsayıları cezalı hesaplanmış olmalıdır.</p>
-<div class="cell" data-warnings="false">
+<div class="cell">
 <details>
 <summary>Kod</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb6-3"><a href="#cb6-3"></a>all<span class="sc">$</span>l50 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(all<span class="sc">$</span>SinavPuan<span class="sc">&lt;</span><span class="dv">150</span>,<span class="dv">150</span><span class="sc">-</span>all<span class="sc">$</span>SinavPuan,<span class="dv">0</span>)</span>
-<span id="cb6-4"><a href="#cb6-4"></a><span class="fu">ggplot</span>(all, <span class="fu">aes</span>(<span class="at">x=</span>Puan, <span class="at">y=</span>SinavPuan, <span class="at">colour=</span>l50))<span class="sc">+</span><span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb6-5"><a href="#cb6-5"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"TYT Puanı Modelinde Hata Terimleri"</span>,</span>
-<span id="cb6-6"><a href="#cb6-6"></a>       <span class="at">x =</span> <span class="st">"Yerleşme Puanı"</span>,</span>
-<span id="cb6-7"><a href="#cb6-7"></a>       <span class="at">y =</span> <span class="st">"Sınav Puanı"</span>,</span>
-<span id="cb6-8"><a href="#cb6-8"></a>       <span class="at">colour=</span> <span class="st">"Hata"</span>) <span class="sc">+</span> </span>
-<span id="cb6-9"><a href="#cb6-9"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">0</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">colour=</span><span class="st">"orange"</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>all<span class="sc">$</span>l50 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(all<span class="sc">$</span>SinavPuan<span class="sc">&lt;</span><span class="dv">150</span>,<span class="dv">150</span><span class="sc">-</span>all<span class="sc">$</span>SinavPuan,<span class="dv">0</span>)</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">ggplot</span>(all, <span class="fu">aes</span>(<span class="at">x=</span>Puan, <span class="at">y=</span>SinavPuan, <span class="at">colour=</span>l50))<span class="sc">+</span><span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"TYT Puanı Modelinde Hata Terimleri"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4"></a>       <span class="at">x =</span> <span class="st">"Yerleşme Puanı"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5"></a>       <span class="at">y =</span> <span class="st">"Sınav Puanı"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6"></a>       <span class="at">colour=</span> <span class="st">"Hata"</span>) <span class="sc">+</span> </span>
+<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">0</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">colour=</span><span class="st">"orange"</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="puan_hesaplama_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<p><img src="puan_hesaplama_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Mesela yukarıdaki grafikte 150 puan altında sınav puanlarına sahip öğrencilerin yerleştiği görünen programlara son sırada yerleşen öğrencilerin bilgilerine program detay sayfalarından da ulaşıldığında öğrencinin <strong>Öğrenim Durumu</strong> bilgisi aşağıdaki tablodaki gibi çıkıyor.</p>
 <div class="cell" data-warnings="false">
 <details>
 <summary>Kod</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">library</span>(kableExtra)</span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">table</span>(all<span class="sc">$</span>stuType[all<span class="sc">$</span>l50<span class="sc">&gt;</span><span class="dv">0</span>]) <span class="sc">|&gt;</span> <span class="fu">kbl</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Yerleşen Öğrencinin Öğrenim Durumu"</span>, <span class="st">"Frekans"</span>))</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">table</span>(all<span class="sc">$</span>stuType[all<span class="sc">$</span>l50<span class="sc">&gt;</span><span class="dv">0</span>]) <span class="sc">|&gt;</span> <span class="fu">kbl</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Yerleşen Öğrencinin Öğrenim Durumu"</span>, <span class="st">"Frekans"</span>))</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table>
@@ -352,7 +461,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Kod</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(all<span class="sc">$</span>stuType) <span class="sc">|&gt;</span> <span class="fu">kbl</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Yerleşen Öğrencinin Öğrenim Durumu"</span>, <span class="st">"Frekans"</span>))</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(all<span class="sc">$</span>stuType) <span class="sc">|&gt;</span> <span class="fu">kbl</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Yerleşen Öğrencinin Öğrenim Durumu"</span>, <span class="st">"Frekans"</span>))</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table>
@@ -392,24 +501,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Kod</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>modeldata <span class="ot">&lt;-</span> all[all<span class="sc">$</span>stuType<span class="sc">==</span><span class="st">"Liseden yeni mezun ÖSYSye ilk girişinde yerleşti"</span>,]</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>modeldata <span class="ot">&lt;-</span> all[all<span class="sc">$</span>stuType<span class="sc">==</span><span class="st">"Liseden yeni mezun ÖSYSye ilk girişinde yerleşti"</span>,]</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Veriyi modele beslemeden önce son olarak TYT puanı ile yerleşim yapılan bölümler filtreleniyor.</p>
 <div class="cell">
 <details>
 <summary>Kod</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>modeldataTYT <span class="ot">&lt;-</span> modeldata[modeldata<span class="sc">$</span>PuanTuru<span class="sc">==</span><span class="st">"TYT"</span>,]</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>modeldataTYT <span class="ot">&lt;-</span> modeldata[modeldata<span class="sc">$</span>PuanTuru<span class="sc">==</span><span class="st">"TYT"</span>,]</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Verinin TYT ile yerleştirme yapılan kısmı filtrelenerek katsayılar aşağıda kurulan model ile tahminleniyor. Model veriyi %99.9 oranda başarıyla açıklıyor.</p>
 <div class="cell" data-warnings="false">
 <details>
 <summary>Kod</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">library</span>(jtools)</span>
-<span id="cb11-2"><a href="#cb11-2"></a>TYTModel <span class="ot">&lt;-</span> <span class="fu">lm</span>(SinavPuan<span class="sc">~</span><span class="st">`</span><span class="at">TYT Mat</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Türkçe</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Fen</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Sosyal</span><span class="st">`</span>, <span class="at">data=</span>modeldataTYT)</span>
-<span id="cb11-3"><a href="#cb11-3"></a></span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="fu">summ</span>(TYTModel,<span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>TYTModel <span class="ot">&lt;-</span> <span class="fu">lm</span>(SinavPuan<span class="sc">~</span><span class="st">`</span><span class="at">TYT Mat</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Türkçe</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Fen</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Sosyal</span><span class="st">`</span>, <span class="at">data=</span>modeldataTYT)</span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">summ</span>(TYTModel,<span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -495,10 +602,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <details>
 <summary>Kod</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">plot_summs</span>(TYTModel)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">plot_summs</span>(TYTModel)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="puan_hesaplama_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<p><img src="puan_hesaplama_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <section id="hata-analizi" class="level3">
@@ -507,26 +614,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Kod</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">real =</span> modeldataTYT<span class="sc">$</span>SinavPuan,<span class="at">model=</span><span class="fu">predict</span>(TYTModel))</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>fark <span class="ot">&lt;-</span> results<span class="sc">$</span>real<span class="sc">-</span>results<span class="sc">$</span>model</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>absfark <span class="ot">&lt;-</span> <span class="fu">abs</span>(results<span class="sc">$</span>real<span class="sc">-</span>results<span class="sc">$</span>model)</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(results, <span class="fu">aes</span>(<span class="at">x=</span>real, <span class="at">y=</span>fark, <span class="at">colour=</span>absfark))<span class="sc">+</span><span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"TYT Puanı Modelinde Hata Terimleri"</span>,</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Gözlem"</span>,</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Gözlem - Model"</span>,</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">colour=</span> <span class="st">"Hata"</span>) <span class="sc">+</span> </span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">0</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">colour=</span><span class="st">"orange"</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">real =</span> modeldataTYT<span class="sc">$</span>SinavPuan,<span class="at">model=</span><span class="fu">predict</span>(TYTModel))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>fark <span class="ot">&lt;-</span> results<span class="sc">$</span>real<span class="sc">-</span>results<span class="sc">$</span>model</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>absfark <span class="ot">&lt;-</span> <span class="fu">abs</span>(results<span class="sc">$</span>real<span class="sc">-</span>results<span class="sc">$</span>model)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(results, <span class="fu">aes</span>(<span class="at">x=</span>real, <span class="at">y=</span>fark, <span class="at">colour=</span>absfark))<span class="sc">+</span><span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"TYT Puanı Modelinde Hata Terimleri"</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Gözlem"</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Gözlem - Model"</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">colour=</span> <span class="st">"Hata"</span>) <span class="sc">+</span> </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">0</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">colour=</span><span class="st">"orange"</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="puan_hesaplama_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
+<p><img src="puan_hesaplama_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Hataların ekstrem olduğu bu gözlemler çekildiğinde Üsküdar Üniversitesi Çocuk Gelişimi Burslu kontenjanına yerleşen öğrencini ve Avrasya Üniversitesi Diş Protez Teknolojisi Burslu programına yerleşen öğrencilerin puanları olması gerekenden 7.45 ve 16.67 puan daha <strong>fazla</strong> hesaplanmış görünüyor. Umarız buradaki maddi hata ATLAS veri tabanındaki netlerdedir.</p>
 <div class="cell">
 <details>
 <summary>Kod</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">which</span>(results<span class="sc">$</span>absfark<span class="sc">&gt;</span><span class="dv">5</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(modeldataTYT[h,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">13</span><span class="sc">:</span><span class="dv">25</span>,<span class="dv">28</span>,<span class="dv">30</span>)]) <span class="sc">|&gt;</span> <span class="fu">kbl</span>()</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">which</span>(results<span class="sc">$</span>absfark<span class="sc">&gt;</span><span class="dv">5</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(modeldataTYT[h,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">13</span><span class="sc">:</span><span class="dv">25</span>,<span class="dv">28</span>,<span class="dv">30</span>)]) <span class="sc">|&gt;</span> <span class="fu">kbl</span>()</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table>
@@ -616,10 +723,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Kod</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>modeldataTYT1 <span class="ot">&lt;-</span> modeldataTYT[<span class="sc">-</span>h,]</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>TYTModel <span class="ot">&lt;-</span> <span class="fu">lm</span>(SinavPuan<span class="sc">~</span><span class="st">`</span><span class="at">TYT Mat</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Türkçe</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Fen</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Sosyal</span><span class="st">`</span>, <span class="at">data=</span>modeldataTYT1)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(TYTModel,<span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>modeldataTYT1 <span class="ot">&lt;-</span> modeldataTYT[<span class="sc">-</span>h,]</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>TYTModel <span class="ot">&lt;-</span> <span class="fu">lm</span>(SinavPuan<span class="sc">~</span><span class="st">`</span><span class="at">TYT Mat</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Türkçe</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Fen</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Sosyal</span><span class="st">`</span>, <span class="at">data=</span>modeldataTYT1)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(TYTModel,<span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
@@ -705,25 +812,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <details>
 <summary>Kod</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_summs</span>(TYTModel)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_summs</span>(TYTModel)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="puan_hesaplama_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+<p><img src="puan_hesaplama_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
-<details>
-<summary>Kod</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">real =</span> modeldataTYT1<span class="sc">$</span>SinavPuan,<span class="at">model=</span><span class="fu">predict</span>(TYTModel))</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>fark <span class="ot">&lt;-</span> results<span class="sc">$</span>real<span class="sc">-</span>results<span class="sc">$</span>model</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>absfark <span class="ot">&lt;-</span> <span class="fu">abs</span>(results<span class="sc">$</span>real<span class="sc">-</span>results<span class="sc">$</span>model)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
-<p>Yıldan yıla bu katsayılar sınava katılan öğrencilerin performansına bağlı olarak değişmektedir. Bir soru grubunda Türkiye genelinde az başarılı olunursa bu soru grubunun değeri artmaktadır. Burada amaç öğrencileri birbirinden mümkün olduğunca ayırabilmektir.</p>
+<p>Yıldan yıla bu katsayılar sınava katılan öğrencilerin performansına bağlı olarak değişmektedir. Bir soru grubunda Türkiye genelinde az başarılı olunursa bu soru grubunun değeri artmaktadır. Standardizasyonun burada görevi öğrenciler arasındaki başarı farkını iyi bilinen istatistiki parametreler üzerinden ifade edebilme yeteneği vermesidir. Bu sayede puanlar belli değerler arasına taşınabilmektedir. Örneğin sınavda en başarı öğrenci saoruların tamamını doğru yanıtlamış olmasa bile puanı 500’e taşınabilir.</p>
 <div class="cell">
 <details>
 <summary>Kod</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>TYTKatsayilar <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"TYTKatsayilar.csv"</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>TYTKatsayilar <span class="sc">|&gt;</span> <span class="fu">kbl</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Soru Grubu"</span>, <span class="st">"2019"</span>,<span class="st">"2020"</span>,<span class="st">"2021"</span>),<span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>()</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>TYTKatsayilar <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"TYTKatsayilar.csv"</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>TYTKatsayilar <span class="sc">|&gt;</span> <span class="fu">kbl</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Soru Grubu"</span>, <span class="st">"2019"</span>,<span class="st">"2020"</span>,<span class="st">"2021"</span>),<span class="at">booktabs =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>()</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table class="table" style="margin-left: auto; margin-right: auto;">
@@ -771,12 +872,929 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </div>
+<p>Bu tablonun yorumu buraya</p>
+</section>
+</section>
+<section id="say" class="level2">
+<h2 class="anchored" data-anchor-id="say">SAY</h2>
+<p>SAYılsal puanlarının da hesaplanmasında kullanılan katsayılar benzer şekilde bulunabilir. SAY puanın TYT puanı ve AYT’den Matematik, Fizik, Kimya ve Biyoloji sorularından oluştuğu biliniyor. Kurulan modelde herhangi bir belirsizlik bulunmuyor. Veri %100 başarıyla açıklanabiliyor.</p>
 <div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>modeldataSAY <span class="ot">&lt;-</span> modeldata[modeldata<span class="sc">$</span>PuanTuru<span class="sc">==</span><span class="st">"SAY"</span>,]</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>SAYModel <span class="ot">&lt;-</span> <span class="fu">lm</span>(SinavPuan<span class="sc">~</span><span class="st">`</span><span class="at">TYT Mat</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Türkçe</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Fen</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Sosyal</span><span class="st">`</span><span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                 <span class="st">`</span><span class="at">AYT Mat</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">AYT Fizik</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">AYT Kimya</span><span class="st">`</span> <span class="sc">+</span> <span class="st">`</span><span class="at">AYT Biyoloji</span><span class="st">`</span>, <span class="at">data=</span>modeldataSAY)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(SAYModel,<span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Observations </td>
+   <td style="text-align:right;"> 1455 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Dependent variable </td>
+   <td style="text-align:right;"> SinavPuan </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Type </td>
+   <td style="text-align:right;"> OLS linear regression </td>
+  </tr>
+</tbody>
+</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> F(8,1446) </td>
+   <td style="text-align:right;"> 10988987483543.21484 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> R² </td>
+   <td style="text-align:right;"> 1.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Adj. R² </td>
+   <td style="text-align:right;"> 1.00000 </td>
+  </tr>
+</tbody>
+</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Est. </th>
+   <th style="text-align:right;"> S.E. </th>
+   <th style="text-align:right;"> t val. </th>
+   <th style="text-align:right;"> p </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> (Intercept) </td>
+   <td style="text-align:right;"> 98.19313 </td>
+   <td style="text-align:right;"> 0.00004 </td>
+   <td style="text-align:right;"> 2702320.89215 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `TYT Mat` </td>
+   <td style="text-align:right;"> 1.75757 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 875358.41506 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `TYT Türkçe` </td>
+   <td style="text-align:right;"> 1.13335 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 715811.60055 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `TYT Fen` </td>
+   <td style="text-align:right;"> 1.23565 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 422010.58365 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `TYT Sosyal` </td>
+   <td style="text-align:right;"> 1.15593 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 465868.10405 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Mat` </td>
+   <td style="text-align:right;"> 3.40447 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 1855341.58517 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Fizik` </td>
+   <td style="text-align:right;"> 3.47680 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 1000701.61504 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Kimya` </td>
+   <td style="text-align:right;"> 2.46429 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 724368.04263 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Biyoloji` </td>
+   <td style="text-align:right;"> 2.20584 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 659395.54832 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<sup></sup> Standard errors: OLS</td></tr></tfoot>
+</table>
+</div>
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_summs</span>(SAYModel)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="puan_hesaplama_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="ea" class="level2">
+<h2 class="anchored" data-anchor-id="ea">EA</h2>
+<p>EA puanı TYT sorularına ek olarak AYT’den Matematik, Türk Dili ve Edebiyatı, Tarih-1 ve Coğrafya-1 soru gruplarından oluşmaktadır.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>modeldataEA <span class="ot">&lt;-</span> modeldata[modeldata<span class="sc">$</span>PuanTuru<span class="sc">==</span><span class="st">"EA"</span>,]</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>EAModel <span class="ot">&lt;-</span> <span class="fu">lm</span>(SinavPuan<span class="sc">~</span><span class="st">`</span><span class="at">TYT Mat</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Türkçe</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Fen</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Sosyal</span><span class="st">`</span><span class="sc">+</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                 <span class="st">`</span><span class="at">AYT Mat</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">AYT Türkçe</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">AYT Tarih1</span><span class="st">`</span> <span class="sc">+</span> <span class="st">`</span><span class="at">AYT Coğrafya1</span><span class="st">`</span>, <span class="at">data=</span>modeldataEA)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(EAModel,<span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Observations </td>
+   <td style="text-align:right;"> 943 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Dependent variable </td>
+   <td style="text-align:right;"> SinavPuan </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Type </td>
+   <td style="text-align:right;"> OLS linear regression </td>
+  </tr>
+</tbody>
+</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> F(8,934) </td>
+   <td style="text-align:right;"> 9731342.24535 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> R² </td>
+   <td style="text-align:right;"> 0.99999 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Adj. R² </td>
+   <td style="text-align:right;"> 0.99999 </td>
+  </tr>
+</tbody>
+</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Est. </th>
+   <th style="text-align:right;"> S.E. </th>
+   <th style="text-align:right;"> t val. </th>
+   <th style="text-align:right;"> p </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> (Intercept) </td>
+   <td style="text-align:right;"> 92.47708 </td>
+   <td style="text-align:right;"> 0.03552 </td>
+   <td style="text-align:right;"> 2603.45109 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `TYT Mat` </td>
+   <td style="text-align:right;"> 1.85923 </td>
+   <td style="text-align:right;"> 0.00182 </td>
+   <td style="text-align:right;"> 1023.83970 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `TYT Türkçe` </td>
+   <td style="text-align:right;"> 1.20199 </td>
+   <td style="text-align:right;"> 0.00141 </td>
+   <td style="text-align:right;"> 849.53286 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `TYT Fen` </td>
+   <td style="text-align:right;"> 1.30702 </td>
+   <td style="text-align:right;"> 0.00236 </td>
+   <td style="text-align:right;"> 553.10711 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `TYT Sosyal` </td>
+   <td style="text-align:right;"> 1.22348 </td>
+   <td style="text-align:right;"> 0.00216 </td>
+   <td style="text-align:right;"> 567.08783 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Mat` </td>
+   <td style="text-align:right;"> 3.60540 </td>
+   <td style="text-align:right;"> 0.00170 </td>
+   <td style="text-align:right;"> 2124.64803 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Türkçe` </td>
+   <td style="text-align:right;"> 3.02357 </td>
+   <td style="text-align:right;"> 0.00172 </td>
+   <td style="text-align:right;"> 1761.62815 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Tarih1` </td>
+   <td style="text-align:right;"> 3.34516 </td>
+   <td style="text-align:right;"> 0.00345 </td>
+   <td style="text-align:right;"> 970.18103 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Coğrafya1` </td>
+   <td style="text-align:right;"> 2.37120 </td>
+   <td style="text-align:right;"> 0.00512 </td>
+   <td style="text-align:right;"> 463.37878 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<sup></sup> Standard errors: OLS</td></tr></tfoot>
+</table>
+</div>
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_summs</span>(EAModel)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="puan_hesaplama_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Modelin açıklayıcılığının tam olarak %100 olmaması nedeniyle hatalara bakılıyor. Bir programda modelin hesapladığı ile gerçek puan arasında 5 puandan fazla fark olduğu görülüyor. Hesaplama hatası yapılan programın Uluslararası Saraybosna Üniversitesi %50 İndirimli Psikoloji olduğu görülüyor. Bu program için listelenen netler o puana denk gelmiyor, hesaplanmış olan puan, olması gerekenin 5 puandan fazla üstünde.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">real =</span> modeldataEA<span class="sc">$</span>SinavPuan,<span class="at">model=</span><span class="fu">predict</span>(EAModel))</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>fark <span class="ot">&lt;-</span> results<span class="sc">$</span>real<span class="sc">-</span>results<span class="sc">$</span>model</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>absfark <span class="ot">&lt;-</span> <span class="fu">abs</span>(results<span class="sc">$</span>real<span class="sc">-</span>results<span class="sc">$</span>model)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(results, <span class="fu">aes</span>(<span class="at">x=</span>real, <span class="at">y=</span>fark, <span class="at">colour=</span>absfark))<span class="sc">+</span><span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"TYT Puanı Modelinde Hata Terimleri"</span>,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Gözlem"</span>,</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Gözlem - Model"</span>,</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">colour=</span> <span class="st">"Hata"</span>) <span class="sc">+</span> </span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">0</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">colour=</span><span class="st">"orange"</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="puan_hesaplama_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">which</span>(results<span class="sc">$</span>absfark<span class="sc">&gt;</span><span class="dv">5</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(modeldataEA[h,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">14</span><span class="sc">:</span><span class="dv">16</span>,<span class="dv">20</span><span class="sc">:</span><span class="dv">25</span>,<span class="dv">28</span>,<span class="dv">30</span>)]) <span class="sc">|&gt;</span> <span class="fu">kbl</span>()</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> ProgramKodu </td>
+   <td style="text-align:left;"> 408810065 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Üniversite </td>
+   <td style="text-align:left;"> ULUSLARARASI SARAYBOSNA ÜNİV.  - (%50 İndirimli) (4 Yıllık) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Yılı </td>
+   <td style="text-align:left;"> 2021 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Türü </td>
+   <td style="text-align:left;"> Yabancı </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Katsayı </td>
+   <td style="text-align:left;"> 0.12 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> OBP </td>
+   <td style="text-align:left;"> 283.049 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Puan </td>
+   <td style="text-align:left;"> 227.0003 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Yerl. </td>
+   <td style="text-align:left;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TYT Türkçe </td>
+   <td style="text-align:left;"> 27.25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TYT Sosyal </td>
+   <td style="text-align:left;"> 10.75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TYT Mat </td>
+   <td style="text-align:left;"> 1.25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TYT Fen </td>
+   <td style="text-align:left;"> 0 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT Mat </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT Türkçe </td>
+   <td style="text-align:left;"> 7.75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT Tarih1 </td>
+   <td style="text-align:left;"> 2.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT Coğrafya1 </td>
+   <td style="text-align:left;"> 4.75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> PuanTuru </td>
+   <td style="text-align:left;"> EA </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> BoluMKodu </td>
+   <td style="text-align:left;"> 10169 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SinavPuan </td>
+   <td style="text-align:left;"> 193.0344 </td>
+  </tr>
+</tbody>
+</table>
 
+</div>
+</div>
+<p>ÖSYM tarafından hesaplama hatası yapılan veya YÖK ATLAS sayfasında maddi hata yapılan program veriden çıkartılıp model tekrar kurulduğunda beklendiği gibi açıklayıcılık %100 oluyor.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>modeldataEA <span class="ot">&lt;-</span> modeldata[modeldata<span class="sc">$</span>PuanTuru<span class="sc">==</span><span class="st">"EA"</span>,]</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>modeldataEA <span class="ot">&lt;-</span> modeldataEA[<span class="sc">-</span>h,]</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>EAModel <span class="ot">&lt;-</span> <span class="fu">lm</span>(SinavPuan<span class="sc">~</span><span class="st">`</span><span class="at">TYT Mat</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Türkçe</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Fen</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Sosyal</span><span class="st">`</span><span class="sc">+</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                 <span class="st">`</span><span class="at">AYT Mat</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">AYT Türkçe</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">AYT Tarih1</span><span class="st">`</span> <span class="sc">+</span> <span class="st">`</span><span class="at">AYT Coğrafya1</span><span class="st">`</span>, <span class="at">data=</span>modeldataEA)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(EAModel,<span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Observations </td>
+   <td style="text-align:right;"> 942 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Dependent variable </td>
+   <td style="text-align:right;"> SinavPuan </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Type </td>
+   <td style="text-align:right;"> OLS linear regression </td>
+  </tr>
+</tbody>
+</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> F(8,933) </td>
+   <td style="text-align:right;"> 370156189469389.18750 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> R² </td>
+   <td style="text-align:right;"> 1.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Adj. R² </td>
+   <td style="text-align:right;"> 1.00000 </td>
+  </tr>
+</tbody>
+</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Est. </th>
+   <th style="text-align:right;"> S.E. </th>
+   <th style="text-align:right;"> t val. </th>
+   <th style="text-align:right;"> p </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> (Intercept) </td>
+   <td style="text-align:right;"> 92.49283 </td>
+   <td style="text-align:right;"> 0.00001 </td>
+   <td style="text-align:right;"> 16062485.22705 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `TYT Mat` </td>
+   <td style="text-align:right;"> 1.86088 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 6319175.50209 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `TYT Türkçe` </td>
+   <td style="text-align:right;"> 1.19997 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 5226503.28843 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `TYT Fen` </td>
+   <td style="text-align:right;"> 1.30829 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 3415052.81313 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `TYT Sosyal` </td>
+   <td style="text-align:right;"> 1.22387 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 3499591.58502 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Mat` </td>
+   <td style="text-align:right;"> 3.60460 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 13103065.48013 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Türkçe` </td>
+   <td style="text-align:right;"> 3.02628 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 10863234.16466 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Tarih1` </td>
+   <td style="text-align:right;"> 3.34531 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 5985598.71296 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Coğrafya1` </td>
+   <td style="text-align:right;"> 2.36514 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 2849257.09525 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<sup></sup> Standard errors: OLS</td></tr></tfoot>
+</table>
+</div>
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_summs</span>(EAModel)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="puan_hesaplama_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="söz" class="level2">
+<h2 class="anchored" data-anchor-id="söz">SÖZ</h2>
+<p>SÖZ puanı TYT sorularına ek olarak AYT’den Türk Dili ve Edebiyatı<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a>, Tarih-1, Coğrafya-1, Tarih-2, Coğrafya-2, Felsefe ve DKAB soru gruplarından oluşmaktadır.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>modeldataSOZ <span class="ot">&lt;-</span> modeldata[modeldata<span class="sc">$</span>PuanTuru<span class="sc">==</span><span class="st">"SÖZ"</span>,]</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>SOZModel <span class="ot">&lt;-</span> <span class="fu">lm</span>(SinavPuan<span class="sc">~</span><span class="st">`</span><span class="at">TYT Mat</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Türkçe</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Fen</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Sosyal</span><span class="st">`</span><span class="sc">+</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>                 <span class="st">`</span><span class="at">AYT TDE</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">AYT Tarih1</span><span class="st">`</span> <span class="sc">+</span><span class="st">`</span><span class="at">AYT Coğrafya1</span><span class="st">`</span><span class="sc">+</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>                 <span class="st">`</span><span class="at">AYT Tar2</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">AYT Coğ2</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">AYT Fel</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">AYT Din</span><span class="st">`</span>, <span class="at">data=</span>modeldataSOZ)</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(SOZModel,<span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Observations </td>
+   <td style="text-align:right;"> 641 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Dependent variable </td>
+   <td style="text-align:right;"> SinavPuan </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Type </td>
+   <td style="text-align:right;"> OLS linear regression </td>
+  </tr>
+</tbody>
+</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> F(11,629) </td>
+   <td style="text-align:right;"> 2375763.13497 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> R² </td>
+   <td style="text-align:right;"> 0.99998 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Adj. R² </td>
+   <td style="text-align:right;"> 0.99998 </td>
+  </tr>
+</tbody>
+</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Est. </th>
+   <th style="text-align:right;"> S.E. </th>
+   <th style="text-align:right;"> t val. </th>
+   <th style="text-align:right;"> p </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> (Intercept) </td>
+   <td style="text-align:right;"> 92.95995 </td>
+   <td style="text-align:right;"> 0.05146 </td>
+   <td style="text-align:right;"> 1806.45264 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `TYT Mat` </td>
+   <td style="text-align:right;"> 1.84624 </td>
+   <td style="text-align:right;"> 0.00385 </td>
+   <td style="text-align:right;"> 479.71493 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `TYT Türkçe` </td>
+   <td style="text-align:right;"> 1.19105 </td>
+   <td style="text-align:right;"> 0.00240 </td>
+   <td style="text-align:right;"> 495.51744 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `TYT Fen` </td>
+   <td style="text-align:right;"> 1.30602 </td>
+   <td style="text-align:right;"> 0.00620 </td>
+   <td style="text-align:right;"> 210.48377 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `TYT Sosyal` </td>
+   <td style="text-align:right;"> 1.22121 </td>
+   <td style="text-align:right;"> 0.00429 </td>
+   <td style="text-align:right;"> 284.88322 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT TDE` </td>
+   <td style="text-align:right;"> 3.01606 </td>
+   <td style="text-align:right;"> 0.00325 </td>
+   <td style="text-align:right;"> 928.00768 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Tarih1` </td>
+   <td style="text-align:right;"> 3.32421 </td>
+   <td style="text-align:right;"> 0.00620 </td>
+   <td style="text-align:right;"> 536.32545 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Coğrafya1` </td>
+   <td style="text-align:right;"> 2.33997 </td>
+   <td style="text-align:right;"> 0.00881 </td>
+   <td style="text-align:right;"> 265.52474 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Tar2` </td>
+   <td style="text-align:right;"> 4.98439 </td>
+   <td style="text-align:right;"> 0.00576 </td>
+   <td style="text-align:right;"> 864.61791 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Coğ2` </td>
+   <td style="text-align:right;"> 2.60731 </td>
+   <td style="text-align:right;"> 0.00630 </td>
+   <td style="text-align:right;"> 413.92581 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Fel` </td>
+   <td style="text-align:right;"> 3.65005 </td>
+   <td style="text-align:right;"> 0.00523 </td>
+   <td style="text-align:right;"> 698.22722 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Din` </td>
+   <td style="text-align:right;"> 2.72409 </td>
+   <td style="text-align:right;"> 0.00863 </td>
+   <td style="text-align:right;"> 315.57585 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<sup></sup> Standard errors: OLS</td></tr></tfoot>
+</table>
+</div>
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_summs</span>(SOZModel)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="puan_hesaplama_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>SÖZel puan türünde de bir programın puan hesaplamasında bir hata olduğu görülmekte. Hata yapılan program Tokat GaziOsmanPaşa Üniversitesi Sosyal Bilgiler Öğretmenliği programı. Yapılan hesaplama hatası 6 puanın üzerinde.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">real =</span> modeldataSOZ<span class="sc">$</span>SinavPuan,<span class="at">model=</span><span class="fu">predict</span>(SOZModel))</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>fark <span class="ot">&lt;-</span> results<span class="sc">$</span>real<span class="sc">-</span>results<span class="sc">$</span>model</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>absfark <span class="ot">&lt;-</span> <span class="fu">abs</span>(results<span class="sc">$</span>real<span class="sc">-</span>results<span class="sc">$</span>model)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(results, <span class="fu">aes</span>(<span class="at">x=</span>real, <span class="at">y=</span>fark, <span class="at">colour=</span>absfark))<span class="sc">+</span><span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"TYT Puanı Modelinde Hata Terimleri"</span>,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Gözlem"</span>,</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Gözlem - Model"</span>,</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">colour=</span> <span class="st">"Hata"</span>) <span class="sc">+</span> </span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">0</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">colour=</span><span class="st">"orange"</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="puan_hesaplama_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">which</span>(results<span class="sc">$</span>absfark<span class="sc">&gt;</span><span class="dv">5</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(modeldataSOZ[h,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">13</span><span class="sc">:</span><span class="dv">17</span>,<span class="dv">25</span>,<span class="dv">28</span>,<span class="dv">30</span>)]) <span class="sc">|&gt;</span> <span class="fu">kbl</span>()</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> ProgramKodu </td>
+   <td style="text-align:left;"> 104310058 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Üniversite </td>
+   <td style="text-align:left;"> TOKAT GAZİOSMANPAŞA ÜNİV.  - (4 Yıllık) </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Yılı </td>
+   <td style="text-align:left;"> 2021 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Türü </td>
+   <td style="text-align:left;"> Devlet </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Katsayı </td>
+   <td style="text-align:left;"> 0.12 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> OBP </td>
+   <td style="text-align:left;"> 369.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Puan </td>
+   <td style="text-align:left;"> 302.791 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Yerl. </td>
+   <td style="text-align:left;"> 52 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TYT Türkçe </td>
+   <td style="text-align:left;"> 20.25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TYT Sosyal </td>
+   <td style="text-align:left;"> 12.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TYT Mat </td>
+   <td style="text-align:left;"> 1.25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TYT Fen </td>
+   <td style="text-align:left;"> 1.75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT Tarih1 </td>
+   <td style="text-align:left;"> 2.75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT Coğrafya1 </td>
+   <td style="text-align:left;"> 2.25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT TDE </td>
+   <td style="text-align:left;"> 16.5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT Tar2 </td>
+   <td style="text-align:left;"> 2.25 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT Coğ2 </td>
+   <td style="text-align:left;"> 6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT Fel </td>
+   <td style="text-align:left;"> 5.75 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> AYT Din </td>
+   <td style="text-align:left;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> PuanTuru </td>
+   <td style="text-align:left;"> SÖZ </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> BoluMKodu </td>
+   <td style="text-align:left;"> 10192 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> SinavPuan </td>
+   <td style="text-align:left;"> 258.451 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>Daha önce de olduğu gibi modele zarar veren bu hatalı veri silinip model tekrar kurulduğunda açıklayıcılık %100 olmuştur.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>modeldataSOZ <span class="ot">&lt;-</span> modeldata[modeldata<span class="sc">$</span>PuanTuru<span class="sc">==</span><span class="st">"SÖZ"</span>,]</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>modeldataSOZ <span class="ot">&lt;-</span> modeldataSOZ[<span class="sc">-</span>h,]</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>SOZModel <span class="ot">&lt;-</span> <span class="fu">lm</span>(SinavPuan<span class="sc">~</span><span class="st">`</span><span class="at">TYT Mat</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Türkçe</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Fen</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">TYT Sosyal</span><span class="st">`</span><span class="sc">+</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>                 <span class="st">`</span><span class="at">AYT TDE</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">AYT Tarih1</span><span class="st">`</span> <span class="sc">+</span><span class="st">`</span><span class="at">AYT Coğrafya1</span><span class="st">`</span><span class="sc">+</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>                 <span class="st">`</span><span class="at">AYT Tar2</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">AYT Coğ2</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">AYT Fel</span><span class="st">`</span><span class="sc">+</span><span class="st">`</span><span class="at">AYT Din</span><span class="st">`</span>, <span class="at">data=</span>modeldataSOZ)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(SOZModel,<span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Observations </td>
+   <td style="text-align:right;"> 640 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Dependent variable </td>
+   <td style="text-align:right;"> SinavPuan </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Type </td>
+   <td style="text-align:right;"> OLS linear regression </td>
+  </tr>
+</tbody>
+</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> F(11,628) </td>
+   <td style="text-align:right;"> 197787496242076.15625 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> R² </td>
+   <td style="text-align:right;"> 1.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> Adj. R² </td>
+   <td style="text-align:right;"> 1.00000 </td>
+  </tr>
+</tbody>
+</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:right;"> Est. </th>
+   <th style="text-align:right;"> S.E. </th>
+   <th style="text-align:right;"> t val. </th>
+   <th style="text-align:right;"> p </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> (Intercept) </td>
+   <td style="text-align:right;"> 92.89613 </td>
+   <td style="text-align:right;"> 0.00001 </td>
+   <td style="text-align:right;"> 16452129.88329 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `TYT Mat` </td>
+   <td style="text-align:right;"> 1.85106 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 4383276.75445 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `TYT Türkçe` </td>
+   <td style="text-align:right;"> 1.19364 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 4527165.32019 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `TYT Fen` </td>
+   <td style="text-align:right;"> 1.30139 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 1912960.62792 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `TYT Sosyal` </td>
+   <td style="text-align:right;"> 1.21742 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 2589814.34897 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT TDE` </td>
+   <td style="text-align:right;"> 3.01032 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 8430925.97470 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Tarih1` </td>
+   <td style="text-align:right;"> 3.32767 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 4897752.57128 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Coğrafya1` </td>
+   <td style="text-align:right;"> 2.35266 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 2431997.91718 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Tar2` </td>
+   <td style="text-align:right;"> 4.98424 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 7889240.39567 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Coğ2` </td>
+   <td style="text-align:right;"> 2.60652 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 3775806.78405 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Fel` </td>
+   <td style="text-align:right;"> 3.64756 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 6365712.97899 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;font-weight: bold;"> `AYT Din` </td>
+   <td style="text-align:right;"> 2.74091 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+   <td style="text-align:right;"> 2888646.49565 </td>
+   <td style="text-align:right;"> 0.00000 </td>
+  </tr>
+</tbody>
+<tfoot><tr><td style="padding: 0; " colspan="100%">
+<sup></sup> Standard errors: OLS</td></tr></tfoot>
+</table>
+</div>
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_summs</span>(SOZModel)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="puan_hesaplama_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid" width="672"></p>
+</div>
 </div>
 
 
-</section>
 </section>
 </section>
 
@@ -788,6 +1806,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li id="fn2" role="doc-endnote"><p>Tabloda görülmemesine rağmen aslında yüklenen sayfada puanların da bulunduğunu görmek için sayfanın kaynak koduna bakılabilir.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3" role="doc-endnote"><p><a href="https://yokatlas.yok.gov.tr/2020/netler-tablo.php?b=19001" class="uri">https://yokatlas.yok.gov.tr/2020/netler-tablo.php?b=19001</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn4" role="doc-endnote"><p>Regresyon modeli hemen her lisans programında gösterilen en temel istatistiki modeldir.<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5" role="doc-endnote"><p>YÖK ATLAS sayfasında EA puanı için bu soru grubu AYT Türkçe olarak nitelendirilmişken, SÖZ puan soru grubu için AYT TDE olarak kullanılıyor.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Yeniden kullanın</h2><div quarto-reuse="quarto-reuse" class="quarto-appendix-contents"><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.tr">https://creativecommons.org/licenses/by/4.0/deed.tr</a></div></section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Alıntı</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{serkanalbayrak2022,
   author = {Raif Serkan Albayrak},
