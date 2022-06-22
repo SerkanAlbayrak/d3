@@ -14,21 +14,15 @@ listing:
       filter-ui: false
 ---
 
-Sayfanın mimarisinde <https://github.com/WillemSleegers/willemsleegers-quarto/blob/main/index.qmd> adresindeki yapıyı kopyalayacağım. Mantık partial page kullanma üzerine. Blog listesi yapmanın yolu listing oluşturulan bir sayfa belirlemek. Onu about sayfasında yapmış. Ben farklı bir yerde yapmayı planlıyorum. 
-
-## Blog posts
+<!--Sayfanın mimarisinde <https://github.com/WillemSleegers/willemsleegers-quarto/blob/main/index.qmd> adresindeki yapıyı kopyalayacağım. Mantık partial page kullanma üzerine. Blog listesi yapmanın yolu listing oluşturulan bir sayfa belirlemek. Onu about sayfasında yapmış. Ben farklı bir yerde yapmayı planlıyorum.-->
 
 
+
+## Yazılar
 
 ::: {#posts}
 :::
 
-
-
 [More posts](content/blog.qmd "See more blog posts")
 
 
-
-```{r}
-1 + 1
-```
