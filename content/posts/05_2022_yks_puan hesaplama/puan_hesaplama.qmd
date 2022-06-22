@@ -87,7 +87,7 @@ Regresyon modelinin katsayılarının hesaplanacağı veride modellemeye başlam
 
 all$l50 <- ifelse(all$SinavPuan<150,150-all$SinavPuan,0)
 ggplot(all, aes(x=Puan, y=SinavPuan, colour=l50))+geom_point() + 
-  labs(title = "TYT Puanı Modelinde Hata Terimleri",
+  labs(title = "Yerleşme-Sınav Puanı",
        x = "Yerleşme Puanı",
        y = "Sınav Puanı",
        colour= "Hata") + 
