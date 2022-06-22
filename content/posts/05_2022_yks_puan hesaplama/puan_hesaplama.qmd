@@ -59,6 +59,9 @@ all <- read_excel("puanData.xlsx")
 all$PuanTuru <- as.factor(all$`PuanTuru`)
 all
 ```
+# Analiz
+
+Her puan türü için geliştirilen modeller ilgili alt başlıklarda sunulmuştur.
 
 ## TYT Puanı
 
@@ -440,4 +443,4 @@ e2021$EA <- as.numeric(e2021$EA)
 e2021$SOZ <- as.numeric(e2021$SOZ)
 print(e2021, digits = 3)
 ```
-Fazlasıyla uzayan bu yazı TYT'nin sınav puanı içindeki %40 ağırlığını gösteremeden sona ermek durumunda. Yazının ikinci bölümünde parametrelerin yıllar içinde değişiminin etkileri üzerine tartışıldı. 
+Fazlasıyla uzayan bu yazı, TYT'nin sınav puanı içindeki %40 ağırlığını gösteremeden sona ermek durumunda. Yazının ikinci bölümünde parametrelerin yıllar içinde değişiminin etkileri üzerine tartışıldı. 
