@@ -34,7 +34,7 @@ EA2020Data
 Verinin içeriği şu şekildedir.
 
 |          |                                                                              |
-|----------|------------------------------------------------------------------------------|
+|--------------|----------------------------------------------------------|
 | Kod      | Programın YKS kodu                                                           |
 | Kont     | Genel kontenjan (bölüm birincisi kontenjanı vb hariç)                        |
 | Yer      | Genel kontenjana yerleşen                                                    |
