@@ -28,7 +28,6 @@ listing:
 
 
 
-## Yazılar
 
 ::: {#posts}
 :::
