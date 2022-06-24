@@ -120,17 +120,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 
-<script src="..\..\..\site_libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="..\..\..\site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
-<script src="..\..\..\site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<link href="..\..\..\site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-<script src="..\..\..\site_libs/datatables-binding-0.23/datatables.js"></script>
-<script src="..\..\..\site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<link href="..\..\..\site_libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="..\..\..\site_libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
-<script src="..\..\..\site_libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
-<link href="..\..\..\site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
-<script src="..\..\..\site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<script src="../../../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<script src="../../../site_libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="../../../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../../../site_libs/datatables-binding-0.23/datatables.js"></script>
+<script src="../../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../../../site_libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="../../../site_libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="../../../site_libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="../../../site_libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet">
+<script src="../../../site_libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
@@ -183,7 +183,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#söz" id="toc-söz" class="nav-link" data-scroll-target="#söz">SÖZ</a></li>
   <li><a href="#dil" id="toc-dil" class="nav-link" data-scroll-target="#dil">DİL</a></li>
   </ul></li>
-  <li><a href="#sonuç-ve-tartışma" id="toc-sonuç-ve-tartışma" class="nav-link" data-scroll-target="#sonuç-ve-tartışma">Sonuç ve Tartışma</a></li>
+  <li><a href="#sonuç-ve-tartışma" id="toc-sonuç-ve-tartışma" class="nav-link" data-scroll-target="#sonuç-ve-tartışma">Sonuç ve Tartışma</a>
+  <ul class="collapse">
+  <li><a href="#birinci-yöntem" id="toc-birinci-yöntem" class="nav-link" data-scroll-target="#birinci-yöntem">Birinci Yöntem</a></li>
+  <li><a href="#ikinci-yöntem" id="toc-ikinci-yöntem" class="nav-link" data-scroll-target="#ikinci-yöntem">İkinci Yöntem</a></li>
+  </ul></li>
   </ul>
 </nav>
 </nav>
@@ -416,8 +420,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Regresyon modeli<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a> ile soru gruplarının sonuç puan üzerindeki etkisini gösteren <strong>katsayılar</strong> hesaplanacaktır. Modelin yapısı şu şekilde gösterilebilir:</p>
 <p><span class="math display">\[
 TYTPuan=c+\beta_1 \cdot TemelMatematik+\beta_2 \cdot Türkçe+\beta_3 \cdot FenBilimleri+\beta_4 \cdot SosyalBilimler+\varepsilon
-\]</span></p>
-<p>Katsayılar hesaplanmadan önce verideki yerleştirme puanlarından OBP etkisinin ayıklanması gerekmekte. OBP etkisi öğrencinin mezun olduğu lise ile yerleştiği program arasında bir bağlantı olmasına göre 0.18 ile 0.12 değerlerinden birini alıyor.</p>
+\]</span> Katsayılar hesaplanmadan önce verideki yerleştirme puanlarından OBP etkisinin ayıklanması gerekmekte. OBP etkisi öğrencinin mezun olduğu lise ile yerleştiği program arasında bir bağlantı olmasına göre 0.18 ile 0.12 değerlerinden birini alıyor.</p>
 <p><span class="math display">\[
 TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 \]</span></p>
@@ -2196,12 +2199,14 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 </details>
 <div class="cell-output-display">
 
-<div id="htmlwidget-8f1739062d3215d0c0ea" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-8f1739062d3215d0c0ea">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17"],["TYT","TYT","TYT","TYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","Sabit"],["Temel Matematik","Türkçe","Fen Bilgisi","Sosyal Bilimler","Matematik","Fizik","Kimya","Biyoloji","Türk Dili ve Edebiyatı","Tarih 1","Coğrafya 1","Tarih 2","Coğrafya 2","Felsefe Grubu","DKAB","Dil Testi","---"],[40,40,20,20,40,14,13,13,24,10,6,11,11,12,6,80,1],[1.75757,1.13335,1.23565,1.15593,3.40447,3.4768,2.46429,2.20584,0,0,0,0,0,0,0,0,98.19313],[1.86088,1.19997,1.30829,1.22387,3.6046,0,0,0,3.02628,3.34531,2.36514,0,0,0,0,0,92.49283],[1.85106,1.19364,1.30139,1.21742,0,0,0,0,3.01032,3.32767,2.35266,4.98424,2.60652,3.64756,2.74091,0,92.89613],[4.52956,2.92085,3.1845,2.97902,0,0,0,0,0,0,0,0,0,0,0,0,97.33911],[1.42871,1.38438,1.45503,1.56288,2.70774,3.15077,2.77012,3.30867,0,0,0,0,0,0,0,0,99.1347],[1.420936,1.37684,1.44713,1.55435,2.692996,0,0,0,3.177306,3.53504,2.962547,0,0,0,0,0,98.19169],[1.396737,1.3534,1.422487,1.52787,0,0,0,0,3.123195,3.474835,2.912098,3.695031,2.599469,3.2201,3.943899,0,94.45322],[3.34392,3.24011,3.40551,3.65789,0,0,0,0,0,0,0,0,0,0,0,0,99.4209],[1.47593,1.23019,1.38159,1.1989,2.97953,3.11025,3.13069,3.08266,0,0,0,0,0,0,0,0,99.6215],[1.57122,1.30985,1.47175,1.27656,3.1716,0,0,0,3.00307,2.98814,2.39543,0,0,0,0,0,98.236],[1.67094,1.39288,1.56475,1.35786,0,0,0,0,3.19362,3.17738,2.54792,3.34376,2.74658,3.13825,3.32143,0,95.1079],[3.72544,3.10474,3.49299,3.02917,0,0,0,0,0,0,0,0,0,0,0,0,100.069]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sınav<\/th>\n      <th>Soru Grubu<\/th>\n      <th>Soru Sayısı<\/th>\n      <th>SAY2021<\/th>\n      <th>EA2021<\/th>\n      <th>SÖZ2021<\/th>\n      <th>TYT2021<\/th>\n      <th>SAY2020<\/th>\n      <th>EA2020<\/th>\n      <th>SÖZ2020<\/th>\n      <th>TYT2020<\/th>\n      <th>SAY2019<\/th>\n      <th>EA2019<\/th>\n      <th>SÖZ2019<\/th>\n      <th>TYT2019<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,5,6,7,8,9,10,11,12,13,14,15]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-9d359de2b853329643dc" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9d359de2b853329643dc">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17"],["TYT","TYT","TYT","TYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","Sabit"],["Temel Matematik","Türkçe","Fen Bilgisi","Sosyal Bilimler","Matematik","Fizik","Kimya","Biyoloji","Türk Dili ve Edebiyatı","Tarih 1","Coğrafya 1","Tarih 2","Coğrafya 2","Felsefe Grubu","DKAB","Dil Testi","---"],[40,40,20,20,40,14,13,13,24,10,6,11,11,12,6,80,1],[1.75757,1.13335,1.23565,1.15593,3.40447,3.4768,2.46429,2.20584,0,0,0,0,0,0,0,0,98.19313],[1.86088,1.19997,1.30829,1.22387,3.6046,0,0,0,3.02628,3.34531,2.36514,0,0,0,0,0,92.49283],[1.85106,1.19364,1.30139,1.21742,0,0,0,0,3.01032,3.32767,2.35266,4.98424,2.60652,3.64756,2.74091,0,92.89613],[4.52956,2.92085,3.1845,2.97902,0,0,0,0,0,0,0,0,0,0,0,0,97.33911],[1.42871,1.38438,1.45503,1.56288,2.70774,3.15077,2.77012,3.30867,0,0,0,0,0,0,0,0,99.1347],[1.420936,1.37684,1.44713,1.55435,2.692996,0,0,0,3.177306,3.53504,2.962547,0,0,0,0,0,98.19169],[1.396737,1.3534,1.422487,1.52787,0,0,0,0,3.123195,3.474835,2.912098,3.695031,2.599469,3.2201,3.943899,0,94.45322],[3.34392,3.24011,3.40551,3.65789,0,0,0,0,0,0,0,0,0,0,0,0,99.4209],[1.47593,1.23019,1.38159,1.1989,2.97953,3.11025,3.13069,3.08266,0,0,0,0,0,0,0,0,99.6215],[1.57122,1.30985,1.47175,1.27656,3.1716,0,0,0,3.00307,2.98814,2.39543,0,0,0,0,0,98.236],[1.67094,1.39288,1.56475,1.35786,0,0,0,0,3.19362,3.17738,2.54792,3.34376,2.74658,3.13825,3.32143,0,95.1079],[3.72544,3.10474,3.49299,3.02917,0,0,0,0,0,0,0,0,0,0,0,0,100.069]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sınav<\/th>\n      <th>Soru Grubu<\/th>\n      <th>Soru Sayısı<\/th>\n      <th>SAY2021<\/th>\n      <th>EA2021<\/th>\n      <th>SÖZ2021<\/th>\n      <th>TYT2021<\/th>\n      <th>SAY2020<\/th>\n      <th>EA2020<\/th>\n      <th>SÖZ2020<\/th>\n      <th>TYT2020<\/th>\n      <th>SAY2019<\/th>\n      <th>EA2019<\/th>\n      <th>SÖZ2019<\/th>\n      <th>TYT2019<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,5,6,7,8,9,10,11,12,13,14,15]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Örneğin, OSYM tarafından yapılan açıklamalarda, TYT sınavının SAY, EA ve SÖZ puanlarının hesaplanmasında %40 ağırlığa sahip olduğu belirtilmiştir. Bu tarz açıklamalar adaylara oyunun kuralları daha en baştan belirtmesi açısından çok önemlidir. Bir lisans programına girmeyi hedefleyen bir öğrenci için TYT sınavının sınav puanı içinde %40 ağırlığa sahip olacağı bilgisi son derece önemlidir. Öğrenci SAY puan türünde bir bölümü hedeflese bile, TYT sınavında sorulan Sosyal sorularının AYT sınavındaki sözgelimi Biyoloji soruları kadar değerli olduğunu anlayacak ve hazırlığını buna göre yapacaktır. Bu anlamda oyunun kurallarını baştan belirlemek aslında tutulması gereken bir söz veya uyulması gereken bir kontrattır.</p>
 <p>Tablodaki parametrelere bakarak TYT’nin 2019-2021 yılları arasında SAY puan türündeki oranı en az iki farklı şekilde hesaplanabilir. Birincisi; soruların tamamını doğru yanıtlayan bir aday için TYT sınavından elde edeceği puanın sabit katsayı ve OBP eklenmeden hesaplanan toplam puana, yani TYT+AYT sınavlarından elde edilen puana oranı %40 olmalıdır. İkincisi ise soru grupları bazında ortalama netler üzerinden TYT sınavından elde edilen puan hesaplandığında bu puanının TYT+AYT sınavından elde edilen toplam puana oranı %40 olmalıdır.</p>
+<section id="birinci-yöntem" class="level3">
+<h3 class="anchored" data-anchor-id="birinci-yöntem">Birinci Yöntem</h3>
 <p>Birinci yöntem kullanılarak 2021 yılı için hesaplamalar yapıldığında EA ve SÖZ puan türü için oranın olması gerekenden bir miktar saptığı görülüyor.</p>
 <div class="cell">
 <details>
@@ -2231,7 +2236,7 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 4 TYT Oranı   0.4   0.396   0.395</code></pre>
 </div>
 </div>
-<p>Yuvarlama hatasına bağlanabilir mi? Bunu görebilmek için 2020 verisinde aynı hesaplamalar tekrarlandı. Hayır, sapmanın nedeni yuvarlama nedeniyle bilgi kaybı değil. 2020 yılında SAY ve EA puan türünde TYT sınavının ağırlığı önceden açıklanandan sırasıyla %2.75 ve %2 daha fazla. SÖZ puan türündeyse %0.5 daha az.</p>
+<p>Yuvarlama hatasına bağlanabilir mi? Bunu görebilmek için 2020 verisinde aynı hesaplamalar tekrarlandı. Hayır, sapmanın nedeni yuvarlama nedeniyle bilgi kaybı değil. 2020 yılında SAY ve EA puan türünde TYT sınavının ağırlığı önceden açıklanandan sırasıyla %2.75 ve %2 daha fazla. SÖZ puan türündeyse %0.5 daha az. Bu sapmalar çok ufak puan dilimlerine sıkışan binlerce öğrenci olduğu düşünüldüğünde göz ardı edilemeyecek kadar ciddidir.</p>
 <div class="cell">
 <details>
 <summary>Kod</summary>
@@ -2290,6 +2295,9 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 </div>
 </div>
 <p>Yukarıdaki tablodaki sonuçlara göre birinci yöntem uygulanmış olamaz. Çünkü aksi durumda ÖSYM adaylara verdiği taahütü yerine getirmemiş, oyunun kurallarını oyunun sonunda değiştirmiş olduğu anlamına gelir.</p>
+</section>
+<section id="ikinci-yöntem" class="level3">
+<h3 class="anchored" data-anchor-id="ikinci-yöntem">İkinci Yöntem</h3>
 <p>İkinci yöntemi uygulayabilmek için her soru grubu için ortalama net bilgisine ihtiyaç duyulmaktadır. ÖSYM bu bilgiyi sınav sonuçlarını açıkladığı güm Sayısal Veriler adıyla yayınlar. Örneğin 2021 için Sayısal Veriler dosyasına <a href="https://dokuman.osym.gov.tr/pdfdokuman/2021/YKS/sayisal_veriler_28072021.pdf">buradan</a> ulaşılabilir. Ortalamalar tablosu dokümanın dördüncü sayfasında bulunmaktadır. Aşağıda bu tablonun ilgili kısmı verilmiştir.</p>
 <div class="cell">
 <details>
@@ -2299,8 +2307,8 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 </details>
 <div class="cell-output-display">
 
-<div id="htmlwidget-031555b785edff543224" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-031555b785edff543224">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"],["TYT","TYT","TYT","TYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","YDT","YDT","YDT","YDT","YDT"],["Türkçe","Sosyal Bilimler","Temel  Matematik","Fen Bilimleri","Türk Dili ve Edebiyatı","Tarih-1","Coğrafya-1","Tarih-2","Coğrafya-2","Felsefe Grubu","DKAB/Ek Felsefe\r\nGrubu","Matematik","Fizik","Kimya","Biyoloji","Almanca","Arapça","Fransızca","İngilizce","Rusça"],[2416748,2416748,2416748,2416748,1627083,1627083,1627083,1627083,1627083,1627083,1627083,1627083,1627083,1627083,1627083,1709,3443,718,98641,398],[18.404,8.34,5.117,3.212,6.448,1.945,2.303,1.268,2.989,2.02,1.601,5.297,1.462,1.891,2.411,37.268,38.316,40.744,39.054,45.387],[7.752,4.21,5.595,4.097,5.29,1.943,1.798,1.661,2.859,2.443,1.608,6.771,2.286,3.195,3.459,21.921,22.774,19.263,21.366,23.589]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Oturum<\/th>\n      <th>Test<\/th>\n      <th>Aday\r\nSayısı*<\/th>\n      <th>Ortalama<\/th>\n      <th>Standart\r\nSapma<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-1fb2dfe53120293aa690" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1fb2dfe53120293aa690">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"],["TYT","TYT","TYT","TYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","AYT","YDT","YDT","YDT","YDT","YDT"],["Türkçe","Sosyal Bilimler","Temel  Matematik","Fen Bilimleri","Türk Dili ve Edebiyatı","Tarih-1","Coğrafya-1","Tarih-2","Coğrafya-2","Felsefe Grubu","DKAB/Ek Felsefe\r\nGrubu","Matematik","Fizik","Kimya","Biyoloji","Almanca","Arapça","Fransızca","İngilizce","Rusça"],[2416748,2416748,2416748,2416748,1627083,1627083,1627083,1627083,1627083,1627083,1627083,1627083,1627083,1627083,1627083,1709,3443,718,98641,398],[18.404,8.34,5.117,3.212,6.448,1.945,2.303,1.268,2.989,2.02,1.601,5.297,1.462,1.891,2.411,37.268,38.316,40.744,39.054,45.387],[7.752,4.21,5.595,4.097,5.29,1.943,1.798,1.661,2.859,2.443,1.608,6.771,2.286,3.195,3.459,21.921,22.774,19.263,21.366,23.589]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Oturum<\/th>\n      <th>Test<\/th>\n      <th>Aday\r\nSayısı*<\/th>\n      <th>Ortalama<\/th>\n      <th>Standart\r\nSapma<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,5]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p>Ortalama bilgisi daha önce hazırlanmış olan <code>params</code> verisiyle birleştiriliyor ve TYT sınavının genel içindeki ağırlığı hesaplanıyor. Bu sonuçlara göre ÖSYM’nin uyguladığı yöntem her ne ise ortalama öğrenci için TYT sınavının toplam puan içindeki ağırlığını %40’a sabitlemediği kesin. Hatta bu sonuçlar kendi içinde başlı başına tartışma konusu. Hesaplamalara göre ortalama bir SAY öğrencisi için TYT’nin sınav puanı içindeki etkisi %56.8! Bu en başta bahsedilen değere göre müthiş bir sapma. EA ve SÖZ puan türleri için de sapma oldukça fazla.</p>
@@ -2333,9 +2341,11 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 4 TYT Oranı  0.568  0.476   0.445</code></pre>
 </div>
 </div>
-<p>Fazlasıyla uzayan bu yazı, TYT’nin sınav puanı içindeki %40 ağırlığını gösteremeden sona ermek durumunda. Yazının ikinci bölümünde parametrelerin yıllar içinde değişiminin etkileri üzerine tartışıldı.</p>
+<p>Fazlasıyla uzayan bu yazı, TYT’nin sınav puanı içindeki %40 ağırlığını gösteremeden sona ermek durumunda. ÖSYM’nin kullanmış olabileceği iki yöntemi de kullanarak yapılan hesaplamalar TYT’nin genel puan içindeki ağırlığına dair bilgiyi onaylayamıyor. YKS her yıl iki milyondan fazla öğrencinin kaderini ilgilendiren bir sınavdır. ÖSYM öğrencilerin sınava hazırlanmalarında belki de en temel bilgi olarak kullanacakları; sınavın nasıl değerlendirileceğine yönelik bir bilgiyi her yıl paylaşıyor. Ancak sonuçlar açıklandığında bu bilginin hatalı olduğu ortaya çıkıyor. Daha doğrusu, söz yerine getirilmiyor.</p>
+<p>Yazının ikinci bölümünde parametrelerin yıllar içinde değişiminin etkileri ve puan hesabını yapabilmenin üniversite analitiği üzerine tartışıldı.</p>
 
 
+</section>
 </section>
 
 

@@ -339,11 +339,16 @@ params <- read_excel("params.xlsx")
 # kable(params,digits = 2)
 datatable(params)
 ```
+     
+      
+      
+
 
 Örneğin, OSYM tarafından yapılan açıklamalarda, TYT sınavının SAY, EA ve SÖZ puanlarının hesaplanmasında %40 ağırlığa sahip olduğu belirtilmiştir. Bu tarz açıklamalar adaylara oyunun kuralları daha en baştan belirtmesi açısından çok önemlidir. Bir lisans programına girmeyi hedefleyen bir öğrenci için TYT sınavının sınav puanı içinde %40 ağırlığa sahip olacağı bilgisi son derece önemlidir. Öğrenci SAY puan türünde bir bölümü hedeflese bile, TYT sınavında sorulan Sosyal sorularının AYT sınavındaki sözgelimi Biyoloji soruları kadar değerli olduğunu anlayacak ve hazırlığını buna göre yapacaktır. Bu anlamda oyunun kurallarını baştan belirlemek aslında tutulması gereken bir söz veya uyulması gereken bir kontrattır.
 
 Tablodaki parametrelere bakarak TYT'nin 2019-2021 yılları arasında SAY puan türündeki oranı en az iki farklı şekilde hesaplanabilir. Birincisi; soruların tamamını doğru yanıtlayan bir aday için TYT sınavından elde edeceği puanın sabit katsayı ve OBP eklenmeden hesaplanan toplam puana, yani TYT+AYT sınavlarından elde edilen puana oranı %40 olmalıdır. İkincisi ise soru grupları bazında ortalama netler üzerinden TYT sınavından elde edilen puan hesaplandığında bu puanının TYT+AYT sınavından elde edilen toplam puana oranı %40 olmalıdır.
 
+### Birinci Yöntem
 Birinci yöntem kullanılarak 2021 yılı için hesaplamalar yapıldığında EA ve SÖZ puan türü için oranın olması gerekenden bir miktar saptığı görülüyor.
 
 ```{r}
@@ -367,7 +372,7 @@ print(d2021, digits = 3)
 
 ```
 
-Yuvarlama hatasına bağlanabilir mi? Bunu görebilmek için 2020 verisinde aynı hesaplamalar tekrarlandı. Hayır, sapmanın nedeni yuvarlama nedeniyle bilgi kaybı değil. 2020 yılında SAY ve EA puan türünde TYT sınavının ağırlığı önceden açıklanandan sırasıyla %2.75 ve %2 daha fazla. SÖZ puan türündeyse %0.5 daha az.
+Yuvarlama hatasına bağlanabilir mi? Bunu görebilmek için 2020 verisinde aynı hesaplamalar tekrarlandı. Hayır, sapmanın nedeni yuvarlama nedeniyle bilgi kaybı değil. 2020 yılında SAY ve EA puan türünde TYT sınavının ağırlığı önceden açıklanandan sırasıyla %2.75 ve %2 daha fazla. SÖZ puan türündeyse %0.5 daha az. Bu sapmalar çok ufak puan dilimlerine sıkışan binlerce öğrenci olduğu düşünüldüğünde göz ardı edilemeyecek kadar ciddidir.
 
 ```{r}
 d2020 <- data.frame(Sınav=c("TYT","AYT","Toplam"), 
@@ -411,6 +416,8 @@ print(d2019, digits = 3)
 
 Yukarıdaki tablodaki sonuçlara göre birinci yöntem uygulanmış olamaz. Çünkü aksi durumda ÖSYM adaylara verdiği taahütü yerine getirmemiş, oyunun kurallarını oyunun sonunda değiştirmiş olduğu anlamına gelir.
 
+### İkinci Yöntem
+
 İkinci yöntemi uygulayabilmek için her soru grubu için ortalama net bilgisine ihtiyaç duyulmaktadır. ÖSYM bu bilgiyi sınav sonuçlarını açıkladığı güm Sayısal Veriler adıyla yayınlar. Örneğin 2021 için Sayısal Veriler dosyasına [buradan](https://dokuman.osym.gov.tr/pdfdokuman/2021/YKS/sayisal_veriler_28072021.pdf) ulaşılabilir. Ortalamalar tablosu dokümanın dördüncü sayfasında bulunmaktadır. Aşağıda bu tablonun ilgili kısmı verilmiştir.
 
 ```{r}
@@ -440,4 +447,6 @@ e2021$SOZ <- as.numeric(e2021$SOZ)
 print(e2021, digits = 3)
 ```
 
-Fazlasıyla uzayan bu yazı, TYT'nin sınav puanı içindeki %40 ağırlığını gösteremeden sona ermek durumunda. Yazının ikinci bölümünde parametrelerin yıllar içinde değişiminin etkileri ve puan hesabını yapabilmenin üniversite analitiği üzerine tartışıldı.
+Fazlasıyla uzayan bu yazı, TYT'nin sınav puanı içindeki %40 ağırlığını gösteremeden sona ermek durumunda. ÖSYM'nin kullanmış olabileceği iki yöntemi de kullanarak yapılan hesaplamalar TYT'nin genel puan içindeki ağırlığına dair bilgiyi onaylayamıyor. YKS her yıl iki milyondan fazla öğrencinin kaderini ilgilendiren bir sınavdır. ÖSYM öğrencilerin sınava hazırlanmalarında belki de en temel bilgi olarak kullanacakları; sınavın nasıl değerlendirileceğine yönelik bir bilgiyi her yıl paylaşıyor. Ancak sonuçlar açıklandığında bu bilginin hatalı olduğu ortaya çıkıyor. Daha doğrusu, söz yerine getirilmiyor.     
+
+Yazının ikinci bölümünde parametrelerin yıllar içinde değişiminin etkileri ve puan hesabını yapabilmenin üniversite analitiği üzerine tartışıldı.
