@@ -31,7 +31,10 @@ Alan seçimi yapıldığı anda YKS sisteminin kapısından içeri girilmiştir.
 
 ## Soru Blokları
 
-Puan türleri aslında soru blokları için kullanılan kısaltmalardır. Örneğin SAY puan türü TYT sınavındaki soruların tamamına ek olarak AYT sınavındaki Matematik, Fizik, Kimya ve Biyoloji kısımlarından oluşan soru bloğunun adıdır (Şekil). Buna göre SAY puanının %40'ı TYT, geri kalan %60'ı AYT'den oluşmaktadır. Benzer şekilde EA puanının %40'ı TYT'den,gelir. Geriye kalan AYT puanı ise Matematik (%30), Türk Dili ve Edebiyatı (%18), Tarih-1 (%7) ve Coğrafya-1(%5) şeklinde toplam puanının %60'ına denk gelir. Aşağıdaki Şekil sınav puanlarının hesaplamalarında hangi soru grubunun ne kadar ağırlıklandırıldığını göstermektedir.
+Puan türleri aslında soru blokları için kullanılan kısaltmalardır. Örneğin SAY puan türü TYT sınavındaki soruların tamamına ek olarak AYT sınavındaki Matematik, Fizik, Kimya ve Biyoloji kısımlarından oluşan soru bloğunun adıdır (Şekil). Buna göre SAY puanının %40'ı TYT, geri kalan %60'ı AYT'den oluşmaktadır[^2]. Benzer şekilde EA puanının %40'ı TYT'den,gelir. Geriye kalan AYT puanı ise Matematik (%30), Türk Dili ve Edebiyatı (%18), Tarih-1 (%7) ve Coğrafya-1(%5) şeklinde toplam puanının %60'ına denk gelir. Aşağıdaki Şekil sınav puanlarının hesaplamalarında hangi soru grubunun ne kadar ağırlıklandırıldığını göstermektedir.
+
+[^2]: https://www.yok.gov.tr/Documents/AnaSayfa/yuksekogretim_kurumlari_sinavi_sss_ve_cevaplari_puan_turleri_ile.pdf
+
 
 ![Puanların hesaplanmasında soru gruplarının ağırlığı](img/preview.png){#fig-puanlama}
 
