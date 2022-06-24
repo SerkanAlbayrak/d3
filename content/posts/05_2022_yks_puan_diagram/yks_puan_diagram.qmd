@@ -51,11 +51,3 @@ Yerleştirme puanları ve başarı sıraları kısmında SAY puan türüne ek ol
 
 ![Sınav sonuç belgesi örneği](img/d2.jpeg){#fig-sonucbelgesi}
 
-## Puan Hesaplama Formülü
-
-Her ne kadar YKS puanları öğrencilerin tercihlerinde önemli bir rol oynamıyor olsa da başka bazı analizlerde kilit rol oynamaktadır. Örneğin sıralama dağılımlarının hesaplanmasında veya bölümlere yerleşen ortalama öğrenci üzerinden yapılan bölüm sıralamalarında ve bunun gibi daha başka analizlerin içinde kullanılmaktadır. Bu bölümde netlerden yola çıkarak 2019-2020-2021 yıllarında puan hesaplanmasına yönelik tahmin üreten bir model paylaşılacaktır[^2].    
-
-[^2]: Yazının bu ilk versiyonunda parametreler başka bir web sayfasında kullanılan jscript dosyasından alınmıştır. Yazının devamı versiyonlarda [ATLAS](https://yokatlas.yok.gov.tr/netler-tablo.php?b=10024) verisi üzerine basit regresyon kullanarak kendi parametrelerimi bulacağım. ATLAS'ta bölüm detayı kısmında bulunan [Yerleşenlerin YKS Net Ortalamaları tablosu](https://yokatlas.yok.gov.tr/lisans-panel.php?y=203510676&p=1210a&pr=1) kullanarak bölüme yerleşen ortalama öğrencinin sıralaması hesaplanacaktır.
-
-
-
