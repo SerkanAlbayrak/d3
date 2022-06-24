@@ -1,5 +1,11 @@
 ---
-title: "Zeytin"
+title: ""
+about:
+  id: hero-heading
+  template: jolla
+  image: images/olive_fav.png
+  image-width: 200px
+  
 toc: false
 
 listing: 
@@ -17,6 +23,9 @@ listing:
 
 
 <!--Sayfanın mimarisinde <https://github.com/WillemSleegers/willemsleegers-quarto/blob/main/index.qmd> adresindeki yapıyı kopyalayacağım. Mantık partial page kullanma üzerine. Blog listesi yapmanın yolu listing oluşturulan bir sayfa belirlemek. Onu about sayfasında yapmış. Ben farklı bir yerde yapmayı planlıyorum.-->
+
+
+
 
 
 ## Yazılar
