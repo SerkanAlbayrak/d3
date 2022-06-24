@@ -345,7 +345,8 @@ datatable(params)
 
 Örneğin, OSYM tarafından yapılan açıklamalarda, TYT sınavının SAY, EA ve SÖZ puanlarının hesaplanmasında %40 ağırlığa sahip olduğu belirtilmiştir[^7]. Bu tarz açıklamalar adaylara oyunun kuralları daha en baştan belirtmesi açısından çok önemlidir. Bir lisans programına girmeyi hedefleyen bir öğrenci için TYT sınavının sınav puanı içinde %40 ağırlığa sahip olacağı bilgisi son derece önemlidir. Öğrenci SAY puan türünde bir bölümü hedeflese bile, TYT sınavında sorulan Sosyal sorularının AYT sınavındaki sözgelimi Biyoloji soruları kadar değerli olduğunu anlayacak ve hazırlığını buna göre yapacaktır. Bu anlamda oyunun kurallarını baştan belirlemek aslında tutulması gereken bir söz veya uyulması gereken bir kontrattır.
 
-[^7]: https://www.yok.gov.tr/Documents/AnaSayfa/yuksekogretim_kurumlari_sinavi_sss_ve_cevaplari_puan_turleri_ile.pdf 
+[^7]: [YOK'ün konudayla ilgili resmi açıklaması için tıklayınız](https://www.yok.gov.tr/Documents/AnaSayfa/yuksekogretim_kurumlari_sinavi_sss_ve_cevaplari_puan_turleri_ile.pdf)
+
 
 Tablodaki parametrelere bakarak TYT'nin 2019-2021 yılları arasında SAY puan türündeki oranı en az iki farklı şekilde hesaplanabilir. Birincisi; soruların tamamını doğru yanıtlayan bir aday için TYT sınavından elde edeceği puanın sabit katsayı ve OBP eklenmeden hesaplanan toplam puana, yani TYT+AYT sınavlarından elde edilen puana oranı %40 olmalıdır. İkincisi ise soru grupları bazında ortalama netler üzerinden TYT sınavından elde edilen puan hesaplandığında bu puanının TYT+AYT sınavından elde edilen toplam puana oranı %40 olmalıdır.
 
