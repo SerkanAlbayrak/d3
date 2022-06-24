@@ -2,7 +2,7 @@
 title: "YKS Baraj Sıralamaları Üzerine"
 author: Raif Serkan Albayrak
 description: "Yükseköğretim Kurumları Sınavlarında (YKS) bazı bölümlere baraj sıralaması konulma kararı uzun süredir çeşitli tartışmalara konu olmuş ve YÖK’ün sınav sistemine yönelik aldığı en kritik kararlardan biri olarak görülmüştür. Bu önemli kararla birlikte; Tıp, hukuk, mimarlık, mühendislik, diş hekimliği, eczacılık, öğretmenlik gibi ‘meslek icrasına yönelik’ alanlara baraj sıralamaları getirilmiştir. YÖK, bu kararın alınmasında rol oynayan en önemli nedenleri; farklı başarı sırasındaki öğrencilerin aynı sınıfta bulunmasının eğitim ortamını olumsuz etkilemesi, özellikle devlet ve vakıf üniversitelerinde bu programlara yerleşen öğrencilerin sıralamaları arasındaki makasın açıklığı olarak özetlemiştir. Baraj sıralamalarının amacına hizmet etmediği, pratikte öngörülenden farklı şekilde bir etki yarattığı ve sonuçların bölüm talepleri ve genel olarak kontenjanlar üzerinde yanlış okumalara neden olduğunun tartışıldığı bu yazıda; tartışma 2021 yılında baraj sıralaması 125 binden 100 bine getirileceği açıklanan Hukuk fakülteleri üzerinden yapılacaktır."
-date: 2022-06-01
+date: 2022-06-24
 categories:
   - Üniversite Analitiği
   - YKS
