@@ -6,7 +6,6 @@ project:
 
 website:
   title: "zeytin"
-  logo: images/olive_fav.png
   favicon: images/olive_fav.png
   navbar:
     background: secondary

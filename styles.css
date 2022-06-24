@@ -15,3 +15,7 @@ div.quarto-post .thumbnail{
 div.quarto-post .listing-description{
     font-size: 0.9em;
 }
+
+div.quarto-about-jolla main{
+    text-align: justify;
+}
