@@ -50,7 +50,7 @@ kodlar <- read_excel("kodlar.xlsx")
 kodlar
 ```
 
-Verinin ilk 480 satırı lisans gerisi onlisans bölümlerden oluşmakta. Her bölüm için adres çubuğundaki bölüm kodu değiştirilerek o bölümle ilgili tüm kontenjanlarda bulunan detaylara ulaşmak mümkündür. Basit bir döngü ve veri üzerinde her zamanki kadar zahmetli olan düzenlemeleri yaparak parametrelerin tahmininde kullanılan veri hazırlanmış olur. Ek olarak puanlar hesaplanırken OBP katsayısının cezalı kullanılıp kullanılmadığını anlamak amacıyla her programın detay sayfasından yerleşen son öğrencinin Öğrenim durumu bilgisi de çekilip veriye eklenmiştir. Verinin hazır formu [buradan](https://github.com/SerkanAlbayrak/d3/raw/master/content/posts/05_2022_yks_puan%20hesaplama/puanData.xlsx) indirilebilir.
+Verinin ilk 480 satırı lisans gerisi onlisans bölümlerden oluşmakta. Her bölüm için adres çubuğundaki bölüm kodu değiştirilerek o bölümle ilgili tüm kontenjanlarda bulunan detaylara ulaşmak mümkündür. Basit bir döngü ve veri üzerinde her zamanki kadar zahmetli olan düzenlemeleri yaparak parametrelerin tahmininde kullanılan veri hazırlanmış olur. Ek olarak, puanlar hesaplanırken OBP katsayısının cezalı kullanılıp kullanılmadığını anlamak amacıyla her programın detay sayfasından yerleşen son öğrencinin Öğrenim durumu bilgisi de çekilip veriye eklenmiştir. Verinin hazır formu [buradan](https://github.com/SerkanAlbayrak/d3/raw/master/content/posts/05_2022_yks_puan%20hesaplama/puanData.xlsx) indirilebilir.
 
 ```{r}
 all <- read_excel("puanData.xlsx")
@@ -75,7 +75,7 @@ SoruSayilari |> kbl(col.names = c("SINAV", "Soru Grubu", "Soru Sayısı"),bookta
 
 Regresyon modeli[^4] ile soru gruplarının sonuç puan üzerindeki etkisini gösteren **katsayılar** hesaplanacaktır. Modelin yapısı şu şekilde gösterilebilir:
 
-[^4]: Regresyon modeli hemen her lisans programında gösterilen en temel istatistiki modeldir.
+[^4]: Regresyon modeli hemen her lisans programında gösterilen en temel istatistiki modeldir. Viki sayfası için [tıklayınız.](https://tr.wikipedia.org/wiki/Regresyon_analizi)
 
 $$
 TYTPuan=c+\beta_1 \cdot TemelMatematik+\beta_2 \cdot Türkçe+\beta_3 \cdot FenBilimleri+\beta_4 \cdot SosyalBilimler+\varepsilon
@@ -116,7 +116,7 @@ Mesela yukarıdaki grafikte 150 puan altında sınav puanlarına sahip öğrenci
 table(all$stuType[all$l50>0]) |> kbl(col.names = c("Yerleşen Öğrencinin Öğrenim Durumu", "Frekans"))
 ```
 
-Ancak verideki tüm programlar için bu tablo oluşturulduğunda, sadece **Liseden yeni mezun ÖSYSye ilk girişinde yerleşti** değerinin yukarıdaki tablodan farklı olduğu net görülüyor. Dolayısıyla bu öğrencilerin hiçbiri için OBP'nin cezalı hesaplanmadığı anlaşılmaktadır. Her ne kadar bu durum aslında daha en baştan açık görünse de aynı mantıkla **Lise mezunu, daha önce hiç üniversiteye yerleşmemişti** öğrenim durumuna sahip bir öğrencinin de OBP katsayısının cezalı hesaplanmaması beklenirdi. Ancak yukarıdaki tabloya göre en az 234 adet böyle durum var.
+150 puanın altındaki gözlemlerden elde edilen yukarıdaki tabloda **Liseden yeni mezun ÖSYSye ilk girişinde yerleşti** değerinin olmadığı görülmektedir. Dolayısıyla bu öğrenciler için OBP cezalı hesaplanmıştır. 
 
 ```{r}
 table(all$stuType) |> kbl(col.names = c("Yerleşen Öğrencinin Öğrenim Durumu", "Frekans"))
@@ -191,11 +191,12 @@ TYTKatsayilar |> kbl(col.names = c("Soru Grubu", "2019","2020","2021"),booktabs 
   kable_styling()
 ```
 
-Bu tablonun yorumu buraya
+
+ 
 
 ## SAY
 
-SAYısal puanlarının da hesaplanmasında kullanılan katsayılar benzer şekilde bulunabilir. SAY puanın TYT puanı ve AYT'den Matematik, Fizik, Kimya ve Biyoloji sorularından oluştuğu biliniyor. Kurulan modelde herhangi bir belirsizlik bulunmuyor. Veri %100 başarıyla açıklanabiliyor.
+SAYısal puanlarının da hesaplanmasında kullanılan katsayılar benzer şekilde bulunabilir. SAY puanın TYT puanı ve AYT'den Matematik, Fizik, Kimya ve Biyoloji sorularından oluştuğu biliniyor. Kurulan modelde herhangi bir belirsizlik bulunmuyor. Veri %100 başarıyla açıklanabiliyor. Modele göre AYT soru gruplarının puan üzerindeki etkisinin TYT'ye göre daha fazla olduğu görülmektedir. Bir önceki bölümde TYT puanı için hesaplanan katsayılar ile bu modeldeki TYT soru gruplarının katsayıları ilişkilidir. Örneğin TYT modelinde bir matematik sorusunun katsayısının türkçe sorusunun katsayısına oranı 4.53/2.92 hesaplandığıda 1.55 elde edilir. SAY puanı için oluşturulan modelde de aynı oran 1.76/1.13 hesabından bulunabilir. 
 
 ```{r}
 modeldataSAY <- modeldata[modeldata$PuanTuru=="SAY",]
@@ -204,6 +205,8 @@ SAYModel <- lm(SinavPuan~`TYT Mat`+`TYT Türkçe`+`TYT Fen`+`TYT Sosyal`+
 summ(SAYModel,digits = 5)
 plot_summs(SAYModel)
 ```
+
+
 
 ## EA
 
