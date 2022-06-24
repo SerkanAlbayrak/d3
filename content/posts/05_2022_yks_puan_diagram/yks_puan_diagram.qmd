@@ -1,7 +1,7 @@
 ---
 title: "YKS Puanlama Sistemi"
 author: Raif Serkan Albayrak
-description: "YKS hali hazırda oldukça karmaşık bir sistemdir. Sınavın kurgusu, uygulanışı, puanlanma sistemi gibi iç içe girmiş çok sayıda bileşenden oluşur. Bu yazıda YKS'nin puanlama sistemini özetlenmektedir."
+description: "YKS hali hazırda oldukça karmaşık bir sistemdir. Sınavın kurgusu, uygulanışı, puanlanma sistemi gibi iç içe girmiş çok sayıda bileşenden oluşur. Bu yazıda YKS'nin puanlama sistemi özetlenmektedir."
 date: 2022-05-23
 categories:
   - YKS
