@@ -2,6 +2,7 @@
   {
     "listing": "/content/blog.html",
     "items": [
+      "/content/posts/06_2022_yks_puan_hesaplama2/puan_hesaplama2.html",
       "/content/posts/05_2022_ yks_baraj/yksBaraj.html",
       "/content/posts/05_2022_yks_puan hesaplama/puan_hesaplama.html",
       "/content/posts/05_2022_yks_siralama_dagilim/rank_dist.html",
@@ -11,6 +12,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/content/posts/06_2022_yks_puan_hesaplama2/puan_hesaplama2.html",
       "/content/posts/05_2022_ yks_baraj/yksBaraj.html",
       "/content/posts/05_2022_yks_puan hesaplama/puan_hesaplama.html",
       "/content/posts/05_2022_yks_siralama_dagilim/rank_dist.html",

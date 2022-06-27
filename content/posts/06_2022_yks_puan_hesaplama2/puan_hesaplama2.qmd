@@ -1,0 +1,16 @@
+---
+title: "YKS Puanı Hesaplama Formülleri-2"
+author: Raif Serkan Albayrak
+description: "Önceki yazıda YKS puanı hesaplanırken soru gruplarının katsayısını hesaplayan modellerin nasıl kurulacağı tartılıdı. Bu yazıda ise hesaplanan katsayıların ne anlama geldiği etraflıca tartışıldı. YKS'de kullanılan puanlama sistemi teknik açıdan sahip olması gereken özellikleri taşıyor mu? YKS'ye hazırlanan öğrencilere bu sonuçlardan yola çıkarak hangi nasihatlar verilebilir? Daha iyi bir puanlama sistemi oluşturulabilir mi?"
+date: 2022-06-25
+categories:
+  - YKS
+  - Üniversite Analitiği
+code-fold: true
+image: "img/preview.png"
+lang: tr
+code-line-numbers: false
+toc-title: İçerik
+---
+
+Bir önceki yazıda YKS 'de kullanılan puan sisteminde kullanılan katsayıların nasıl tahmin edilebileceği gösterilmişti. 
