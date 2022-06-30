@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Raif Serkan Albayrak">
-<meta name="description" content="Önceki yazıda YKS puanı hesaplanırken soru gruplarının katsayısını hesaplayan modellerin nasıl kurulacağı tartılıdı. Bu yazıda ise hesaplanan katsayıların ne anlama geldiği etraflıca tartışıldı. YKS’de kullanılan puanlama sistemi teknik açıdan sahip olması gereken özellikleri taşıyor mu? YKS’ye hazırlanan öğrencilere bu sonuçlardan yola çıkarak hangi nasihatlar verilebilir? Daha iyi bir puanlama sistemi oluşturulabilir mi?">
+<meta name="description" content="Önceki yazıda YKS puanı hesaplanırken soru gruplarının katsayısını hesaplayan modellerin nasıl kurulacağı gösterildi Bu yazıda ise puan hesaplama bilgisinin üniversite analitiğine faydaları tartışıldı.">
 
-<title>zeytin - YKS Puanı Hesaplama Formülleri-2</title>
+<title>zeytin - YKS Puanı Hesaplama Formülleri-2: Üniversite Sıralamaları</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -99,7 +99,7 @@ ul.task-list{list-style: none;}
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">YKS Puanı Hesaplama Formülleri-2</h1>
+<h1 class="title">YKS Puanı Hesaplama Formülleri-2: Üniversite Sıralamaları</h1>
   <div class="quarto-categories">
     <div class="quarto-category">YKS</div>
     <div class="quarto-category">Üniversite Analitiği</div>
@@ -108,7 +108,7 @@ ul.task-list{list-style: none;}
 
 <div>
   <div class="description">
-    Önceki yazıda YKS puanı hesaplanırken soru gruplarının katsayısını hesaplayan modellerin nasıl kurulacağı tartılıdı. Bu yazıda ise hesaplanan katsayıların ne anlama geldiği etraflıca tartışıldı. YKS’de kullanılan puanlama sistemi teknik açıdan sahip olması gereken özellikleri taşıyor mu? YKS’ye hazırlanan öğrencilere bu sonuçlardan yola çıkarak hangi nasihatlar verilebilir? Daha iyi bir puanlama sistemi oluşturulabilir mi?
+    Önceki yazıda YKS puanı hesaplanırken soru gruplarının katsayısını hesaplayan modellerin nasıl kurulacağı gösterildi Bu yazıda ise puan hesaplama bilgisinin üniversite analitiğine faydaları tartışıldı.
   </div>
 </div>
 
@@ -134,19 +134,21 @@ ul.task-list{list-style: none;}
 
 </header>
 
-<p>Bir önceki yazıda YKS ’de kullanılan puan sisteminde kullanılan katsayıların nasıl tahmin edilebileceği gösterilmişti.</p>
+<p><a href="https://dokuman.osym.gov.tr/pdfdokuman/2022/YKS/kilavuz_11022022.pdf">YKS kılavuzunda</a> puan hesaplamasının nasıl yapıldığı sayfa 29,30,47,48,49 no’lu sayfalarda anlatılmaktadır. Adaylar burada açıklanan bilgilerden yola çıkarak sadece sınava hazırlık sürecinde değil aynı zamanda sınavın içide yani sınav süresince her soru grubuna yönelik ne kadar zaman ayırmaları gerektiğine karar verirler. Bir soru grubunda yer alan soruların puana etkisi diğer bir deyişle katsayısı başka bir grubun katsaysayısından fazlaysa öncelik daha değerli sorulara verilecektir.</p>
+<p>Bir önceki yazıda soru gruplarının puana etkilerinin nasıl hesaplanacağına yönelik temel regresyon modelleri geliştirildi. Bu katsayılar hesaplandığında soru gruplarının ağırlığının YKS kılavuzunda bahsedilenden farklı olduğu görüldü. Kılavuza göre Tablo 1E’ye göre TYT sınavının SAY, EA ve SÖZ puan türlerinde ağırlığı %40 olmalıdır. Ancak iki farklı bakış açısıyla yapılan incelemelerde bu oranın tutmadığı, yıldan yıla değiştiği ve bazı yıllarda ciddi ölçülerde sapmaların olduğu gösterildi. Tablo 1C ve Tablo 1E’deki tam alt tablolarda benzeri çalışmalr yapıldığında benzer sonuçlar elde edilecektir. Rehber öğretmenleri, danışmanları ve tabii ki öğrencileri, sınav taktikleri geliştirirken kullandıkları kılavızdaki bilgiler konusunda daha şüpheci olmaya davet ediyoruz.</p>
+<p>Bu yazıda puan hesaplama formüllerinin/modellerinin üniversite analitiğindeki rolü üzerinde duruldu.</p>
 
 
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Yeniden kullanın</h2><div quarto-reuse="quarto-reuse" class="quarto-appendix-contents"><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.tr">https://creativecommons.org/licenses/by/4.0/deed.tr</a></div></section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Alıntı</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{serkanalbayrak2022,
   author = {Raif Serkan Albayrak},
-  title = {YKS Puanı Hesaplama Formülleri-2},
+  title = {YKS Puanı Hesaplama Formülleri-2: Üniversite Sıralamaları},
   date = {2022-06-25},
   langid = {tr}
 }
 </code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">Lütfen bu çalışmayı şu şekilde alıntılayın:</div><div id="ref-serkanalbayrak2022" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
-Raif Serkan Albayrak. 2022. <span>“YKS Puanı Hesaplama
-Formülleri-2.”</span> June 25, 2022.
+Raif Serkan Albayrak. 2022. <span>“YKS Puanı Hesaplama Formülleri-2:
+Üniversite Sıralamaları.”</span> June 25, 2022.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {

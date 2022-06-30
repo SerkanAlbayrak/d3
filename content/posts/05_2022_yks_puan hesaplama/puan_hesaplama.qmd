@@ -1,5 +1,5 @@
 ---
-title: "YKS Puanı Hesaplama Formülleri-1"
+title: "YKS Puanı Hesaplama Formülleri-1: Modeller ve Tutulmayan Sözler"
 author: Raif Serkan Albayrak
 description: "Soru gruplarının puan hesaplanmasında katsayıları nedir? YKS çoğunlukla sıralamalarla ilgili olsa da analizlerin bir noktasında puanlarla ilgili bilgiye başvurulabiliyor. Örneğin bir bölüme yerleşen ortalama öğrenci bilgisi ATLAS'da netler üzerinden veriliyor. Bu bilgi bölüme yerleşen öğrencilerin sıralama dağılımlarının belirlenmesinde, farklı kontenjan (indirim) tiplerinden öğrenci alan bölümlere yerleşen ortalama öğrencinin belirlenmesinde ve bu sayede de bölüm bazında üniversite sıralamasında kullanılıyor."
 date: 2022-05-31

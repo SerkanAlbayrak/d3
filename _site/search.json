@@ -112,17 +112,17 @@
     "text": "Dipnotlar\n\n\nHer zaman olduğu gibi amaçlanan işi çok daha basit ve hızlı yapabilecek başka bir kod mutlaka vardır.↩︎\n\nYeniden kullanınhttps://creativecommons.org/licenses/by/4.0/deed.trAlıntıBibTeX@online{serkanalbayrak2022,\n  author = {Raif Serkan Albayrak},\n  title = {YKS Sıralama Dağılımı Tahminleme Modeli},\n  date = {2022-05-27},\n  langid = {tr}\n}\nLütfen bu çalışmayı şu şekilde alıntılayın:\nRaif Serkan Albayrak. 2022. “YKS Sıralama Dağılımı Tahminleme\nModeli.” May 27, 2022."
   },
   {
+    "objectID": "content/posts/06_2022_yks_puan_hesaplama2/puan_hesaplama2.html",
+    "href": "content/posts/06_2022_yks_puan_hesaplama2/puan_hesaplama2.html",
+    "title": "YKS Puanı Hesaplama Formülleri-2: Üniversite Sıralamaları",
+    "section": "",
+    "text": "Bir önceki yazıda soru gruplarının puana etkilerinin nasıl hesaplanacağına yönelik temel regresyon modelleri geliştirildi. Bu katsayılar hesaplandığında soru gruplarının ağırlığının YKS kılavuzunda bahsedilenden farklı olduğu görüldü. Kılavuza göre Tablo 1E’ye göre TYT sınavının SAY, EA ve SÖZ puan türlerinde ağırlığı %40 olmalıdır. Ancak iki farklı bakış açısıyla yapılan incelemelerde bu oranın tutmadığı, yıldan yıla değiştiği ve bazı yıllarda ciddi ölçülerde sapmaların olduğu gösterildi. Tablo 1C ve Tablo 1E’deki tam alt tablolarda benzeri çalışmalr yapıldığında benzer sonuçlar elde edilecektir. Rehber öğretmenleri, danışmanları ve tabii ki öğrencileri, sınav taktikleri geliştirirken kullandıkları kılavızdaki bilgiler konusunda daha şüpheci olmaya davet ediyoruz.\nBu yazıda puan hesaplama formüllerinin/modellerinin üniversite analitiğindeki rolü üzerinde duruldu.\n\n\n\nYeniden kullanınhttps://creativecommons.org/licenses/by/4.0/deed.trAlıntıBibTeX@online{serkanalbayrak2022,\n  author = {Raif Serkan Albayrak},\n  title = {YKS Puanı Hesaplama Formülleri-2: Üniversite Sıralamaları},\n  date = {2022-06-25},\n  langid = {tr}\n}\nLütfen bu çalışmayı şu şekilde alıntılayın:\nRaif Serkan Albayrak. 2022. “YKS Puanı Hesaplama Formülleri-2:\nÜniversite Sıralamaları.” June 25, 2022."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "zeytin",
     "section": "",
     "text": "Tüm Yazılar"
-  },
-  {
-    "objectID": "content/posts/06_2022_yks_puan_hesaplama2/puan_hesaplama2.html",
-    "href": "content/posts/06_2022_yks_puan_hesaplama2/puan_hesaplama2.html",
-    "title": "YKS Puanı Hesaplama Formülleri-2",
-    "section": "",
-    "text": "Yeniden kullanınhttps://creativecommons.org/licenses/by/4.0/deed.trAlıntıBibTeX@online{serkanalbayrak2022,\n  author = {Raif Serkan Albayrak},\n  title = {YKS Puanı Hesaplama Formülleri-2},\n  date = {2022-06-25},\n  langid = {tr}\n}\nLütfen bu çalışmayı şu şekilde alıntılayın:\nRaif Serkan Albayrak. 2022. “YKS Puanı Hesaplama\nFormülleri-2.” June 25, 2022."
   }
 ]

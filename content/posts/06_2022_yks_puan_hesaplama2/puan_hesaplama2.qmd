@@ -1,7 +1,7 @@
 ---
-title: "YKS Puanı Hesaplama Formülleri-2"
+title: "YKS Puanı Hesaplama Formülleri-2: Üniversite Sıralamaları"
 author: Raif Serkan Albayrak
-description: "Önceki yazıda YKS puanı hesaplanırken soru gruplarının katsayısını hesaplayan modellerin nasıl kurulacağı tartılıdı. Bu yazıda ise hesaplanan katsayıların ne anlama geldiği etraflıca tartışıldı. YKS'de kullanılan puanlama sistemi teknik açıdan sahip olması gereken özellikleri taşıyor mu? YKS'ye hazırlanan öğrencilere bu sonuçlardan yola çıkarak hangi nasihatlar verilebilir? Daha iyi bir puanlama sistemi oluşturulabilir mi?"
+description: "Önceki yazıda YKS puanı hesaplanırken soru gruplarının katsayısını hesaplayan modellerin nasıl kurulacağı gösterildi Bu yazıda ise puan hesaplama bilgisinin üniversite analitiğine faydaları tartışıldı."
 date: 2022-06-25
 categories:
   - YKS
@@ -13,4 +13,10 @@ code-line-numbers: false
 toc-title: İçerik
 ---
 
-Bir önceki yazıda YKS 'de kullanılan puan sisteminde kullanılan katsayıların nasıl tahmin edilebileceği gösterilmişti. 
+    
+
+[YKS kılavuzunda](https://dokuman.osym.gov.tr/pdfdokuman/2022/YKS/kilavuz_11022022.pdf) puan hesaplamasının nasıl yapıldığı sayfa 29,30,47,48,49 no'lu sayfalarda anlatılmaktadır. Adaylar burada açıklanan bilgilerden yola çıkarak sadece sınava hazırlık sürecinde değil aynı zamanda sınavın içide yani sınav süresince her soru grubuna yönelik ne kadar zaman ayırmaları gerektiğine karar verirler. Bir soru grubunda yer alan soruların puana etkisi diğer bir deyişle katsayısı başka bir grubun katsaysayısından fazlaysa öncelik daha değerli sorulara verilecektir.      
+
+Bir önceki yazıda soru gruplarının puana etkilerinin nasıl hesaplanacağına yönelik temel regresyon modelleri geliştirildi. Bu katsayılar hesaplandığında soru gruplarının ağırlığının YKS kılavuzunda bahsedilenden farklı olduğu görüldü. Kılavuza göre Tablo 1E'ye göre TYT sınavının SAY, EA ve SÖZ puan türlerinde ağırlığı %40 olmalıdır. Ancak iki farklı bakış açısıyla yapılan incelemelerde bu oranın tutmadığı, yıldan yıla değiştiği ve bazı yıllarda ciddi ölçülerde sapmaların olduğu gösterildi. Tablo 1C ve Tablo 1E'deki tam alt tablolarda benzeri çalışmalr yapıldığında benzer sonuçlar elde edilecektir. Rehber öğretmenleri, danışmanları ve tabii ki öğrencileri, sınav taktikleri geliştirirken kullandıkları kılavızdaki bilgiler konusunda daha şüpheci olmaya davet ediyoruz.    
+
+Bu yazıda puan hesaplama formüllerinin/modellerinin üniversite analitiğindeki rolü üzerinde duruldu. 
