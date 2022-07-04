@@ -1,7 +1,7 @@
 ---
-title: "YKS Puanı Hesaplama Formülleri-2: Üniversite Sıralamaları"
+title: "YKS Puanı Hesaplama Formülleri-2: Bölüm Bazlı Üniversite Sıralamaları"
 author: Raif Serkan Albayrak
-description: "Önceki yazıda YKS puanı hesaplanırken soru gruplarının katsayısını hesaplayan modellerin nasıl kurulacağı gösterildi Bu yazıda ise puan hesaplama bilgisinin üniversite analitiğine faydaları tartışıldı."
+description: "Önceki yazıda YKS puanı hesaplanırken soru gruplarının katsayısını hesaplayan modellerin nasıl kurulacağı gösterildi Bu yazıda ise puan hesaplama bilgisinin üniversite analitiğinde nasıl kullanılabileceği tartışıldı."
 date: 2022-06-25
 categories:
   - YKS
@@ -13,10 +13,54 @@ code-line-numbers: false
 toc-title: İçerik
 ---
 
-    
 
-[YKS kılavuzunda](https://dokuman.osym.gov.tr/pdfdokuman/2022/YKS/kilavuz_11022022.pdf) puan hesaplamasının nasıl yapıldığı sayfa 29,30,47,48,49 no'lu sayfalarda anlatılmaktadır. Adaylar burada açıklanan bilgilerden yola çıkarak sadece sınava hazırlık sürecinde değil aynı zamanda sınavın içide yani sınav süresince her soru grubuna yönelik ne kadar zaman ayırmaları gerektiğine karar verirler. Bir soru grubunda yer alan soruların puana etkisi diğer bir deyişle katsayısı başka bir grubun katsaysayısından fazlaysa öncelik daha değerli sorulara verilecektir.      
+Bir önceki yazıda soru gruplarının puana etkilerinin nasıl hesaplanacağına yönelik temel regresyon modelleri geliştirildi. Bu katsayılar hesaplandığında soru gruplarının ağırlığının YKS kılavuzunda bahsedilenden farklı olduğu görüldü. Kılavuza göre Tablo 1E'ye göre TYT sınavının SAY, EA ve SÖZ puan türlerinde ağırlığı %40 olmalıdır. Ancak iki farklı bakış açısıyla yapılan incelemelerde bu oranın tutmadığı, yıldan yıla değiştiği ve bazı yıllarda ciddi ölçülerde sapmaların olduğu gösterildi. Tablo 1C ve Tablo 1E'deki alt tabloların tamamı için benzeri çalışmalar yapıldığında benzer sonuçlar elde edilecektir. Rehber öğretmenleri, danışmanları ve tabii ki öğrencileri, sınav taktikleri geliştirirken kullandıkları kılavızdaki bilgiler konusunda daha şüpheci olmaya davet ediyoruz.    
 
-Bir önceki yazıda soru gruplarının puana etkilerinin nasıl hesaplanacağına yönelik temel regresyon modelleri geliştirildi. Bu katsayılar hesaplandığında soru gruplarının ağırlığının YKS kılavuzunda bahsedilenden farklı olduğu görüldü. Kılavuza göre Tablo 1E'ye göre TYT sınavının SAY, EA ve SÖZ puan türlerinde ağırlığı %40 olmalıdır. Ancak iki farklı bakış açısıyla yapılan incelemelerde bu oranın tutmadığı, yıldan yıla değiştiği ve bazı yıllarda ciddi ölçülerde sapmaların olduğu gösterildi. Tablo 1C ve Tablo 1E'deki tam alt tablolarda benzeri çalışmalr yapıldığında benzer sonuçlar elde edilecektir. Rehber öğretmenleri, danışmanları ve tabii ki öğrencileri, sınav taktikleri geliştirirken kullandıkları kılavızdaki bilgiler konusunda daha şüpheci olmaya davet ediyoruz.    
+Bu yazıda puan hesaplama formüllerinin/modellerinin üniversite analitiğindeki rolü üzerinde duruldu. YKS, üniversitelerin yaptıkları tüm çalışmaları sergilemek için yılda bir defa çıktıkları sahnedir. O sahnenin performans metrikleri üniversite analitiğinin temelini oluşturmaktadır. YKS sınav sonuçlarının analizinde üniversitelerin bölüm bazında sıralamalarını çıkarmak ve yıldan yıla bu sıralamaların nasıl değiştiğini incelemek üniversite yöneticileri için son derece önemlidir.     
+Ne var ki özellikle vakıf üniversiteleri söz konusu olduğunda bölüm bazında da olsa üniversite sıralamalarını çıkarmak hiç kolay değil. Birden fazla kontenjanla [^1] öğrenci alan bölümler düşünüldüğünde sıralama işi zorlaşıyor. İşte puan hesaplama modelleri de tam da bu durumlarda yardımcı oluyor. Yazıda bölüm bazında bir üniversite sıralamasının nasıl yapılabileceği gösterildi.
 
-Bu yazıda puan hesaplama formüllerinin/modellerinin üniversite analitiğindeki rolü üzerinde duruldu. 
+
+[^1]: Örneğin Burslu ve %50 İndirimli kontenjanla öğrenci alan
+
+
+## Bölüm Bazlı Üniversite Sıralamaları
+
+Bu bölümde üniversitelerin tüm faaliyetlerinden derlenen ulusal veya uluslararası derecelendirme endekslerinden değil YKS sonuçlarına göre bölüm bazlı sıralamalardan bahsediyoruz. Bölüm bazlı sıralamaların temel amacı şu soruya yanıt bulmaktır:     
+
+> En başarılı öğrenciler hangi üniversiteleri tercih ettiler?    
+
+Sonuçta elde edilen sıralama elbette üniversiteleri ilgili bölümde yapılan tüm faaliyetler, akademik kadro, araştırmalar, projeler, eğitimin kalitesi, kampüs imkanları, mezunların ortalama maaşı gibi hiçbiri diğerinden değersiz olmayan bir çok boyutta mümkün olan en doğru, hassas ve güvenilir bir şekilde derecelendirme becerisine sahip olmayacak. Bu sıralama ile sadece üniversite tercihi yapan öğrenciler gözünde yapılan derecelendirme hesaplanıyor. Üniversite yöneticileri için bu derecelendirmede kurumlarının sırası ve yıllar bazında bu sıranın nasıl değiştiği çok önemli bir başarı kriteridir. Başarılı öğrencilerin tercihi olmak ilerki yıllarda daha da başarılı öğrencileri çekmenin yolunu açar. Üst düzey akademisyenler bu prestijli kurumlarda çalışmayı tercih edeceklerdir.   
+
+Buraya SONUÇTA elde edilen grafik ve tablolar gelsin
+
+Teknik anlatımı daha anlaşılır kılabilmek amacıyla Hukuk bölümü örnek olarak kullanılmıştır. Kullanılan yöntemler diğer bölümler için de geçerlidir.   
+
+## Veri
+
+YÖK ATLAS portalında her üniversitenin her programı için derinlemesine analizlerin yapılmasına imkan sağlayan veri bulunmaktadır. Ne var ki portalda her kontenjan için yerleşen öğrencilerin ortalama puanı veya sıralaması bilgisi verilmemektedir. Eğer bu bilgilerden herhangi biri verilseydi, bölüm bazında üniversite sıralamalarına ulaşmak ağırlıklı ortalama hesaplamadan ibaret olacaktı. Ancak malesef ortalama bilgisine sadece yerleşen öğrencilerin ortalama YKS neti üzerinden ulaşmak mümkündür.      
+
+
+Herhangi bir üniversitenin Hukuk kontenjanlarındn birine girildiğinde sayfada yerleşenlerin net ortalamalarının olduğu bir sekme bulunmaktadır. Örneğin, İzmir Ekonomi Üniversitesi'nin Hukuk Fakültesi için 2021 yılı verisi incelendiğinde %100 Burslu ve %50 İndirimli kontenjanların olduğu [görülmektedir](https://yokatlas.yok.gov.tr/lisans-univ.php?u=2035). Buradan %50 İndirimli kontenjan [sayfasına](https://yokatlas.yok.gov.tr/lisans.php?y=203510807) gidildiğinde *Yerleşenlerin YKS Net Ortalamaları* başlığı altında bu kontenjanla bölüme yerleşen öğrencilerin YKS net ortalamaları görülmektedir.   
+
+Yapılması gereken; ATLAS portalında bulunan tüm Hukuk kontenjanları için bu bilgiyi çekmek. İlk  olarak bu yazı içinde gerekecek tüm kütüphaneler yükleniyor.
+
+```{r}
+#| warnings: false
+#| message: false
+library(tidyverse)
+library(readxl)
+library(DT)
+library(gtsummary)
+library(writexl)
+```
+
+ATLAS portalından alınan derlenmiş veri yükleniyor.  Hukuk Fakülteleri EA puan türünde öğrenci kabul ettiği için EA soru grubunun netler verisi geliyor. Verinin tamamına
+
+```{r}
+hukuk <- read_excel("hukukNetlerW.xlsx")
+head(hukuk) |> datatable()
+
+```
+
+
+
