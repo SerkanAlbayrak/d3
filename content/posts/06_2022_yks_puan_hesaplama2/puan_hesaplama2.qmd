@@ -110,7 +110,7 @@ ieuhukuk <- as.data.frame(read_excel("ieuhukuk.xlsx"))
 ieuhukuk$gr <- " "
 ggplot(ieuhukuk)+aes(y=puan, x=gr)+
   ggdist::stat_halfeye(
-    adjust=.5,width=.6,justification=-.1,alpha=0.4
+    adjust=.5,width=2.3,justification=-.1,alpha=0.4
   )+
   geom_point(size=10,alpha=0.8,shape="|",)+
   geom_hline(yintercept=mean(ieuhukuk$puan),size=1,color="orange")+
