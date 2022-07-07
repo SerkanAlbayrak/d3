@@ -170,6 +170,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul>
   <li><a href="#bölüm-bazlı-üniversite-sıralamaları" id="toc-bölüm-bazlı-üniversite-sıralamaları" class="nav-link active" data-scroll-target="#bölüm-bazlı-üniversite-sıralamaları">Bölüm Bazlı Üniversite Sıralamaları</a></li>
   <li><a href="#veri" id="toc-veri" class="nav-link" data-scroll-target="#veri">Veri</a></li>
+  <li><a href="#analiz" id="toc-analiz" class="nav-link" data-scroll-target="#analiz">Analiz</a></li>
   </ul>
 </nav>
 </nav>
@@ -240,11 +241,15 @@ Ne var ki özellikle vakıf üniversiteleri söz konusu olduğunda bölüm bazı
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(summarytools)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">st_options</span>(<span class="at">plain.ascii =</span> <span class="cn">FALSE</span>, <span class="co">#summarytools parameter for Rmd documents</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">style =</span> <span class="st">"rmarkdown"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">subtitle.emphasis =</span> <span class="cn">FALSE</span> <span class="co">#improves layout w/ some themes</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>ATLAS portalından alınan derlenmiş veri yükleniyor. Hukuk Fakülteleri EA puan türünde öğrenci kabul ettiği için EA soru grubunun netler verisi geliyor. Verinin tamamına</p>
+<p>ATLAS portalından alınan derlenmiş veri yükleniyor. Hukuk Fakülteleri EA puan türünde öğrenci kabul ettiği için EA soru grubunun netler verisi geliyor. Verinin tamamına <a href="https://github.com/SerkanAlbayrak/d3/raw/master/content/posts/06_2022_yks_puan_hesaplama2/hukukNetlerW.xlsx">buradan</a> ulaşabilirsiniz.</p>
 <div class="cell">
 <details>
 <summary>Kod</summary>
@@ -253,9 +258,237 @@ Ne var ki özellikle vakıf üniversiteleri söz konusu olduğunda bölüm bazı
 </details>
 <div class="cell-output-display">
 
-<div id="htmlwidget-550f743a374a01e261d5" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-550f743a374a01e261d5">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],[100190208,100410836,100710145,101010255,101110518,101410206],[435.351,427.366,433.739,432.986,452.844,428.934],[16.9,14.1,15.9,16,20.2,14.6],[27.3,26.8,27.7,28.3,30,27.9],[5.2,3.5,4.8,4.4,7,4],[13.7,13.6,14.6,14.8,16.1,14.2],[17,14.1,17.9,17.8,23.8,16.2],[15,16.5,17.5,18,19.5,16.9],[4.6,4.8,5.4,5.4,6.5,4.8],[3.9,4.1,4.6,4.6,5,4.4],["BOLU ABANT İZZET BAYSAL ÜNİVERSİTESİ","AFYON KOCATEPE ÜNİVERSİTESİ (AFYONKARAHİSAR)","AKDENİZ ÜNİVERSİTESİ (ANTALYA)","ANADOLU ÜNİVERSİTESİ (ESKİŞEHİR)","ANKARA ÜNİVERSİTESİ","ATATÜRK ÜNİVERSİTESİ (ERZURUM)"],[null,null,null,null,null,null],["DEVLET","DEVLET","DEVLET","DEVLET","DEVLET","DEVLET"],[359.72975,341.87817,373.03396,376.05852,412.36835,350.52529],[387.22785,399.43524,447.41028,419.34627,492.19762,453.55933]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Code<\/th>\n      <th>Ortalama OBP<\/th>\n      <th>TYT Temel Matematik (40 soruda)<\/th>\n      <th>TYT Türkçe (40 soruda)<\/th>\n      <th>TYT Fen Bilimleri (20 soruda)<\/th>\n      <th>TYT Sosyal Bilimler (20 soruda)<\/th>\n      <th>AYT Matematik (40 soruda)<\/th>\n      <th>AYT Türk Dili ve Edebiyatı (24 soruda)<\/th>\n      <th>AYT Tarih-1 (10 soruda)<\/th>\n      <th>AYT Coğrafya-1 (6 soruda)<\/th>\n      <th>Uni<\/th>\n      <th>Burs<\/th>\n      <th>Statu<\/th>\n      <th>min<\/th>\n      <th>max<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,14,15]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-fa52027d45d00a23431f" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-fa52027d45d00a23431f">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6"],[203910796,104010052,202111106,205410283,105690587,206111969],[482.839,479.399,472.113,470.577,457.761,463.807],[27.2,27.3,25.9,26.4,24.3,23.5],[32.7,32.5,32.9,31.5,31.8,32.1],[14.6,15.3,12.5,10.8,12.5,10.1],[17.2,17.6,16.8,17.8,16.8,16.4],[32.2,32.7,30,29.6,28.4,27],[21.2,22,20.9,20.4,20.9,20.8],[8,8.1,7.7,7.2,8.1,7.5],[5.1,5.7,5.3,5,5.3,5.1],["KOÇ ÜNİVERSİTESİ (İSTANBUL)","GALATASARAY ÜNİVERSİTESİ (İSTANBUL)","İHSAN DOĞRAMACI BİLKENT ÜNİVERSİTESİ (ANKARA)","TOBB EKONOMİ VE TEKNOLOJİ ÜNİVERSİTESİ (ANKARA)","İSTANBUL ÜNİVERSİTESİ","YEDİTEPE ÜNİVERSİTESİ (İSTANBUL)"],["Burslu",null,"Burslu","Burslu","Ücretli","Burslu"],["VAKIF","DEVLET","VAKIF","VAKIF","DEVLET","VAKIF"],[487.29209,486.66416,474.64411,462.34438,462.24567,451.51435],[513.45892,547.87341,505.97132,510.89198,496.47081,482.33445]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Code<\/th>\n      <th>Ortalama OBP<\/th>\n      <th>TYT Temel Matematik (40 soruda)<\/th>\n      <th>TYT Türkçe (40 soruda)<\/th>\n      <th>TYT Fen Bilimleri (20 soruda)<\/th>\n      <th>TYT Sosyal Bilimler (20 soruda)<\/th>\n      <th>AYT Matematik (40 soruda)<\/th>\n      <th>AYT Türk Dili ve Edebiyatı (24 soruda)<\/th>\n      <th>AYT Tarih-1 (10 soruda)<\/th>\n      <th>AYT Coğrafya-1 (6 soruda)<\/th>\n      <th>Uni<\/th>\n      <th>Burs<\/th>\n      <th>Statu<\/th>\n      <th>min<\/th>\n      <th>max<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7,8,9,10,14,15]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 </div>
+</div>
+<p>Verinin özet istatistiki bilgisi çıkarıldığında, toplam 169 adet farklı kontenjan olduğu, bunların 52’sinin DEVLET üniversitelerine ait olduğu görülüyor. Ayrıca oluşturulan raporda numerik değişkenler için temel istatistiki bilgiler de verilmiş durumda. Bu kısımlarda kullanılan IQR: Interquarile Range ve CV: Coefficient of Variation için kullanılan kısaltmalardır. SOn aşamada analize DEVLET üniversitesi dışındaki kontenjanlarda deva edileceği için filtreleme yapılıyor.</p>
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">dfSummary</span>(hukuk[,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">10</span>)],</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"grid"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">valid.col =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">na.col =</span> <span class="cn">FALSE</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">method =</span> <span class="st">"render"</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+
+<div class="container st-container">
+<h3 class="anchored">Data Frame Summary</h3>
+<strong>
+hukuk
+<br>
+</strong>
+<strong>Dimensions</strong>: 169 x 13
+  <br><strong>Duplicates</strong>: 0
+<br>
+<table class="table table-striped table-bordered st-table st-table-striped st-table-bordered st-multiline ">
+  <thead>
+    <tr>
+      <th align="center" class="st-protect-top-border"><strong>No</strong></th>
+      <th align="center" class="st-protect-top-border"><strong>Variable</strong></th>
+      <th align="center" class="st-protect-top-border"><strong>Stats / Values</strong></th>
+      <th align="center" class="st-protect-top-border"><strong>Freqs (% of Valid)</strong></th>
+      <th align="center" class="st-protect-top-border"><strong>Graph</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="center">1</td>
+      <td align="left">Ortalama OBP
+[numeric]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 431.6 (15.4)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">390.5 ≤ 431 ≤ 482.8</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 18 (0)</td></tr></tbody></table></td>
+      <td align="left" style="vertical-align:middle">169 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gcHBzoZZ7PWqgAAAJhJREFUaN7t18sJwCAQRVFbMCUkHcT+ewvBcTEg428Wwdy3cXd4qIgTAplJNHLmxHY6sCu9ucHAwLbE5LnwwbKSwMDAwMDAwMD+gqm/VME65rEqppSCpXZBMDAwMDAwMDAwMLDPYNY4MIxZBcFWsdo4N43VlHHMqGRhh751ghmKieme+2GyWT5Y9Wx9MOnpg8mi79liApnJA8H1DRld0Ta9AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA3LTA3VDA3OjU4OjI1KzAwOjAwmuUeeAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNy0wN1QwNzo1ODoyNSswMDowMOu4psQAAAAASUVORK5CYII="></td>
+    </tr>
+    <tr>
+      <td align="center">2</td>
+      <td align="left">TYT Temel Matematik (40 soruda)
+[numeric]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 14.3 (3.6)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">8.8 ≤ 13.6 ≤ 27.3</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 4.1 (0.2)</td></tr></tbody></table></td>
+      <td align="left" style="vertical-align:middle">87 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gcHBzoZZ7PWqgAAAIlJREFUaN7t2MENgCAMQFFWgA3EDez+u5lIL00IIBAS5f9Lw8GXHgXnqCefK6YO31oJO+UJDAwMbA0WTYOYfm4HGBgYGBgYGNiemP5gzcHSuMDAwMDAforZW/kgVlDAwMDAwFZhDdeBdkzqC4J9DbMP8wkJenqNSWbPoKdBTFeag9mxFxan5KinG8D4OODTdPx6AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA3LTA3VDA3OjU4OjI1KzAwOjAwmuUeeAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNy0wN1QwNzo1ODoyNSswMDowMOu4psQAAAAASUVORK5CYII="></td>
+    </tr>
+    <tr>
+      <td align="center">3</td>
+      <td align="left">TYT Türkçe (40 soruda)
+[numeric]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 27.6 (1.7)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">21.8 ≤ 27.4 ≤ 32.9</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1.8 (0.1)</td></tr></tbody></table></td>
+      <td align="left" style="vertical-align:middle">63 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gcHBzoZZ7PWqgAAAKJJREFUaN7t11sKgCAURVGnYDNIZ6Dzn1uhgoLhmxLa56MfL4vrg0ohyEhkKcpF1tOCaXvH/ARrWLl2zNb7AwMDAwMDAwMDAwMDA9scK14Ue7Fif2BgYGBgYH2Y+0SdizD3BAPbEfN/Y4swx1iwD7Aj7uMCLDKvYCq+b/081ASmY3++2oCtwMLOtGJJ9ROW1RexdDBg6ZmZxvL5T3c2G0FGcgFSidmnbd2X1wAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNy0wN1QwNzo1ODoyNSswMDowMJrlHngAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDctMDdUMDc6NTg6MjUrMDA6MDDruKbEAAAAAElFTkSuQmCC"></td>
+    </tr>
+    <tr>
+      <td align="center">4</td>
+      <td align="left">TYT Fen Bilimleri (20 soruda)
+[numeric]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 4.6 (2.3)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">0.6 ≤ 4 ≤ 15.3</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1.7 (0.5)</td></tr></tbody></table></td>
+      <td align="left" style="vertical-align:middle">65 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gcHBzoZZ7PWqgAAAIJJREFUaN7t2UEKgCAQQFGvYDdIb6D3v5tBjYsGGZts1f8bIfS1iBA0BPIUpSRFR3cs17MCBgYGBgYGNo/JZryvwK6xgoGBgYGBgYGBgYGBgYGBgYEdPbkHMbH+AOxLrH+zFVhWa/+ObePTSAc2/mvBLCypXmBqapnH+vtNLC0pkKcGRbPT1atuiEgAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMDdUMDc6NTg6MjUrMDA6MDCa5R54AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTA3VDA3OjU4OjI1KzAwOjAw67imxAAAAABJRU5ErkJggg=="></td>
+    </tr>
+    <tr>
+      <td align="center">5</td>
+      <td align="left">TYT Sosyal Bilimler (20 soruda)
+[numeric]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 14.2 (1.3)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">5.8 ≤ 14.1 ≤ 17.8</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1.3 (0.1)</td></tr></tbody></table></td>
+      <td align="left" style="vertical-align:middle">45 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gcHBzoZZ7PWqgAAAJBJREFUaN7t2cEJwCAMhWFXaDdo3KDuv1vRgi0hBzX2Yv93EET8iKAIGgIZydacXXIOc6wfSzlgK2Flf8gkLObmBAMDAwMDAwMDAwMDAwMDWxDTTwguTJcHBgYGBgbW5JTbaBZWBTAf9vqH8mOlD/ZbTOoZt7F7vBHTk+3+F5j99/assAuL+syqogYq8yaQkVxshJ3udZXcaQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNy0wN1QwNzo1ODoyNSswMDowMJrlHngAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDctMDdUMDc6NTg6MjUrMDA6MDDruKbEAAAAAElFTkSuQmCC"></td>
+    </tr>
+    <tr>
+      <td align="center">6</td>
+      <td align="left">AYT Matematik (40 soruda)
+[numeric]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 14.9 (4.9)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">6.1 ≤ 14.6 ≤ 32.7</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 6 (0.3)</td></tr></tbody></table></td>
+      <td align="left" style="vertical-align:middle">108 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gcHBzoZZ7PWqgAAAH5JREFUaN7t2csNgCAQRVFawA4cO5D+e3M5b6ERZvxEc++KhZyQGBZAKRSpepN5cx1qB2se2MuY/FhLY4sPVzAwMDAwMDAwMDAwsC9iekhKYzoLDAwMDAwMDAwMLIV1XOf3Y+18lWBPYQcvcDFMxmB/wnT/pzH95A7MLqlQpA2Da3q1pZD9/QAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNy0wN1QwNzo1ODoyNSswMDowMJrlHngAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDctMDdUMDc6NTg6MjUrMDA6MDDruKbEAAAAAElFTkSuQmCC"></td>
+    </tr>
+    <tr>
+      <td align="center">7</td>
+      <td align="left">AYT Türk Dili ve Edebiyatı (24 soruda)
+[numeric]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 16.7 (1.6)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">11.3 ≤ 16.5 ≤ 22</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1.8 (0.1)</td></tr></tbody></table></td>
+      <td align="left" style="vertical-align:middle">56 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gcHBzoZZ7PWqgAAAJ1JREFUaN7t2EEKgCAQhWGvkDdIb5D3v1ugs5goMnUWYv9bCIp+DCKIOkd6sr3Hh5y9Mu0jlnLWxWS3jLCsHGBgYGBgYIZY7V5vwmKlPjAwMDAwMDAwMDAwMLD5sfJQDDZYaY9FsKC+e4exqBgwMLBn7PJxNYqVzjBWajLC9NDvMa+3dhhLtzVtmL4LOzBZLpg+iB2YDE2PBZM40pMTtaH/4KTWNXQAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMDdUMDc6NTg6MjUrMDA6MDCa5R54AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTA3VDA3OjU4OjI1KzAwOjAw67imxAAAAABJRU5ErkJggg=="></td>
+    </tr>
+    <tr>
+      <td align="center">8</td>
+      <td align="left">AYT Tarih-1 (10 soruda)
+[numeric]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 4.9 (0.9)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2.8 ≤ 4.8 ≤ 8.1</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1 (0.2)</td></tr></tbody></table></td>
+      <td align="left" style="vertical-align:middle">39 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gcHBzoZZ7PWqgAAAJ5JREFUaN7t2EEOQDAQQNFegRsYN6j7301MJa2gSkcQ/y9smr7MqpRzdKVmO9G6prA81g9TYGBgYGB3YK0e2FaYMmBgYGBgYL/AwqXHCNOnBwMDA/saFq4TYoQp4MHAHsEK3uvl2HA8HxgYGBiYAZY9vM9i2fkWWPL9U4+tdoHZYRLrqrFkcQOT+JP9JJYMKTO2s6sASxdfj4lJjq40Aout5mY29LFWAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA3LTA3VDA3OjU4OjI1KzAwOjAwmuUeeAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNy0wN1QwNzo1ODoyNSswMDowMOu4psQAAAAASUVORK5CYII="></td>
+    </tr>
+    <tr>
+      <td align="center">9</td>
+      <td align="left">Uni
+[character]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. ALTINBAŞ ÜNİVERSİTESİ (İS</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. ANKARA MEDİPOL ÜNİVERSİTE</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">3. ANKARA SOSYAL BİLİMLER ÜN</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">4. ATILIM ÜNİVERSİTESİ (ANKA</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">5. BAHÇEŞEHİR ÜNİVERSİTESİ (</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">6. BAŞKENT ÜNİVERSİTESİ (ANK</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">7. BEYKENT ÜNİVERSİTESİ (İST</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">8. ÇANKAYA ÜNİVERSİTESİ (ANK</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">9. DOĞU AKDENİZ ÜNİVERSİTESİ</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">10. DOĞUŞ ÜNİVERSİTESİ (İSTAN</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">[ 78 others ]</td></tr></tbody></table></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">4</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">2.4%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">138</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">81.7%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></tbody></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAIcAAAEKBAMAAADKkFuLAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gcHBzoZZ7PWqgAAALRJREFUeNrt1bENwzAQA0CP4GxgyxvY+++WJikCqIr0ACEcB7jiCTy3TXpp7fV/9g9y3RAIBLIaMuU9DhDLIu2cgFwQCASyHDLlPQ4QiYjJgEAgkDrE7hTdJKdiCAQCiULsTtFNciqGQCAQkxGO2B0IBALpInanCLE7EAgE0kXsTtFNciqGQCCQKMTuFN0kp2IIBAKJQuxO0U1yKoZAIBCTEY60kRzfip+BQCAQSCQy5T3Kb969p9u9fwiCJQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNy0wN1QwNzo1ODoyNSswMDowMJrlHngAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDctMDdUMDc6NTg6MjUrMDA6MDDruKbEAAAAAElFTkSuQmCC"></td>
+    </tr>
+    <tr>
+      <td align="center">10</td>
+      <td align="left">Burs
+[character]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. %25 İndirimli</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. %50 İndirimli</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">3. Burslu</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">4. Ücretli</td></tr></tbody></table></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">10</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">8.3%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">35</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">29.2%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">48</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">40.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">27</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">22.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></tbody></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAEkAAABmBAMAAAB1p6EMAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gcHBzoZZ7PWqgAAAGRJREFUSMft08EJACEMRFFL0A5W7UD7721R1EMIElhWEpl/fhdl4pzeUi8GPj9Uri0oqFuUbPdh2x8qsfFvJBUoKKtKtvvz9/jlamfP7idWUFDWlGz3Cu6RVfSNBQrKtJLtXmMv4SSGJoCqz4YAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMDdUMDc6NTg6MjUrMDA6MDCa5R54AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTA3VDA3OjU4OjI1KzAwOjAw67imxAAAAABJRU5ErkJggg=="></td>
+    </tr>
+    <tr>
+      <td align="center">11</td>
+      <td align="left">Statu
+[character]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. DEVLET</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. KKTC VAKIF</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">3. VAKIF</td></tr></tbody></table></td>
+      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">52</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">30.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">21</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">12.4%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">96</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">56.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></tbody></table></td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAGIAAABOBAMAAAAp5d5wAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gcHBzoZZ7PWqgAAAFRJREFUSMft1cENABAMRmErGEFtwP67ubhpSk9K3jv7DiR/pPRPolfy2hS1qyEQiLDCv/N8Xmhh3tV+XQQCcUX4V7s994iQ8+zfQKkhEIgQwr/zHxoAhoz1ERYBrwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNy0wN1QwNzo1ODoyNSswMDowMJrlHngAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDctMDdUMDc6NTg6MjUrMDA6MDDruKbEAAAAAElFTkSuQmCC"></td>
+    </tr>
+    <tr>
+      <td align="center">12</td>
+      <td align="left">min
+[numeric]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 350.3 (36.8)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">309.7 ≤ 345.7 ≤ 487.3</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 49.5 (0.1)</td></tr></tbody></table></td>
+      <td align="left" style="vertical-align:middle">169 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gcHBzoZZ7PWqgAAAI9JREFUaN7t11EKgCAQhGGvUDfIbtDe/25BbsSAlKxCUP+8DPnwsSkJpUQiySXL1BXHVjsCBgYG9j4Wvd2qWHROMDCwC/OPUp/aTcWqBQYGBgYGBgYGBgYGBgbm5b+dY7BSGxgY2A+whsujHbPnAb+KzbqRnZguBrFzJJOTjmImi17vYvp+ndhdOZaHJJFIdi22MXBwh7waAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA3LTA3VDA3OjU4OjI1KzAwOjAwmuUeeAAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNy0wN1QwNzo1ODoyNSswMDowMOu4psQAAAAASUVORK5CYII="></td>
+    </tr>
+    <tr>
+      <td align="center">13</td>
+      <td align="left">max
+[numeric]</td>
+      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 390 (46.7)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">313.6 ≤ 382 ≤ 547.9</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 61.3 (0.1)</td></tr></tbody></table></td>
+      <td align="left" style="vertical-align:middle">169 distinct values</td>
+      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gcHBzoZZ7PWqgAAAK9JREFUaN7t2GsKgCAQRlG3UDvIdpD731ulgdFDcZpI434/AgUPPghrjCGSdDF2zdBJcsZGtwSsBqwvPdgk5gon2Rzmd8sqYf4xgYGBgX2NFVwEeazgtgIDAwMDAwOTYeEvTguLgxvDwjZoYb4TDKwNLJYmFLDYBgMDAwOrANuVn3NYopyzYfeDT5jvrBezl999Qmy8PIt6sONaH2HH6YH9AwtvhBIW2m9gViWGSDIDWlVNCtHqN/8AAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMDdUMDc6NTg6MjUrMDA6MDCa5R54AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTA3VDA3OjU4OjI1KzAwOjAw67imxAAAAABJRU5ErkJggg=="></td>
+    </tr>
+  </tbody>
+</table>
+<p>Generated by <a href="https://github.com/dcomtois/summarytools">summarytools</a> 1.0.1 (<a href="https://www.r-project.org/">R</a> version 4.2.1)<br>2022-07-07</p>
+</div>
+</div>
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>hukuk <span class="ot">&lt;-</span> hukuk[hukuk<span class="sc">$</span>Statu <span class="sc">!=</span><span class="st">"DEVLET"</span>,]</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</section>
+<section id="analiz" class="level2">
+<h2 class="anchored" data-anchor-id="analiz">Analiz</h2>
+<p>Bu yazı dizisinin ilk gönderisinde farklı puan türleri için soru gruplarının puan üzerindeki ağırlıklarını hesaplayan modeller üretilmişti. Bu bölümde EA puan türü için üretilen modelin katsayıları kullanılarak Hukuk bölümlerinin kontenjanlarına yerleşen ortalama öğrencilerin puanları hesaplanacak.</p>
+<p>EA puan türünde katsayılar şu şekilde bulunmuştu.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>eaModel <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">read_excel</span>(<span class="st">"eaModel.xlsx"</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(eaModel)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Tip</th>
+<th style="text-align: left;">Grup</th>
+<th style="text-align: right;">Kats</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Intercept</td>
+<td style="text-align: right;">92.47708</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TYT</td>
+<td style="text-align: left;">Mat</td>
+<td style="text-align: right;">1.85923</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TYT</td>
+<td style="text-align: left;">Türkçe</td>
+<td style="text-align: right;">1.20199</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TYT</td>
+<td style="text-align: left;">Fen</td>
+<td style="text-align: right;">1.30702</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TYT</td>
+<td style="text-align: left;">Sosyal</td>
+<td style="text-align: right;">1.22348</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AYT</td>
+<td style="text-align: left;">Mat</td>
+<td style="text-align: right;">3.60540</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AYT</td>
+<td style="text-align: left;">Türkçe</td>
+<td style="text-align: right;">3.02357</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AYT</td>
+<td style="text-align: left;">Tarih1</td>
+<td style="text-align: right;">3.34516</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AYT</td>
+<td style="text-align: left;">Coğrafya1</td>
+<td style="text-align: right;">2.37120</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dropNames <span class="ot">&lt;-</span> <span class="fu">colnames</span>(hukuk)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>easyNames <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Code"</span>,<span class="st">"obp"</span>,<span class="st">"tytMat"</span>,<span class="st">"tytTur"</span>,<span class="st">"tytFen"</span>,<span class="st">"tytSos"</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">"aytMat"</span>,<span class="st">"aytTur"</span>,<span class="st">"aytTar1"</span>,<span class="st">"aytCog1"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>               <span class="st">"Uni"</span>,<span class="st">"Burs"</span>,<span class="st">"Statu"</span>,<span class="st">"minP"</span>,<span class="st">"maksP"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(hukuk) <span class="ot">&lt;-</span> easyNames</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>hukuk <span class="ot">&lt;-</span> hukuk <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">ortP =</span> obp<span class="sc">*</span><span class="fl">0.12</span> <span class="sc">+</span> eaModel[<span class="dv">1</span>,<span class="dv">3</span>]<span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                           tytMat<span class="sc">*</span>eaModel[<span class="dv">2</span>,<span class="dv">3</span>]<span class="sc">+</span>tytTur<span class="sc">*</span>eaModel[<span class="dv">3</span>,<span class="dv">3</span>]<span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                           tytFen<span class="sc">*</span>eaModel[<span class="dv">4</span>,<span class="dv">3</span>]<span class="sc">+</span>tytSos<span class="sc">*</span>eaModel[<span class="dv">5</span>,<span class="dv">3</span>]<span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                           aytMat<span class="sc">*</span>eaModel[<span class="dv">6</span>,<span class="dv">3</span>]<span class="sc">+</span>aytTur<span class="sc">*</span>eaModel[<span class="dv">7</span>,<span class="dv">3</span>]<span class="sc">+</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                           aytTar1<span class="sc">*</span>eaModel[<span class="dv">8</span>,<span class="dv">3</span>]<span class="sc">+</span>aytCog1<span class="sc">*</span>eaModel[<span class="dv">9</span>,<span class="dv">3</span>])</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 
 

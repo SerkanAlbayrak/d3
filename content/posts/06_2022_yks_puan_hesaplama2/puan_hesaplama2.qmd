@@ -50,17 +50,81 @@ Yapılması gereken; ATLAS portalında bulunan tüm Hukuk kontenjanları için b
 library(tidyverse)
 library(readxl)
 library(DT)
-library(gtsummary)
+library(summarytools)
 library(writexl)
+st_options(plain.ascii = FALSE, #summarytools parameter for Rmd documents
+           style = "rmarkdown",
+           subtitle.emphasis = FALSE #improves layout w/ some themes
+           )
 ```
 
-ATLAS portalından alınan derlenmiş veri yükleniyor.  Hukuk Fakülteleri EA puan türünde öğrenci kabul ettiği için EA soru grubunun netler verisi geliyor. Verinin tamamına
+ATLAS portalından alınan derlenmiş veri yükleniyor.  Hukuk Fakülteleri EA puan türünde öğrenci kabul ettiği için EA soru grubunun netler verisi geliyor. Verinin tamamına [buradan](https://github.com/SerkanAlbayrak/d3/raw/master/content/posts/06_2022_yks_puan_hesaplama2/hukukNetlerW.xlsx) ulaşabilirsiniz.  
 
 ```{r}
 hukuk <- read_excel("hukukNetlerW.xlsx")
 head(hukuk) |> datatable()
 
 ```
+Verinin özet istatistiki bilgisi çıkarıldığında, toplam 169 adet farklı kontenjan olduğu, bunların 52'sinin DEVLET üniversitelerine ait olduğu görülüyor. Ayrıca oluşturulan raporda numerik değişkenler için temel istatistiki bilgiler de verilmiş durumda. Bu kısımlarda kullanılan IQR: Interquarile Range ve CV: Coefficient of Variation için kullanılan kısaltmalardır. SOn aşamada analize DEVLET üniversitesi dışındaki kontenjanlarda deva edileceği için filtreleme yapılıyor.
+
+```{r}
+#| results: asis
+#| comment: NA
+#| prompt: false
+#| cache: false
+print(dfSummary(hukuk[,-c(1,10)],
+          style = "grid",
+          valid.col = FALSE,
+          na.col = FALSE),
+      method = "render")
+hukuk <- hukuk[hukuk$Statu !="DEVLET",]
+```
+
+## Analiz
+
+Bu yazı dizisinin ilk gönderisinde farklı puan türleri için soru gruplarının puan üzerindeki ağırlıklarını hesaplayan modeller üretilmişti. Bu bölümde EA puan türü için üretilen modelin katsayıları kullanılarak Hukuk bölümlerinin kontenjanlarına yerleşen ortalama öğrencilerin puanları hesaplanacak.    
+
+EA puan türünde katsayılar şu şekilde bulunmuştu.
+
+```{r}
+eaModel <- as.data.frame(read_excel("eaModel.xlsx"))
+
+knitr::kable(eaModel)
+
+dropNames <- colnames(hukuk)
+easyNames <- c("Code","obp","tytMat","tytTur","tytFen","tytSos",
+               "aytMat","aytTur","aytTar1","aytCog1",
+               "Uni","Burs","Statu","minP","maksP")
+colnames(hukuk) <- easyNames
+hukuk <- hukuk |> mutate(ortP = obp*0.12 + eaModel[1,3]+
+                           tytMat*eaModel[2,3]+tytTur*eaModel[3,3]+
+                           tytFen*eaModel[4,3]+tytSos*eaModel[5,3]+
+                           aytMat*eaModel[6,3]+aytTur*eaModel[7,3]+
+                           aytTar1*eaModel[8,3]+aytCog1*eaModel[9,3])
+```
+
+Bu katsayılar kullanılarak ortalama netlerden puan hesabına gidildiğinde, her kontenjana yerleşenlerin ortalama puanı hesaplanmış olur. Bu aşamada gözden kaçan bir hata olup olmadığını kontrol etmek maksadıyla tam verisine erişim imkanımızın olduğu İzmir Ekonomi Üniversitesinin Hukuk Fakültesi Burslu kontenjanına yerleşen öğrencilerin ortalama puanları kontrol ediliyor. Turuncu çizgi yerleşenlerin puanlarının ortalaması `380.15` puan. Kırmızı renk ise ortalama netlerin puanı `377.38`
+
+```{r}
+ieuhukuk <- as.data.frame(read_excel("ieuhukuk.xlsx"))
+ieuhukuk$gr <- " "
+ggplot(ieuhukuk)+aes(y=puan, x=gr)+
+  ggdist::stat_halfeye(
+    adjust=.5,width=.6,justification=-.1,alpha=0.4
+  )+
+  geom_point(size=10,alpha=0.8,shape="|",)+
+  geom_hline(yintercept=mean(ieuhukuk$puan),size=1,color="orange")+
+  geom_hline(yintercept=377.38,size=1,color="red")+
+  geom_boxplot(width=.24,
+               alpha=0.05)+
+  theme_light()+theme(legend.position = "none",
+                      axis.title.x = element_blank(),
+                      axis.title.y = element_blank())+coord_flip()
+```
+
+
+
+
 
 
 
