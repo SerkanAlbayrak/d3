@@ -94,7 +94,7 @@ knitr::kable(eaModel)
 dropNames <- colnames(hukuk)
 easyNames <- c("Code","obp","tytMat","tytTur","tytFen","tytSos",
                "aytMat","aytTur","aytTar1","aytCog1",
-               "Uni","Burs","Statu","minP","maksP")
+               "Uni","Burs","Statu","minP","maksP","kont","yer")
 colnames(hukuk) <- easyNames
 hukuk <- hukuk |> mutate(ortP = obp*0.12 + eaModel[1,3]+
                            tytMat*eaModel[2,3]+tytTur*eaModel[3,3]+
@@ -145,8 +145,53 @@ ggplot(ieuhukuk50)+aes(y=puan, x=gr)+
 
 ```
 
+# Üniversite Sıralamaları
+
+En başarılı öğrenciler hangi üniversiteleri tercih ediyor? Aşağıdaki listede Hukuk fakültelerine son sırada yerleşen öğrencilerin puanına göre sıralanmış 15 vakıf üniversitesi bulunuyor. Sıralama amaçlı hemen her listenin bu mantıkla, yani son sırada yerleşen öğrencinin puanına göre oluşturulduğunu görüyoruz. Bu liste hem anlaşılır hem de hiçbir hesaplama gerek kalmadan hızlıca hazırlanabilir. Ancak bu paragrafın başındaki soruya tatmin edici bir yanıt olduğunu söylemek zor.    
+
+İbn Haldun Üniversitesi'nin listede Başkent'in üzerinde olduğu görülüyor. Ancak kontenjanlara ilk yerleşenlerin puanlarına bakıldığında Başkent'e yerleşenin puanı 443.6, İbn Haldun'a yerleşenin ise 402.9. Dolayısıyla İbn Haldun'a daha başarılı öğrencilerin yerleştiğini söylemek zor. Zaten kontenjana yerleşenlerin ortalama netlerinden hesaplanan puana bakıldığında Başkent'e yerleşen öğrencilerin ortalamada İbn Haldun'a yerleşenlerden daha başarılı oldukları görülüyor. Benzer şekilde Çankaya da aslında listede Kadir Has ve İstanbul Medipol'ün üzerinde olmalıdır. Dolayısıyla üniversiteler arasında başarı sıralaması yapmak için ortalama puanları hesaplayıp ona göre listelemek gerekmektedir.      
 
 
+```{r}
+knitr::kable(hukuk[1:15,c(11,12,14,15,16,17,18)])
+
+```
+
+Sıralama ile ilgili ikinci problem ise aynı bölüme birden fazla kontenjanla öğrenci alınması durumunda ortaya çıkıyor. Aşağıdaki tabloda Koç ve Bilkent üniversitelerinin farklı kontenjanlara göre aynı bölüme aldıkları öğrencilerle ilgili puan bilgisi verilmiştir. Üniversite sıralamasında örneğin Koç Üniversitesi için kullanılması gereken ortalama puanı bulmak için hem burslu hem de ücretli kontenjanlara yerleşen öğrenciler hesaba katımalıdır. Bu kontenjanlara yerleşen öğrenci sayıları farklı olduğuna göe kontenjanlarla ağırlıklandırılmış ortalama hesaplamak gerekmektedir. Bilkent için ise üç kontenjan bulunmaktadır ve bu üç kontenjana yerleşen öğrencilerin tamamının puanları ortalama puan hesaplarken kullanılmalıdır. 
+
+```{r}
+
+knitr::kable(hukuk[hukuk$Uni=="KOÇ ÜNİVERSİTESİ (İSTANBUL)" | hukuk$Uni=="İHSAN DOĞRAMACI BİLKENT ÜNİVERSİTESİ (ANKARA)",c(11,12,14,15,16,17,18)])
+```
+
+Bu aşamada ağırlandırmayı yerleşen ğrenci sayısıyla yapmak ancak son aşamada toplam ağırlığa bölerken toplam yerleşen yerine toplam kontenjanı kullanmak gerekmektedir. Dolmayan kontenjanları "cezalandırmak" için bu yaklaşım daha doğru olacaktır.
+
+$$
+A. \: Ortalama=\frac{\displaystyle\sum\limits_{i=1}^k ortP(i)*yer(i)}{\displaystyle\sum\limits_{i=1}^k kont(i)}=\frac{\displaystyle\sum\limits_{i=1}^k wsum(i)}{\displaystyle\sum\limits_{i=1}^k kont(i)}
+$$
+Her üniversite için bu işlemler yapıldığında istenen bölüm[^2] bazında üniversite sıralaması elde edilmiş olur. İlk tabloya göre oldukça fazla yer değiştirmenin olduğu gözlerden kaçmayacaktır.    
+
+[^2]: Altınbaş Ü için Hukuk'ta iki farklı bölüm var ancak ayırma zahmetine girmiyoruz.
+
+```{r}
+hukuk$wsum <- hukuk$yer * hukuk$ortP
+rankHukuk <- aggregate(cbind(kont,yer,wsum)~Uni,data = hukuk,sum)
+rankHukuk$waPuan <- rankHukuk$wsum/rankHukuk$kont
+rankHukuk <- rankHukuk[order(rankHukuk$waPuan,decreasing = TRUE),]
+rownames(rankHukuk)=NULL
+knitr::kable(rankHukuk)
+```
+
+
+
+
+
+
+
+
+
+
+Üniversitelerin kontenjanlarına yerleşen öğrencilerin puan dağılımı bilgisi paylaşılmamaktadır. Elde sadece en düşük ve en yüksek puan, arada kaç adet gözlem olduğu (yani yerleşen sayısı) ve ATLAS portalından veri çekerek elde edilen kırmızı çizgi ile gösterilen ortalama puan tahmini bulunmaktadır. Amaç bu bilgilerden yola çıkarak arka planda gri renk ile gösterilen dağılımı tahmin etmektir. 
 
 
 
