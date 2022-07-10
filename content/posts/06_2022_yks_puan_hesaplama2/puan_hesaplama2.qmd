@@ -103,7 +103,7 @@ hukuk <- hukuk |> mutate(ortP = obp*0.12 + eaModel[1,3]+
                            aytTar1*eaModel[8,3]+aytCog1*eaModel[9,3])
 ```
 
-Bu katsayılar kullanılarak ortalama netlerden puan hesabına gidildiğinde, her kontenjana yerleşenlerin ortalama puanı hesaplanmış olur. Bu aşamada gözden kaçan bir hata olup olmadığını kontrol etmek maksadıyla tam verisine erişim imkanımızın olduğu İzmir Ekonomi Üniversitesinin Hukuk Fakültesi Burslu kontenjanına yerleşen öğrencilerin ortalama puanları kontrol ediliyor. Turuncu çizgi yerleşenlerin puanlarının ortalaması `380.15` puan. Kırmızı renk ise ortalama netlerin puanı `377.38`. Farkın nedeni ATLAS sayfasında ortalama netlerdeki yuvarlama. Grafikte ön planda yer alan Box-Whiskers grafiğinde bu kontenjana yerleşen öğrencilerin puanlarının dağılımı görülüyor. Arka planda ise aynı verinin yoğunluk dağılımı açık gri renkle gösterilmiştir. Veride çok net bir şekilde taban puana doğru yoğunluk yüksek, tavana doğru ise azalıyor. Medyan değerin konumudağılımın şeklinden tahmin edileceği ve  Box-Whiskers'tan da görüleceği üzere ortalamanın sağında.
+Bu katsayılar kullanılarak ortalama netlerden puan hesabına gidildiğinde, her kontenjana yerleşenlerin ortalama puanı hesaplanmış olur. Bu aşamada gözden kaçan bir hata olup olmadığını kontrol etmek maksadıyla tam verisine erişim imkanımızın olduğu İzmir Ekonomi Üniversitesinin Hukuk Fakültesi Burslu kontenjanına yerleşen öğrencilerin ortalama puanları kontrol ediliyor. Turuncu çizgi yerleşenlerin puanlarının ortalaması `380.15` puan. Kırmızı renk ise ortalama netlerin puanı `377.38`. Farkın nedeni ATLAS sayfasında ortalama netlerdeki yuvarlama. Grafikte ön planda yer alan Box-Whiskers grafiğinde bu kontenjana yerleşen öğrencilerin puanlarının dağılımı görülüyor. Arka planda ise aynı verinin yoğunluk dağılımı açık gri renkle gösterilmiştir. Medyan değerin konumudağılımın şeklinden tahmin edileceği ve  Box-Whiskers'tan da görüleceği üzere ortalamanın sağında.
 
 ```{r}
 ieuhukuk <- as.data.frame(read_excel("ieuhukuk.xlsx"))
@@ -123,6 +123,27 @@ ggplot(ieuhukuk)+aes(y=puan, x=gr)+
                       axis.title.y = element_blank())+coord_flip()
 ```
 
+Herhangi bir kontenjana yerleşen öğrencilerin puanlarının dağılımının genel karekteristiğinin  yukarıdaki grafikteki forma uyduğunu söylemek yanlış olmaz. Aynı bölümün %50 İndirimli kontenjanına yerleşen öğrencilerin puan dağılımında da sağa çarpıklık görülmekte. 
+
+
+```{r}
+ieuhukuk50 <- as.data.frame(read_excel("ieuhukuk.xlsx",sheet = "i50"))
+ieuhukuk50$gr <- " "
+
+ggplot(ieuhukuk50)+aes(y=puan, x=gr)+
+  ggdist::stat_halfeye(
+    adjust=.5,width=2.3,justification=-.1,alpha=0.4
+  )+
+  geom_point(size=10,alpha=0.8,shape="|",)+
+  geom_hline(yintercept=mean(ieuhukuk50$puan),size=1,color="orange")+
+  geom_hline(yintercept=338.8589,size=1,color="red")+
+  geom_boxplot(width=.64,
+               alpha=0.05)+
+  theme_light()+theme(legend.position = "none",
+                      axis.title.x = element_blank(),
+                      axis.title.y = element_blank())+coord_flip()
+
+```
 
 
 
