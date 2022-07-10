@@ -48,6 +48,7 @@ Yapılması gereken; ATLAS portalında bulunan tüm Hukuk kontenjanları için b
 #| warnings: false
 #| message: false
 library(tidyverse)
+library(jtools)
 library(readxl)
 library(DT)
 library(summarytools)
@@ -80,7 +81,7 @@ print(dfSummary(hukuk[,-c(1,10)],
 hukuk <- hukuk[hukuk$Statu !="DEVLET",]
 ```
 
-## Analiz
+## Analiz -1
 
 Bu yazı dizisinin ilk gönderisinde farklı puan türleri için soru gruplarının puan üzerindeki ağırlıklarını hesaplayan modeller üretilmişti. Bu bölümde EA puan türü için üretilen modelin katsayıları kullanılarak Hukuk bölümlerinin kontenjanlarına yerleşen ortalama öğrencilerin puanları hesaplanacak.    
 
@@ -145,7 +146,7 @@ ggplot(ieuhukuk50)+aes(y=puan, x=gr)+
 
 ```
 
-# Üniversite Sıralamaları
+## Üniversite Sıralamaları
 
 En başarılı öğrenciler hangi üniversiteleri tercih ediyor? Aşağıdaki listede Hukuk fakültelerine son sırada yerleşen öğrencilerin puanına göre sıralanmış 15 vakıf üniversitesi bulunuyor. Sıralama amaçlı hemen her listenin bu mantıkla, yani son sırada yerleşen öğrencinin puanına göre oluşturulduğunu görüyoruz. Bu liste hem anlaşılır hem de hiçbir hesaplama gerek kalmadan hızlıca hazırlanabilir. Ancak bu paragrafın başındaki soruya tatmin edici bir yanıt olduğunu söylemek zor.    
 
@@ -169,9 +170,11 @@ Bu aşamada ağırlandırmayı yerleşen ğrenci sayısıyla yapmak ancak son a�
 $$
 A. \: Ortalama=\frac{\displaystyle\sum\limits_{i=1}^k ortP(i)*yer(i)}{\displaystyle\sum\limits_{i=1}^k kont(i)}=\frac{\displaystyle\sum\limits_{i=1}^k wsum(i)}{\displaystyle\sum\limits_{i=1}^k kont(i)}
 $$
-Her üniversite için bu işlemler yapıldığında istenen bölüm[^2] bazında üniversite sıralaması elde edilmiş olur. İlk tabloya göre oldukça fazla yer değiştirmenin olduğu gözlerden kaçmayacaktır.    
+Formülde $k$ üniversitenin ilgili bölümde kaç farklı kontenjanı varsa (en fazla 3 olabilir) onu göstermektedir. Her üniversite için bu işlemler yapıldığında istenen bölüm[^2] bazında üniversite sıralaması elde edilmiş olur.     
 
-[^2]: Altınbaş Ü için Hukuk'ta iki farklı bölüm var ancak ayırma zahmetine girmiyoruz.
+[^2]: Altınbaş Ü için Hukuk'ta iki farklı bölüm (Standart ve UOLP-Köln) var ancak ayırma zahmetine girmiyoruz.
+
+İlk tabloya göre oldukça fazla yer değiştirmenin olduğu gözlerden kaçmayacaktır. Örneğin sıralamanın başındaki üniversite yer değiştirdi. Ortalamada en başarılı öğrencilerden oluşan sınıf Bilkent'te oluşmuş. Koç Ü. yakın takipte. Üçüncü sırada olan Yeditepe, TOBB'la yer değiştirmiş. Ankara Bilim'i aslında bu sıralama dışı tutmak gerekli çünkü sadece burslu kontenjandan öğrenci alıyor.
 
 ```{r}
 hukuk$wsum <- hukuk$yer * hukuk$ortP
@@ -183,15 +186,59 @@ knitr::kable(rankHukuk)
 ```
 
 
+## Analiz-2
+Son olarak bu bölümde ATLAS platformunda ortalama net verisi açıklanmadan önce bu sıralamayı tahmin etme yöntemleri tartışıldı. Yerleşen öğrencilerin puan dağılımının alttan ve üstten sınırlı olması ve karekteristik form nedeniyle log-uniform dağılıma benzediği söylenebilir.Başkent, İstanbul Medipol ve Çankaya üniversitelerinde olduğu gibi ortalamanın çok üzerinde bir tavan puanla programa yerleşmenin olmadığı durumlarda bu dağılımın momenti (ortalaması) kullanılarak tahmin yapılabilmektedir.
+
+Hukuk verisi üzerinde tüm kontenjanlara yerleşen öğrencilerin taban ve tavan puanlarını kullanarak ortalama puanı hesaplayan basşt bir regresyon modeli kurulabilir. Ortalama puanlar daha önce de anlatıldığı üzere ATLAS platformunda kontenjan bazında verilen ortalama netler kullanılarak hesaplandı. Modelde kasıtlı olarak sabit değer sıfırlandı. Modelin genel olarak performansının çok yüksek olduğu (%99.99) görülmekte. 
+
+```{r}
+hukco <- hukuk
+hukco$diff <- hukco$maksP-hukco$minP
+m1 <- lm(ortP ~ -1+minP+maksP,data = hukco)
+summary(m1)
+
+```
+Hata terimleri de incelendiğinde modelin taban ve tavan puan kullanarak yaptığı ortalama puan hesaplamasının oldukça başarılı olduğu görülüyor. Parametrelere bakıldığında modelin hesapladığı ortalama değer taban ve tavan puan arası beş eşit dilime bölündüğünde taban puandan bir dilim uzaklıkta.
+
+```{r}
+results <- data.frame(real = hukco$ortP,model=predict(m1))
+results$fark <- results$real-results$model
+results$absfark <- abs(results$real-results$model)
+ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() + 
+  labs(title = "Hata Terimleri",
+       x = "Gözlem",
+       y = "Gözlem - Model",
+       colour= "Hata") + 
+  geom_abline(slope = 0, intercept = 0, colour="orange", size=1)
+```
+
+Modelin başarısının bağımlı değişken olan ortalama puanın, bağımsız değişken olan taban ve tavan puanlara yakın olması ve sapmaların değerlerin sayısal büyüklüğüne oranla düşük olmasından kaynaklanmadığını görmek için bir standardizasyon işlemi yapılıyor. Taban ve tavan puan değerleri birleştirilip ortalama ve standart sapma hesaplandıktan sonra, tavan, taban ve ortalama puanlar bu değerler kullanılarak standardize ediliyor. Yeni hesaplanan değişkenlerle bir öncek model kuruluyor. Bu modelin başarısı da %99'un üzerinde ve parametreler yaklaşık aynı çıkıyor.
 
 
+```{r}
+mstan <- function(x,m,st){
+  z<- (x-m)/st
+  return(z)
+}
 
+m <- mean(c(hukco$minP,hukco$maksP))
+st <- sd(c(hukco$minP,hukco$maksP))
 
+hukco$smax <- mstan(hukco$maksP,m,st)
+hukco$smin <- mstan(hukco$minP,m,st)
+hukco$sort <- mstan(hukco$ortP,m,st)
 
+m2 <- lm(sort ~ -1+smin+smax,data = hukco)
+summary(m2)
+```
 
+Ek olarak yerleşmeyenin %100 olmadığı kontenjanlar için dummy değişken tanımlanıp, moderasyon ilişkisi de incelendi ve b faktörlerin model içinde anlamlı bir katkılarının olmadığı gözlemlendi.
 
+# Sonuç
 
-Üniversitelerin kontenjanlarına yerleşen öğrencilerin puan dağılımı bilgisi paylaşılmamaktadır. Elde sadece en düşük ve en yüksek puan, arada kaç adet gözlem olduğu (yani yerleşen sayısı) ve ATLAS portalından veri çekerek elde edilen kırmızı çizgi ile gösterilen ortalama puan tahmini bulunmaktadır. Amaç bu bilgilerden yola çıkarak arka planda gri renk ile gösterilen dağılımı tahmin etmektir. 
+Herhangi bir bölüm için üniversite sıralamaları hesaplanmak istendiğinde genel olarak kontenjanların taban puanları esas alınmaktadır. Vakıf üniversitleri açısından hemen her bölüm için birden fazla kontenjan olduğu düşünüldüğünde de kontenjanlarla ağırlıklandırılmış ortalamalar hesaplanmaktadır. Bu yazıda sıralama amacıyla taban puan kullanmanın üniversiteler arasındaki sıralamalarda hatalı sonuçlar ürettiği gösterildi. Buna göre taban yerine ortalama puan kullanmak gerekmektedir. Ancak her kontenjan için ortalama puan hesaplamak oldukça zordur ve bu hesap için kullanılan ATLAS platformu verisinin yayınlanması aylar sürmektedir.
+
+Üniversiteler kendi kontenjanlarına yerleşen öğrencilerin puan verisine sahiptirler. Bu veri incelendiğinde, kontenjan bazında, yerleşen öğrencilerin dağılımları log-uniform dağılımı karekteristikleri göstermektedir. Buradan yola çıkarak, sadece taban ve tavan puan kullanılarak ortalama puanı tahmin eden bir model geliştirildi. Model mevcut veriyi %99'un üzerinde bir başarıyla açıklayabilmekte. Dolayısıyla, ATLAS platformu verisi kullanmadan ortalama puan tahminleri yapmak mümkündür.
 
 
 
