@@ -182,7 +182,31 @@ rankHukuk <- aggregate(cbind(kont,yer,wsum)~Uni,data = hukuk,sum)
 rankHukuk$waPuan <- rankHukuk$wsum/rankHukuk$kont
 rankHukuk <- rankHukuk[order(rankHukuk$waPuan,decreasing = TRUE),]
 rownames(rankHukuk)=NULL
+uniMinMax <- hukuk |> group_by(Uni) |> summarize(
+  minP = min(minP),
+  maxP = max(maksP)
+)
+rankHukuk <- inner_join(rankHukuk,uniMinMax,"Uni")
 knitr::kable(rankHukuk)
+
+```
+
+Tabloyu grafikle özetlemek de mümkün. Kırmızı renkle gösterilen üniversitelerin kontenjanları dolmuştur.
+
+
+```{r}
+#| fig-width: 10
+#| fig-height: 12
+
+# reorder() kullanılmazsa Y ekseni uni isimlerine göre sıralanıyor. 
+# gsub() ile y eksenindeki universite isimlerini kısaltıyorum.
+ggplot(rankHukuk,
+       aes(waPuan,
+           reorder(gsub(" ÜNİVERSİTESİ", "", Uni),waPuan),
+           color=factor(kont>yer)))+ 
+  geom_point()+
+  geom_errorbarh(aes(xmin=minP,xmax=maxP))+
+  labs(y="")+ theme(legend.position="none")
 ```
 
 
