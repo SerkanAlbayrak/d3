@@ -16,7 +16,38 @@ toc-title: İçerik
 
 Aylık enflasyon verisinin kullanarak yıllık enflasyon hesaplaması üzerinden gidilerek ay bazında Temmuz 2022'den itibaren Ağustos 2023'e kadar yıllık enflasyonun nasıl değiştiği, bu süreç içinde ortalama enflasyon da hesaplanacak.
 
+```{r}
+#| warnings: false
+#| message: false
+library(tidyverse)
+library(lubridate)
+library(readxl)
+```
 
 ## Veri
 
-Veri [evds](https://evds2.tcmb.gov.tr/index.php?/evds/serieMarket) sistemi üzerinden indirildi. Sol menüde Fiyat Endeksleri altında, Fiyat Endeksi (Tüketici)(2003=100)(TUİK)(Yeni Seri) verisi işaretlenip, orta menüde 0.GENEL opsiyonu seçilip, formül menüsünde *Yüzde Değişim* ve *Yıllık Yüzde Değişim* opsiyonları seçildikten sonra Ekle düğmesine basılır. Sağ menüde, Frekans olarak Aylık opsiyonu seçilir, Başlangıç Tarihi de 01-2004 seçilir. Son olarak apor Seçenekleri kısmında en sol icon olan **Rapor Oluştur** ikonu tıklandığında veri kaydedilmeye hazır olacak şekilde sayfada gösterilir. Bu aşamada seçilen verilerin finansal kodları da görünmektedir. Bu analizde kullanılacak verilerin kodları: TP FG J0-1 ve TP FG J0-3'tür. Veriye kolayca ulaşmak için [burayı](..) tıklayabilirsiniz.
+Veri [evds](https://evds2.tcmb.gov.tr/index.php?/evds/serieMarket) sistemi üzerinden indirildi. Sol menüde Fiyat Endeksleri altında, Fiyat Endeksi (Tüketici)(2003=100)(TUİK)(Yeni Seri) verisi işaretlenip, orta menüde 0.GENEL opsiyonu seçilip, formül menüsünde *Yüzde Değişim* ve *Yıllık Yüzde Değişim* opsiyonları seçildikten sonra Ekle düğmesine basılır. Sağ menüde, Frekans olarak Aylık opsiyonu seçilir, Başlangıç Tarihi de 01-2004 seçilir. Son olarak apor Seçenekleri kısmında en sol icon olan **Rapor Oluştur** ikonu tıklandığında veri kaydedilmeye hazır olacak şekilde sayfada gösterilir. Bu aşamada seçilen verilerin finansal kodları da görünmektedir. Bu analizde kullanılacak verilerin kodları: TP FG J0-1 ve TP FG J0-3'tür. Veriye kolayca ulaşmak için [burayı](https://github.com/SerkanAlbayrak/d3/raw/master/content/posts/06_2022_yilsonu_enflasyon_tahminleri/EVDS.xlsx) tıklayabilirsiniz.
+
+
+
+
+```{r}
+EVDS <- read_excel("EVDS.xlsx")[1:223,] #diğer satırlarda açıklmalar var.
+
+```
+
+Veri üzerinde ilk yapılacak işlem *Tarih* değişkenini R'a tanıtmak. Bu amaçla başlangıçta `Lubridate` kütüphanesi yüklenmişti. Metinden tarihe dönüştürme fonksiyonları için bu [hatırlama kağıdı](https://rawgit.com/rstudio/cheatsheets/main/lubridate.pdf) kullanılabilir.      
+
+:::{.callout-caution}
+## R içinde tarih değişkenleriyle işlemler ve format
+
+R içinde tarih değişkenleriyle işlemleri özetleyen bir yazıyı yakında yayınlanacaktır. Ayrıca tarih tipinde bir değişkenin grafiklerde veya raporlarda gösteriminde formatlanma opsiyonları için; `?strptime`.
+:::
+
+
+```{r}
+EVDS$Tarih <- ym(EVDS$Tarih)
+```
+
+
+

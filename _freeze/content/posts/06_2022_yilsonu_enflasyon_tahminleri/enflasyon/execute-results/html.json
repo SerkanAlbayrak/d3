@@ -1,0 +1,14 @@
+{
+  "hash": "defd221ed89236cc51ea019fd17c7df2",
+  "result": {
+    "markdown": "---\ntitle: \"2022 Yıl Sonu Enflasyon Tahminleri\"\nauthor: Raif Serkan Albayrak\ndescription: \"2022 yılı sonu ve 2023 yıl başı itibariyle yıllık enflasyon oranlarında baz etkisi nedeniyle ilginç dinamiklerin oluşması beklenmektedir.\"\ndate: 2022-07-05\ncategories:\n  - Zaman Serisi\n  - R\n  - Modelleme\ncode-fold: true\nimage: \"img/preview.png\"\nlang: tr\ncode-line-numbers: false\ntoc-title: İçerik\n---\n\n\nAylık enflasyon verisinin kullanarak yıllık enflasyon hesaplaması üzerinden gidilerek ay bazında Temmuz 2022'den itibaren Ağustos 2023'e kadar yıllık enflasyonun nasıl değiştiği, bu süreç içinde ortalama enflasyon da hesaplanacak.\n\n\n::: {.cell warnings='false'}\n\n```{.r .cell-code}\nlibrary(tidyverse)\nlibrary(lubridate)\nlibrary(readxl)\n```\n:::\n\n\n## Veri\n\nVeri [evds](https://evds2.tcmb.gov.tr/index.php?/evds/serieMarket) sistemi üzerinden indirildi. Sol menüde Fiyat Endeksleri altında, Fiyat Endeksi (Tüketici)(2003=100)(TUİK)(Yeni Seri) verisi işaretlenip, orta menüde 0.GENEL opsiyonu seçilip, formül menüsünde *Yüzde Değişim* ve *Yıllık Yüzde Değişim* opsiyonları seçildikten sonra Ekle düğmesine basılır. Sağ menüde, Frekans olarak Aylık opsiyonu seçilir, Başlangıç Tarihi de 01-2004 seçilir. Son olarak apor Seçenekleri kısmında en sol icon olan **Rapor Oluştur** ikonu tıklandığında veri kaydedilmeye hazır olacak şekilde sayfada gösterilir. Bu aşamada seçilen verilerin finansal kodları da görünmektedir. Bu analizde kullanılacak verilerin kodları: TP FG J0-1 ve TP FG J0-3'tür. Veriye kolayca ulaşmak için [burayı](https://github.com/SerkanAlbayrak/d3/raw/master/content/posts/06_2022_yilsonu_enflasyon_tahminleri/EVDS.xlsx) tıklayabilirsiniz.\n\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nEVDS <- read_excel(\"EVDS.xlsx\")[1:223,] #diğer satırlarda açıklmalar var.\n```\n:::\n\n\nVeri üzerinde ilk yapılacak işlem *Tarih* değişkenini R'a tanıtmak. Bu amaçla başlangıçta `Lubridate` kütüphanesi yüklenmişti. Metinden tarihe dönüştürme fonksiyonları için bu [hatırlama kağıdı](https://rawgit.com/rstudio/cheatsheets/main/lubridate.pdf) kullanılabilir.      \n\n:::{.callout-caution}\n## R içinde tarih değişkenleriyle işlemler ve format\n\nR içinde tarih değişkenleriyle işlemleri özetleyen bir yazıyı yakında yayınlayacağız. Ayrıca tarih tipinde bir değişkenin grafiklerde veya raporlarda gösteriminde formatlanma opsiyonları için; `?strptime`.\n:::\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nEVDS$Tarih <- ym(EVDS$Tarih)\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
