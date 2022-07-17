@@ -19,9 +19,13 @@ Aylık enflasyon verisinin kullanarak yıllık enflasyon hesaplaması üzerinden
 ```{r}
 #| warnings: false
 #| message: false
+
 library(tidyverse)
+library(magrittr)
 library(lubridate)
 library(readxl)
+library(scales)
+library(gt)
 ```
 
 ## Veri
@@ -32,7 +36,7 @@ Veri [evds](https://evds2.tcmb.gov.tr/index.php?/evds/serieMarket) sistemi üzer
 
 
 ```{r}
-EVDS <- read_excel("EVDS.xlsx")[1:223,] #diğer satırlarda açıklmalar var.
+EVDS <- read_excel("EVDS.xlsx")[1:222,] #diğer satırlarda açıklmalar var.
 
 ```
 
@@ -41,13 +45,173 @@ Veri üzerinde ilk yapılacak işlem *Tarih* değişkenini R'a tanıtmak. Bu ama
 :::{.callout-caution}
 ## R içinde tarih değişkenleriyle işlemler ve format
 
-R içinde tarih değişkenleriyle işlemleri özetleyen bir yazıyı yakında yayınlanacaktır. Ayrıca tarih tipinde bir değişkenin grafiklerde veya raporlarda gösteriminde formatlanma opsiyonları için; `?strptime`.
+R içinde tarih değişkenleriyle işlemleri özetleyen bir yazıyı yakında yayınlanacaktır. Ayrıca tarih tipinde bir değişkenin grafiklerde veya raporlarda gösteriminde formatlanma opsiyonları için; `?strptime` kullanılabilir.
 :::
 
 
 ```{r}
 EVDS$Tarih <- ym(EVDS$Tarih)
+colnames(EVDS)[2:3] <- c("Ay","Yıl")
+EVDS$Ay %<>% as.numeric() # %<>% is an assigment pipe operator.
+EVDS$Yıl %<>% as.numeric()
+Enflasyon <- EVDS
+Enflasyon <- Enflasyon |> mutate(Ay=Ay/100,Yıl=Yıl/100)
+
+
+theme_set(theme_bw())
+ggplot(Enflasyon,aes(x=Tarih))+
+  geom_line(aes(y=Yıl, color="Yıllık Enflasyon Oranı"),size=1.8)+
+  geom_line(aes(y=Ay*6, color="Aylık Enflasyon Oranı"))+
+  theme(legend.title = element_blank(),legend.position = "top")+
+  scale_y_continuous(labels = scales::percent,
+                     sec.axis = sec_axis(~./6, name="Aylık Enflasyon",
+                                         labels = scales::percent))+
+  labs(x="Tarih", y="Yıllık Enflasyon")+
+  scale_color_manual(values = c("gray50","orange1"))
+
+
+
+
+
+
 ```
 
 
+```{r}
+# PLOTLY ile Secondary Axis Kullanarak Aylık ve Yıllık Enflasyon
+# fig <- plot_ly(Enflasyon,type = "scatter",mode="lines") |> 
+#   add_trace(x=~Tarih,y=~Yıl,name="Yıllık Enflasyon Oranı")
+# 
+# ay <- list(
+#   overlaying = "y",
+#   side = "right",
+#   title = "<b>Aylık</b> Enf. Oranı")
+# 
+# fig <- fig %>% add_trace(x = ~Tarih, y = ~Ay, 
+#                          name = "Aylık Enflasyon Oranı", 
+#                          yaxis = "y2", mode = "lines", type = "scatter")
+# 
+# fig <- fig %>% layout(
+#   title = "Yıllık - Aylık Enflasyon Oranı", yaxis2 = ay,
+#   xaxis = list(title="Tarih "),
+#   yaxis = list(title="<b>Yıllık</b> Enf. Oranı")
+# )%>%
+#   layout(plot_bgcolor='#e5ecf6',
+#           xaxis = list(
+#             zerolinecolor = '#ffff',
+#             zerolinewidth = 2,
+#             gridcolor = 'ffff'),
+#           yaxis = list(
+#             zerolinecolor = '#ffff',
+#             zerolinewidth = 2,
+#             gridcolor = 'ffff')
+#           )
+# 
+# fig
+```
+
+
+
+
+
+## Yıllık Enflasyonun Hesaplanması
+
+Yıllık enflasyon oranı bilindiği üzere aylık enflasyon oranlarının bileşik faizi şeklinde hesaplanır. Bu hesaplamada 12 geçmiş 12 aylık pencere kullanılır ve her ay bu pencere bir adım ilerletilir.    
+$$
+e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
+$$
+Aşağıdaki tabloda bu mantıkla yapılan hesaplama sonuçları (son 6 gözlem) verilmiştir. Beklendiği gibi değerler açıklanan oranlarla aynıdır. Dolayısıyla artık önümüzdeki döneme yönelik aylık enflasyon tahminleri yaparak yıllık enflasyon ve ortalama yıllık enflasyon değerleri hesaplanabilir.
+```{r}
+lagged <- function(x){
+  result <- 1
+  for (i in 1:12){
+    result <- result*(1+lag(x,i))
+  }
+  result-1
+}
+
+Enflasyon <- Enflasyon |> mutate(Hesap = lead(lagged(Ay)))
+son_index <- dim(Enflasyon)[1]
+x <- Enflasyon$Ay[(son_index-11):son_index]
+e <- prod(1+x)-1
+Enflasyon$Hesap[son_index] <- e
+
+##TABLO
+tail(Enflasyon) |> gt::gt() |> tab_header(
+  title = "Enflasyon Oranları",
+  subtitle = "Aylık Bileşik Faiz Hesabı Olarak Yıllık Enflasyon"
+) |> fmt_date(columns = Tarih,date_style = 5) |> 
+  fmt_percent(columns = c(Ay,Yıl,Hesap),decimals = 3)
+
+```
+
+
+Aylık enflasyon oranlarının 2023 yılı Ağustos ayına kadar %2-%7 olduğu senaryolar için hesaplamalar yapıldığında,
+
+```{r}
+
+aa <- tibble()
+for (i in 1:15){
+ aa[i,"Tarih"] <- Enflasyon$Tarih[son_index]+months(i)
+}
+
+#Senaryo Girdilerini Kodla
+Estimates <- bind_rows(Enflasyon,aa) |> 
+  mutate(Ay2=ifelse(is.na(Ay),0.02,Ay)) |> 
+  mutate(Ay3=ifelse(is.na(Ay),0.03,Ay)) |> 
+  mutate(Ay4=ifelse(is.na(Ay),0.04,Ay)) |> 
+  mutate(Ay5=ifelse(is.na(Ay),0.05,Ay)) |> 
+  mutate(Ay6=ifelse(is.na(Ay),0.06,Ay)) |> 
+  mutate(Ay7=ifelse(is.na(Ay),0.07,Ay))
+
+#Yıllık Enflasyon Hesapla
+Estimates <- Estimates |> 
+  mutate(Yıl2 = lead(lagged(Ay2))) |> 
+  mutate(Yıl3 = lead(lagged(Ay3))) |> 
+  mutate(Yıl4 = lead(lagged(Ay4))) |> 
+  mutate(Yıl5 = lead(lagged(Ay5))) |> 
+  mutate(Yıl6 = lead(lagged(Ay6))) |> 
+  mutate(Yıl7 = lead(lagged(Ay7))) 
+
+e.period <- dim(Estimates)[1]-son_index
+Estimates <- Estimates[-(son_index+e.period),]
+
+```
+
+Bu varsayımlar sonucu hesaplanan yıllık enflasyon tahminleri elde edilir. Bu yazının hazırlandığı Temmuz 2022 ortalarında ekonomi Ekim 2021'den itibaren süren bir krizin tam da ortasında bulunmaktadır. Krizden ne zaman ve nasıl çıkılacağına dair herhangi bir gösterge veya umut da an itibariyle mevcut değildir. Bu şartlar altında enflasyonla ilgili öngörüler oluşturulurken iyimser olmayı gerektirecek hiçbir neden bulunmamaktadır. Aşağıdaki tabloda, gerçekçi senaryoların aylık enflasyonun en iyimser ihtimalle %4 olacağı durumlar olduğunu düşünüyoruz. 
+
+```{r}
+Estimates[1:son_index,11:16] <- NA
+Estimates[Estimates$Tarih>my("August 2021"),
+          c("Tarih","Yıl","Yıl2","Yıl3","Yıl4","Yıl5","Yıl6","Yıl7")] |> 
+  gt::gt() |> tab_header(
+  title = "Enflasyon Oranları",
+  subtitle = "Aylık Bileşik Faiz Hesabı Olarak Yıllık Enflasyon") |> 
+  fmt_date(columns = Tarih,date_style = 5) |> 
+  fmt_percent(columns = c(Yıl,Yıl2,Yıl3,Yıl4,Yıl5,Yıl6,Yıl7),decimals = 3)
+```
+
+Baz etkisi sayesinde yıllık enflasyonun 2022 yılının Aralık ayı ve Ocak 2023'te bir miktar düşeceği görülmektedir. Ancak bu düşüş aslında 2021 Aralık ve 2022 Ocak'ta açıklanan yüksek oranların hesaplama penceresini terk etmesi kaynaklıdır.
+
+```{r}
+ggplot(Estimates[Estimates$Tarih>my("January 2021"),],aes(x=Tarih))+
+  geom_line(aes(y=Yıl, color="Geçmiş Oranlar"),size=1.5,na.rm=TRUE)+
+  geom_line(aes(y=Yıl2, color="Aylık %2 Varsayımı"),size=0.9,na.rm=TRUE)+
+  geom_line(aes(y=Yıl3, color="Aylık %3 Varsayımı"),size=0.9,na.rm=TRUE)+
+  geom_line(aes(y=Yıl4, color="Aylık %4 Varsayımı"),size=1.2,na.rm=TRUE)+
+  geom_line(aes(y=Yıl5, color="Aylık %5 Varsayımı"),size=1.2,na.rm=TRUE)+
+  geom_line(aes(y=Yıl6, color="Aylık %6 Varsayımı"),size=1.2,na.rm=TRUE)+
+  geom_line(aes(y=Yıl7, color="Aylık %7 Varsayımı"),size=1.2,na.rm=TRUE)+
+  scale_y_continuous(labels = scales::percent)+
+  labs(x="Tarih", y="Yıllık Enflasyon")+
+  theme(legend.title = element_blank(),legend.position = "top")+
+  (scale_x_date(breaks=date_breaks("2 months"),
+      labels=date_format("%m %Y")))+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+  
+  
+```
+
+## Üniversite Analitiğine Etkileri
+jhgsdjhdsgs
 

@@ -120,6 +120,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../../styles.css">
 </head>
@@ -159,6 +160,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#veri" id="toc-veri" class="nav-link active" data-scroll-target="#veri">Veri</a></li>
+  <li><a href="#yıllık-enflasyonun-hesaplanması" id="toc-yıllık-enflasyonun-hesaplanması" class="nav-link" data-scroll-target="#yıllık-enflasyonun-hesaplanması">Yıllık Enflasyonun Hesaplanması</a></li>
   </ul>
 </nav>
 </nav>
@@ -211,8 +213,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <details>
 <summary>Kod</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magrittr)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="veri" class="level2">
@@ -221,7 +226,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell">
 <details>
 <summary>Kod</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>EVDS <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"EVDS.xlsx"</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">223</span>,] <span class="co">#diğer satırlarda açıklmalar var.</span></span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>EVDS <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"EVDS.xlsx"</span>)[<span class="dv">1</span><span class="sc">:</span><span class="dv">222</span>,] <span class="co">#diğer satırlarda açıklmalar var.</span></span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Veri üzerinde ilk yapılacak işlem <em>Tarih</em> değişkenini R’a tanıtmak. Bu amaçla başlangıçta <code>Lubridate</code> kütüphanesi yüklenmişti. Metinden tarihe dönüştürme fonksiyonları için bu <a href="https://rawgit.com/rstudio/cheatsheets/main/lubridate.pdf">hatırlama kağıdı</a> kullanılabilir.</p>
@@ -235,14 +240,1266 @@ R içinde tarih değişkenleriyle işlemler ve format
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>R içinde tarih değişkenleriyle işlemleri özetleyen bir yazıyı yakında yayınlayacağız. Ayrıca tarih tipinde bir değişkenin grafiklerde veya raporlarda gösteriminde formatlanma opsiyonları için; <code>?strptime</code>.</p>
+<p>R içinde tarih değişkenleriyle işlemleri özetleyen bir yazıyı yakında yayınlanacaktır. Ayrıca tarih tipinde bir değişkenin grafiklerde veya raporlarda gösteriminde formatlanma opsiyonları için; <code>?strptime</code> kullanılabilir.</p>
 </div>
 </div>
 <div class="cell">
 <details>
 <summary>Kod</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>EVDS<span class="sc">$</span>Tarih <span class="ot">&lt;-</span> <span class="fu">ym</span>(EVDS<span class="sc">$</span>Tarih)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>EVDS<span class="sc">$</span>Tarih <span class="ot">&lt;-</span> <span class="fu">ym</span>(EVDS<span class="sc">$</span>Tarih)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(EVDS)[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Ay"</span>,<span class="st">"Yıl"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>EVDS<span class="sc">$</span>Ay <span class="sc">%&lt;&gt;%</span> <span class="fu">as.numeric</span>() <span class="co"># %&lt;&gt;% is an assigment pipe operator.</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>EVDS<span class="sc">$</span>Yıl <span class="sc">%&lt;&gt;%</span> <span class="fu">as.numeric</span>()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Enflasyon <span class="ot">&lt;-</span> EVDS</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>Enflasyon <span class="ot">&lt;-</span> Enflasyon <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Ay=</span>Ay<span class="sc">/</span><span class="dv">100</span>,Yıl<span class="ot">=</span>Yıl<span class="sc">/</span><span class="dv">100</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_bw</span>())</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Enflasyon,<span class="fu">aes</span>(<span class="at">x=</span>Tarih))<span class="sc">+</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>Yıl, <span class="at">color=</span><span class="st">"Yıllık Enflasyon Oranı"</span>),<span class="at">size=</span><span class="fl">1.8</span>)<span class="sc">+</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>Ay<span class="sc">*</span><span class="dv">6</span>, <span class="at">color=</span><span class="st">"Aylık Enflasyon Oranı"</span>))<span class="sc">+</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>(),<span class="at">legend.position =</span> <span class="st">"top"</span>)<span class="sc">+</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>                     <span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span>.<span class="sc">/</span><span class="dv">6</span>, <span class="at">name=</span><span class="st">"Aylık Enflasyon"</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">labels =</span> scales<span class="sc">::</span>percent))<span class="sc">+</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Tarih"</span>, <span class="at">y=</span><span class="st">"Yıllık Enflasyon"</span>)<span class="sc">+</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"gray50"</span>,<span class="st">"orange1"</span>))</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output-display">
+<p><img src="enflasyon_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PLOTLY ile Secondary Axis Kullanarak Aylık ve Yıllık Enflasyon</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># fig &lt;- plot_ly(Enflasyon,type = "scatter",mode="lines") |&gt; </span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   add_trace(x=~Tarih,y=~Yıl,name="Yıllık Enflasyon Oranı")</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ay &lt;- list(</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   overlaying = "y",</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   side = "right",</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   title = "&lt;b&gt;Aylık&lt;/b&gt; Enf. Oranı")</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># fig &lt;- fig %&gt;% add_trace(x = ~Tarih, y = ~Ay, </span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#                          name = "Aylık Enflasyon Oranı", </span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">#                          yaxis = "y2", mode = "lines", type = "scatter")</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co"># fig &lt;- fig %&gt;% layout(</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">#   title = "Yıllık - Aylık Enflasyon Oranı", yaxis2 = ay,</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   xaxis = list(title="Tarih "),</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   yaxis = list(title="&lt;b&gt;Yıllık&lt;/b&gt; Enf. Oranı")</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># )%&gt;%</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co">#   layout(plot_bgcolor='#e5ecf6',</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="co">#           xaxis = list(</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co">#             zerolinecolor = '#ffff',</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">#             zerolinewidth = 2,</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">#             gridcolor = 'ffff'),</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="co">#           yaxis = list(</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co">#             zerolinecolor = '#ffff',</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co">#             zerolinewidth = 2,</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="co">#             gridcolor = 'ffff')</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="co">#           )</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co"># fig</span></span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="yıllık-enflasyonun-hesaplanması" class="level2">
+<h2 class="anchored" data-anchor-id="yıllık-enflasyonun-hesaplanması">Yıllık Enflasyonun Hesaplanması</h2>
+<p>Yıllık enflasyon oranı bilindiği üzere aylık enflasyon oranlarının bileşik faizi şeklinde hesaplanır. Bu hesaplamada 12 geçmiş 12 aylık pencere kullanılır ve her ay bu pencere bir adım ilerletilir.</p>
+<p><span class="math display">\[
+e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
+\]</span></p>
+<p>Aşağıdaki tabloda bu mantıkla yapılan hesaplama sonuçları (son 6 gözlem) verilmiştir. Beklendiği gibi değerler açıklanan oranlarla aynıdır. Dolayısıyla artık önümüzdeki döneme yönelik aylık enflasyon tahminleri yaparak yıllık enflasyon ve ortalama yıllık enflasyon değerleri hesaplanabilir.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>lagged <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>){</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    result <span class="ot">&lt;-</span> result<span class="sc">*</span>(<span class="dv">1</span><span class="sc">+</span><span class="fu">lag</span>(x,i))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  result<span class="dv">-1</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>Enflasyon <span class="ot">&lt;-</span> Enflasyon <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">Hesap =</span> <span class="fu">lead</span>(<span class="fu">lagged</span>(Ay)))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>son_index <span class="ot">&lt;-</span> <span class="fu">dim</span>(Enflasyon)[<span class="dv">1</span>]</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> Enflasyon<span class="sc">$</span>Ay[(son_index<span class="dv">-11</span>)<span class="sc">:</span>son_index]</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">prod</span>(<span class="dv">1</span><span class="sc">+</span>x)<span class="sc">-</span><span class="dv">1</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>Enflasyon<span class="sc">$</span>Hesap[son_index] <span class="ot">&lt;-</span> e</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="do">##TABLO</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(Enflasyon) <span class="sc">|&gt;</span> gt<span class="sc">::</span><span class="fu">gt</span>() <span class="sc">|&gt;</span> <span class="fu">tab_header</span>(</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Enflasyon Oranları"</span>,</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">subtitle =</span> <span class="st">"Aylık Bileşik Faiz Hesabı Olarak Yıllık Enflasyon"</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> <span class="fu">fmt_date</span>(<span class="at">columns =</span> Tarih,<span class="at">date_style =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_percent</span>(<span class="at">columns =</span> <span class="fu">c</span>(Ay,Yıl,Hesap),<span class="at">decimals =</span> <span class="dv">3</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+
+<div id="wxynybqomk" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#wxynybqomk .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#wxynybqomk .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wxynybqomk .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#wxynybqomk .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#wxynybqomk .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wxynybqomk .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#wxynybqomk .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#wxynybqomk .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#wxynybqomk .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#wxynybqomk .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#wxynybqomk .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#wxynybqomk .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#wxynybqomk .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#wxynybqomk .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#wxynybqomk .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#wxynybqomk .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#wxynybqomk .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wxynybqomk .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#wxynybqomk .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#wxynybqomk .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wxynybqomk .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#wxynybqomk .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#wxynybqomk .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wxynybqomk .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wxynybqomk .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#wxynybqomk .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#wxynybqomk .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#wxynybqomk .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wxynybqomk .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wxynybqomk .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#wxynybqomk .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#wxynybqomk .gt_left {
+  text-align: left;
+}
+
+#wxynybqomk .gt_center {
+  text-align: center;
+}
+
+#wxynybqomk .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#wxynybqomk .gt_font_normal {
+  font-weight: normal;
+}
+
+#wxynybqomk .gt_font_bold {
+  font-weight: bold;
+}
+
+#wxynybqomk .gt_font_italic {
+  font-style: italic;
+}
+
+#wxynybqomk .gt_super {
+  font-size: 65%;
+}
+
+#wxynybqomk .gt_two_val_uncert {
+  display: inline-block;
+  line-height: 1em;
+  text-align: right;
+  font-size: 60%;
+  vertical-align: -0.25em;
+  margin-left: 0.1em;
+}
+
+#wxynybqomk .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#wxynybqomk .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#wxynybqomk .gt_slash_mark {
+  font-size: 0.7em;
+  line-height: 0.7em;
+  vertical-align: 0.15em;
+}
+
+#wxynybqomk .gt_fraction_numerator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: 0.45em;
+}
+
+#wxynybqomk .gt_fraction_denominator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: -0.05em;
+}
+</style>
+<table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="4" class="gt_heading gt_title gt_font_normal" style="">Enflasyon Oranları</th>
+    </tr>
+    <tr>
+      <th colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="">Aylık Bileşik Faiz Hesabı Olarak Yıllık Enflasyon</th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Tarih</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Ay</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Yıl</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Hesap</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">January 1, 2022</td>
+<td class="gt_row gt_right">11.104%</td>
+<td class="gt_row gt_right">48.691%</td>
+<td class="gt_row gt_right">48.691%</td></tr>
+    <tr><td class="gt_row gt_left">February 1, 2022</td>
+<td class="gt_row gt_right">4.809%</td>
+<td class="gt_row gt_right">54.439%</td>
+<td class="gt_row gt_right">54.439%</td></tr>
+    <tr><td class="gt_row gt_left">March 1, 2022</td>
+<td class="gt_row gt_right">5.464%</td>
+<td class="gt_row gt_right">61.145%</td>
+<td class="gt_row gt_right">61.145%</td></tr>
+    <tr><td class="gt_row gt_left">April 1, 2022</td>
+<td class="gt_row gt_right">7.248%</td>
+<td class="gt_row gt_right">69.971%</td>
+<td class="gt_row gt_right">69.971%</td></tr>
+    <tr><td class="gt_row gt_left">May 1, 2022</td>
+<td class="gt_row gt_right">2.981%</td>
+<td class="gt_row gt_right">73.496%</td>
+<td class="gt_row gt_right">73.496%</td></tr>
+    <tr><td class="gt_row gt_left">June 1, 2022</td>
+<td class="gt_row gt_right">4.952%</td>
+<td class="gt_row gt_right">78.618%</td>
+<td class="gt_row gt_right">78.618%</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+<p>Aylık enflasyon oranlarının 2023 yılı Ağustos ayına kadar %2-%7 olduğu senaryolar için hesaplamalar yapıldığında,</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>aa <span class="ot">&lt;-</span> <span class="fu">tibble</span>()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">15</span>){</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a> aa[i,<span class="st">"Tarih"</span>] <span class="ot">&lt;-</span> Enflasyon<span class="sc">$</span>Tarih[son_index]<span class="sc">+</span><span class="fu">months</span>(i)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Senaryo Girdilerini Kodla</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>Estimates <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(Enflasyon,aa) <span class="sc">|&gt;</span> </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ay2=</span><span class="fu">ifelse</span>(<span class="fu">is.na</span>(Ay),<span class="fl">0.02</span>,Ay)) <span class="sc">|&gt;</span> </span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ay3=</span><span class="fu">ifelse</span>(<span class="fu">is.na</span>(Ay),<span class="fl">0.03</span>,Ay)) <span class="sc">|&gt;</span> </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ay4=</span><span class="fu">ifelse</span>(<span class="fu">is.na</span>(Ay),<span class="fl">0.04</span>,Ay)) <span class="sc">|&gt;</span> </span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ay5=</span><span class="fu">ifelse</span>(<span class="fu">is.na</span>(Ay),<span class="fl">0.05</span>,Ay)) <span class="sc">|&gt;</span> </span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ay6=</span><span class="fu">ifelse</span>(<span class="fu">is.na</span>(Ay),<span class="fl">0.06</span>,Ay)) <span class="sc">|&gt;</span> </span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Ay7=</span><span class="fu">ifelse</span>(<span class="fu">is.na</span>(Ay),<span class="fl">0.07</span>,Ay))</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co">#Yıllık Enflasyon Hesapla</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>Estimates <span class="ot">&lt;-</span> Estimates <span class="sc">|&gt;</span> </span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(Yıl2 <span class="ot">=</span> <span class="fu">lead</span>(<span class="fu">lagged</span>(Ay2))) <span class="sc">|&gt;</span> </span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(Yıl3 <span class="ot">=</span> <span class="fu">lead</span>(<span class="fu">lagged</span>(Ay3))) <span class="sc">|&gt;</span> </span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(Yıl4 <span class="ot">=</span> <span class="fu">lead</span>(<span class="fu">lagged</span>(Ay4))) <span class="sc">|&gt;</span> </span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(Yıl5 <span class="ot">=</span> <span class="fu">lead</span>(<span class="fu">lagged</span>(Ay5))) <span class="sc">|&gt;</span> </span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(Yıl6 <span class="ot">=</span> <span class="fu">lead</span>(<span class="fu">lagged</span>(Ay6))) <span class="sc">|&gt;</span> </span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(Yıl7 <span class="ot">=</span> <span class="fu">lead</span>(<span class="fu">lagged</span>(Ay7))) </span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>e.period <span class="ot">&lt;-</span> <span class="fu">dim</span>(Estimates)[<span class="dv">1</span>]<span class="sc">-</span>son_index</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>Estimates <span class="ot">&lt;-</span> Estimates[<span class="sc">-</span>(son_index<span class="sc">+</span>e.period),]</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Bu varsayımlar sonucu hesaplanan yıllık enflasyon tahminleri elde edilir. Bu yazının hazırlandığı Temmuz 2022 ortalarında ekonomi Ekim 2021’den itibaren süren bir krizin tam da ortasında bulunmaktadır. Krizden ne zaman ve nasıl çıkılacağına dair herhangi bir gösterge veya umut da an itibariyle mevcut değildir. Bu şartlar altında enflasyonla ilgili öngörüler oluşturulurken iyimser olmayı gerektirecek hiçbir neden bulunmamaktadır. Aşağıdaki tabloda, gerçekçi senaryoların aylık enflasyonun en iyimser ihtimalle %4 olacağı durumlar olduğunu düşünüyoruz.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Estimates[<span class="dv">1</span><span class="sc">:</span>son_index,<span class="dv">11</span><span class="sc">:</span><span class="dv">16</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Estimates[Estimates<span class="sc">$</span>Tarih<span class="sc">&gt;</span><span class="fu">my</span>(<span class="st">"August 2021"</span>),</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>          <span class="fu">c</span>(<span class="st">"Tarih"</span>,<span class="st">"Yıl"</span>,<span class="st">"Yıl2"</span>,<span class="st">"Yıl3"</span>,<span class="st">"Yıl4"</span>,<span class="st">"Yıl5"</span>,<span class="st">"Yıl6"</span>,<span class="st">"Yıl7"</span>)] <span class="sc">|&gt;</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  gt<span class="sc">::</span><span class="fu">gt</span>() <span class="sc">|&gt;</span> <span class="fu">tab_header</span>(</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Enflasyon Oranları"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">subtitle =</span> <span class="st">"Aylık Bileşik Faiz Hesabı Olarak Yıllık Enflasyon"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_date</span>(<span class="at">columns =</span> Tarih,<span class="at">date_style =</span> <span class="dv">5</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_percent</span>(<span class="at">columns =</span> <span class="fu">c</span>(Yıl,Yıl2,Yıl3,Yıl4,Yıl5,Yıl6,Yıl7),<span class="at">decimals =</span> <span class="dv">3</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+
+<div id="uqoirtximb" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#uqoirtximb .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#uqoirtximb .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#uqoirtximb .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#uqoirtximb .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#uqoirtximb .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#uqoirtximb .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#uqoirtximb .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#uqoirtximb .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#uqoirtximb .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#uqoirtximb .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#uqoirtximb .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#uqoirtximb .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#uqoirtximb .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#uqoirtximb .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#uqoirtximb .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#uqoirtximb .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#uqoirtximb .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#uqoirtximb .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#uqoirtximb .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#uqoirtximb .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#uqoirtximb .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#uqoirtximb .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#uqoirtximb .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#uqoirtximb .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#uqoirtximb .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#uqoirtximb .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#uqoirtximb .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#uqoirtximb .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#uqoirtximb .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#uqoirtximb .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#uqoirtximb .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#uqoirtximb .gt_left {
+  text-align: left;
+}
+
+#uqoirtximb .gt_center {
+  text-align: center;
+}
+
+#uqoirtximb .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#uqoirtximb .gt_font_normal {
+  font-weight: normal;
+}
+
+#uqoirtximb .gt_font_bold {
+  font-weight: bold;
+}
+
+#uqoirtximb .gt_font_italic {
+  font-style: italic;
+}
+
+#uqoirtximb .gt_super {
+  font-size: 65%;
+}
+
+#uqoirtximb .gt_two_val_uncert {
+  display: inline-block;
+  line-height: 1em;
+  text-align: right;
+  font-size: 60%;
+  vertical-align: -0.25em;
+  margin-left: 0.1em;
+}
+
+#uqoirtximb .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#uqoirtximb .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#uqoirtximb .gt_slash_mark {
+  font-size: 0.7em;
+  line-height: 0.7em;
+  vertical-align: 0.15em;
+}
+
+#uqoirtximb .gt_fraction_numerator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: 0.45em;
+}
+
+#uqoirtximb .gt_fraction_denominator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: -0.05em;
+}
+</style>
+<table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="8" class="gt_heading gt_title gt_font_normal" style="">Enflasyon Oranları</th>
+    </tr>
+    <tr>
+      <th colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="">Aylık Bileşik Faiz Hesabı Olarak Yıllık Enflasyon</th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Tarih</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Yıl</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Yıl2</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Yıl3</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Yıl4</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Yıl5</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Yıl6</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Yıl7</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">September 1, 2021</td>
+<td class="gt_row gt_right">19.583%</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td></tr>
+    <tr><td class="gt_row gt_left">October 1, 2021</td>
+<td class="gt_row gt_right">19.890%</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td></tr>
+    <tr><td class="gt_row gt_left">November 1, 2021</td>
+<td class="gt_row gt_right">21.313%</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td></tr>
+    <tr><td class="gt_row gt_left">December 1, 2021</td>
+<td class="gt_row gt_right">36.081%</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td></tr>
+    <tr><td class="gt_row gt_left">January 1, 2022</td>
+<td class="gt_row gt_right">48.691%</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td></tr>
+    <tr><td class="gt_row gt_left">February 1, 2022</td>
+<td class="gt_row gt_right">54.439%</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td></tr>
+    <tr><td class="gt_row gt_left">March 1, 2022</td>
+<td class="gt_row gt_right">61.145%</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td></tr>
+    <tr><td class="gt_row gt_left">April 1, 2022</td>
+<td class="gt_row gt_right">69.971%</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td></tr>
+    <tr><td class="gt_row gt_left">May 1, 2022</td>
+<td class="gt_row gt_right">73.496%</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td></tr>
+    <tr><td class="gt_row gt_left">June 1, 2022</td>
+<td class="gt_row gt_right">78.618%</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td></tr>
+    <tr><td class="gt_row gt_left">July 1, 2022</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">78.961%</td>
+<td class="gt_row gt_right">80.716%</td>
+<td class="gt_row gt_right">82.470%</td>
+<td class="gt_row gt_right">84.225%</td>
+<td class="gt_row gt_right">85.979%</td>
+<td class="gt_row gt_right">87.734%</td></tr>
+    <tr><td class="gt_row gt_left">August 1, 2022</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">80.519%</td>
+<td class="gt_row gt_right">84.076%</td>
+<td class="gt_row gt_right">87.668%</td>
+<td class="gt_row gt_right">91.294%</td>
+<td class="gt_row gt_right">94.955%</td>
+<td class="gt_row gt_right">98.651%</td></tr>
+    <tr><td class="gt_row gt_left">September 1, 2022</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">81.852%</td>
+<td class="gt_row gt_right">87.253%</td>
+<td class="gt_row gt_right">92.760%</td>
+<td class="gt_row gt_right">98.374%</td>
+<td class="gt_row gt_right">104.096%</td>
+<td class="gt_row gt_right">109.927%</td></tr>
+    <tr><td class="gt_row gt_left">October 1, 2022</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">81.153%</td>
+<td class="gt_row gt_right">88.362%</td>
+<td class="gt_row gt_right">95.784%</td>
+<td class="gt_row gt_right">103.423%</td>
+<td class="gt_row gt_right">111.284%</td>
+<td class="gt_row gt_right">119.371%</td></tr>
+    <tr><td class="gt_row gt_left">November 1, 2022</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">78.507%</td>
+<td class="gt_row gt_right">87.430%</td>
+<td class="gt_row gt_right">96.707%</td>
+<td class="gt_row gt_right">106.348%</td>
+<td class="gt_row gt_right">116.363%</td>
+<td class="gt_row gt_right">126.763%</td></tr>
+    <tr><td class="gt_row gt_left">December 1, 2022</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">60.314%</td>
+<td class="gt_row gt_right">69.978%</td>
+<td class="gt_row gt_right">80.123%</td>
+<td class="gt_row gt_right">90.768%</td>
+<td class="gt_row gt_right">101.932%</td>
+<td class="gt_row gt_right">113.635%</td></tr>
+    <tr><td class="gt_row gt_left">January 1, 2023</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">47.177%</td>
+<td class="gt_row gt_right">57.579%</td>
+<td class="gt_row gt_right">68.606%</td>
+<td class="gt_row gt_right">80.287%</td>
+<td class="gt_row gt_right">92.655%</td>
+<td class="gt_row gt_right">105.743%</td></tr>
+    <tr><td class="gt_row gt_left">February 1, 2023</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">43.233%</td>
+<td class="gt_row gt_right">54.860%</td>
+<td class="gt_row gt_right">67.305%</td>
+<td class="gt_row gt_right">80.616%</td>
+<td class="gt_row gt_right">94.845%</td>
+<td class="gt_row gt_right">110.045%</td></tr>
+    <tr><td class="gt_row gt_left">March 1, 2023</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">38.528%</td>
+<td class="gt_row gt_right">51.242%</td>
+<td class="gt_row gt_right">64.982%</td>
+<td class="gt_row gt_right">79.821%</td>
+<td class="gt_row gt_right">95.835%</td>
+<td class="gt_row gt_right">113.104%</td></tr>
+    <tr><td class="gt_row gt_left">April 1, 2023</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">31.749%</td>
+<td class="gt_row gt_right">45.251%</td>
+<td class="gt_row gt_right">59.985%</td>
+<td class="gt_row gt_right">76.051%</td>
+<td class="gt_row gt_right">93.555%</td>
+<td class="gt_row gt_right">112.610%</td></tr>
+    <tr><td class="gt_row gt_left">May 1, 2023</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">30.495%</td>
+<td class="gt_row gt_right">45.278%</td>
+<td class="gt_row gt_right">61.569%</td>
+<td class="gt_row gt_right">79.503%</td>
+<td class="gt_row gt_right">99.230%</td>
+<td class="gt_row gt_right">120.908%</td></tr>
+    <tr><td class="gt_row gt_left">June 1, 2023</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">26.824%</td>
+<td class="gt_row gt_right">42.576%</td>
+<td class="gt_row gt_right">60.103%</td>
+<td class="gt_row gt_right">79.586%</td>
+<td class="gt_row gt_right">101.220%</td>
+<td class="gt_row gt_right">125.219%</td></tr>
+    <tr><td class="gt_row gt_left">July 1, 2023</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">26.824%</td>
+<td class="gt_row gt_right">42.576%</td>
+<td class="gt_row gt_right">60.103%</td>
+<td class="gt_row gt_right">79.586%</td>
+<td class="gt_row gt_right">101.220%</td>
+<td class="gt_row gt_right">125.219%</td></tr>
+    <tr><td class="gt_row gt_left">August 1, 2023</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">26.824%</td>
+<td class="gt_row gt_right">42.576%</td>
+<td class="gt_row gt_right">60.103%</td>
+<td class="gt_row gt_right">79.586%</td>
+<td class="gt_row gt_right">101.220%</td>
+<td class="gt_row gt_right">125.219%</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+</div>
+</div>
+<p>Baz etkisi sayesinde yıllık enflasyonun 2022 yılının Aralık ayı ve Ocak 2023’te bir miktar düşeceği görülmektedir. Ancak bu düşüş aslında 2021 Aralık ve 2022 Ocak’ta açıklanan yüksek oranların hesaplama penceresini terk etmesi kaynaklıdır.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Estimates[Estimates<span class="sc">$</span>Tarih<span class="sc">&gt;</span><span class="fu">my</span>(<span class="st">"January 2021"</span>),],<span class="fu">aes</span>(<span class="at">x=</span>Tarih))<span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>Yıl, <span class="at">color=</span><span class="st">"Geçmiş Oranlar"</span>),<span class="at">size=</span><span class="fl">1.5</span>,<span class="at">na.rm=</span><span class="cn">TRUE</span>)<span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>Yıl2, <span class="at">color=</span><span class="st">"Aylık %2 Varsayımı"</span>),<span class="at">size=</span><span class="fl">0.9</span>,<span class="at">na.rm=</span><span class="cn">TRUE</span>)<span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>Yıl3, <span class="at">color=</span><span class="st">"Aylık %3 Varsayımı"</span>),<span class="at">size=</span><span class="fl">0.9</span>,<span class="at">na.rm=</span><span class="cn">TRUE</span>)<span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>Yıl4, <span class="at">color=</span><span class="st">"Aylık %4 Varsayımı"</span>),<span class="at">size=</span><span class="fl">1.2</span>,<span class="at">na.rm=</span><span class="cn">TRUE</span>)<span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>Yıl5, <span class="at">color=</span><span class="st">"Aylık %5 Varsayımı"</span>),<span class="at">size=</span><span class="fl">1.2</span>,<span class="at">na.rm=</span><span class="cn">TRUE</span>)<span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>Yıl6, <span class="at">color=</span><span class="st">"Aylık %6 Varsayımı"</span>),<span class="at">size=</span><span class="fl">1.2</span>,<span class="at">na.rm=</span><span class="cn">TRUE</span>)<span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>Yıl7, <span class="at">color=</span><span class="st">"Aylık %7 Varsayımı"</span>),<span class="at">size=</span><span class="fl">1.2</span>,<span class="at">na.rm=</span><span class="cn">TRUE</span>)<span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent)<span class="sc">+</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Tarih"</span>, <span class="at">y=</span><span class="st">"Yıllık Enflasyon"</span>)<span class="sc">+</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>(),<span class="at">legend.position =</span> <span class="st">"top"</span>)<span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  (<span class="fu">scale_x_date</span>(<span class="at">breaks=</span><span class="fu">date_breaks</span>(<span class="st">"2 months"</span>),</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels=</span><span class="fu">date_format</span>(<span class="st">"%m %Y"</span>)))<span class="sc">+</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust=</span><span class="dv">1</span>))</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="enflasyon_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+</div>
 </div>
 
 
