@@ -213,5 +213,16 @@ ggplot(Estimates[Estimates$Tarih>my("January 2021"),],aes(x=Tarih))+
 ```
 
 ## Üniversite Analitiğine Etkileri
-jhgsdjhdsgs
+
+2022 yılının ortaları ekonomik krizin etkilerinin iyice hissedildiği bir dönem olarak hatırlanacak. Vakıf üniversiteleri bu volatil ortamda ücret politikalarını belirlerken oldukça zorlandı. Eğitim ücretlerine %30-%110 aralığında zamlar yapıldı. Enflasyonla doğrudan ilişkili maliyet artışına, asgari ücrete yıl içinde yapılan zam, akademik personele yılda iki defa zamlanan devletin emsal ücretini ödeme gibi kanun maddelerinin getirdiği yükler bütçeleri zorladı.    
+
+Enflasyon tahmninin üniversite analitiğine tam da bu aşamada faydası bulunmaktadır. Aylık artış oranları senaryoları için takip eden akdemik dönem boyunca etken olacak **ortalama enflasyon** oranı ile eğitim ücretlerine yapılacak zam oranı için bir alt sınır tespit edilebilir. Aşağıda  bu hesaplama sonucu elde edilen değerler göre Aylık ortalama %5 enflasyon senaryosu ile Eylül 2022 - Ağustos 2023 döneminde Yıllık Enflasyon ortalama %86.2 seviyelerinde olacak. Aylık beklenti %4 olduğunda bu değer %72.3'e düşerken, %6 olduğunda ise %101 seviyesine çıkmaktadır.
+
+```{r}
+meanN <- function(x){
+  mean(x,na.rm = TRUE)
+}
+ortenf <- apply(Estimates[225:236,11:16], 2, meanN)
+ortenf
+```
 
