@@ -13,36 +13,32 @@ code-line-numbers: false
 toc-title: İçerik
 ---
 
+Bir önceki yazıda soru gruplarının puana etkilerinin nasıl hesaplanacağına yönelik temel regresyon modelleri geliştirildi. Bu katsayılar hesaplandığında soru gruplarının ağırlığının YKS kılavuzunda bahsedilenden farklı olduğu görüldü. Kılavuza göre Tablo 1E'ye göre TYT sınavının SAY, EA ve SÖZ puan türlerinde ağırlığı %40 olmalıdır. Ancak iki farklı bakış açısıyla yapılan incelemelerde bu oranın tutmadığı, yıldan yıla değiştiği ve bazı yıllarda ciddi ölçülerde sapmaların olduğu gösterildi. Tablo 1C ve Tablo 1E'deki alt tabloların tamamı için benzeri çalışmalar yapıldığında benzer sonuçlar elde edilecektir. Rehber öğretmenleri, danışmanları ve tabii ki öğrencileri, sınav taktikleri geliştirirken kullandıkları kılavızdaki bilgiler konusunda daha şüpheci olmaya davet ediyoruz.
 
-Bir önceki yazıda soru gruplarının puana etkilerinin nasıl hesaplanacağına yönelik temel regresyon modelleri geliştirildi. Bu katsayılar hesaplandığında soru gruplarının ağırlığının YKS kılavuzunda bahsedilenden farklı olduğu görüldü. Kılavuza göre Tablo 1E'ye göre TYT sınavının SAY, EA ve SÖZ puan türlerinde ağırlığı %40 olmalıdır. Ancak iki farklı bakış açısıyla yapılan incelemelerde bu oranın tutmadığı, yıldan yıla değiştiği ve bazı yıllarda ciddi ölçülerde sapmaların olduğu gösterildi. Tablo 1C ve Tablo 1E'deki alt tabloların tamamı için benzeri çalışmalar yapıldığında benzer sonuçlar elde edilecektir. Rehber öğretmenleri, danışmanları ve tabii ki öğrencileri, sınav taktikleri geliştirirken kullandıkları kılavızdaki bilgiler konusunda daha şüpheci olmaya davet ediyoruz.    
-
-Bu yazıda puan hesaplama formüllerinin/modellerinin üniversite analitiğindeki rolü üzerinde duruldu. YKS, üniversitelerin yaptıkları tüm çalışmaları sergilemek için yılda bir defa çıktıkları sahnedir. O sahnenin performans metrikleri üniversite analitiğinin temelini oluşturmaktadır. YKS sınav sonuçlarının analizinde üniversitelerin bölüm bazında sıralamalarını çıkarmak ve yıldan yıla bu sıralamaların nasıl değiştiğini incelemek üniversite yöneticileri için son derece önemlidir.     
+Bu yazıda puan hesaplama formüllerinin/modellerinin üniversite analitiğindeki rolü üzerinde duruldu. YKS, üniversitelerin yaptıkları tüm çalışmaları sergilemek için yılda bir defa çıktıkları sahnedir. O sahnenin performans metrikleri üniversite analitiğinin temelini oluşturmaktadır. YKS sınav sonuçlarının analizinde üniversitelerin bölüm bazında sıralamalarını çıkarmak ve yıldan yıla bu sıralamaların nasıl değiştiğini incelemek üniversite yöneticileri için son derece önemlidir.\
 Ne var ki özellikle vakıf üniversiteleri söz konusu olduğunda bölüm bazında da olsa üniversite sıralamalarını çıkarmak hiç kolay değil. Birden fazla kontenjanla [^1] öğrenci alan bölümler düşünüldüğünde sıralama işi zorlaşıyor. İşte puan hesaplama modelleri de tam da bu durumlarda yardımcı oluyor. Yazıda bölüm bazında bir üniversite sıralamasının nasıl yapılabileceği gösterildi.
-
 
 [^1]: Örneğin Burslu ve %50 İndirimli kontenjanla öğrenci alan
 
-
 ## Bölüm Bazlı Üniversite Sıralamaları
 
-Bu bölümde üniversitelerin tüm faaliyetlerinden derlenen ulusal veya uluslararası derecelendirme endekslerinden değil YKS sonuçlarına göre bölüm bazlı sıralamalardan bahsediyoruz. Bölüm bazlı sıralamaların temel amacı şu soruya yanıt bulmaktır:     
+Bu bölümde üniversitelerin tüm faaliyetlerinden derlenen ulusal veya uluslararası derecelendirme endekslerinden değil YKS sonuçlarına göre bölüm bazlı sıralamalardan bahsediyoruz. Bölüm bazlı sıralamaların temel amacı şu soruya yanıt bulmaktır:
 
-> En başarılı öğrenciler hangi üniversiteleri tercih ettiler?    
+> En başarılı öğrenciler hangi üniversiteleri tercih ettiler?
 
-Sonuçta elde edilen sıralama elbette üniversiteleri ilgili bölümde yapılan tüm faaliyetler, akademik kadro, araştırmalar, projeler, eğitimin kalitesi, kampüs imkanları, mezunların ortalama maaşı gibi hiçbiri diğerinden değersiz olmayan bir çok boyutta mümkün olan en doğru, hassas ve güvenilir bir şekilde derecelendirme becerisine sahip olmayacak. Bu sıralama ile sadece üniversite tercihi yapan öğrenciler gözünde yapılan derecelendirme hesaplanıyor. Üniversite yöneticileri için bu derecelendirmede kurumlarının sırası ve yıllar bazında bu sıranın nasıl değiştiği çok önemli bir başarı kriteridir. Başarılı öğrencilerin tercihi olmak ilerki yıllarda daha da başarılı öğrencileri çekmenin yolunu açar. Üst düzey akademisyenler bu prestijli kurumlarda çalışmayı tercih edeceklerdir.   
+Sonuçta elde edilen sıralama elbette üniversiteleri ilgili bölümde yapılan tüm faaliyetler, akademik kadro, araştırmalar, projeler, eğitimin kalitesi, kampüs imkanları, mezunların ortalama maaşı gibi hiçbiri diğerinden değersiz olmayan bir çok boyutta mümkün olan en doğru, hassas ve güvenilir bir şekilde derecelendirme becerisine sahip olmayacak. Bu sıralama ile sadece üniversite tercihi yapan öğrenciler gözünde yapılan derecelendirme hesaplanıyor. Üniversite yöneticileri için bu derecelendirmede kurumlarının sırası ve yıllar bazında bu sıranın nasıl değiştiği çok önemli bir başarı kriteridir. Başarılı öğrencilerin tercihi olmak ilerki yıllarda daha da başarılı öğrencileri çekmenin yolunu açar. Üst düzey akademisyenler bu prestijli kurumlarda çalışmayı tercih edeceklerdir.
 
 Buraya SONUÇTA elde edilen grafik ve tablolar gelsin
 
-Teknik anlatımı daha anlaşılır kılabilmek amacıyla Hukuk bölümü örnek olarak kullanılmıştır. Kullanılan yöntemler diğer bölümler için de geçerlidir.   
+Teknik anlatımı daha anlaşılır kılabilmek amacıyla Hukuk bölümü örnek olarak kullanılmıştır. Kullanılan yöntemler diğer bölümler için de geçerlidir.
 
 ## Veri
 
-YÖK ATLAS portalında her üniversitenin her programı için derinlemesine analizlerin yapılmasına imkan sağlayan veri bulunmaktadır. Ne var ki portalda her kontenjan için yerleşen öğrencilerin ortalama puanı veya sıralaması bilgisi verilmemektedir. Eğer bu bilgilerden herhangi biri verilseydi, bölüm bazında üniversite sıralamalarına ulaşmak ağırlıklı ortalama hesaplamadan ibaret olacaktı. Ancak malesef ortalama bilgisine sadece yerleşen öğrencilerin ortalama YKS neti üzerinden ulaşmak mümkündür.      
+YÖK ATLAS portalında her üniversitenin her programı için derinlemesine analizlerin yapılmasına imkan sağlayan veri bulunmaktadır. Ne var ki portalda her kontenjan için yerleşen öğrencilerin ortalama puanı veya sıralaması bilgisi verilmemektedir. Eğer bu bilgilerden herhangi biri verilseydi, bölüm bazında üniversite sıralamalarına ulaşmak ağırlıklı ortalama hesaplamadan ibaret olacaktı. Ancak malesef ortalama bilgisine sadece yerleşen öğrencilerin ortalama YKS neti üzerinden ulaşmak mümkündür.
 
+Herhangi bir üniversitenin Hukuk kontenjanlarındn birine girildiğinde sayfada yerleşenlerin net ortalamalarının olduğu bir sekme bulunmaktadır. Örneğin, İzmir Ekonomi Üniversitesi'nin Hukuk Fakültesi için 2021 yılı verisi incelendiğinde %100 Burslu ve %50 İndirimli kontenjanların olduğu [görülmektedir](https://yokatlas.yok.gov.tr/lisans-univ.php?u=2035). Buradan %50 İndirimli kontenjan [sayfasına](https://yokatlas.yok.gov.tr/lisans.php?y=203510807) gidildiğinde *Yerleşenlerin YKS Net Ortalamaları* başlığı altında bu kontenjanla bölüme yerleşen öğrencilerin YKS net ortalamaları görülmektedir.
 
-Herhangi bir üniversitenin Hukuk kontenjanlarındn birine girildiğinde sayfada yerleşenlerin net ortalamalarının olduğu bir sekme bulunmaktadır. Örneğin, İzmir Ekonomi Üniversitesi'nin Hukuk Fakültesi için 2021 yılı verisi incelendiğinde %100 Burslu ve %50 İndirimli kontenjanların olduğu [görülmektedir](https://yokatlas.yok.gov.tr/lisans-univ.php?u=2035). Buradan %50 İndirimli kontenjan [sayfasına](https://yokatlas.yok.gov.tr/lisans.php?y=203510807) gidildiğinde *Yerleşenlerin YKS Net Ortalamaları* başlığı altında bu kontenjanla bölüme yerleşen öğrencilerin YKS net ortalamaları görülmektedir.   
-
-Yapılması gereken; ATLAS portalında bulunan tüm Hukuk kontenjanları için bu bilgiyi çekmek. İlk  olarak bu yazı içinde gerekecek tüm kütüphaneler yükleniyor.
+Yapılması gereken; ATLAS portalında bulunan tüm Hukuk kontenjanları için bu bilgiyi çekmek. İlk olarak bu yazı içinde gerekecek tüm kütüphaneler yükleniyor.
 
 ```{r}
 #| warnings: false
@@ -59,13 +55,14 @@ st_options(plain.ascii = FALSE, #summarytools parameter for Rmd documents
            )
 ```
 
-ATLAS portalından alınan derlenmiş veri yükleniyor.  Hukuk Fakülteleri EA puan türünde öğrenci kabul ettiği için EA soru grubunun netler verisi geliyor. Verinin tamamına [buradan](https://github.com/SerkanAlbayrak/d3/raw/master/content/posts/06_2022_yks_puan_hesaplama2/hukukNetlerW.xlsx) ulaşabilirsiniz.  
+ATLAS portalından alınan derlenmiş veri yükleniyor. Hukuk Fakülteleri EA puan türünde öğrenci kabul ettiği için EA soru grubunun netler verisi geliyor. Verinin tamamına [buradan](https://github.com/SerkanAlbayrak/d3/raw/master/content/posts/06_2022_yks_puan_hesaplama2/hukukNetlerW.xlsx) ulaşabilirsiniz.
 
 ```{r}
 hukuk <- read_excel("hukukNetlerW.xlsx")
 head(hukuk) |> datatable()
 
 ```
+
 Verinin özet istatistiki bilgisi çıkarıldığında, toplam 169 adet farklı kontenjan olduğu, bunların 52'sinin DEVLET üniversitelerine ait olduğu görülüyor. Ayrıca oluşturulan raporda numerik değişkenler için temel istatistiki bilgiler de verilmiş durumda. Bu kısımlarda kullanılan IQR: Interquarile Range ve CV: Coefficient of Variation için kullanılan kısaltmalardır. SOn aşamada analize DEVLET üniversitesi dışındaki kontenjanlarda deva edileceği için filtreleme yapılıyor.
 
 ```{r}
@@ -83,7 +80,7 @@ hukuk <- hukuk[hukuk$Statu !="DEVLET",]
 
 ## Analiz -1
 
-Bu yazı dizisinin ilk gönderisinde farklı puan türleri için soru gruplarının puan üzerindeki ağırlıklarını hesaplayan modeller üretilmişti. Bu bölümde EA puan türü için üretilen modelin katsayıları kullanılarak Hukuk bölümlerinin kontenjanlarına yerleşen ortalama öğrencilerin puanları hesaplanacak.    
+Bu yazı dizisinin ilk gönderisinde farklı puan türleri için soru gruplarının puan üzerindeki ağırlıklarını hesaplayan modeller üretilmişti. Bu bölümde EA puan türü için üretilen modelin katsayıları kullanılarak Hukuk bölümlerinin kontenjanlarına yerleşen ortalama öğrencilerin puanları hesaplanacak.
 
 EA puan türünde katsayılar şu şekilde bulunmuştu.
 
@@ -104,7 +101,7 @@ hukuk <- hukuk |> mutate(ortP = obp*0.12 + eaModel[1,3]+
                            aytTar1*eaModel[8,3]+aytCog1*eaModel[9,3])
 ```
 
-Bu katsayılar kullanılarak ortalama netlerden puan hesabına gidildiğinde, her kontenjana yerleşenlerin ortalama puanı hesaplanmış olur. Bu aşamada gözden kaçan bir hata olup olmadığını kontrol etmek maksadıyla tam verisine erişim imkanımızın olduğu İzmir Ekonomi Üniversitesinin Hukuk Fakültesi Burslu kontenjanına yerleşen öğrencilerin ortalama puanları kontrol ediliyor. Turuncu çizgi yerleşenlerin puanlarının ortalaması `380.15` puan. Kırmızı renk ise ortalama netlerin puanı `377.38`. Farkın nedeni ATLAS sayfasında ortalama netlerdeki yuvarlama. Grafikte ön planda yer alan Box-Whiskers grafiğinde bu kontenjana yerleşen öğrencilerin puanlarının dağılımı görülüyor. Arka planda ise aynı verinin yoğunluk dağılımı açık gri renkle gösterilmiştir. Medyan değerin konumudağılımın şeklinden tahmin edileceği ve  Box-Whiskers'tan da görüleceği üzere ortalamanın sağında.
+Bu katsayılar kullanılarak ortalama netlerden puan hesabına gidildiğinde, her kontenjana yerleşenlerin ortalama puanı hesaplanmış olur. Bu aşamada gözden kaçan bir hata olup olmadığını kontrol etmek maksadıyla tam verisine erişim imkanımızın olduğu İzmir Ekonomi Üniversitesinin Hukuk Fakültesi Burslu kontenjanına yerleşen öğrencilerin ortalama puanları kontrol ediliyor. Turuncu çizgi yerleşenlerin puanlarının ortalaması `380.15` puan. Kırmızı renk ise ortalama netlerin puanı `377.38`. Farkın nedeni ATLAS sayfasında ortalama netlerdeki yuvarlama. Grafikte ön planda yer alan Box-Whiskers grafiğinde bu kontenjana yerleşen öğrencilerin puanlarının dağılımı görülüyor. Arka planda ise aynı verinin yoğunluk dağılımı açık gri renkle gösterilmiştir. Medyan değerin konumudağılımın şeklinden tahmin edileceği ve Box-Whiskers'tan da görüleceği üzere ortalamanın sağında.
 
 ```{r}
 ieuhukuk <- as.data.frame(read_excel("ieuhukuk.xlsx"))
@@ -124,8 +121,7 @@ ggplot(ieuhukuk)+aes(y=puan, x=gr)+
                       axis.title.y = element_blank())+coord_flip()
 ```
 
-Herhangi bir kontenjana yerleşen öğrencilerin puanlarının dağılımının genel karekteristiğinin  yukarıdaki grafikteki forma uyduğunu söylemek yanlış olmaz. Aynı bölümün %50 İndirimli kontenjanına yerleşen öğrencilerin puan dağılımında da sağa çarpıklık görülmekte. 
-
+Herhangi bir kontenjana yerleşen öğrencilerin puanlarının dağılımının genel karekteristiğinin yukarıdaki grafikteki forma uyduğunu söylemek yanlış olmaz. Aynı bölümün %50 İndirimli kontenjanına yerleşen öğrencilerin puan dağılımında da sağa çarpıklık görülmekte.
 
 ```{r}
 ieuhukuk50 <- as.data.frame(read_excel("ieuhukuk.xlsx",sheet = "i50"))
@@ -148,29 +144,27 @@ ggplot(ieuhukuk50)+aes(y=puan, x=gr)+
 
 ## Üniversite Sıralamaları
 
-En başarılı öğrenciler hangi üniversiteleri tercih ediyor? Aşağıdaki listede Hukuk fakültelerine son sırada yerleşen öğrencilerin puanına göre sıralanmış 15 vakıf üniversitesi bulunuyor. Sıralama amaçlı hemen her listenin bu mantıkla, yani son sırada yerleşen öğrencinin puanına göre oluşturulduğunu görüyoruz. Bu liste hem anlaşılır hem de hiçbir hesaplama gerek kalmadan hızlıca hazırlanabilir. Ancak bu paragrafın başındaki soruya tatmin edici bir yanıt olduğunu söylemek zor.    
+En başarılı öğrenciler hangi üniversiteleri tercih ediyor? Aşağıdaki listede Hukuk fakültelerine son sırada yerleşen öğrencilerin puanına göre sıralanmış 15 vakıf üniversitesi bulunuyor. Sıralama amaçlı hemen her listenin bu mantıkla, yani son sırada yerleşen öğrencinin puanına göre oluşturulduğunu görüyoruz. Bu liste hem anlaşılır hem de hiçbir hesaplama gerek kalmadan hızlıca hazırlanabilir. Ancak bu paragrafın başındaki soruya tatmin edici bir yanıt olduğunu söylemek zor.
 
-İbn Haldun Üniversitesi'nin listede Başkent'in üzerinde olduğu görülüyor. Ancak kontenjanlara ilk yerleşenlerin puanlarına bakıldığında Başkent'e yerleşenin puanı 443.6, İbn Haldun'a yerleşenin ise 402.9. Dolayısıyla İbn Haldun'a daha başarılı öğrencilerin yerleştiğini söylemek zor. Zaten kontenjana yerleşenlerin ortalama netlerinden hesaplanan puana bakıldığında Başkent'e yerleşen öğrencilerin ortalamada İbn Haldun'a yerleşenlerden daha başarılı oldukları görülüyor. Benzer şekilde Çankaya da aslında listede Kadir Has ve İstanbul Medipol'ün üzerinde olmalıdır. Dolayısıyla üniversiteler arasında başarı sıralaması yapmak için ortalama puanları hesaplayıp ona göre listelemek gerekmektedir.      
-
+İbn Haldun Üniversitesi'nin listede Başkent'in üzerinde olduğu görülüyor. Ancak kontenjanlara ilk yerleşenlerin puanlarına bakıldığında Başkent'e yerleşenin puanı 443.6, İbn Haldun'a yerleşenin ise 402.9. Dolayısıyla İbn Haldun'a daha başarılı öğrencilerin yerleştiğini söyleyemeyiz. Zaten kontenjana yerleşenlerin ortalama netlerinden hesaplanan puana bakıldığında Başkent'e yerleşen öğrencilerin ortalamada İbn Haldun'a yerleşenlerden daha başarılı oldukları görülüyor. Benzer şekilde Çankaya da aslında listede Kadir Has ve İstanbul Medipol'ün üzerinde olmalıdır. Dolayısıyla üniversiteler arasında başarı sıralaması yapmak için ortalama puanları hesaplayıp ona göre listelemek gerekmektedir.
 
 ```{r}
 knitr::kable(hukuk[1:15,c(11,12,14,15,16,17,18)])
 
 ```
 
-Sıralama ile ilgili ikinci problem ise aynı bölüme birden fazla kontenjanla öğrenci alınması durumunda ortaya çıkıyor. Aşağıdaki tabloda Koç ve Bilkent üniversitelerinin farklı kontenjanlara göre aynı bölüme aldıkları öğrencilerle ilgili puan bilgisi verilmiştir. Üniversite sıralamasında örneğin Koç Üniversitesi için kullanılması gereken ortalama puanı bulmak için hem burslu hem de ücretli kontenjanlara yerleşen öğrenciler hesaba katımalıdır. Bu kontenjanlara yerleşen öğrenci sayıları farklı olduğuna göe kontenjanlarla ağırlıklandırılmış ortalama hesaplamak gerekmektedir. Bilkent için ise üç kontenjan bulunmaktadır ve bu üç kontenjana yerleşen öğrencilerin tamamının puanları ortalama puan hesaplarken kullanılmalıdır. 
+Sıralama ile ilgili ikinci problem ise aynı bölüme birden fazla kontenjanla öğrenci alınması durumunda ortaya çıkıyor. Her ne kadar kontenjanlar farklı olsa da, yerleşen öğrenciler sonuç itibariyle aynı bölüme yerleşmekte, öğrenciler aynı sınıflarda eğitim görektedir. Dolayısıyla sıralamalar kontenjanlar üzerinden değil, bölümler üzerinden hesaplanmalıdır. Aşağıdaki tabloda Koç ve Bilkent üniversitelerinin farklı kontenjanlara göre aynı bölüme aldıkları öğrencilerle ilgili puan bilgisi verilmiştir. Üniversite sıralamasında örneğin Koç Üniversitesi için kullanılması gereken ortalama puanı bulmak için hem burslu hem de ücretli kontenjanlara yerleşen öğrenciler hesaba katılmalıdır. Bu kontenjanlara yerleşen öğrenci sayıları farklı olduğuna göre kontenjanlarla ağırlıklandırılmış ortalama hesaplamak gerekmektedir. Bilkent için ise üç kontenjan bulunmaktadır ve bu üç kontenjana yerleşen öğrencilerin tamamının puanları ortalama puan hesaplarken kullanılmalıdır.
 
 ```{r}
 
 knitr::kable(hukuk[hukuk$Uni=="KOÇ ÜNİVERSİTESİ (İSTANBUL)" | hukuk$Uni=="İHSAN DOĞRAMACI BİLKENT ÜNİVERSİTESİ (ANKARA)",c(11,12,14,15,16,17,18)])
 ```
 
-Bu aşamada ağırlandırmayı yerleşen ğrenci sayısıyla yapmak ancak son aşamada toplam ağırlığa bölerken toplam yerleşen yerine toplam kontenjanı kullanmak gerekmektedir. Dolmayan kontenjanları "cezalandırmak" için bu yaklaşım daha doğru olacaktır.
+Bu aşamada ağırlandırmayı yerleşen öğrenci sayısıyla yapmak ancak son aşamada toplam ağırlığa bölerken toplam yerleşen yerine toplam kontenjanı kullanmak gerekmektedir. Dolmayan kontenjanları "cezalandırmak" için bu yaklaşım daha doğru olmaktadır.
 
 $$
 A. \: Ortalama=\frac{\displaystyle\sum\limits_{i=1}^k ortP(i)*yer(i)}{\displaystyle\sum\limits_{i=1}^k kont(i)}=\frac{\displaystyle\sum\limits_{i=1}^k wsum(i)}{\displaystyle\sum\limits_{i=1}^k kont(i)}
-$$
-Formülde $k$ üniversitenin ilgili bölümde kaç farklı kontenjanı varsa (en fazla 3 olabilir) onu göstermektedir. Her üniversite için bu işlemler yapıldığında istenen bölüm[^2] bazında üniversite sıralaması elde edilmiş olur.     
+$$ Formülde $k$ üniversitenin ilgili bölümde kaç farklı kontenjanı varsa (en fazla 3 olabilir) onu göstermektedir. Her üniversite için bu işlemler yapıldığında istenen bölüm[^2] bazında üniversite sıralaması elde edilmiş olur.
 
 [^2]: Altınbaş Ü için Hukuk'ta iki farklı bölüm (Standart ve UOLP-Köln) var ancak ayırma zahmetine girmiyoruz.
 
@@ -191,8 +185,7 @@ knitr::kable(rankHukuk)
 
 ```
 
-Tabloyu grafikle özetlemek de mümkün. Kırmızı renkle gösterilen üniversitelerin kontenjanları dolmuştur.
-
+Tabloyu grafikle özetlemek de mümkün. Kırmızı renkle gösterilen üniversitelerin kontenjanları dolmuştur. Her üniversitenin Hukuk Fakültesi için farklı kontenjanlar havuzlandıktan sonra en küçük puan ve en büyük puan arasında bir hat çekilmiştir. Ortalama puanlar ise bir nokta şeklinde gösterilmektedir. Dolmayan bölümler için ortalama puanın en küçük puanın altında hesaplanabildiği görülmektedir. Bu anlamda ortalama puanın aslında bölüm bazında üniversite sıralaması yapabilmek için oluşturulan geçici ya da enstrumental bir değişken olduğunu vurgulamak isteriz. 
 
 ```{r}
 #| fig-width: 10
@@ -209,11 +202,11 @@ ggplot(rankHukuk,
   labs(y="")+ theme(legend.position="none")
 ```
 
-
 ## Analiz-2
-Son olarak bu bölümde ATLAS platformunda ortalama net verisi açıklanmadan önce bu sıralamayı tahmin etme yöntemleri tartışıldı. Yerleşen öğrencilerin puan dağılımının alttan ve üstten sınırlı olması ve karekteristik form nedeniyle log-uniform dağılıma benzediği söylenebilir.Başkent, İstanbul Medipol ve Çankaya üniversitelerinde olduğu gibi ortalamanın çok üzerinde bir tavan puanla programa yerleşmenin olmadığı durumlarda bu dağılımın momenti (ortalaması) kullanılarak tahmin yapılabilmektedir.
 
-Hukuk verisi üzerinde tüm kontenjanlara yerleşen öğrencilerin taban ve tavan puanlarını kullanarak ortalama puanı hesaplayan basşt bir regresyon modeli kurulabilir. Ortalama puanlar daha önce de anlatıldığı üzere ATLAS platformunda kontenjan bazında verilen ortalama netler kullanılarak hesaplandı. Modelde kasıtlı olarak sabit değer sıfırlandı. Modelin genel olarak performansının çok yüksek olduğu (%99.99) görülmekte. 
+Son olarak bu bölümde ATLAS platformunda ortalama net verisi açıklanmadan önce bu sıralamayı tahmin etme yöntemleri tartışıldı. ATLAS verisi her yılın sonuna doğru hesaplanmakta, ancak YKS sonuçlarının değerlendirmesine yönelik raporlar ise bu tarihlerden bir kaç ay önce tamamlanmaktadır. Vakıf yöneticileri her bölüm için hazırlanan sıralamaları inceleyerek yaptıkları yatırımların, verdikleri kararların sonucunda vakıf üniversiteleri arası rekabette nerede konumlandıklarını görebiliyorlar. Bu raporlar yıllara sari hazırlandığında oluşan trendler, rekabet dinamikleri incelenebilmekte, aksiyon planlarına yönelik ipuçları bulunabilmektedir. Yerleşen öğrencilerin puan dağılımının alttan ve üstten sınırlı olması ve karekteristik form nedeniyle log-uniform dağılıma benzediği söylenebilir.Başkent, İstanbul Medipol ve Çankaya üniversitelerinde olduğu gibi ortalamanın çok üzerinde bir tavan puanla programa yerleşmenin olmadığı durumlarda bu dağılımın momenti (ortalaması) kullanılarak tahmin yapılabilmektedir.
+
+Hukuk verisi üzerinde tüm kontenjanlara yerleşen öğrencilerin taban ve tavan puanlarını kullanarak ortalama puanı hesaplayan basit bir regresyon modeli kurulabilir. Ortalama puanlar daha önce de anlatıldığı üzere ATLAS platformunda kontenjan bazında verilen ortalama netler kullanılarak hesaplandı. Modelde kasıtlı olarak sabit değer sıfırlandı. Modelin genel olarak performansının çok yüksek olduğu (%99.99) görülmektedir.
 
 ```{r}
 hukco <- hukuk
@@ -222,6 +215,7 @@ m1 <- lm(ortP ~ -1+minP+maksP,data = hukco)
 summary(m1)
 
 ```
+
 Hata terimleri de incelendiğinde modelin taban ve tavan puan kullanarak yaptığı ortalama puan hesaplamasının oldukça başarılı olduğu görülüyor. Parametrelere bakıldığında modelin hesapladığı ortalama değer taban ve tavan puan arası beş eşit dilime bölündüğünde taban puandan bir dilim uzaklıkta.
 
 ```{r}
@@ -237,7 +231,6 @@ ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() +
 ```
 
 Modelin başarısının bağımlı değişken olan ortalama puanın, bağımsız değişken olan taban ve tavan puanlara yakın olması ve sapmaların değerlerin sayısal büyüklüğüne oranla düşük olmasından kaynaklanmadığını görmek için bir standardizasyon işlemi yapılıyor. Taban ve tavan puan değerleri birleştirilip ortalama ve standart sapma hesaplandıktan sonra, tavan, taban ve ortalama puanlar bu değerler kullanılarak standardize ediliyor. Yeni hesaplanan değişkenlerle bir öncek model kuruluyor. Bu modelin başarısı da %99'un üzerinde ve parametreler yaklaşık aynı çıkıyor.
-
 
 ```{r}
 mstan <- function(x,m,st){
@@ -263,6 +256,3 @@ Ek olarak yerleşmeyenin %100 olmadığı kontenjanlar için dummy değişken ta
 Herhangi bir bölüm için üniversite sıralamaları hesaplanmak istendiğinde genel olarak kontenjanların taban puanları esas alınmaktadır. Vakıf üniversitleri açısından hemen her bölüm için birden fazla kontenjan olduğu düşünüldüğünde de kontenjanlarla ağırlıklandırılmış ortalamalar hesaplanmaktadır. Bu yazıda sıralama amacıyla taban puan kullanmanın üniversiteler arasındaki sıralamalarda hatalı sonuçlar ürettiği gösterildi. Buna göre taban yerine ortalama puan kullanmak gerekmektedir. Ancak her kontenjan için ortalama puan hesaplamak oldukça zordur ve bu hesap için kullanılan ATLAS platformu verisinin yayınlanması aylar sürmektedir.
 
 Üniversiteler kendi kontenjanlarına yerleşen öğrencilerin puan verisine sahiptirler. Bu veri incelendiğinde, kontenjan bazında, yerleşen öğrencilerin dağılımları log-uniform dağılımı karekteristikleri göstermektedir. Buradan yola çıkarak, sadece taban ve tavan puan kullanılarak ortalama puanı tahmin eden bir model geliştirildi. Model mevcut veriyi %99'un üzerinde bir başarıyla açıklayabilmekte. Dolayısıyla, ATLAS platformu verisi kullanmadan ortalama puan tahminleri yapmak mümkündür.
-
-
-
