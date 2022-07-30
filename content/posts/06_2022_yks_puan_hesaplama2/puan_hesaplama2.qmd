@@ -1,7 +1,7 @@
 ---
 title: "YKS Puanı Hesaplama Formülleri-2: Bölüm Bazlı Üniversite Sıralamaları"
 author: Raif Serkan Albayrak
-description: "Önceki yazıda YKS puanı hesaplanırken soru gruplarının katsayısını hesaplayan modellerin nasıl kurulacağı gösterildi Bu yazıda ise puan hesaplama bilgisinin üniversite analitiğinde nasıl kullanılabileceği tartışıldı."
+description: "Önceki yazıda YKS puanı hesaplanırken soru gruplarının katsayısını hesaplayan modellerin nasıl kurulacağı gösterildi Bu yazıda ise puan hesaplama bilgisinin üniversite analitiğinde nasıl kullanılabileceği tartışıldı. YKS sınav sonuçlarının analizinde üniversitelerin bölüm bazında sıralamalarını çıkarmak ve yıldan yıla bu sıralamaların nasıl değiştiğini incelemek üniversite yöneticileri için son derece önemlidir. Ne var ki özellikle vakıf üniversiteleri söz konusu olduğunda bölüm bazında da olsa üniversite sıralamalarını çıkarmak hiç kolay değil. Yazıda bölüm bazında bir üniversite sıralamasının nasıl yapılabileceği gösterildi."
 date: 2022-06-25
 categories:
   - YKS
