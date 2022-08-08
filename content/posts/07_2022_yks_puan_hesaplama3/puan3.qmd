@@ -1,7 +1,7 @@
 ---
-title: "YKS Puanı Hesaplama Formülleri-3a: Bölüm Bazlı Üniversite Sıralamaları (Tüm Bölümler için ve Yıllara Sari)"
+title: "YKS Puanı Hesaplama Formülleri-3: Bölüm Bazlı Üniversite Sıralamaları (Tüm Bölümler için ve Yıllara Sari)"
 author: Raif Serkan Albayrak
-description: "Bu yazı serisinin bir önceki adımında Hukuk Fakülteleri için tek yılın YKS verisi üzerinden Vakıf Üniversitelerinin nasıl sıralanabileceğine dair yürütülen tartışma bu yazıda genişletiliyor. Bu kısımda EA bölümleri çalışıldı."
+description: "Bu yazı serisinin bir önceki adımında Hukuk Fakülteleri için tek yılın YKS verisi üzerinden Vakıf Üniversitelerinin nasıl sıralanabileceğine dair yürütülen tartışma bu yazıda genişletiliyor. "
 date: 2022-07-25
 categories:
   - YKS
@@ -13,34 +13,32 @@ code-line-numbers: false
 toc-title: İçerik
 ---
 
-Bir önceki yazıda özellikle ATLAS verisi kullanılmadan önce bir veya birden fazla kontenjanla (mesela Burslu ve %50 İndirimli) öğrencinin yerleştiği bir bölümün ortalama puanının nsıl hesaplanabileceğine yönelik geliştirilen model tantılmıştı. Parametrelere bakıldığında modelin hesapladığı ortalama değer taban ve tavan puan arası beş eşit dilime bölündüğünde taban puandan bir dilim uzaklıktaydı. Ayrıca modelin Hukuk Fakülteleri için veriyi açıklama gücü %99 seviyesinde olduğu görülmüştü. Bu sayede YKS sonuçları açıklandıktan hemen sonrasında bölüm bazında üniversite sıralamaları yapmak mümkün olabiliyor. Geçmiş yılların sıralama verileriyle elde edilen sonuçlar konsolide edildiğinde bir yıl boyunca verilen kararların ve yapılan yatırımların ne ölçüde yeni adaylara iletilebildiği ve nasıl bir karşılım bulduğu görülebiliyor. Bu yazı her puan türünde hesaplamaları farklı bölümlerde göstermektedir. EA puan türü ile başlanan ilk bölümü takiben SAY ve SÖZ puan türleri için analizleri içeren gönderiler paylaşılmıştır. Bu bölümün konusu EA puan türü.
+Bir önceki yazıda özellikle ATLAS verisi kullanılmadan önce bir veya birden fazla kontenjanla (mesela Burslu ve %50 İndirimli) öğrencinin yerleştiği bir bölümün ortalama puanının nasıl hesaplanabileceğine yönelik geliştirilen model tantılmıştı. Parametrelere bakıldığında modelin hesapladığı ortalama değer, taban ve tavan puan arası beş eşit dilime bölündüğünde taban puandan bir dilim uzaklıktaydı. Spesifik olarak;
+
+$$
+OrtalamaPuan=0.791378\times minPuan + 0.221861\times maxPuan
+$$
+
+Ayrıca modelin Hukuk Fakülteleri için veriyi açıklama gücü %99 seviyesinde olduğu görülmüştü. Bu sayede YKS sonuçları açıklandıktan hemen sonrasında bölüm bazında üniversite sıralamaları yapmak mümkün olabiliyor. Geçmiş yılların sıralama verileriyle elde edilen sonuçlar konsolide edildiğinde bir yıl boyunca verilen kararların ve yapılan yatırımların ne ölçüde yeni adaylara iletilebildiği ve nasıl bir karşılım bulduğu görülebiliyor. Bu yazı her puan türünde hesaplamaları farklı bölümlerde göstermektedir. EA puan türü ile başlanan ilk bölümü takiben SAY ve SÖZ puan türleri için analizleri içeren gönderiler paylaşılmıştır.
 
 ```{r}
 #| warnings: false
 #| message: false
 library(tidyverse)
-library(jtools)
 library(readxl)
-library(DT)
-library(summarytools)
 library(writexl)
-st_options(plain.ascii = FALSE, #summarytools parameter for Rmd documents
-           style = "rmarkdown",
-           subtitle.emphasis = FALSE #improves layout w/ some themes
-           )
 ```
 
 # EA
 
-EA puan türünde olan tüm bölümler için net ortalamaları ATLAS'tan çekilmiş ve derlenmiştir. Bir önceki yazıda Hukuk Fakülteleri sıralaması oluşturulurken kullanılan veri paylaşılmıştır. 
+EA puan türünde olan tüm bölümler için net ortalamaları ATLAS'tan çekilmiş ve derlenmiştir. Bir önceki yazıda Hukuk Fakülteleri sıralaması oluşturulurken kullanılan veri paylaşılmıştır.
 
 ```{r}
 EA21 <- read_excel("../../../temp/puan3/NETLER__Lisans.xlsx",sheet = "2021") |> filter(puanTuru=="EA" & Statu=="VAKIF")
 mp <- read_excel("../../../temp/puan3/NETLER__Lisans.xlsx",sheet = "all_coeffs") |> filter(Year==2021 & Puan=="EA")
 ```
 
-
-İlk aşamada her kontenjan için ortalama net verisinden faydalanılarak ortalama puan hesaplanıyor. Bölümlerin kaç üniversitede ve toplam kaç farklı kontenjan tipinde öğrenci aldığını gösteren tablo incelendiğinde, sadece bir üniversitede açık bölümlerin olduğu görülmekte. Bu bölümler sıralama analizinin devamıda filtreleniyor.
+İlk aşamada her kontenjan için ortalama net verisinden faydalanılarak ortalama puan hesaplanıyor. Bölümlerin kaç üniversitede ve toplam kaç farklı kontenjan tipinde öğrenci aldığını gösteren tablo incelendiğinde, sadece tek bir üniversitede açık bölümlerin olduğu görülmekte. Bu bölümler sıralama analizinin devamıda filtreleniyor.
 
 ```{r}
 easyNames <- c("Code","obp","tytTur","tytSos","tytMat","tytFen",
@@ -58,6 +56,7 @@ EA21 <- EA21 |> rowwise() |>  mutate(ortP = obp*0.12 + mp[20]+
                            tytFen*mp[7]+tytSos*mp[5]+
                            aytMat*mp[15]+aytTur*mp[8]+
                            aytTar1*mp[9]+aytCog1*mp[10]) |> ungroup()
+EA21$ortP <- EA21$ortP$CONSTANT
 
 
 t1 <- EA21 |> group_by(BOL) |> summarise(
@@ -74,4 +73,176 @@ EA21 <- EA21 |> filter(BOL %in% bolumfilter)
 
 ```
 
+## EA MODELİ
 
+Model oluşturmaya tüm EA bölümleri tek bir havuzda toplanarak başlanıyor. Bu modelin açıklayıcılığı çok yüksek olsa da hata terimlerindeki problem nedeniyle modele ufak bir modifikasyon yapma ihtiyacı duyuluyor. Devamında bölüm bazında modeller de kuruluyor.
+
+```{r}
+grandModel <- lm(ortP~-1+minP+maksP,data = EA21)
+summary(grandModel)
+
+```
+
+Hataların dağılımına bağıldığında ilk 250 puan bandında problem olduğu görülüyor. Bunun nedeni muhtemelen barajın hemen üstünde hesaplanan puanlar. Bu bölgede barajın etkisi nedeniyle puanlar sıkışıyor. Model de düşük tahminleme yapıyor.
+
+```{r}
+results <- data.frame(real = EA21$ortP,model=predict(grandModel))
+results$fark <- results$real-results$model
+results$absfark <- abs(results$real-results$model)
+ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() + 
+  labs(title = "Hata Terimleri",
+       x = "Gözlem",
+       y = "Gözlem - Model",
+       colour= "Hata") + 
+  geom_abline(slope = 0, intercept = 0, colour="orange", size=1)
+```
+
+Veride ortalaması 250'den düşük 418 kotenjan var. Bu sayı tüm kontenjanların yaklaşık üçte biri. Modele tek bir dummy değişken ekleyerek de hata terimlerinin iyileştirilmesi sağlanabilir ancak açıklayıcılığı hala min ve maks puanlara yüklemek istediğimizden iki dummy değişken oluşturup bunları min ve maks puanlarla çarpıyoruz. Sonuçta min puanın etkisinin bu kontenjanlar için 0.72'den 0.60'a düştüğü görülüyor. Buna bağlı olarak maks puanın etkisi de 0.28'den, 0.40'a yükseliyor. Hata terimlerinin varyansı hala sıkıntılı[^1] ancak en azından sıfır etrafında simetri yakalandı ve model şu an için iş görür durumda.
+
+[^1]: Heteroskedastisite problemi var; düşük puanların olduğu bölgede hata terimlerinin varyansı yüksek puanların olduğu bölgedeki varyansa göre daha fazla.
+
+```{r}
+EA21 <- EA21 |>  mutate(Dmin = ifelse(ortP<250,minP,0),
+                        Dmaks = ifelse(ortP<250,maksP,0))
+
+grandModel1 <- lm(ortP~-1+minP+maksP+Dmin+Dmaks,data = EA21)
+summary(grandModel1)
+
+results <- data.frame(real = EA21$ortP,model=predict(grandModel1))
+results$fark <- results$real-results$model
+results$absfark <- abs(results$real-results$model)
+ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() + 
+  labs(title = "Hata Terimleri",
+       x = "Gözlem",
+       y = "Gözlem - Model",
+       colour= "Hata") + 
+  geom_abline(slope = 0, intercept = 0, colour="orange", size=1)
+
+```
+
+# SAY
+
+SAY puan türünde vakıf üniversitelerinin 1728 kontenjanı var. Önce bu veri filtrelenerek yükleniyor. Devamında EA için uygulanan adımlar izlendi.
+
+```{r}
+SAY21 <- read_excel("../../../temp/puan3/NETLER__Lisans.xlsx",sheet = "2021") |> filter(puanTuru=="SAY" & Statu=="VAKIF")
+mp <- read_excel("../../../temp/puan3/NETLER__Lisans.xlsx",sheet = "all_coeffs") |> filter(Year==2021 & Puan=="SAY")
+```
+
+SAY puan türünde de tek bir üniversitede bulunan kontenjanlar veriden ayıklandı. ATLAS verisinde bulunan kontenjan bazlı ortalama net bilgisi daha önceki yazılarda paylaşılmış olan puan hesaplam modeliyle beraber kullanılarak her kontenjanın ortalama puanı hesaplandı.
+
+```{r}
+easyNames <- c("Code","obp","tytTur","tytSos","tytMat","tytFen",
+               "aytTur","aytTar1","aytCog1","aytTar2","aytCog2",
+               "aytFels","aytDin",
+               "aytMat","aytFiz","aytKim","aytBio",
+               "aytDil",
+               "puan","Uni","Burs","Statu","minP","maksP","kont","yer","BOL")
+colnames(SAY21) <- easyNames
+mp <- as.data.frame(mp)
+#Aşağıda ortalama puan hesabında rowwise kullanmak gerekli. En sonda da ungroup yaparak
+#rowwise gruplama etkisi geri alınıyor.
+SAY21 <- SAY21 |> rowwise() |>  mutate(ortP = obp*0.12 + mp[20]+
+                           tytMat*mp[6]+tytTur*mp[4]+
+                           tytFen*mp[7]+tytSos*mp[5]+
+                           aytMat*mp[15]+aytFiz*mp[16]+
+                           aytKim*mp[17]+aytBio*mp[18]) |> ungroup()
+SAY21$ortP <- SAY21$ortP$CONSTANT
+
+
+t1 <- SAY21 |> group_by(BOL) |> summarise(
+  Universite = n_distinct(Uni),
+  Kontenjan =n_distinct(minP)
+)
+
+
+knitr::kable(t1)
+
+#Tek üniv.de açık bölümleri filtrele
+bolumfilter <- t1$BOL[t1$Universite>1]
+SAY21 <- SAY21 |> filter(BOL %in% bolumfilter)
+
+```
+
+SAY puan türü için modelin açıklayıcılığı %99.98 oldu. EA'da gözlemlenen yoğun heteroskedastisite burada daha az ve ihmal edilebilir seviyelerde. Sonuçta EA için bulunan %73-%27 çarpanları burada da bulunuyor. 
+
+
+```{r}
+grandModelSAY <- lm(ortP~-1+minP+maksP,data = SAY21)
+summary(grandModelSAY)
+
+
+results <- data.frame(real = SAY21$ortP,model=predict(grandModelSAY))
+results$fark <- results$real-results$model
+results$absfark <- abs(results$real-results$model)
+ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() + 
+  labs(title = "Hata Terimleri",
+       x = "Gözlem",
+       y = "Gözlem - Model",
+       colour= "Hata") + 
+  geom_abline(slope = 0, intercept = 0, colour="orange", size=1)
+
+```
+
+# SÖZ
+
+SÖZ puan türünde vakıf üniversielerinde toplam 546 kontenjan var. Yukarıda EA ve SAY puan türleri için atılan adımlar aynı sırada ve aynı yöntemle izleniyor. 
+
+```{r}
+SOZ21 <- read_excel("../../../temp/puan3/NETLER__Lisans.xlsx",sheet = "2021") |> filter(puanTuru=="SÖZ" & Statu=="VAKIF")
+mp <- read_excel("../../../temp/puan3/NETLER__Lisans.xlsx",sheet = "all_coeffs") |> filter(Year==2021 & Puan=="SOZ")
+```
+
+```{r}
+easyNames <- c("Code","obp","tytTur","tytSos","tytMat","tytFen",
+               "aytTur","aytTar1","aytCog1","aytTar2","aytCog2",
+               "aytFels","aytDin",
+               "aytMat","aytFiz","aytKim","aytBio",
+               "aytDil",
+               "puan","Uni","Burs","Statu","minP","maksP","kont","yer","BOL")
+colnames(SOZ21) <- easyNames
+mp <- as.data.frame(mp)
+#Aşağıda ortalama puan hesabında rowwise kullanmak gerekli. En sonda da ungroup yaparak
+#rowwise gruplama etkisi geri alınıyor.
+SOZ21 <- SOZ21 |> rowwise() |>  mutate(ortP = obp*0.12 + mp[20]+
+                           tytMat*mp[6]+tytTur*mp[4]+
+                           tytFen*mp[7]+tytSos*mp[5]+
+                           aytTur*mp[8]+aytTar1*mp[9]+
+                           aytCog1*mp[10]+aytTar2*mp[11]+
+                           aytCog2*mp[12]+aytFels*mp[13]+
+                             aytDin*mp[14]) |> ungroup()
+SOZ21$ortP <- SOZ21$ortP$CONSTANT
+
+
+t1 <- SOZ21 |> group_by(BOL) |> summarise(
+  Universite = n_distinct(Uni),
+  Kontenjan =n_distinct(minP)
+)
+
+
+knitr::kable(t1)
+
+#Tek üniv.de açık bölümleri filtrele
+bolumfilter <- t1$BOL[t1$Universite>1]
+SOZ21 <- SOZ21 |> filter(BOL %in% bolumfilter)
+
+```
+
+Sonuçta modele bakıldığında %99.95 açıklayıcılıkla %68-%32 ilişkisi bulunuyor. Her ne kadar EA ve SAY için hesaplanan değerlerden bir sapma olsa da gene de %70 - %30 etrfında dolaşan değerlerle karşılaşılıyor.
+
+```{r}
+grandModelSOZ <- lm(ortP~-1+minP+maksP,data = SOZ21)
+summary(grandModelSOZ)
+
+
+results <- data.frame(real = SOZ21$ortP,model=predict(grandModelSOZ))
+results$fark <- results$real-results$model
+results$absfark <- abs(results$real-results$model)
+ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() + 
+  labs(title = "Hata Terimleri",
+       x = "Gözlem",
+       y = "Gözlem - Model",
+       colour= "Hata") + 
+  geom_abline(slope = 0, intercept = 0, colour="orange", size=1)
+
+```

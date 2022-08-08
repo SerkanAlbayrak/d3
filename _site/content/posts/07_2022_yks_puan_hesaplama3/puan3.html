@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Raif Serkan Albayrak">
-<meta name="description" content="Bu yazı serisinin bir önceki adımında Hukuk Fakülteleri için tek yılın YKS verisi üzerinden Vakıf Üniversitelerinin nasıl sıralanabileceğine dair yürütülen tartışma bu yazıda genişletiliyor. Bu kısımda EA bölümleri çalışıldı.">
+<meta name="description" content="Bu yazı serisinin bir önceki adımında Hukuk Fakülteleri için tek yılın YKS verisi üzerinden Vakıf Üniversitelerinin nasıl sıralanabileceğine dair yürütülen tartışma bu yazıda genişletiliyor.">
 
-<title>zeytin - YKS Puanı Hesaplama Formülleri-3a: Bölüm Bazlı Üniversite Sıralamaları (Tüm Bölümler için ve Yıllara Sari)</title>
+<title>zeytin - YKS Puanı Hesaplama Formülleri-3: Bölüm Bazlı Üniversite Sıralamaları (Tüm Bölümler için ve Yıllara Sari)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -120,6 +120,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../../styles.css">
 </head>
@@ -158,7 +159,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">İçerik</h2>
    
   <ul>
-  <li><a href="#ea" id="toc-ea" class="nav-link active" data-scroll-target="#ea">EA</a></li>
+  <li><a href="#ea" id="toc-ea" class="nav-link active" data-scroll-target="#ea">EA</a>
+  <ul class="collapse">
+  <li><a href="#ea-modeli" id="toc-ea-modeli" class="nav-link" data-scroll-target="#ea-modeli">EA MODELİ</a></li>
+  </ul></li>
+  <li><a href="#say" id="toc-say" class="nav-link" data-scroll-target="#say">SAY</a></li>
+  <li><a href="#söz" id="toc-söz" class="nav-link" data-scroll-target="#söz">SÖZ</a></li>
   </ul>
 </nav>
 </nav>
@@ -170,7 +176,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">YKS Puanı Hesaplama Formülleri-3a: Bölüm Bazlı Üniversite Sıralamaları (Tüm Bölümler için ve Yıllara Sari)</h1>
+<h1 class="title">YKS Puanı Hesaplama Formülleri-3: Bölüm Bazlı Üniversite Sıralamaları (Tüm Bölümler için ve Yıllara Sari)</h1>
   <div class="quarto-categories">
     <div class="quarto-category">YKS</div>
     <div class="quarto-category">Üniversite Analitiği</div>
@@ -179,7 +185,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div>
   <div class="description">
-    Bu yazı serisinin bir önceki adımında Hukuk Fakülteleri için tek yılın YKS verisi üzerinden Vakıf Üniversitelerinin nasıl sıralanabileceğine dair yürütülen tartışma bu yazıda genişletiliyor. Bu kısımda EA bölümleri çalışıldı.
+    Bu yazı serisinin bir önceki adımında Hukuk Fakülteleri için tek yılın YKS verisi üzerinden Vakıf Üniversitelerinin nasıl sıralanabileceğine dair yürütülen tartışma bu yazıda genişletiliyor.
   </div>
 </div>
 
@@ -205,20 +211,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>Bir önceki yazıda özellikle ATLAS verisi kullanılmadan önce bir veya birden fazla kontenjanla (mesela Burslu ve %50 İndirimli) öğrencinin yerleştiği bir bölümün ortalama puanının nsıl hesaplanabileceğine yönelik geliştirilen model tantılmıştı. Parametrelere bakıldığında modelin hesapladığı ortalama değer taban ve tavan puan arası beş eşit dilime bölündüğünde taban puandan bir dilim uzaklıktaydı. Ayrıca modelin Hukuk Fakülteleri için veriyi açıklama gücü %99 seviyesinde olduğu görülmüştü. Bu sayede YKS sonuçları açıklandıktan hemen sonrasında bölüm bazında üniversite sıralamaları yapmak mümkün olabiliyor. Geçmiş yılların sıralama verileriyle elde edilen sonuçlar konsolide edildiğinde bir yıl boyunca verilen kararların ve yapılan yatırımların ne ölçüde yeni adaylara iletilebildiği ve nasıl bir karşılım bulduğu görülebiliyor. Bu yazı her puan türünde hesaplamaları farklı bölümlerde göstermektedir. EA puan türü ile başlanan ilk bölümü takiben SAY ve SÖZ puan türleri için analizleri içeren gönderiler paylaşılmıştır. Bu bölümün konusu EA puan türü.</p>
+<p>Bir önceki yazıda özellikle ATLAS verisi kullanılmadan önce bir veya birden fazla kontenjanla (mesela Burslu ve %50 İndirimli) öğrencinin yerleştiği bir bölümün ortalama puanının nasıl hesaplanabileceğine yönelik geliştirilen model tantılmıştı. Parametrelere bakıldığında modelin hesapladığı ortalama değer, taban ve tavan puan arası beş eşit dilime bölündüğünde taban puandan bir dilim uzaklıktaydı. Spesifik olarak;</p>
+<p><span class="math display">\[
+OrtalamaPuan=0.791378\times minPuan + 0.221861\times maxPuan
+\]</span></p>
+<p>Ayrıca modelin Hukuk Fakülteleri için veriyi açıklama gücü %99 seviyesinde olduğu görülmüştü. Bu sayede YKS sonuçları açıklandıktan hemen sonrasında bölüm bazında üniversite sıralamaları yapmak mümkün olabiliyor. Geçmiş yılların sıralama verileriyle elde edilen sonuçlar konsolide edildiğinde bir yıl boyunca verilen kararların ve yapılan yatırımların ne ölçüde yeni adaylara iletilebildiği ve nasıl bir karşılım bulduğu görülebiliyor. Bu yazı her puan türünde hesaplamaları farklı bölümlerde göstermektedir. EA puan türü ile başlanan ilk bölümü takiben SAY ve SÖZ puan türleri için analizleri içeren gönderiler paylaşılmıştır.</p>
 <div class="cell" data-warnings="false">
 <details>
 <summary>Kod</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jtools)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(summarytools)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">st_options</span>(<span class="at">plain.ascii =</span> <span class="cn">FALSE</span>, <span class="co">#summarytools parameter for Rmd documents</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">style =</span> <span class="st">"rmarkdown"</span>,</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">subtitle.emphasis =</span> <span class="cn">FALSE</span> <span class="co">#improves layout w/ some themes</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="ea" class="level1">
@@ -231,6 +234,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>mp <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"../../../temp/puan3/NETLER__Lisans.xlsx"</span>,<span class="at">sheet =</span> <span class="st">"all_coeffs"</span>) <span class="sc">|&gt;</span> <span class="fu">filter</span>(Year<span class="sc">==</span><span class="dv">2021</span> <span class="sc">&amp;</span> Puan<span class="sc">==</span><span class="st">"EA"</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+<p>İlk aşamada her kontenjan için ortalama net verisinden faydalanılarak ortalama puan hesaplanıyor. Bölümlerin kaç üniversitede ve toplam kaç farklı kontenjan tipinde öğrenci aldığını gösteren tablo incelendiğinde, sadece tek bir üniversitede açık bölümlerin olduğu görülmekte. Bu bölümler sıralama analizinin devamıda filtreleniyor.</p>
 <div class="cell">
 <details>
 <summary>Kod</summary>
@@ -241,12 +245,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">"aytDil"</span>,</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">"puan"</span>,<span class="st">"Uni"</span>,<span class="st">"Burs"</span>,<span class="st">"Statu"</span>,<span class="st">"minP"</span>,<span class="st">"maksP"</span>,<span class="st">"kont"</span>,<span class="st">"yer"</span>,<span class="st">"BOL"</span>)</span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(EA21) <span class="ot">&lt;-</span> easyNames</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>t1 <span class="ot">&lt;-</span> EA21 <span class="sc">|&gt;</span> <span class="fu">group_by</span>(BOL) <span class="sc">|&gt;</span> <span class="fu">summarise</span>(</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Universite =</span> <span class="fu">n_distinct</span>(Uni),</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">Kontenjan =</span><span class="fu">n_distinct</span>(minP)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(t1)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>mp <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mp)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Aşağıda ortalama puan hesabında rowwise kullanmak gerekli. En sonda da ungroup yaparak</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#rowwise gruplama etkisi geri alınıyor.</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>EA21 <span class="ot">&lt;-</span> EA21 <span class="sc">|&gt;</span> <span class="fu">rowwise</span>() <span class="sc">|&gt;</span>  <span class="fu">mutate</span>(<span class="at">ortP =</span> obp<span class="sc">*</span><span class="fl">0.12</span> <span class="sc">+</span> mp[<span class="dv">20</span>]<span class="sc">+</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>                           tytMat<span class="sc">*</span>mp[<span class="dv">6</span>]<span class="sc">+</span>tytTur<span class="sc">*</span>mp[<span class="dv">4</span>]<span class="sc">+</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>                           tytFen<span class="sc">*</span>mp[<span class="dv">7</span>]<span class="sc">+</span>tytSos<span class="sc">*</span>mp[<span class="dv">5</span>]<span class="sc">+</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>                           aytMat<span class="sc">*</span>mp[<span class="dv">15</span>]<span class="sc">+</span>aytTur<span class="sc">*</span>mp[<span class="dv">8</span>]<span class="sc">+</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>                           aytTar1<span class="sc">*</span>mp[<span class="dv">9</span>]<span class="sc">+</span>aytCog1<span class="sc">*</span>mp[<span class="dv">10</span>]) <span class="sc">|&gt;</span> <span class="fu">ungroup</span>()</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>EA21<span class="sc">$</span>ortP <span class="ot">&lt;-</span> EA21<span class="sc">$</span>ortP<span class="sc">$</span>CONSTANT</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>t1 <span class="ot">&lt;-</span> EA21 <span class="sc">|&gt;</span> <span class="fu">group_by</span>(BOL) <span class="sc">|&gt;</span> <span class="fu">summarise</span>(</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">Universite =</span> <span class="fu">n_distinct</span>(Uni),</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">Kontenjan =</span><span class="fu">n_distinct</span>(minP)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(t1)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <table class="table table-sm table-striped">
@@ -601,20 +617,863 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tbody>
 </table>
 </div>
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Tek üniv.de açık bölümleri filtrele</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>bolumfilter <span class="ot">&lt;-</span> t1<span class="sc">$</span>BOL[t1<span class="sc">$</span>Universite<span class="sc">&gt;</span><span class="dv">1</span>]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>EA21 <span class="ot">&lt;-</span> EA21 <span class="sc">|&gt;</span> <span class="fu">filter</span>(BOL <span class="sc">%in%</span> bolumfilter)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="ea-modeli" class="level2">
+<h2 class="anchored" data-anchor-id="ea-modeli">EA MODELİ</h2>
+<p>Model oluşturmaya tüm EA bölümleri tek bir havuzda toplanarak başlanıyor. Bu modelin açıklayıcılığı çok yüksek olsa da hata terimlerindeki problem nedeniyle modele ufak bir modifikasyon yapma ihtiyacı duyuluyor. Devamında bölüm bazında modeller de kuruluyor.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>grandModel <span class="ot">&lt;-</span> <span class="fu">lm</span>(ortP<span class="sc">~-</span><span class="dv">1</span><span class="sc">+</span>minP<span class="sc">+</span>maksP,<span class="at">data =</span> EA21)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(grandModel)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = ortP ~ -1 + minP + maksP, data = EA21)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-36.726  -2.723  -0.311   2.364  31.294 
+
+Coefficients:
+      Estimate Std. Error t value Pr(&gt;|t|)    
+minP  0.724983   0.006646  109.09   &lt;2e-16 ***
+maksP 0.278555   0.005945   46.86   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.29 on 1323 degrees of freedom
+Multiple R-squared:  0.9995,    Adjusted R-squared:  0.9995 
+F-statistic: 1.421e+06 on 2 and 1323 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+</div>
+<p>Hataların dağılımına bağıldığında ilk 250 puan bandında problem olduğu görülüyor. Bunun nedeni muhtemelen barajın hemen üstünde hesaplanan puanlar. Bu bölgede barajın etkisi nedeniyle puanlar sıkışıyor. Model de düşük tahminleme yapıyor.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">real =</span> EA21<span class="sc">$</span>ortP,<span class="at">model=</span><span class="fu">predict</span>(grandModel))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>fark <span class="ot">&lt;-</span> results<span class="sc">$</span>real<span class="sc">-</span>results<span class="sc">$</span>model</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>absfark <span class="ot">&lt;-</span> <span class="fu">abs</span>(results<span class="sc">$</span>real<span class="sc">-</span>results<span class="sc">$</span>model)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(results, <span class="fu">aes</span>(<span class="at">x=</span>real, <span class="at">y=</span>fark, <span class="at">colour=</span>absfark))<span class="sc">+</span><span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Hata Terimleri"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Gözlem"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Gözlem - Model"</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">colour=</span> <span class="st">"Hata"</span>) <span class="sc">+</span> </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">0</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">colour=</span><span class="st">"orange"</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="puan3_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Veride ortalaması 250’den düşük 418 kotenjan var. Bu sayı tüm kontenjanların yaklaşık üçte biri. Modele tek bir dummy değişken ekleyerek de hata terimlerinin iyileştirilmesi sağlanabilir ancak açıklayıcılığı hala min ve maks puanlara yüklemek istediğimizden iki dummy değişken oluşturup bunları min ve maks puanlarla çarpıyoruz. Sonuçta min puanın etkisinin bu kontenjanlar için 0.72’den 0.60’a düştüğü görülüyor. Buna bağlı olarak maks puanın etkisi de 0.28’den, 0.40’a yükseliyor. Hata terimlerinin varyansı hala sıkıntılı<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> ancak en azından sıfır etrafında simetri yakalandı ve model şu an için iş görür durumda.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>EA21 <span class="ot">&lt;-</span> EA21 <span class="sc">|&gt;</span>  <span class="fu">mutate</span>(<span class="at">Dmin =</span> <span class="fu">ifelse</span>(ortP<span class="sc">&lt;</span><span class="dv">250</span>,minP,<span class="dv">0</span>),</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">Dmaks =</span> <span class="fu">ifelse</span>(ortP<span class="sc">&lt;</span><span class="dv">250</span>,maksP,<span class="dv">0</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>grandModel1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ortP<span class="sc">~-</span><span class="dv">1</span><span class="sc">+</span>minP<span class="sc">+</span>maksP<span class="sc">+</span>Dmin<span class="sc">+</span>Dmaks,<span class="at">data =</span> EA21)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(grandModel1)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = ortP ~ -1 + minP + maksP + Dmin + Dmaks, data = EA21)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-32.107  -2.518  -0.238   2.331  35.409 
+
+Coefficients:
+       Estimate Std. Error t value Pr(&gt;|t|)    
+minP   0.778507   0.006874  113.26   &lt;2e-16 ***
+maksP  0.226800   0.006201   36.57   &lt;2e-16 ***
+Dmin  -0.162141   0.014324  -11.32   &lt;2e-16 ***
+Dmaks  0.158870   0.012521   12.69   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 5.611 on 1321 degrees of freedom
+Multiple R-squared:  0.9996,    Adjusted R-squared:  0.9996 
+F-statistic: 8.931e+05 on 4 and 1321 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">real =</span> EA21<span class="sc">$</span>ortP,<span class="at">model=</span><span class="fu">predict</span>(grandModel1))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>fark <span class="ot">&lt;-</span> results<span class="sc">$</span>real<span class="sc">-</span>results<span class="sc">$</span>model</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>absfark <span class="ot">&lt;-</span> <span class="fu">abs</span>(results<span class="sc">$</span>real<span class="sc">-</span>results<span class="sc">$</span>model)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(results, <span class="fu">aes</span>(<span class="at">x=</span>real, <span class="at">y=</span>fark, <span class="at">colour=</span>absfark))<span class="sc">+</span><span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Hata Terimleri"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Gözlem"</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Gözlem - Model"</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">colour=</span> <span class="st">"Hata"</span>) <span class="sc">+</span> </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">0</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">colour=</span><span class="st">"orange"</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="puan3_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="say" class="level1">
+<h1>SAY</h1>
+<p>SAY puan türünde vakıf üniversitelerinin 1728 kontenjanı var. Önce bu veri filtrelenerek yükleniyor. Devamında EA için uygulanan adımlar izlendi.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>SAY21 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"../../../temp/puan3/NETLER__Lisans.xlsx"</span>,<span class="at">sheet =</span> <span class="st">"2021"</span>) <span class="sc">|&gt;</span> <span class="fu">filter</span>(puanTuru<span class="sc">==</span><span class="st">"SAY"</span> <span class="sc">&amp;</span> Statu<span class="sc">==</span><span class="st">"VAKIF"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>mp <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"../../../temp/puan3/NETLER__Lisans.xlsx"</span>,<span class="at">sheet =</span> <span class="st">"all_coeffs"</span>) <span class="sc">|&gt;</span> <span class="fu">filter</span>(Year<span class="sc">==</span><span class="dv">2021</span> <span class="sc">&amp;</span> Puan<span class="sc">==</span><span class="st">"SAY"</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>SAY puan türünde de tek bir üniversitede bulunan kontenjanlar veriden ayıklandı. ATLAS verisinde bulunan kontenjan bazlı ortalama net bilgisi daha önceki yazılarda paylaşılmış olan puan hesaplam modeliyle beraber kullanılarak her kontenjanın ortalama puanı hesaplandı.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>easyNames <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Code"</span>,<span class="st">"obp"</span>,<span class="st">"tytTur"</span>,<span class="st">"tytSos"</span>,<span class="st">"tytMat"</span>,<span class="st">"tytFen"</span>,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>               <span class="st">"aytTur"</span>,<span class="st">"aytTar1"</span>,<span class="st">"aytCog1"</span>,<span class="st">"aytTar2"</span>,<span class="st">"aytCog2"</span>,</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">"aytFels"</span>,<span class="st">"aytDin"</span>,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>               <span class="st">"aytMat"</span>,<span class="st">"aytFiz"</span>,<span class="st">"aytKim"</span>,<span class="st">"aytBio"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">"aytDil"</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">"puan"</span>,<span class="st">"Uni"</span>,<span class="st">"Burs"</span>,<span class="st">"Statu"</span>,<span class="st">"minP"</span>,<span class="st">"maksP"</span>,<span class="st">"kont"</span>,<span class="st">"yer"</span>,<span class="st">"BOL"</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(SAY21) <span class="ot">&lt;-</span> easyNames</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>mp <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mp)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Aşağıda ortalama puan hesabında rowwise kullanmak gerekli. En sonda da ungroup yaparak</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">#rowwise gruplama etkisi geri alınıyor.</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>SAY21 <span class="ot">&lt;-</span> SAY21 <span class="sc">|&gt;</span> <span class="fu">rowwise</span>() <span class="sc">|&gt;</span>  <span class="fu">mutate</span>(<span class="at">ortP =</span> obp<span class="sc">*</span><span class="fl">0.12</span> <span class="sc">+</span> mp[<span class="dv">20</span>]<span class="sc">+</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>                           tytMat<span class="sc">*</span>mp[<span class="dv">6</span>]<span class="sc">+</span>tytTur<span class="sc">*</span>mp[<span class="dv">4</span>]<span class="sc">+</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>                           tytFen<span class="sc">*</span>mp[<span class="dv">7</span>]<span class="sc">+</span>tytSos<span class="sc">*</span>mp[<span class="dv">5</span>]<span class="sc">+</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>                           aytMat<span class="sc">*</span>mp[<span class="dv">15</span>]<span class="sc">+</span>aytFiz<span class="sc">*</span>mp[<span class="dv">16</span>]<span class="sc">+</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>                           aytKim<span class="sc">*</span>mp[<span class="dv">17</span>]<span class="sc">+</span>aytBio<span class="sc">*</span>mp[<span class="dv">18</span>]) <span class="sc">|&gt;</span> <span class="fu">ungroup</span>()</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>SAY21<span class="sc">$</span>ortP <span class="ot">&lt;-</span> SAY21<span class="sc">$</span>ortP<span class="sc">$</span>CONSTANT</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>t1 <span class="ot">&lt;-</span> SAY21 <span class="sc">|&gt;</span> <span class="fu">group_by</span>(BOL) <span class="sc">|&gt;</span> <span class="fu">summarise</span>(</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">Universite =</span> <span class="fu">n_distinct</span>(Uni),</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">Kontenjan =</span><span class="fu">n_distinct</span>(minP)</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(t1)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 72%">
+<col style="width: 14%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">BOL</th>
+<th style="text-align: right;">Universite</th>
+<th style="text-align: right;">Kontenjan</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ADLİ BİLİMLER</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">BESLENME VE DİYETETİK</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">105</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BİLGİ GÜVENLİĞİ TEKNOLOJİSİ</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">BİLGİSAYAR MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">52</td>
+<td style="text-align: right;">124</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BİLGİSAYAR VE ÖĞRETİM TEKNOLOJİLERİ ÖĞRETMENLİĞİ</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">BİLİŞİM SİSTEMLERİ MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BİLİŞİM SİSTEMLERİ VE TEKNOLOJİLERİ</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">BİYOENFORMATİK VE GENETİK</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BİYOMEDİKAL MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">BİYOMÜHENDİSLİK</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DENİZ ULAŞTIRMA İŞLETME MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DİJİTAL OYUN TASARIMI</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">19</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DİL VE KONUŞMA TERAPİSİ</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">39</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DİŞ HEKİMLİĞİ FAKÜLTESİ</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">86</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">EBELİK</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">32</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ECZACILIK FAKÜLTESİ</td>
+<td style="text-align: right;">12</td>
+<td style="text-align: right;">47</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ELEKTRİK-ELEKTRONİK MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">44</td>
+<td style="text-align: right;">96</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ENDÜSTRİ MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">47</td>
+<td style="text-align: right;">106</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ENDÜSTRİYEL TASARIM</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ENDÜSTRİYEL TASARIM MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ENERJİ SİSTEMLERİ MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ERGOTERAPİ</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">19</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">FİZİK</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">FİZYOTERAPİ VE REHABİLİTASYON</td>
+<td style="text-align: right;">43</td>
+<td style="text-align: right;">92</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">FLORENCE NİGHTİNGALE HASTANESİ HEMŞİRELİK YÜKSEKOKULU</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GEMİ İNŞAATI VE GEMİ MAKİNELERİ MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GEMİ MAKİNELERİ İŞLETME MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GEMİ VE YAT TASARIMI</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GENETİK VE BİYOMÜHENDİSLİK</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GENETİK VE YAŞAM BİLİMLERİ PROGRAMLARI</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GIDA MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HAVACILIK ELEKTRİK VE ELEKTRONİĞİ</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HAVACILIK VE UZAY MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HEMŞİRELİK</td>
+<td style="text-align: right;">42</td>
+<td style="text-align: right;">114</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HEMŞİRELİK YÜKSEKOKULU</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">İÇ MİMARLIK</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">43</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">İLKÖĞRETİM MATEMATİK ÖĞRETMENLİĞİ</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">İNŞAAT MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">65</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">İŞ SAĞLIĞI VE GÜVENLİĞİ</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">İŞLETME MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">İSTATİSTİK</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">KENTSEL TASARIM VE PEYZAJ MİMARLIĞI</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">KİMYA</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">KİMYA-BİYOLOJİ MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">KİMYA MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MAKİNE MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">68</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MALZEME BİLİMİ VE MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MALZEME BİLİMİ VE NANOTEKNOLOJİ MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MATEMATİK</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">26</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MATEMATİK VE BİLGİSAYAR BİLİMLERİ</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MEKATRONİK MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">METALURJİ VE MALZEME MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MİMARLIK</td>
+<td style="text-align: right;">45</td>
+<td style="text-align: right;">108</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MOLEKÜLER BİYOLOJİ VE GENETİK</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">47</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MÜHENDİSLİK PROGRAMLARI</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MÜHENDİSLİK VE DOĞA BİLİMLERİ PROGRAMLARI</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ODYOLOJİ</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ORTEZ VE PROTEZ</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">OTOMOTİV MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PERFÜZYON</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PİLOTAJ</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">17</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ŞEHİR VE BÖLGE PLANLAMA</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TARIM MAKİNELERİ VE TEKNOLOJİLERİ MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TIP</td>
+<td style="text-align: right;">32</td>
+<td style="text-align: right;">110</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TIP MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">UÇAK BAKIM VE ONARIM</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">UÇAK ELEKTRİK VE ELEKTRONİĞİ</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">UÇAK GÖVDE VE MOTOR BAKIMI</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">UÇAK MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">UZAY MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">YAPAY ZEKA MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">YAZILIM GELİŞTİRME</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">YAZILIM MÜHENDİSLİĞİ</td>
+<td style="text-align: right;">30</td>
+<td style="text-align: right;">72</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Tek üniv.de açık bölümleri filtrele</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>bolumfilter <span class="ot">&lt;-</span> t1<span class="sc">$</span>BOL[t1<span class="sc">$</span>Universite<span class="sc">&gt;</span><span class="dv">1</span>]</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>SAY21 <span class="ot">&lt;-</span> SAY21 <span class="sc">|&gt;</span> <span class="fu">filter</span>(BOL <span class="sc">%in%</span> bolumfilter)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>SAY puan türü için modelin açıklayıcılığı %99.98 oldu. EA’da gözlemlenen yoğun heteroskedastisite burada daha az ve ihmal edilebilir seviyelerde. Sonuçta EA için bulunan %73-%27 çarpanları burada da bulunuyor.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>grandModelSAY <span class="ot">&lt;-</span> <span class="fu">lm</span>(ortP<span class="sc">~-</span><span class="dv">1</span><span class="sc">+</span>minP<span class="sc">+</span>maksP,<span class="at">data =</span> SAY21)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(grandModelSAY)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = ortP ~ -1 + minP + maksP, data = SAY21)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-28.4654  -2.1042  -0.1025   2.2675  28.4218 
+
+Coefficients:
+      Estimate Std. Error t value Pr(&gt;|t|)    
+minP  0.733920   0.003948  185.91   &lt;2e-16 ***
+maksP 0.267680   0.003596   74.45   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4.834 on 1726 degrees of freedom
+Multiple R-squared:  0.9998,    Adjusted R-squared:  0.9998 
+F-statistic: 4.124e+06 on 2 and 1726 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">real =</span> SAY21<span class="sc">$</span>ortP,<span class="at">model=</span><span class="fu">predict</span>(grandModelSAY))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>fark <span class="ot">&lt;-</span> results<span class="sc">$</span>real<span class="sc">-</span>results<span class="sc">$</span>model</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>absfark <span class="ot">&lt;-</span> <span class="fu">abs</span>(results<span class="sc">$</span>real<span class="sc">-</span>results<span class="sc">$</span>model)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(results, <span class="fu">aes</span>(<span class="at">x=</span>real, <span class="at">y=</span>fark, <span class="at">colour=</span>absfark))<span class="sc">+</span><span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Hata Terimleri"</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Gözlem"</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Gözlem - Model"</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">colour=</span> <span class="st">"Hata"</span>) <span class="sc">+</span> </span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">0</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">colour=</span><span class="st">"orange"</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="puan3_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="söz" class="level1">
+<h1>SÖZ</h1>
+<p>SÖZ puan türünde vakıf üniversielerinde toplam 546 kontenjan var. Yukarıda EA ve SAY puan türleri için atılan adımlar aynı sırada ve aynı yöntemle izleniyor.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>SOZ21 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"../../../temp/puan3/NETLER__Lisans.xlsx"</span>,<span class="at">sheet =</span> <span class="st">"2021"</span>) <span class="sc">|&gt;</span> <span class="fu">filter</span>(puanTuru<span class="sc">==</span><span class="st">"SÖZ"</span> <span class="sc">&amp;</span> Statu<span class="sc">==</span><span class="st">"VAKIF"</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>mp <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"../../../temp/puan3/NETLER__Lisans.xlsx"</span>,<span class="at">sheet =</span> <span class="st">"all_coeffs"</span>) <span class="sc">|&gt;</span> <span class="fu">filter</span>(Year<span class="sc">==</span><span class="dv">2021</span> <span class="sc">&amp;</span> Puan<span class="sc">==</span><span class="st">"SOZ"</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>easyNames <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Code"</span>,<span class="st">"obp"</span>,<span class="st">"tytTur"</span>,<span class="st">"tytSos"</span>,<span class="st">"tytMat"</span>,<span class="st">"tytFen"</span>,</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>               <span class="st">"aytTur"</span>,<span class="st">"aytTar1"</span>,<span class="st">"aytCog1"</span>,<span class="st">"aytTar2"</span>,<span class="st">"aytCog2"</span>,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>               <span class="st">"aytFels"</span>,<span class="st">"aytDin"</span>,</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>               <span class="st">"aytMat"</span>,<span class="st">"aytFiz"</span>,<span class="st">"aytKim"</span>,<span class="st">"aytBio"</span>,</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>               <span class="st">"aytDil"</span>,</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>               <span class="st">"puan"</span>,<span class="st">"Uni"</span>,<span class="st">"Burs"</span>,<span class="st">"Statu"</span>,<span class="st">"minP"</span>,<span class="st">"maksP"</span>,<span class="st">"kont"</span>,<span class="st">"yer"</span>,<span class="st">"BOL"</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(SOZ21) <span class="ot">&lt;-</span> easyNames</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>mp <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mp)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Aşağıda ortalama puan hesabında rowwise kullanmak gerekli. En sonda da ungroup yaparak</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co">#rowwise gruplama etkisi geri alınıyor.</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>SOZ21 <span class="ot">&lt;-</span> SOZ21 <span class="sc">|&gt;</span> <span class="fu">rowwise</span>() <span class="sc">|&gt;</span>  <span class="fu">mutate</span>(<span class="at">ortP =</span> obp<span class="sc">*</span><span class="fl">0.12</span> <span class="sc">+</span> mp[<span class="dv">20</span>]<span class="sc">+</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>                           tytMat<span class="sc">*</span>mp[<span class="dv">6</span>]<span class="sc">+</span>tytTur<span class="sc">*</span>mp[<span class="dv">4</span>]<span class="sc">+</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>                           tytFen<span class="sc">*</span>mp[<span class="dv">7</span>]<span class="sc">+</span>tytSos<span class="sc">*</span>mp[<span class="dv">5</span>]<span class="sc">+</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>                           aytTur<span class="sc">*</span>mp[<span class="dv">8</span>]<span class="sc">+</span>aytTar1<span class="sc">*</span>mp[<span class="dv">9</span>]<span class="sc">+</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>                           aytCog1<span class="sc">*</span>mp[<span class="dv">10</span>]<span class="sc">+</span>aytTar2<span class="sc">*</span>mp[<span class="dv">11</span>]<span class="sc">+</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>                           aytCog2<span class="sc">*</span>mp[<span class="dv">12</span>]<span class="sc">+</span>aytFels<span class="sc">*</span>mp[<span class="dv">13</span>]<span class="sc">+</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>                             aytDin<span class="sc">*</span>mp[<span class="dv">14</span>]) <span class="sc">|&gt;</span> <span class="fu">ungroup</span>()</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>SOZ21<span class="sc">$</span>ortP <span class="ot">&lt;-</span> SOZ21<span class="sc">$</span>ortP<span class="sc">$</span>CONSTANT</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>t1 <span class="ot">&lt;-</span> SOZ21 <span class="sc">|&gt;</span> <span class="fu">group_by</span>(BOL) <span class="sc">|&gt;</span> <span class="fu">summarise</span>(</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">Universite =</span> <span class="fu">n_distinct</span>(Uni),</span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">Kontenjan =</span><span class="fu">n_distinct</span>(minP)</span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(t1)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">BOL</th>
+<th style="text-align: right;">Universite</th>
+<th style="text-align: right;">Kontenjan</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ARKEOLOJİ VE SANAT TARİHİ</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ÇİZGİ FİLM VE ANİMASYON</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">17</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">FİLM TASARIMI VE YÖNETİMİ</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GASTRONOMİ VE MUTFAK SANATLARI</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">95</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GAZETECİLİK</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GÖRSEL İLETİŞİM TASARIMI</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">HALKLA İLİŞKİLER VE REKLAMCILIK</td>
+<td style="text-align: right;">20</td>
+<td style="text-align: right;">43</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HALKLA İLİŞKİLER VE TANITIM</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">23</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">İLAHİYAT</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">İLETİŞİM BİLİMLERİ</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">İLETİŞİM SANATLARI</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">İLETİŞİM TASARIMI VE YÖNETİMİ</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">İLETİŞİM VE TASARIMI</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">İSLAMİ İLİMLER</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">İSLAMİ İLİMLER FAKÜLTESİ</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MEDYA VE GÖRSEL SANATLAR</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MEDYA VE İLETİŞİM</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OKUL ÖNCESİ ÖĞRETMENLİĞİ</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">31</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ÖZEL EĞİTİM ÖĞRETMENLİĞİ</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">18</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RADYO, TELEVİZYON VE SİNEMA</td>
+<td style="text-align: right;">23</td>
+<td style="text-align: right;">52</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">REKLAM TASARIMI VE İLETİŞİMİ</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">REKLAMCILIK</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SANAT VE KÜLTÜR YÖNETİMİ</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SİNEMA VE DİJİTAL MEDYA</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SİNEMA VE TELEVİZYON</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TARİH</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TELEVİZYON HABERCİLİĞİ VE PROGRAMCILIĞI</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TÜRK DİLİ VE EDEBİYATI</td>
+<td style="text-align: right;">18</td>
+<td style="text-align: right;">36</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TÜRKÇE ÖĞRETMENLİĞİ</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">YENİ MEDYA</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">YENİ MEDYA VE İLETİŞİM</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">39</td>
+</tr>
+</tbody>
+</table>
+</div>
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Tek üniv.de açık bölümleri filtrele</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>bolumfilter <span class="ot">&lt;-</span> t1<span class="sc">$</span>BOL[t1<span class="sc">$</span>Universite<span class="sc">&gt;</span><span class="dv">1</span>]</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>SOZ21 <span class="ot">&lt;-</span> SOZ21 <span class="sc">|&gt;</span> <span class="fu">filter</span>(BOL <span class="sc">%in%</span> bolumfilter)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Sonuçta modele bakıldığında %99.95 açıklayıcılıkla %68-%32 ilişkisi bulunuyor. Her ne kadar EA ve SAY için hesaplanan değerlerden bir sapma olsa da gene de %70 - %30 etrfında dolaşan değerlerle karşılaşılıyor.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>grandModelSOZ <span class="ot">&lt;-</span> <span class="fu">lm</span>(ortP<span class="sc">~-</span><span class="dv">1</span><span class="sc">+</span>minP<span class="sc">+</span>maksP,<span class="at">data =</span> SOZ21)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(grandModelSOZ)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = ortP ~ -1 + minP + maksP, data = SOZ21)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-25.839  -2.722  -0.202   3.294  37.996 
+
+Coefficients:
+      Estimate Std. Error t value Pr(&gt;|t|)    
+minP  0.684841   0.008011   85.49   &lt;2e-16 ***
+maksP 0.318621   0.006922   46.03   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 7.125 on 544 degrees of freedom
+Multiple R-squared:  0.9995,    Adjusted R-squared:  0.9995 
+F-statistic: 5.272e+05 on 2 and 544 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">real =</span> SOZ21<span class="sc">$</span>ortP,<span class="at">model=</span><span class="fu">predict</span>(grandModelSOZ))</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>fark <span class="ot">&lt;-</span> results<span class="sc">$</span>real<span class="sc">-</span>results<span class="sc">$</span>model</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>absfark <span class="ot">&lt;-</span> <span class="fu">abs</span>(results<span class="sc">$</span>real<span class="sc">-</span>results<span class="sc">$</span>model)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(results, <span class="fu">aes</span>(<span class="at">x=</span>real, <span class="at">y=</span>fark, <span class="at">colour=</span>absfark))<span class="sc">+</span><span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Hata Terimleri"</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Gözlem"</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Gözlem - Model"</span>,</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">colour=</span> <span class="st">"Hata"</span>) <span class="sc">+</span> </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">0</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">colour=</span><span class="st">"orange"</span>, <span class="at">size=</span><span class="dv">1</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="puan3_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid" width="672"></p>
+</div>
 </div>
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Yeniden kullanın</h2><div quarto-reuse="quarto-reuse" class="quarto-appendix-contents"><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.tr">https://creativecommons.org/licenses/by/4.0/deed.tr</a></div></section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Alıntı</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{serkanalbayrak2022,
+
+<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Dipnotlar</h2>
+
+<ol>
+<li id="fn1" role="doc-endnote"><p>Heteroskedastisite problemi var; düşük puanların olduğu bölgede hata terimlerinin varyansı yüksek puanların olduğu bölgedeki varyansa göre daha fazla.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Yeniden kullanın</h2><div quarto-reuse="quarto-reuse" class="quarto-appendix-contents"><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.tr">https://creativecommons.org/licenses/by/4.0/deed.tr</a></div></section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Alıntı</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{serkanalbayrak2022,
   author = {Raif Serkan Albayrak},
-  title = {YKS Puanı Hesaplama Formülleri-3a: Bölüm Bazlı Üniversite
+  title = {YKS Puanı Hesaplama Formülleri-3: Bölüm Bazlı Üniversite
     Sıralamaları (Tüm Bölümler için ve Yıllara Sari)},
   date = {2022-07-25},
   langid = {tr}
 }
 </code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">Lütfen bu çalışmayı şu şekilde alıntılayın:</div><div id="ref-serkanalbayrak2022" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
-Raif Serkan Albayrak. 2022. <span>“YKS Puanı Hesaplama Formülleri-3a:
+Raif Serkan Albayrak. 2022. <span>“YKS Puanı Hesaplama Formülleri-3:
 Bölüm Bazlı Üniversite Sıralamaları (Tüm Bölümler için ve Yıllara
 Sari).”</span> July 25, 2022.
 </div></div></section></div></main> <!-- /main -->
