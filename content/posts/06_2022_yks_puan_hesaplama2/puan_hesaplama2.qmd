@@ -28,8 +28,6 @@ Bu bölümde üniversitelerin tüm faaliyetlerinden derlenen ulusal veya uluslar
 
 Sonuçta elde edilen sıralama elbette üniversiteleri ilgili bölümde yapılan tüm faaliyetler, akademik kadro, araştırmalar, projeler, eğitimin kalitesi, kampüs imkanları, mezunların ortalama maaşı gibi hiçbiri diğerinden değersiz olmayan bir çok boyutta mümkün olan en doğru, hassas ve güvenilir bir şekilde derecelendirme becerisine sahip olmayacak. Bu sıralama ile sadece üniversite tercihi yapan öğrenciler gözünde yapılan derecelendirme hesaplanıyor. Üniversite yöneticileri için bu derecelendirmede kurumlarının sırası ve yıllar bazında bu sıranın nasıl değiştiği çok önemli bir başarı kriteridir. Başarılı öğrencilerin tercihi olmak ilerki yıllarda daha da başarılı öğrencileri çekmenin yolunu açar. Üst düzey akademisyenler bu prestijli kurumlarda çalışmayı tercih edeceklerdir.
 
-Buraya SONUÇTA elde edilen grafik ve tablolar gelsin
-
 Teknik anlatımı daha anlaşılır kılabilmek amacıyla Hukuk bölümü örnek olarak kullanılmıştır. Kullanılan yöntemler diğer bölümler için de geçerlidir.
 
 ## Veri
