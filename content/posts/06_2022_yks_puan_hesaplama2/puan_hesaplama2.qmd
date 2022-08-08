@@ -63,7 +63,7 @@ head(hukuk) |> datatable()
 
 ```
 
-Verinin özet istatistiki bilgisi çıkarıldığında, toplam 169 adet farklı kontenjan olduğu, bunların 52'sinin DEVLET üniversitelerine ait olduğu görülüyor. Ayrıca oluşturulan raporda numerik değişkenler için temel istatistiki bilgiler de verilmiş durumda. Bu kısımlarda kullanılan IQR: Interquarile Range ve CV: Coefficient of Variation için kullanılan kısaltmalardır. SOn aşamada analize DEVLET üniversitesi dışındaki kontenjanlarda deva edileceği için filtreleme yapılıyor.
+Verinin özet istatistiki bilgisi çıkarıldığında, toplam 169 adet farklı kontenjan olduğu, bunların 52'sinin DEVLET üniversitelerine ait olduğu görülüyor. Ayrıca oluşturulan raporda numerik değişkenler için temel istatistiki bilgiler de verilmiş durumda. Bu kısımlarda kullanılan IQR: Interquarile Range ve CV: Coefficient of Variation için kullanılan kısaltmalardır. Son aşamada analize DEVLET üniversitesi dışındaki kontenjanlarda devam edileceği için filtreleme yapılıyor.
 
 ```{r}
 #| results: asis
@@ -89,7 +89,7 @@ eaModel <- as.data.frame(read_excel("eaModel.xlsx"))
 
 knitr::kable(eaModel)
 
-dropNames <- colnames(hukuk)
+dropNames <- colnames(hukuk) # sonra gerekebilir
 easyNames <- c("Code","obp","tytMat","tytTur","tytFen","tytSos",
                "aytMat","aytTur","aytTar1","aytCog1",
                "Uni","Burs","Statu","minP","maksP","kont","yer")
@@ -164,7 +164,9 @@ Bu aşamada ağırlandırmayı yerleşen öğrenci sayısıyla yapmak ancak son 
 
 $$
 A. \: Ortalama=\frac{\displaystyle\sum\limits_{i=1}^k ortP(i)*yer(i)}{\displaystyle\sum\limits_{i=1}^k kont(i)}=\frac{\displaystyle\sum\limits_{i=1}^k wsum(i)}{\displaystyle\sum\limits_{i=1}^k kont(i)}
-$$ Formülde $k$ üniversitenin ilgili bölümde kaç farklı kontenjanı varsa (en fazla 3 olabilir) onu göstermektedir. Her üniversite için bu işlemler yapıldığında istenen bölüm[^2] bazında üniversite sıralaması elde edilmiş olur.
+$$ 
+
+Formülde $k$ üniversitenin ilgili bölümde kaç farklı kontenjanı varsa (en fazla 3 olabilir) onu göstermektedir. Her üniversite için bu işlemler yapıldığında istenen bölüm[^2] bazında üniversite sıralaması elde edilmiş olur.
 
 [^2]: Altınbaş Ü için Hukuk'ta iki farklı bölüm (Standart ve UOLP-Köln) var ancak ayırma zahmetine girmiyoruz.
 

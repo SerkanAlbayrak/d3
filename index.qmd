@@ -17,17 +17,9 @@ listing:
     categories: false 
     sort-ui: false 
     filter-ui: false
-
 ---
 
-
-
 <!--Sayfanın mimarisinde <https://github.com/WillemSleegers/willemsleegers-quarto/blob/main/index.qmd> adresindeki yapıyı kopyalayacağım. Mantık partial page kullanma üzerine. Blog listesi yapmanın yolu listing oluşturulan bir sayfa belirlemek. Onu about sayfasında yapmış. Ben farklı bir yerde yapmayı planlıyorum.-->
-
-
-
-
-
 
 ::: {#posts}
 :::

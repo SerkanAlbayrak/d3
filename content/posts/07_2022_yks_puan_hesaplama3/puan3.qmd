@@ -1,0 +1,77 @@
+---
+title: "YKS Puanı Hesaplama Formülleri-3a: Bölüm Bazlı Üniversite Sıralamaları (Tüm Bölümler için ve Yıllara Sari)"
+author: Raif Serkan Albayrak
+description: "Bu yazı serisinin bir önceki adımında Hukuk Fakülteleri için tek yılın YKS verisi üzerinden Vakıf Üniversitelerinin nasıl sıralanabileceğine dair yürütülen tartışma bu yazıda genişletiliyor. Bu kısımda EA bölümleri çalışıldı."
+date: 2022-07-25
+categories:
+  - YKS
+  - Üniversite Analitiği
+code-fold: true
+image: "img/preview.png"
+lang: tr
+code-line-numbers: false
+toc-title: İçerik
+---
+
+Bir önceki yazıda özellikle ATLAS verisi kullanılmadan önce bir veya birden fazla kontenjanla (mesela Burslu ve %50 İndirimli) öğrencinin yerleştiği bir bölümün ortalama puanının nsıl hesaplanabileceğine yönelik geliştirilen model tantılmıştı. Parametrelere bakıldığında modelin hesapladığı ortalama değer taban ve tavan puan arası beş eşit dilime bölündüğünde taban puandan bir dilim uzaklıktaydı. Ayrıca modelin Hukuk Fakülteleri için veriyi açıklama gücü %99 seviyesinde olduğu görülmüştü. Bu sayede YKS sonuçları açıklandıktan hemen sonrasında bölüm bazında üniversite sıralamaları yapmak mümkün olabiliyor. Geçmiş yılların sıralama verileriyle elde edilen sonuçlar konsolide edildiğinde bir yıl boyunca verilen kararların ve yapılan yatırımların ne ölçüde yeni adaylara iletilebildiği ve nasıl bir karşılım bulduğu görülebiliyor. Bu yazı her puan türünde hesaplamaları farklı bölümlerde göstermektedir. EA puan türü ile başlanan ilk bölümü takiben SAY ve SÖZ puan türleri için analizleri içeren gönderiler paylaşılmıştır. Bu bölümün konusu EA puan türü.
+
+```{r}
+#| warnings: false
+#| message: false
+library(tidyverse)
+library(jtools)
+library(readxl)
+library(DT)
+library(summarytools)
+library(writexl)
+st_options(plain.ascii = FALSE, #summarytools parameter for Rmd documents
+           style = "rmarkdown",
+           subtitle.emphasis = FALSE #improves layout w/ some themes
+           )
+```
+
+# EA
+
+EA puan türünde olan tüm bölümler için net ortalamaları ATLAS'tan çekilmiş ve derlenmiştir. Bir önceki yazıda Hukuk Fakülteleri sıralaması oluşturulurken kullanılan veri paylaşılmıştır. 
+
+```{r}
+EA21 <- read_excel("../../../temp/puan3/NETLER__Lisans.xlsx",sheet = "2021") |> filter(puanTuru=="EA" & Statu=="VAKIF")
+mp <- read_excel("../../../temp/puan3/NETLER__Lisans.xlsx",sheet = "all_coeffs") |> filter(Year==2021 & Puan=="EA")
+```
+
+
+İlk aşamada her kontenjan için ortalama net verisinden faydalanılarak ortalama puan hesaplanıyor. Bölümlerin kaç üniversitede ve toplam kaç farklı kontenjan tipinde öğrenci aldığını gösteren tablo incelendiğinde, sadece bir üniversitede açık bölümlerin olduğu görülmekte. Bu bölümler sıralama analizinin devamıda filtreleniyor.
+
+```{r}
+easyNames <- c("Code","obp","tytTur","tytSos","tytMat","tytFen",
+               "aytTur","aytTar1","aytCog1","aytTar2","aytCog2",
+               "aytFels","aytDin",
+               "aytMat","aytFiz","aytKim","aytBio",
+               "aytDil",
+               "puan","Uni","Burs","Statu","minP","maksP","kont","yer","BOL")
+colnames(EA21) <- easyNames
+mp <- as.data.frame(mp)
+#Aşağıda ortalama puan hesabında rowwise kullanmak gerekli. En sonda da ungroup yaparak
+#rowwise gruplama etkisi geri alınıyor.
+EA21 <- EA21 |> rowwise() |>  mutate(ortP = obp*0.12 + mp[20]+
+                           tytMat*mp[6]+tytTur*mp[4]+
+                           tytFen*mp[7]+tytSos*mp[5]+
+                           aytMat*mp[15]+aytTur*mp[8]+
+                           aytTar1*mp[9]+aytCog1*mp[10]) |> ungroup()
+
+
+t1 <- EA21 |> group_by(BOL) |> summarise(
+  Universite = n_distinct(Uni),
+  Kontenjan =n_distinct(minP)
+)
+
+
+knitr::kable(t1)
+
+#Tek üniv.de açık bölümleri filtrele
+bolumfilter <- t1$BOL[t1$Universite>1]
+EA21 <- EA21 |> filter(BOL %in% bolumfilter)
+
+```
+
+
