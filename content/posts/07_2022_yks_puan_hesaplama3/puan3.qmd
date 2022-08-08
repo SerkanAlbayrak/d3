@@ -2,7 +2,7 @@
 title: "YKS Puanı Hesaplama Formülleri-3: Bölüm Bazlı Üniversite Sıralamaları (Tüm Bölümler için ve Yıllara Sari)"
 author: Raif Serkan Albayrak
 description: "Bu yazı serisinin bir önceki adımında Hukuk Fakülteleri için tek yılın YKS verisi üzerinden Vakıf Üniversitelerinin nasıl sıralanabileceğine dair yürütülen tartışma bu yazıda genişletiliyor. "
-date: 2022-07-25
+date: 2022-08-08
 categories:
   - YKS
   - Üniversite Analitiği
