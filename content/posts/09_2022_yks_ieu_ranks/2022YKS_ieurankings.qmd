@@ -1,0 +1,112 @@
+---
+title: "İzmir Ekonomi 2022 YKS"
+author: Raif Serkan Albayrak
+description: "2022 YKS Sonuçlarına göre İmir Ekonomi Üniversitesi'ndeki bölümlerin vakıf üniversiteleri arasında Türkiye Sıralaması Verilmiştir"
+date: 2022-09-12
+toc-location: body
+categories:
+  - YKS
+  - Üniversite Analitiği
+code-fold: true
+lang: tr
+code-line-numbers: false
+---
+
+```{r}
+#| warnings: false
+#| message: false
+library(tidyverse)
+library(ggplot2)
+library(readxl)
+library(writexl)
+library(DT)
+library(gt)
+```
+
+# Giriş
+
+Bu raporda sınav sisteminin değiştiği 2018 yılından itibaren yayınlanan YKS verisi kullanılmıştır. Her fakülte için 2018-2022 yıllarında Bölüm bazında İzmir Ekonomi Üniversitesi'nin Kontenjanları, bölüme yerleşen öğrencilerin **ortalama** YKS puanına göre vakıf üniversiteleri arasında sıralama ve vakıf üniversitelerinde bulunan aktif bölüm sayısı tabloları verilmiştir. Özellikle sıralamalar hesaplanırken birbirine yakın veya farklı isimlere sahip bölümlerin beraber değerlendirilmesi gerekmektedir. Örneğin Ekonomi bölümleri arasında yapılan sıralamaya İktisat bölümleri de dahil edilmiştir. Bu raporda aşağıda maddelenen eşleşmeler kullanılmıştır.     
+
+* EKONOMİ - İKTİSAT
+* SİYASET BİLİMİ VE ULUSLARARASI İLİŞKİLER - SİYASET BİLİMİ - ULUSLARARASI İLİŞKİLER
+* HALKLA İLİŞKİLER VE REKLAMCILIK - REKLAMCILIK VE HALKLA İLİŞKİLER - HALKLA İLİŞKİLER VE TANITIM    
+
+
+Raporun en sonunda tablolarla ilgili daha detaylı bilgilerin bulunduğu VERİ TABLOSU bulunmakta. Bu tabloda filtrelemeleri kullanarak tablolarda özetlenen bilgilerin detayına ulaşabilirsiniz.
+
+Sıralamaların nasıl hesaplandığına dair hazırladığımız teknik raporu [burada](../07_2022_yks_puan_hesaplama3/puan3.html)  bulabilirsiniz.  
+
+Bu raporun hazırlanmasında kullanılan R kodlarını dokümanın içinde bulabilirsiniz. 
+
+```{r}
+rankData <- read_excel("../../../temp/2022YKS/CalculatedRankings.xlsx")
+rankData <- rankData |> mutate(YIL = as.factor(YIL),
+                               FAKÜLTE=as.factor(FAKÜLTE),
+                               BÖLÜM=as.factor(BÖLÜM),
+                               ENDEKS=round(ENDEKS,1))
+```
+
+
+```{r}
+#| results: asis
+
+#### Fakülte Rank Tablosu
+#droplevels() |>  #fantastic function to regulize unused factor levels
+
+faRank <- rankData |> filter(ÜNİVERSİTE=="İZMİR EKONOMİ" & isLisans==1) |> 
+  select(c(1,2,3,6,8)) |> 
+  arrange(YIL,FAKÜLTE,BÖLÜM)
+faRank <- faRank |> rowwise() |> 
+  mutate(T = sum(rankData$BÖLÜM==BÖLÜM & rankData$YIL==YIL)) |> droplevels()
+
+faRank1 <- faRank |> pivot_wider(names_from = YIL,values_from = c(Kont.,SIRA,T))
+
+for (f in levels(faRank1$FAKÜLTE)){
+  cat(paste("## ",f,"\n","\n"))
+  
+  KontenjanTablosu <- faRank1 |> filter(FAKÜLTE==f) |> select(c(2,3:7)) |> 
+    gt() |> 
+    cols_label(Kont._2018="2018",Kont._2019="2019",
+               Kont._2020="2020",Kont._2021="2021",Kont._2022="2022") |> 
+    tab_header(title = md("**2018-2022** Kontenjanlar")) |> sub_missing(missing_text = "---") |> 
+    cols_align(align = "right",columns = BÖLÜM)
+  
+  RankingTablosu <- faRank1 |> filter(FAKÜLTE==f) |> select(c(2,8:12)) |> 
+    gt() |> 
+    cols_label(SIRA_2018="2018",SIRA_2019="2019",
+               SIRA_2020="2020",SIRA_2021="2021",SIRA_2022="2022") |> 
+    tab_header(title = md("**2018-2022** Sıralamalar")) |> sub_missing(missing_text = "---") |> 
+    cols_align(align = "right",columns = BÖLÜM)
+  
+  TTablosu <- faRank1 |> filter(FAKÜLTE==f) |> select(c(2,13:17)) |> 
+    gt() |> 
+    cols_label(T_2018="2018",T_2019="2019",
+               T_2020="2020",T_2021="2021",T_2022="2022") |> 
+    tab_header(title = md("**2018-2022** Aktif Bölüm Adedi")) |> 
+    sub_missing(missing_text = "---") |> 
+    cols_align(align = "right",columns = BÖLÜM)
+  
+  print(htmltools::tagList(KontenjanTablosu))
+  cat("\n")
+  print(htmltools::tagList(RankingTablosu))
+  cat("\n")
+  print(htmltools::tagList(TTablosu))
+}
+
+```
+
+
+# Detaylı Veri Tablosu
+
+```{r}
+#| column: screen-inset-shaded
+ieu.table.data <- rankData |> select(-c(2,9))
+### Construct the Data Table
+datatable(ieu.table.data, filter = 'top', rownames = FALSE,
+          options = list(
+            pageLength = 25, autoWidth = TRUE,
+            columnDefs = list(list(targets = c(2,3,4,5,6), searchable = FALSE))
+          )
+) |> formatStyle(columns = c(2,3,4,5),fontSize="90%")
+```
+

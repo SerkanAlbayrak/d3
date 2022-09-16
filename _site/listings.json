@@ -2,6 +2,7 @@
   {
     "listing": "/content/blog.html",
     "items": [
+      "/content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html",
       "/content/posts/07_2022_yks_puan_hesaplama3/puan3.html",
       "/content/posts/06_2022_yilsonu_enflasyon_tahminleri/enflasyon.html",
       "/content/posts/06_2022_yks_puan_hesaplama2/puan_hesaplama2.html",
@@ -14,6 +15,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html",
       "/content/posts/07_2022_yks_puan_hesaplama3/puan3.html",
       "/content/posts/06_2022_yilsonu_enflasyon_tahminleri/enflasyon.html",
       "/content/posts/06_2022_yks_puan_hesaplama2/puan_hesaplama2.html",

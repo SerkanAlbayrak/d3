@@ -11,7 +11,7 @@
     "href": "content/blog.html",
     "title": "Yazılar",
     "section": "",
-    "text": "YKS\n\n\nÜniversite Analitiği\n\n\n \n\n\n\n\nAug 8, 2022\n\n\n13 min\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nZaman Serisi\n\n\nR\n\n\nModelleme\n\n\n \n\n\n\n\nJul 5, 2022\n\n\n5 min\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nYKS\n\n\nÜniversite Analitiği\n\n\n \n\n\n\n\nJun 25, 2022\n\n\n11 min\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nÜniversite Analitiği\n\n\nYKS\n\n\nSimülasyon\n\n\n \n\n\n\n\nJun 24, 2022\n\n\n16 min\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nYKS\n\n\nModelleme\n\n\nR\n\n\nÜniversite Analitiği\n\n\n \n\n\n\n\nMay 31, 2022\n\n\n17 min\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nYKS\n\n\nModelleme\n\n\nR\n\n\n \n\n\n\n\nMay 27, 2022\n\n\n8 min\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nYKS\n\n\nPuan türleri\n\n\n \n\n\n\n\nMay 23, 2022\n\n\n4 min\n\n\n\n\n\n\nNo matching items"
+    "text": "YKS\n\n\nÜniversite Analitiği\n\n\n \n\n\n\n\nSep 12, 2022\n\n\n2 min\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nYKS\n\n\nÜniversite Analitiği\n\n\n \n\n\n\n\nAug 8, 2022\n\n\n13 min\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nZaman Serisi\n\n\nR\n\n\nModelleme\n\n\n \n\n\n\n\nJul 5, 2022\n\n\n5 min\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nYKS\n\n\nÜniversite Analitiği\n\n\n \n\n\n\n\nJun 25, 2022\n\n\n11 min\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nÜniversite Analitiği\n\n\nYKS\n\n\nSimülasyon\n\n\n \n\n\n\n\nJun 24, 2022\n\n\n16 min\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nYKS\n\n\nModelleme\n\n\nR\n\n\nÜniversite Analitiği\n\n\n \n\n\n\n\nMay 31, 2022\n\n\n17 min\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nYKS\n\n\nModelleme\n\n\nR\n\n\n \n\n\n\n\nMay 27, 2022\n\n\n8 min\n\n\n\n\n\n\n  \n\n\n\n\n\n\n\n\n\n\nYKS\n\n\nPuan türleri\n\n\n \n\n\n\n\nMay 23, 2022\n\n\n4 min\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "content/posts/05_2022_ yks_baraj/yksBaraj.html",
@@ -201,5 +201,75 @@
     "title": "zeytin",
     "section": "",
     "text": "Tüm Yazılar"
+  },
+  {
+    "objectID": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html",
+    "href": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html",
+    "title": "İzmir Ekonomi 2022 YKS",
+    "section": "",
+    "text": "Kod\nlibrary(tidyverse)\nlibrary(ggplot2)\nlibrary(readxl)\nlibrary(writexl)\nlibrary(DT)\nlibrary(gt)"
+  },
+  {
+    "objectID": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html#fen-edebiyat-fakültesi",
+    "href": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html#fen-edebiyat-fakültesi",
+    "title": "İzmir Ekonomi 2022 YKS",
+    "section": "Fen-Edebiyat Fakültesi",
+    "text": "Fen-Edebiyat Fakültesi\n\n\n\n\n\n\n\n2018-2022 Kontenjanlar\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nFİZİK\n\n\n15\n\n\n10\n\n\n10\n\n\n10\n\n\n10\n\n\n\n\nİNGİLİZCE MÜTERCİM VE TERCÜMANLIK\n\n\n54\n\n\n64\n\n\n56\n\n\n60\n\n\n65\n\n\n\n\nMATEMATİK\n\n\n15\n\n\n23\n\n\n22\n\n\n22\n\n\n22\n\n\n\n\nPSİKOLOJİ\n\n\n64\n\n\n74\n\n\n83\n\n\n83\n\n\n83\n\n\n\n\nSOSYOLOJİ\n\n\n23\n\n\n22\n\n\n22\n\n\n23\n\n\n29\n\n\n\n\n\n\n\n\n\n\n\n\n\n2018-2022 Sıralamalar\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nFİZİK\n\n\n3\n\n\n4\n\n\n4\n\n\n4\n\n\n4\n\n\n\n\nİNGİLİZCE MÜTERCİM VE TERCÜMANLIK\n\n\n7\n\n\n4\n\n\n6\n\n\n4\n\n\n3\n\n\n\n\nMATEMATİK\n\n\n4\n\n\n5\n\n\n4\n\n\n4\n\n\n7\n\n\n\n\nPSİKOLOJİ\n\n\n25\n\n\n20\n\n\n24\n\n\n17\n\n\n18\n\n\n\n\nSOSYOLOJİ\n\n\n7\n\n\n2\n\n\n2\n\n\n5\n\n\n6\n\n\n\n\n\n\n\n\n\n\n\n\n\n2018-2022 Aktif Bölüm Adedi\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nFİZİK\n\n\n3\n\n\n4\n\n\n4\n\n\n5\n\n\n5\n\n\n\n\nİNGİLİZCE MÜTERCİM VE TERCÜMANLIK\n\n\n15\n\n\n16\n\n\n25\n\n\n28\n\n\n28\n\n\n\n\nMATEMATİK\n\n\n10\n\n\n11\n\n\n11\n\n\n13\n\n\n13\n\n\n\n\nPSİKOLOJİ\n\n\n80\n\n\n83\n\n\n92\n\n\n99\n\n\n103\n\n\n\n\nSOSYOLOJİ\n\n\n29\n\n\n29\n\n\n26\n\n\n25\n\n\n24"
+  },
+  {
+    "objectID": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html#güzel-sanatlar-ve-tasarım-fakültesi",
+    "href": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html#güzel-sanatlar-ve-tasarım-fakültesi",
+    "title": "İzmir Ekonomi 2022 YKS",
+    "section": "Güzel Sanatlar ve Tasarım Fakültesi",
+    "text": "Güzel Sanatlar ve Tasarım Fakültesi\n\n\n\n\n\n\n\n2018-2022 Kontenjanlar\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nENDÜSTRİYEL TASARIM\n\n\n30\n\n\n33\n\n\n41\n\n\n49\n\n\n49\n\n\n\n\nGÖRSEL İLETİŞİM TASARIMI\n\n\n20\n\n\n33\n\n\n35\n\n\n35\n\n\n35\n\n\n\n\nİÇ MİMARLIK VE ÇEVRE TASARIMI\n\n\n60\n\n\n70\n\n\n75\n\n\n80\n\n\n80\n\n\n\n\nMİMARLIK\n\n\n60\n\n\n70\n\n\n49\n\n\n49\n\n\n49\n\n\n\n\nTEKSTİL VE MODA TASARIMI\n\n\n—\n\n\n—\n\n\n—\n\n\n—\n\n\n23\n\n\n\n\n\n\n\n\n\n\n\n\n\n2018-2022 Sıralamalar\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nENDÜSTRİYEL TASARIM\n\n\n2\n\n\n2\n\n\n3\n\n\n5\n\n\n3\n\n\n\n\nGÖRSEL İLETİŞİM TASARIMI\n\n\n8\n\n\n8\n\n\n6\n\n\n7\n\n\n4\n\n\n\n\nİÇ MİMARLIK VE ÇEVRE TASARIMI\n\n\n7\n\n\n11\n\n\n13\n\n\n15\n\n\n13\n\n\n\n\nMİMARLIK\n\n\n13\n\n\n18\n\n\n9\n\n\n9\n\n\n6\n\n\n\n\nTEKSTİL VE MODA TASARIMI\n\n\n—\n\n\n—\n\n\n—\n\n\n—\n\n\n3\n\n\n\n\n\n\n\n\n\n\n\n\n\n2018-2022 Aktif Bölüm Adedi\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nENDÜSTRİYEL TASARIM\n\n\n7\n\n\n7\n\n\n20\n\n\n21\n\n\n21\n\n\n\n\nGÖRSEL İLETİŞİM TASARIMI\n\n\n23\n\n\n24\n\n\n25\n\n\n29\n\n\n30\n\n\n\n\nİÇ MİMARLIK VE ÇEVRE TASARIMI\n\n\n32\n\n\n34\n\n\n41\n\n\n47\n\n\n47\n\n\n\n\nMİMARLIK\n\n\n71\n\n\n70\n\n\n65\n\n\n56\n\n\n57\n\n\n\n\nTEKSTİL VE MODA TASARIMI\n\n\n—\n\n\n—\n\n\n—\n\n\n—\n\n\n4"
+  },
+  {
+    "objectID": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html#hukuk-fakültesi",
+    "href": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html#hukuk-fakültesi",
+    "title": "İzmir Ekonomi 2022 YKS",
+    "section": "Hukuk Fakültesi",
+    "text": "Hukuk Fakültesi\n\n\n\n\n\n\n\n2018-2022 Kontenjanlar\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nHUKUK\n\n\n150\n\n\n160\n\n\n159\n\n\n169\n\n\n170\n\n\n\n\n\n\n\n\n\n\n\n\n\n2018-2022 Sıralamalar\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nHUKUK\n\n\n23\n\n\n33\n\n\n9\n\n\n11\n\n\n10\n\n\n\n\n\n\n\n\n\n\n\n\n\n2018-2022 Aktif Bölüm Adedi\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nHUKUK\n\n\n43\n\n\n45\n\n\n46\n\n\n47\n\n\n46"
+  },
+  {
+    "objectID": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html#iletişim-fakültesi",
+    "href": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html#iletişim-fakültesi",
+    "title": "İzmir Ekonomi 2022 YKS",
+    "section": "İletişim Fakültesi",
+    "text": "İletişim Fakültesi\n\n\n\n\n\n\n\n2018-2022 Kontenjanlar\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nHALKLA İLİŞKİLER VE REKLAMCILIK\n\n\n50\n\n\n50\n\n\n53\n\n\n53\n\n\n53\n\n\n\n\nSİNEMA VE DİJİTAL MEDYA\n\n\n24\n\n\n33\n\n\n29\n\n\n29\n\n\n29\n\n\n\n\nYENİ MEDYA VE İLETİŞİM\n\n\n40\n\n\n40\n\n\n29\n\n\n29\n\n\n35\n\n\n\n\n\n\n\n\n\n\n\n\n\n2018-2022 Sıralamalar\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nHALKLA İLİŞKİLER VE REKLAMCILIK\n\n\n28\n\n\n7\n\n\n4\n\n\n1\n\n\n4\n\n\n\n\nSİNEMA VE DİJİTAL MEDYA\n\n\n1\n\n\n1\n\n\n1\n\n\n1\n\n\n1\n\n\n\n\nYENİ MEDYA VE İLETİŞİM\n\n\n10\n\n\n12\n\n\n3\n\n\n2\n\n\n3\n\n\n\n\n\n\n\n\n\n\n\n\n\n2018-2022 Aktif Bölüm Adedi\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nHALKLA İLİŞKİLER VE REKLAMCILIK\n\n\n69\n\n\n62\n\n\n59\n\n\n54\n\n\n54\n\n\n\n\nSİNEMA VE DİJİTAL MEDYA\n\n\n1\n\n\n1\n\n\n1\n\n\n1\n\n\n1\n\n\n\n\nYENİ MEDYA VE İLETİŞİM\n\n\n13\n\n\n18\n\n\n21\n\n\n22\n\n\n23"
+  },
+  {
+    "objectID": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html#işletme-fakültesi",
+    "href": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html#işletme-fakültesi",
+    "title": "İzmir Ekonomi 2022 YKS",
+    "section": "İşletme Fakültesi",
+    "text": "İşletme Fakültesi\n\n\n\n\n\n\n\n2018-2022 Kontenjanlar\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nEKONOMİ\n\n\n20\n\n\n22\n\n\n23\n\n\n29\n\n\n29\n\n\n\n\nİŞLETME\n\n\n44\n\n\n44\n\n\n53\n\n\n53\n\n\n63\n\n\n\n\nLOJİSTİK YÖNETİMİ\n\n\n31\n\n\n33\n\n\n23\n\n\n28\n\n\n29\n\n\n\n\nSİYASET BİLİMİ VE ULUSLARARASI İLİŞKİLER\n\n\n62\n\n\n40\n\n\n40\n\n\n40\n\n\n43\n\n\n\n\nULUSLARARASI TİCARET VE FİNANSMAN\n\n\n50\n\n\n44\n\n\n50\n\n\n56\n\n\n63\n\n\n\n\n\n\n\n\n\n\n\n\n\n2018-2022 Sıralamalar\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nEKONOMİ\n\n\n9\n\n\n10\n\n\n11\n\n\n10\n\n\n10\n\n\n\n\nİŞLETME\n\n\n22\n\n\n9\n\n\n9\n\n\n11\n\n\n9\n\n\n\n\nLOJİSTİK YÖNETİMİ\n\n\n5\n\n\n9\n\n\n1\n\n\n1\n\n\n1\n\n\n\n\nSİYASET BİLİMİ VE ULUSLARARASI İLİŞKİLER\n\n\n31\n\n\n20\n\n\n8\n\n\n9\n\n\n10\n\n\n\n\nULUSLARARASI TİCARET VE FİNANSMAN\n\n\n5\n\n\n1\n\n\n1\n\n\n1\n\n\n1\n\n\n\n\n\n\n\n\n\n\n\n\n\n2018-2022 Aktif Bölüm Adedi\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nEKONOMİ\n\n\n39\n\n\n33\n\n\n35\n\n\n38\n\n\n38\n\n\n\n\nİŞLETME\n\n\n67\n\n\n59\n\n\n59\n\n\n69\n\n\n70\n\n\n\n\nLOJİSTİK YÖNETİMİ\n\n\n17\n\n\n16\n\n\n18\n\n\n18\n\n\n19\n\n\n\n\nSİYASET BİLİMİ VE ULUSLARARASI İLİŞKİLER\n\n\n70\n\n\n65\n\n\n54\n\n\n54\n\n\n57\n\n\n\n\nULUSLARARASI TİCARET VE FİNANSMAN\n\n\n8\n\n\n9\n\n\n25\n\n\n25\n\n\n25"
+  },
+  {
+    "objectID": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html#mühendislik-fakültesi",
+    "href": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html#mühendislik-fakültesi",
+    "title": "İzmir Ekonomi 2022 YKS",
+    "section": "Mühendislik Fakültesi",
+    "text": "Mühendislik Fakültesi\n\n\n\n\n\n\n\n2018-2022 Kontenjanlar\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nBİLGİSAYAR MÜHENDİSLİĞİ\n\n\n44\n\n\n44\n\n\n58\n\n\n68\n\n\n78\n\n\n\n\nBİYOMEDİKAL MÜHENDİSLİĞİ\n\n\n30\n\n\n24\n\n\n23\n\n\n23\n\n\n23\n\n\n\n\nELEKTRİK-ELEKTRONİK MÜHENDİSLİĞİ\n\n\n50\n\n\n40\n\n\n49\n\n\n56\n\n\n63\n\n\n\n\nENDÜSTRİ MÜHENDİSLİĞİ\n\n\n54\n\n\n54\n\n\n66\n\n\n69\n\n\n76\n\n\n\n\nGENETİK VE BİYOMÜHENDİSLİK\n\n\n30\n\n\n33\n\n\n39\n\n\n39\n\n\n43\n\n\n\n\nHAVACILIK VE UZAY MÜHENDİSLİĞİ\n\n\n30\n\n\n33\n\n\n40\n\n\n40\n\n\n43\n\n\n\n\nİNŞAAT MÜHENDİSLİĞİ\n\n\n50\n\n\n50\n\n\n23\n\n\n23\n\n\n23\n\n\n\n\nMAKİNE MÜHENDİSLİĞİ\n\n\n40\n\n\n40\n\n\n34\n\n\n34\n\n\n39\n\n\n\n\nMEKATRONİK MÜHENDİSLİĞİ\n\n\n30\n\n\n33\n\n\n33\n\n\n35\n\n\n39\n\n\n\n\nYAZILIM MÜHENDİSLİĞİ\n\n\n50\n\n\n50\n\n\n63\n\n\n69\n\n\n79\n\n\n\n\n\n\n\n\n\n\n\n\n\n2018-2022 Sıralamalar\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nBİLGİSAYAR MÜHENDİSLİĞİ\n\n\n35\n\n\n5\n\n\n5\n\n\n6\n\n\n7\n\n\n\n\nBİYOMEDİKAL MÜHENDİSLİĞİ\n\n\n8\n\n\n3\n\n\n5\n\n\n5\n\n\n5\n\n\n\n\nELEKTRİK-ELEKTRONİK MÜHENDİSLİĞİ\n\n\n32\n\n\n6\n\n\n5\n\n\n7\n\n\n8\n\n\n\n\nENDÜSTRİ MÜHENDİSLİĞİ\n\n\n26\n\n\n5\n\n\n6\n\n\n7\n\n\n8\n\n\n\n\nGENETİK VE BİYOMÜHENDİSLİK\n\n\n1\n\n\n1\n\n\n2\n\n\n2\n\n\n2\n\n\n\n\nHAVACILIK VE UZAY MÜHENDİSLİĞİ\n\n\n1\n\n\n2\n\n\n1\n\n\n1\n\n\n1\n\n\n\n\nİNŞAAT MÜHENDİSLİĞİ\n\n\n6\n\n\n7\n\n\n5\n\n\n3\n\n\n6\n\n\n\n\nMAKİNE MÜHENDİSLİĞİ\n\n\n20\n\n\n15\n\n\n6\n\n\n8\n\n\n8\n\n\n\n\nMEKATRONİK MÜHENDİSLİĞİ\n\n\n8\n\n\n2\n\n\n2\n\n\n1\n\n\n3\n\n\n\n\nYAZILIM MÜHENDİSLİĞİ\n\n\n11\n\n\n1\n\n\n1\n\n\n1\n\n\n1\n\n\n\n\n\n\n\n\n\n\n\n\n\n2018-2022 Aktif Bölüm Adedi\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nBİLGİSAYAR MÜHENDİSLİĞİ\n\n\n58\n\n\n53\n\n\n54\n\n\n62\n\n\n65\n\n\n\n\nBİYOMEDİKAL MÜHENDİSLİĞİ\n\n\n13\n\n\n11\n\n\n10\n\n\n10\n\n\n13\n\n\n\n\nELEKTRİK-ELEKTRONİK MÜHENDİSLİĞİ\n\n\n55\n\n\n48\n\n\n45\n\n\n46\n\n\n50\n\n\n\n\nENDÜSTRİ MÜHENDİSLİĞİ\n\n\n47\n\n\n43\n\n\n44\n\n\n48\n\n\n51\n\n\n\n\nGENETİK VE BİYOMÜHENDİSLİK\n\n\n4\n\n\n4\n\n\n4\n\n\n4\n\n\n4\n\n\n\n\nHAVACILIK VE UZAY MÜHENDİSLİĞİ\n\n\n2\n\n\n2\n\n\n3\n\n\n3\n\n\n5\n\n\n\n\nİNŞAAT MÜHENDİSLİĞİ\n\n\n55\n\n\n53\n\n\n40\n\n\n34\n\n\n35\n\n\n\n\nMAKİNE MÜHENDİSLİĞİ\n\n\n39\n\n\n35\n\n\n33\n\n\n32\n\n\n31\n\n\n\n\nMEKATRONİK MÜHENDİSLİĞİ\n\n\n15\n\n\n15\n\n\n15\n\n\n15\n\n\n14\n\n\n\n\nYAZILIM MÜHENDİSLİĞİ\n\n\n19\n\n\n21\n\n\n30\n\n\n41\n\n\n42"
+  },
+  {
+    "objectID": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html#sağlık-bilimleri-fakültesi",
+    "href": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html#sağlık-bilimleri-fakültesi",
+    "title": "İzmir Ekonomi 2022 YKS",
+    "section": "Sağlık Bilimleri Fakültesi",
+    "text": "Sağlık Bilimleri Fakültesi\n\n\n\n\n\n\n\n2018-2022 Kontenjanlar\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nHEMŞİRELİK\n\n\n30\n\n\n30\n\n\n41\n\n\n43\n\n\n43\n\n\n\n\nFİZYOTERAPİ VE REHABİLİTASYON\n\n\n—\n\n\n—\n\n\n—\n\n\n30\n\n\n30\n\n\n\n\n\n\n\n\n\n\n\n\n\n2018-2022 Sıralamalar\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nHEMŞİRELİK\n\n\n18\n\n\n10\n\n\n11\n\n\n11\n\n\n11\n\n\n\n\nFİZYOTERAPİ VE REHABİLİTASYON\n\n\n—\n\n\n—\n\n\n—\n\n\n2\n\n\n2\n\n\n\n\n\n\n\n\n\n\n\n\n\n2018-2022 Aktif Bölüm Adedi\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nHEMŞİRELİK\n\n\n42\n\n\n40\n\n\n50\n\n\n60\n\n\n65\n\n\n\n\nFİZYOTERAPİ VE REHABİLİTASYON\n\n\n—\n\n\n—\n\n\n—\n\n\n57\n\n\n64"
+  },
+  {
+    "objectID": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html#tıp-fakültesi",
+    "href": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html#tıp-fakültesi",
+    "title": "İzmir Ekonomi 2022 YKS",
+    "section": "Tıp Fakültesi",
+    "text": "Tıp Fakültesi\n\n\n\n\n\n\n\n2018-2022 Kontenjanlar\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nTIP\n\n\n60\n\n\n30\n\n\n60\n\n\n60\n\n\n50\n\n\n\n\n\n\n\n\n\n\n\n\n\n2018-2022 Sıralamalar\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nTIP\n\n\n10\n\n\n7\n\n\n14\n\n\n13\n\n\n11\n\n\n\n\n\n\n\n\n\n\n\n\n\n2018-2022 Aktif Bölüm Adedi\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nTIP\n\n\n31\n\n\n35\n\n\n41\n\n\n48\n\n\n48"
+  },
+  {
+    "objectID": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html#uygulamalı-yönetim-bilimleri-yüksekokulu",
+    "href": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html#uygulamalı-yönetim-bilimleri-yüksekokulu",
+    "title": "İzmir Ekonomi 2022 YKS",
+    "section": "Uygulamalı Yönetim Bilimleri Yüksekokulu",
+    "text": "Uygulamalı Yönetim Bilimleri Yüksekokulu\n\n\n\n\n\n\n\n2018-2022 Kontenjanlar\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nGASTRONOMİ VE MUTFAK SANATLARI\n\n\n—\n\n\n40\n\n\n46\n\n\n49\n\n\n49\n\n\n\n\n\n\n\n\n\n\n\n\n\n2018-2022 Sıralamalar\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nGASTRONOMİ VE MUTFAK SANATLARI\n\n\n—\n\n\n4\n\n\n3\n\n\n4\n\n\n3\n\n\n\n\n\n\n\n\n\n\n\n\n\n2018-2022 Aktif Bölüm Adedi\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nGASTRONOMİ VE MUTFAK SANATLARI\n\n\n—\n\n\n33\n\n\n41\n\n\n50\n\n\n49"
   }
 ]
