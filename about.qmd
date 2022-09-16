@@ -2,4 +2,4 @@
 title: "İletişim"
 ---
 
-<serkan.albayrak@ieu.edu.tr>
+[serkan.albayrak\@ieu.edu.tr](mailto:serkan.albayrak@ieu.edu.tr){.email}

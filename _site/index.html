@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-0.9.613">
+<meta name="generator" content="quarto-1.0.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -35,7 +35,7 @@ ul.task-list{list-style: none;}
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -129,14 +129,14 @@ ul.task-list{list-style: none;}
 <!--Sayfanın mimarisinde <https://github.com/WillemSleegers/willemsleegers-quarto/blob/main/index.qmd> adresindeki yapıyı kopyalayacağım. Mantık partial page kullanma üzerine. Blog listesi yapmanın yolu listing oluşturulan bir sayfa belirlemek. Onu about sayfasında yapmış. Ben farklı bir yerde yapmayı planlıyorum.-->
 <div id="listing-posts" class="quarto-listing quarto-listing-container-default">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="YKS,Üniversite Analitiği" data-listing-date-sort="1659906000000" data-listing-file-modified-sort="1659954731829" data-listing-reading-time-sort="8.065">
+<div class="quarto-post image-right" data-index="0" data-categories="YKS,Üniversite Analitiği" data-listing-date-sort="1659906000000" data-listing-file-modified-sort="1660222054304" data-listing-reading-time-sort="13.81">
 <div class="thumbnail">
 <p><a href="./content/posts/07_2022_yks_puan_hesaplama3/puan3.html"> <img src="./content/posts/07_2022_yks_puan_hesaplama3/img/preview.png" class="thumnail-image"> </a></p>
 </div>
 <div class="body">
 <a href="./content/posts/07_2022_yks_puan_hesaplama3/puan3.html">
 <h3 class="no-anchor listing-title">
-YKS Puanı Hesaplama Formülleri-3: Bölüm Bazlı Üniversite Sıralamaları (Tüm Bölümler için ve Yıllara Sari)
+YKS Puanı Hesaplama Formülleri-3a: Bölüm Bazlı Üniversite Sıralamaları (Tüm Bölümler için ve Yıllara Sari)
 </h3>
 <div class="listing-subtitle">
 </div>
@@ -161,7 +161,7 @@ YKS
 Aug 8, 2022
 </div>
 <div class="listing-reading-time">
-8 min
+13 min
 </div>
 </a>
 </div>
@@ -416,6 +416,24 @@ No matching items
  <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
   const clipboard = new window.ClipboardJS('.code-copy-button', {
     target: function(trigger) {
       return trigger.previousElementSibling;

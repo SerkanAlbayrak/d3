@@ -1,7 +1,7 @@
 ---
-title: "YKS Puanı Hesaplama Formülleri-3: Bölüm Bazlı Üniversite Sıralamaları (Tüm Bölümler için ve Yıllara Sari)"
+title: "YKS Puanı Hesaplama Formülleri-3a: Bölüm Bazlı Üniversite Sıralamaları (Tüm Bölümler için ve Yıllara Sari)"
 author: Raif Serkan Albayrak
-description: "Bu yazı serisinin bir önceki adımında Hukuk Fakülteleri için tek yılın YKS verisi üzerinden Vakıf Üniversitelerinin nasıl sıralanabileceğine dair yürütülen tartışma bu yazıda genişletiliyor. "
+description: "Bu yazı serisinin bir önceki adımında Hukuk Fakülteleri için tek yılın YKS verisi üzerinden Vakıf Üniversitelerinin nasıl sıralanabileceğine dair yürütülen tartışma bu yazıda genişletiliyor."
 date: 2022-08-08
 categories:
   - YKS
@@ -16,7 +16,7 @@ toc-title: İçerik
 Bir önceki yazıda özellikle ATLAS verisi kullanılmadan önce bir veya birden fazla kontenjanla (mesela Burslu ve %50 İndirimli) öğrencinin yerleştiği bir bölümün ortalama puanının nasıl hesaplanabileceğine yönelik geliştirilen model tantılmıştı. Parametrelere bakıldığında modelin hesapladığı ortalama değer, taban ve tavan puan arası beş eşit dilime bölündüğünde taban puandan bir dilim uzaklıktaydı. Spesifik olarak;
 
 $$
-OrtalamaPuan=0.791378\times minPuan + 0.221861\times maxPuan
+OrtalamaPuan=0.81776\times minPuan + 0.18672\times maxPuan
 $$
 
 Ayrıca modelin Hukuk Fakülteleri için veriyi açıklama gücü %99 seviyesinde olduğu görülmüştü. Bu sayede YKS sonuçları açıklandıktan hemen sonrasında bölüm bazında üniversite sıralamaları yapmak mümkün olabiliyor. Geçmiş yılların sıralama verileriyle elde edilen sonuçlar konsolide edildiğinde bir yıl boyunca verilen kararların ve yapılan yatırımların ne ölçüde yeni adaylara iletilebildiği ve nasıl bir karşılım bulduğu görülebiliyor. Bu yazı her puan türünde hesaplamaları farklı bölümlerde göstermektedir. EA puan türü ile başlanan ilk bölümü takiben SAY ve SÖZ puan türleri için analizleri içeren gönderiler paylaşılmıştır.
@@ -28,8 +28,12 @@ library(tidyverse)
 library(readxl)
 library(writexl)
 ```
+ 
+# 2021 YKS
 
-# EA
+Analize ilk olarak 2021 YKS verisi ile başlandı.
+
+## EA
 
 EA puan türünde olan tüm bölümler için net ortalamaları ATLAS'tan çekilmiş ve derlenmiştir. Bir önceki yazıda Hukuk Fakülteleri sıralaması oluşturulurken kullanılan veri paylaşılmıştır.
 
@@ -73,9 +77,9 @@ EA21 <- EA21 |> filter(BOL %in% bolumfilter)
 
 ```
 
-## EA MODELİ
+### EA MODELİ
 
-Model oluşturmaya tüm EA bölümleri tek bir havuzda toplanarak başlanıyor. Bu modelin açıklayıcılığı çok yüksek olsa da hata terimlerindeki problem nedeniyle modele ufak bir modifikasyon yapma ihtiyacı duyuluyor. Devamında bölüm bazında modeller de kuruluyor.
+Model oluşturmaya tüm EA bölümleri tek bir havuzda toplanarak başlanıyor. Bu modelin açıklayıcılığı çok yüksek olsa da hata terimlerindeki problem nedeniyle modele ufak bir modifikasyon yapma ihtiyacı duyuluyor. Hukuk Fakülteleri için hesaplanan %81-%19 parametrelerinden bir miktar farklı bir sonuç elde ediliyor. Parametre değerleri değişmiş olsa da mantık hala aynı. Minimum puanın ortalama puan tahminindeki ağırlığı maksimuma göre daha fazla.
 
 ```{r}
 grandModel <- lm(ortP~-1+minP+maksP,data = EA21)
@@ -120,7 +124,7 @@ ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() +
 
 ```
 
-# SAY
+## SAY
 
 SAY puan türünde vakıf üniversitelerinin 1728 kontenjanı var. Önce bu veri filtrelenerek yükleniyor. Devamında EA için uygulanan adımlar izlendi.
 
@@ -184,7 +188,7 @@ ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() +
 
 ```
 
-# SÖZ
+## SÖZ
 
 SÖZ puan türünde vakıf üniversielerinde toplam 546 kontenjan var. Yukarıda EA ve SAY puan türleri için atılan adımlar aynı sırada ve aynı yöntemle izleniyor. 
 
@@ -236,6 +240,169 @@ summary(grandModelSOZ)
 
 
 results <- data.frame(real = SOZ21$ortP,model=predict(grandModelSOZ))
+results$fark <- results$real-results$model
+results$absfark <- abs(results$real-results$model)
+ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() + 
+  labs(title = "Hata Terimleri",
+       x = "Gözlem",
+       y = "Gözlem - Model",
+       colour= "Hata") + 
+  geom_abline(slope = 0, intercept = 0, colour="orange", size=1)
+
+```
+# 2020 YKS
+
+2021 verisi için yapılan analizler 2020 YKS verisi üzerinde tekrarlandı.
+
+
+
+## EA
+
+2020 yılı için yapılan analiz sonucu elde edilen parametreler 2021'e çok yakın. 2021 yılında rastlanan heteroskedastisite problemi burada da mevcut ancak bu sefer ek model kurma zahmetine girilmedi.
+
+```{r}
+EA20 <- read_excel("../../../temp/puan3/NETLER__Lisans.xlsx",sheet = "2020") |> filter(puanTuru=="EA" & Statu=="VAKIF")
+mp <- read_excel("../../../temp/puan3/NETLER__Lisans.xlsx",sheet = "all_coeffs") |> filter(Year==2020 & Puan=="EA")
+
+
+easyNames <- c("Code","obp","tytTur","tytSos","tytMat","tytFen",
+               "aytTur","aytTar1","aytCog1","aytTar2","aytCog2",
+               "aytFels","aytDin",
+               "aytMat","aytFiz","aytKim","aytBio",
+               "aytDil",
+               "puan","Uni","Burs","Statu","minP","maksP","kont","yer","BOL")
+colnames(EA20) <- easyNames
+mp <- as.data.frame(mp)
+#Aşağıda ortalama puan hesabında rowwise kullanmak gerekli. En sonda da ungroup yaparak
+#rowwise gruplama etkisi geri alınıyor.
+EA20 <- EA20 |> rowwise() |>  mutate(ortP = obp*0.12 + mp[20]+
+                           tytMat*mp[6]+tytTur*mp[4]+
+                           tytFen*mp[7]+tytSos*mp[5]+
+                           aytMat*mp[15]+aytTur*mp[8]+
+                           aytTar1*mp[9]+aytCog1*mp[10]) |> ungroup()
+EA20$ortP <- EA20$ortP$CONSTANT
+
+
+t1 <- EA20 |> group_by(BOL) |> summarise(
+  Universite = n_distinct(Uni),
+  Kontenjan =n_distinct(minP)
+)
+
+
+#Tek üniv.de açık bölümleri filtrele
+bolumfilter <- t1$BOL[t1$Universite>1]
+EA20 <- EA20 |> filter(BOL %in% bolumfilter)
+
+grandModelEA20 <- lm(ortP~-1+minP+maksP,data = EA20)
+summary(grandModelEA20)
+
+results <- data.frame(real = EA20$ortP,model=predict(grandModelEA20))
+results$fark <- results$real-results$model
+results$absfark <- abs(results$real-results$model)
+ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() + 
+  labs(title = "Hata Terimleri",
+       x = "Gözlem",
+       y = "Gözlem - Model",
+       colour= "Hata") + 
+  geom_abline(slope = 0, intercept = 0, colour="orange", size=1)
+
+```
+
+## SAY
+
+2020 yılı için yapılan analiz sonucu elde edilen parametreler 2021'e çok yakın. 2021 yılında rastlanan heteroskedastisite problemi burada da mevcut ancak bu sefer ek model kurma zahmetine girilmedi.
+
+```{r}
+SAY20 <- read_excel("../../../temp/puan3/NETLER__Lisans.xlsx",sheet = "2020") |> filter(puanTuru=="SAY" & Statu=="VAKIF")
+mp <- read_excel("../../../temp/puan3/NETLER__Lisans.xlsx",sheet = "all_coeffs") |> filter(Year==2020 & Puan=="SAY")
+
+
+easyNames <- c("Code","obp","tytTur","tytSos","tytMat","tytFen",
+               "aytTur","aytTar1","aytCog1","aytTar2","aytCog2",
+               "aytFels","aytDin",
+               "aytMat","aytFiz","aytKim","aytBio",
+               "aytDil",
+               "puan","Uni","Burs","Statu","minP","maksP","kont","yer","BOL")
+colnames(SAY20) <- easyNames
+mp <- as.data.frame(mp)
+#Aşağıda ortalama puan hesabında rowwise kullanmak gerekli. En sonda da ungroup yaparak
+#rowwise gruplama etkisi geri alınıyor.
+SAY20 <- SAY20 |> rowwise() |>  mutate(ortP = obp*0.12 + mp[20]+
+                           tytMat*mp[6]+tytTur*mp[4]+
+                           tytFen*mp[7]+tytSos*mp[5]+
+                           aytMat*mp[15]+aytFiz*mp[16]+
+                           aytKim*mp[17]+aytBio*mp[18]) |> ungroup()
+SAY20$ortP <- SAY20$ortP$CONSTANT
+
+
+t1 <- SAY20 |> group_by(BOL) |> summarise(
+  Universite = n_distinct(Uni),
+  Kontenjan =n_distinct(minP)
+)
+
+
+#Tek üniv.de açık bölümleri filtrele
+bolumfilter <- t1$BOL[t1$Universite>1]
+SAY20 <- SAY20 |> filter(BOL %in% bolumfilter)
+
+grandModelSAY20 <- lm(ortP~-1+minP+maksP,data = SAY20)
+summary(grandModelSAY20)
+
+results <- data.frame(real = SAY20$ortP,model=predict(grandModelSAY20))
+results$fark <- results$real-results$model
+results$absfark <- abs(results$real-results$model)
+ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() + 
+  labs(title = "Hata Terimleri",
+       x = "Gözlem",
+       y = "Gözlem - Model",
+       colour= "Hata") + 
+  geom_abline(slope = 0, intercept = 0, colour="orange", size=1)
+
+```
+
+## SÖZ
+
+2020 yılı için yapılan analiz sonucu elde edilen parametreler 2021'e çok yakın. 2021 yılında rastlanan heteroskedastisite problemi burada da mevcut ancak bu sefer ek model kurma zahmetine girilmedi.
+
+```{r}
+SOZ20 <- read_excel("../../../temp/puan3/NETLER__Lisans.xlsx",sheet = "2020") |> filter(puanTuru=="SÖZ" & Statu=="VAKIF")
+mp <- read_excel("../../../temp/puan3/NETLER__Lisans.xlsx",sheet = "all_coeffs") |> filter(Year==2020 & Puan=="SOZ")
+
+
+easyNames <- c("Code","obp","tytTur","tytSos","tytMat","tytFen",
+               "aytTur","aytTar1","aytCog1","aytTar2","aytCog2",
+               "aytFels","aytDin",
+               "aytMat","aytFiz","aytKim","aytBio",
+               "aytDil",
+               "puan","Uni","Burs","Statu","minP","maksP","kont","yer","BOL")
+colnames(SOZ20) <- easyNames
+mp <- as.data.frame(mp)
+#Aşağıda ortalama puan hesabında rowwise kullanmak gerekli. En sonda da ungroup yaparak
+#rowwise gruplama etkisi geri alınıyor.
+SOZ20 <- SOZ20 |> rowwise() |>  mutate(ortP = obp*0.12 + mp[20]+
+                           tytMat*mp[6]+tytTur*mp[4]+
+                           tytFen*mp[7]+tytSos*mp[5]+
+                           aytTur*mp[8]+aytTar1*mp[9]+
+                           aytCog1*mp[10]+aytTar2*mp[11]+
+                           aytCog2*mp[12]+aytFels*mp[13]+
+                             aytDin*mp[14]) |> ungroup()
+SOZ20$ortP <- SOZ20$ortP$CONSTANT
+
+
+t1 <- SOZ20 |> group_by(BOL) |> summarise(
+  Universite = n_distinct(Uni),
+  Kontenjan =n_distinct(minP)
+)
+
+
+#Tek üniv.de açık bölümleri filtrele
+bolumfilter <- t1$BOL[t1$Universite>1]
+SOZ20 <- SOZ20 |> filter(BOL %in% bolumfilter)
+
+grandModelSOZ20 <- lm(ortP~-1+minP+maksP,data = SOZ20)
+summary(grandModelSOZ20)
+
+results <- data.frame(real = SOZ20$ortP,model=predict(grandModelSOZ20))
 results$fark <- results$real-results$model
 results$absfark <- abs(results$real-results$model)
 ggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() + 

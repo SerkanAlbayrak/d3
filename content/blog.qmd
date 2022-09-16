@@ -1,5 +1,5 @@
 ---
-title: "blogLists"
+title: "Yazılar"
 
 listing:
     - id: posts
