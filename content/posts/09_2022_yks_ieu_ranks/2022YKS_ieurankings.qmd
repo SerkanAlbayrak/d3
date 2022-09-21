@@ -1,7 +1,7 @@
 ---
 title: "İzmir Ekonomi 2022 YKS"
 author: Raif Serkan Albayrak
-description: "2022 YKS Sonuçlarına göre İmir Ekonomi Üniversitesi'ndeki bölümlerin vakıf üniversiteleri arasında Türkiye Sıralaması Verilmiştir"
+description: "2022 YKS Sonuçlarına göre İmir Ekonomi Üniversitesi'ndeki bölümlerin vakıf üniversiteleri arasında Türkiye Sıralaması için hazırlanan analizin sonuçları verilmiştir"
 date: 2022-09-12
 toc-location: body
 categories:
@@ -9,6 +9,7 @@ categories:
   - Üniversite Analitiği
 code-fold: true
 lang: tr
+image: "img/ieu.png"
 code-line-numbers: false
 ---
 

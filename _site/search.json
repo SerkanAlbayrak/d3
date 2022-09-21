@@ -196,13 +196,6 @@
     "text": "EA MODELİ\nModel oluşturmaya tüm EA bölümleri tek bir havuzda toplanarak başlanıyor. Bu modelin açıklayıcılığı çok yüksek olsa da hata terimlerindeki problem nedeniyle modele ufak bir modifikasyon yapma ihtiyacı duyuluyor. Devamında bölüm bazında modeller de kuruluyor.\n\n\nKod\ngrandModel <- lm(ortP~-1+minP+maksP,data = EA21)\nsummary(grandModel)\n\n\n\nCall:\nlm(formula = ortP ~ -1 + minP + maksP, data = EA21)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-36.726  -2.723  -0.311   2.364  31.294 \n\nCoefficients:\n      Estimate Std. Error t value Pr(>|t|)    \nminP  0.724983   0.006646  109.09   <2e-16 ***\nmaksP 0.278555   0.005945   46.86   <2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 6.29 on 1323 degrees of freedom\nMultiple R-squared:  0.9995,    Adjusted R-squared:  0.9995 \nF-statistic: 1.421e+06 on 2 and 1323 DF,  p-value: < 2.2e-16\n\n\nHataların dağılımına bağıldığında ilk 250 puan bandında problem olduğu görülüyor. Bunun nedeni muhtemelen barajın hemen üstünde hesaplanan puanlar. Bu bölgede barajın etkisi nedeniyle puanlar sıkışıyor. Model de düşük tahminleme yapıyor.\n\n\nKod\nresults <- data.frame(real = EA21$ortP,model=predict(grandModel))\nresults$fark <- results$real-results$model\nresults$absfark <- abs(results$real-results$model)\nggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() + \n  labs(title = \"Hata Terimleri\",\n       x = \"Gözlem\",\n       y = \"Gözlem - Model\",\n       colour= \"Hata\") + \n  geom_abline(slope = 0, intercept = 0, colour=\"orange\", size=1)\n\n\n\n\n\nVeride ortalaması 250’den düşük 418 kotenjan var. Bu sayı tüm kontenjanların yaklaşık üçte biri. Modele tek bir dummy değişken ekleyerek de hata terimlerinin iyileştirilmesi sağlanabilir ancak açıklayıcılığı hala min ve maks puanlara yüklemek istediğimizden iki dummy değişken oluşturup bunları min ve maks puanlarla çarpıyoruz. Sonuçta min puanın etkisinin bu kontenjanlar için 0.72’den 0.60’a düştüğü görülüyor. Buna bağlı olarak maks puanın etkisi de 0.28’den, 0.40’a yükseliyor. Hata terimlerinin varyansı hala sıkıntılı1 ancak en azından sıfır etrafında simetri yakalandı ve model şu an için iş görür durumda.\n\n\nKod\nEA21 <- EA21 |>  mutate(Dmin = ifelse(ortP<250,minP,0),\n                        Dmaks = ifelse(ortP<250,maksP,0))\n\ngrandModel1 <- lm(ortP~-1+minP+maksP+Dmin+Dmaks,data = EA21)\nsummary(grandModel1)\n\n\n\nCall:\nlm(formula = ortP ~ -1 + minP + maksP + Dmin + Dmaks, data = EA21)\n\nResiduals:\n    Min      1Q  Median      3Q     Max \n-32.107  -2.518  -0.238   2.331  35.409 \n\nCoefficients:\n       Estimate Std. Error t value Pr(>|t|)    \nminP   0.778507   0.006874  113.26   <2e-16 ***\nmaksP  0.226800   0.006201   36.57   <2e-16 ***\nDmin  -0.162141   0.014324  -11.32   <2e-16 ***\nDmaks  0.158870   0.012521   12.69   <2e-16 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 5.611 on 1321 degrees of freedom\nMultiple R-squared:  0.9996,    Adjusted R-squared:  0.9996 \nF-statistic: 8.931e+05 on 4 and 1321 DF,  p-value: < 2.2e-16\n\n\nKod\nresults <- data.frame(real = EA21$ortP,model=predict(grandModel1))\nresults$fark <- results$real-results$model\nresults$absfark <- abs(results$real-results$model)\nggplot(results, aes(x=real, y=fark, colour=absfark))+geom_point() + \n  labs(title = \"Hata Terimleri\",\n       x = \"Gözlem\",\n       y = \"Gözlem - Model\",\n       colour= \"Hata\") + \n  geom_abline(slope = 0, intercept = 0, colour=\"orange\", size=1)"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "zeytin",
-    "section": "",
-    "text": "Tüm Yazılar"
-  },
-  {
     "objectID": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html",
     "href": "content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html",
     "title": "İzmir Ekonomi 2022 YKS",
@@ -271,5 +264,12 @@
     "title": "İzmir Ekonomi 2022 YKS",
     "section": "Uygulamalı Yönetim Bilimleri Yüksekokulu",
     "text": "Uygulamalı Yönetim Bilimleri Yüksekokulu\n\n\n\n\n\n\n\n2018-2022 Kontenjanlar\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nGASTRONOMİ VE MUTFAK SANATLARI\n\n\n—\n\n\n40\n\n\n46\n\n\n49\n\n\n49\n\n\n\n\n\n\n\n\n\n\n\n\n\n2018-2022 Sıralamalar\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nGASTRONOMİ VE MUTFAK SANATLARI\n\n\n—\n\n\n4\n\n\n3\n\n\n4\n\n\n3\n\n\n\n\n\n\n\n\n\n\n\n\n\n2018-2022 Aktif Bölüm Adedi\n\n\n\n\n\n\nBÖLÜM\n\n\n2018\n\n\n2019\n\n\n2020\n\n\n2021\n\n\n2022\n\n\n\n\n\n\n\nGASTRONOMİ VE MUTFAK SANATLARI\n\n\n—\n\n\n33\n\n\n41\n\n\n50\n\n\n49"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "zeytin",
+    "section": "",
+    "text": "Tüm Yazılar"
   }
 ]
