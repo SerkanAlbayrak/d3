@@ -171,3 +171,27 @@ AnketLise |> select(c(44,45)) |>
   ungroup() |> mutate(p2=n/sum(n)) |> 
   kbl() |> kable_styling()
 ```
+
+Bu aşamadan sonrası standard ggplot kullanmından ibaret. Geldiği şehir değişkenine göre gruplama `geom_label` içinde yapılıyor.
+
+```{r}
+#| code-fold: false
+#| eval: false
+
+ggplot(e,aes(x=`Geldiği Şehir`,
+                    fill=`Kampüs Ziyareti`,
+                   y=p2)) + 
+  geom_bar(stat = "identity",color="black") +
+  scale_y_continuous(labels=scales::percent,limits = c(0,1),
+                     expand = c(0,0)) + ylab("Oran") +
+  geom_label(aes(label=ifelse(p1==1,element_blank(),
+                              paste0("%",sprintf("%1.1f",p1*100)))),
+             colour="black", size = 4,fontface = "bold",
+             position=position_stack(vjust=0.5), show.legend=FALSE)+
+      labs(fill = "Kampüs ziyareti")+
+  geom_label(aes(label = paste0("%",sprintf("%1.2f", after_stat(y)*100)),
+                  group =`Geldiği Şehir`), stat='summary', fun=sum,
+                  vjust=-1,size=5,fill="white")
+```
+
+son.

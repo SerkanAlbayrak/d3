@@ -539,6 +539,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </div>
+<p>Bu aşamadan sonrası standard ggplot kullanmından ibaret. Geldiği şehir değişkenine göre gruplama <code>geom_label</code> içinde yapılıyor.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(e,<span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Geldiği Şehir</span><span class="st">`</span>,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">fill=</span><span class="st">`</span><span class="at">Kampüs Ziyareti</span><span class="st">`</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y=</span>p2)) <span class="sc">+</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,<span class="at">color=</span><span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>scales<span class="sc">::</span>percent,<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Oran"</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label=</span><span class="fu">ifelse</span>(p1<span class="sc">==</span><span class="dv">1</span>,<span class="fu">element_blank</span>(),</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">paste0</span>(<span class="st">"%"</span>,<span class="fu">sprintf</span>(<span class="st">"%1.1f"</span>,p1<span class="sc">*</span><span class="dv">100</span>)))),</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">4</span>,<span class="at">fontface =</span> <span class="st">"bold"</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">position=</span><span class="fu">position_stack</span>(<span class="at">vjust=</span><span class="fl">0.5</span>), <span class="at">show.legend=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"Kampüs ziyareti"</span>)<span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"%"</span>,<span class="fu">sprintf</span>(<span class="st">"%1.2f"</span>, <span class="fu">after_stat</span>(y)<span class="sc">*</span><span class="dv">100</span>)),</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                  <span class="at">group =</span><span class="st">`</span><span class="at">Geldiği Şehir</span><span class="st">`</span>), <span class="at">stat=</span><span class="st">'summary'</span>, <span class="at">fun=</span>sum,</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>                  <span class="at">vjust=</span><span class="sc">-</span><span class="dv">1</span>,<span class="at">size=</span><span class="dv">5</span>,<span class="at">fill=</span><span class="st">"white"</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>son.</p>
 
 
 
