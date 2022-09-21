@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="tr" xml:lang="tr"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Raif Serkan Albayrak">
+<meta name="description" content="Çapraz tabloların bar chart’lar kullanılarak nasıl görselleştirilebileceği üzerine bir yazı.">
+
+<title>zeytin - Bar Chart ile Çapraz Tablo Görselleştirme</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/olive_fav.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Sonuç yok",
+    "search-matching-documents-text": "eşleşen belgeler",
+    "search-copy-link-title": "Aramak için bağlantıyı kopyalayın",
+    "search-hide-matches-text": "Ek eşleşmeleri gizle",
+    "search-more-match-text": "bu belgede daha fazla eşleşme",
+    "search-more-matches-text": "bu belgede daha fazla eşleşmeler",
+    "search-clear-button-title": "Temizle",
+    "search-detached-cancel-button-title": "İptal et",
+    "search-submit-button-title": "Göndermek"
+  }
+}</script>
+
+<script src="../../../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">zeytin</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">Ana Sayfa</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../about.html">İletişim</a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    </div>
+<!-- main -->
+<main class="content page-columns page-full column-page-left" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Bar Chart ile Çapraz Tablo Görselleştirme</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">ggplot</div>
+    <div class="quarto-category">bar chart</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Çapraz tabloların bar chart’lar kullanılarak nasıl görselleştirilebileceği üzerine bir yazı.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Yazar</div>
+    <div class="quarto-title-meta-contents">
+             <p>Raif Serkan Albayrak </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Yayınlanma Tarihi</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">21 Eylül 2022</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<p>Bar chart’lar veri bilimcilerin ne tercih ettiği gösterim cihazları arasındadır. Sadeliği fonksiyonellikle harmanlayan bir yapıları vardır. Bu yazıda çapraz tabloları bar chart kullanarak görselleştirme yöntemi anlatıldı. Teknik anlatımın arasına pek çok kişiye faydası olabilecek bir de tecrübe sıkıştırdık.</p>
+<p>Anlatımda kullanılan veri 2022 YKS sonuçlarına göre İzmir Ekonomi Üniversitesi’ne yerleşen öğrencilerin öğrencilere yapılan bir ankette sorulan iki sorunun yanıtlarından oluşmaktadır. 2022 yılında ilk yerleştirmede İEU’ya 2395 öğrenci yerleşti ancak bunların 2260’ı kayıt oldu. Anket bu öğrencilerin 1989’una yapıldı. Yeni kaydolan öğrenciler, öğrenci işlerinin kayıt masalarında işlerini tamamlayıp son adımda öğrenci kartlarına teslim aldıklarından sonra YKS tanıtım sürecinde de çalışan öğrenciler arasıdan seçilen bir grup öğrencinin anketörlüğünde ankete katıldılar.</p>
+<p>Bu yazıda ankette koşullu olarak birbirine bağlı şekilde sorulan:</p>
+<ul>
+<li><ol start="4" type="1">
+<li>İzmir Ekonomi’nin kampüsünü daha önce ziyaret ettin mi?</li>
+</ol>
+<ul>
+<li>Evet</li>
+<li>Hayır</li>
+</ul></li>
+<li><ol start="5" type="1">
+<li>Kampüs ziyaretin tercihinde etkili oldu mu? *</li>
+</ol>
+<ul>
+<li>Evet</li>
+<li>Hayır</li>
+<li>Kararsızım</li>
+</ul></li>
+</ul>
+<p>sorularına verdikleri yanıtların verisi kullanıldı.</p>
+<div class="cell" data-warnings="false">
+
+</div>
+<div class="cell">
+
+</div>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>kampusetki <span class="ot">&lt;-</span> <span class="cf">function</span>(e){</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  g1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(e,<span class="fu">aes</span>(<span class="at">fill=</span><span class="st">`</span><span class="at">Kampüs ziyaretin tercihinde etkili oldu mu?</span><span class="st">`</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">x=</span><span class="st">`</span><span class="at">Kampüs Ziyareti</span><span class="st">`</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y=</span>p2)) <span class="sc">+</span> </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,<span class="at">color=</span><span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>scales<span class="sc">::</span>percent,<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Oran"</span>) <span class="sc">+</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    ggrepel<span class="sc">::</span><span class="fu">geom_label_repel</span>(<span class="fu">aes</span>(<span class="at">label=</span><span class="fu">ifelse</span>(p1<span class="sc">==</span><span class="dv">1</span>,<span class="fu">element_blank</span>(),<span class="fu">paste0</span>(<span class="st">"%"</span>,<span class="fu">sprintf</span>(<span class="st">"%1.1f"</span>, p1<span class="sc">*</span><span class="dv">100</span>)))),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">4</span>,<span class="at">fontface =</span> <span class="st">"bold"</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">position=</span><span class="fu">position_stack</span>(<span class="at">vjust=</span><span class="fl">0.5</span>),<span class="at">show.legend=</span><span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"Kampüs ziyaretin </span><span class="sc">\n</span><span class="st">tercihinde etkili </span><span class="sc">\n</span><span class="st">oldu mu?"</span>) <span class="sc">+</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"%"</span>,<span class="fu">sprintf</span>(<span class="st">"%1.2f"</span>, <span class="fu">after_stat</span>(y)<span class="sc">*</span><span class="dv">100</span>)),</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                  <span class="at">group =</span><span class="st">`</span><span class="at">Kampüs Ziyareti</span><span class="st">`</span>), <span class="at">stat=</span><span class="st">'summary'</span>, <span class="at">fun=</span>sum,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                  <span class="at">vjust=</span><span class="sc">-</span><span class="dv">1</span>,<span class="at">size=</span><span class="dv">5</span>,<span class="at">fill=</span><span class="st">"white"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(g1)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>izmirkampus <span class="ot">&lt;-</span> <span class="cf">function</span>(e){</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    g1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(e,<span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Geldiği Şehir</span><span class="st">`</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>                    <span class="at">fill=</span><span class="st">`</span><span class="at">Kampüs Ziyareti</span><span class="st">`</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y=</span>p2)) <span class="sc">+</span> </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,<span class="at">color=</span><span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>scales<span class="sc">::</span>percent,<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Oran"</span>) <span class="sc">+</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label=</span><span class="fu">ifelse</span>(p1<span class="sc">==</span><span class="dv">1</span>,<span class="fu">element_blank</span>(),</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">paste0</span>(<span class="st">"%"</span>,<span class="fu">sprintf</span>(<span class="st">"%1.1f"</span>,p1<span class="sc">*</span><span class="dv">100</span>)))),</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">4</span>,<span class="at">fontface =</span> <span class="st">"bold"</span>,</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>             <span class="at">position=</span><span class="fu">position_stack</span>(<span class="at">vjust=</span><span class="fl">0.5</span>), <span class="at">show.legend=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"Kampüs ziyareti"</span>)<span class="sc">+</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"%"</span>,<span class="fu">sprintf</span>(<span class="st">"%1.2f"</span>, <span class="fu">after_stat</span>(y)<span class="sc">*</span><span class="dv">100</span>)),</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>                  <span class="at">group =</span><span class="st">`</span><span class="at">Geldiği Şehir</span><span class="st">`</span>), <span class="at">stat=</span><span class="st">'summary'</span>, <span class="at">fun=</span>sum,</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>                  <span class="at">vjust=</span><span class="sc">-</span><span class="dv">1</span>,<span class="at">size=</span><span class="dv">5</span>,<span class="at">fill=</span><span class="st">"white"</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(g1)</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Veride ilgilenilen değişkenler aşağıdaki özet tabloda sağda bulunan üç sütunda gösteriliyor.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>AnketLise[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,<span class="dv">20</span>,<span class="dv">44</span>,<span class="dv">45</span>)] <span class="sc">|&gt;</span> <span class="fu">kbl</span>() <span class="sc">|&gt;</span> <span class="fu">kable_styling</span>()</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:right;"> ID </th>
+   <th style="text-align:left;"> Start time </th>
+   <th style="text-align:left;"> Completion time </th>
+   <th style="text-align:left;"> Kampüs ziyaretin tercihinde etkili oldu mu? </th>
+   <th style="text-align:left;"> Geldiği Şehir </th>
+   <th style="text-align:left;"> Kampüs Ziyareti </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:left;"> 2022-08-22 09:06:41 </td>
+   <td style="text-align:left;"> 2022-08-22 09:09:05 </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> İzmir </td>
+   <td style="text-align:left;"> Evet </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 10 </td>
+   <td style="text-align:left;"> 2022-08-22 09:11:00 </td>
+   <td style="text-align:left;"> 2022-08-22 09:13:35 </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Şehirdışı </td>
+   <td style="text-align:left;"> Hayır </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 11 </td>
+   <td style="text-align:left;"> 2022-08-22 09:14:55 </td>
+   <td style="text-align:left;"> 2022-08-22 09:16:48 </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> İzmir </td>
+   <td style="text-align:left;"> Hayır </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 12 </td>
+   <td style="text-align:left;"> 2022-08-22 08:46:54 </td>
+   <td style="text-align:left;"> 2022-08-22 09:17:12 </td>
+   <td style="text-align:left;"> Evet </td>
+   <td style="text-align:left;"> İzmir </td>
+   <td style="text-align:left;"> Evet </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 13 </td>
+   <td style="text-align:left;"> 2022-08-22 08:44:36 </td>
+   <td style="text-align:left;"> 2022-08-22 09:19:49 </td>
+   <td style="text-align:left;"> Evet </td>
+   <td style="text-align:left;"> İzmir </td>
+   <td style="text-align:left;"> Evet </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 14 </td>
+   <td style="text-align:left;"> 2022-08-22 09:20:02 </td>
+   <td style="text-align:left;"> 2022-08-22 09:21:29 </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Şehirdışı </td>
+   <td style="text-align:left;"> Hayır </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 17 </td>
+   <td style="text-align:left;"> 2022-08-22 08:45:45 </td>
+   <td style="text-align:left;"> 2022-08-22 09:24:50 </td>
+   <td style="text-align:left;"> NA </td>
+   <td style="text-align:left;"> Şehirdışı </td>
+   <td style="text-align:left;"> Hayır </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 18 </td>
+   <td style="text-align:left;"> 2022-08-22 09:27:13 </td>
+   <td style="text-align:left;"> 2022-08-22 09:31:39 </td>
+   <td style="text-align:left;"> Evet </td>
+   <td style="text-align:left;"> Şehirdışı </td>
+   <td style="text-align:left;"> Evet </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 19 </td>
+   <td style="text-align:left;"> 2022-08-22 09:29:54 </td>
+   <td style="text-align:left;"> 2022-08-22 09:33:13 </td>
+   <td style="text-align:left;"> Evet </td>
+   <td style="text-align:left;"> İzmir </td>
+   <td style="text-align:left;"> Evet </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:left;"> 2022-08-22 09:30:35 </td>
+   <td style="text-align:left;"> 2022-08-22 09:34:06 </td>
+   <td style="text-align:left;"> Evet </td>
+   <td style="text-align:left;"> İzmir </td>
+   <td style="text-align:left;"> Evet </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>Amaçlanan grafik aşağıda veriliyor. İlk grafikte öğrenciler kampüs ziyareti yapmalarına göre yatayda gruplandırılıyorlar. Buna göre öğrencilerin yaklaşık %72’si kampüs ziyareti yapmış. Kampüs ziyareti yaptığını belirten öğrenciler daha sonra renk kodlarıyla bu ziyaretin tercihinde etkili olup olmadığına göre gruplanıyor.</p>
+<p>Renk gruplarının içinde yazan oranlar, ilgili kısım içindeki oranı yani göreli oranı ifade ediyor. Buna göre kampüs ziyareti yapanların yaklaşık %70’i için bu ziyaret tercihinde etkili olmuş. Gri renk ile etiketlenen grup kampüs ziyaretinin etkisi konusunda hiçbir fikir belirtmek istemeyen öğrencileri gösteriyor. Kampüs ziyareti yapmayan öğrencilerin tamamı bu soruyla karşılaşmadıkları için doğal olarak bu grubun üyesi oluyor.</p>
+<p>İkinci grafikte ise öğrencilerin İzmir’den veya şehir dışından gelmelerine göre kampüsü ziyaret etme oranları gösteriliyor. Öğrencinin geldiği yeri belirlemede ÖSYM’den yerleşen öğrencilerle ilgili gönderilen verinin adres veya nüfuse kayıtlı olduğu şehir bilgisi değil, mezun olduğu lisenin bulunduğu şehir bilgisi kullanıldığı detayını da paylaşmakta fayda var.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Tam bu noktada alternatif bir gösterim tercih edilebilirdi ve aslında anket raporunun ilk versiyonunda bu gösterim kullanıldı ve hatta kullanılmasında analist ısrarcı oldu. Bu versiyonda renkli kısımlarda gösterilen oranlar bütün içindeki oranı göstermekteydi. Buna göre kırmızı alanda %69.6 yerine %50 yazıyordu. Dolayısıyla bir çırpıda öğrencilerin yarısının kampüs ziyareti yaptığı <strong>VE</strong> bu ziyaretin tercihinde etkili olduğu görülebiliyordu. Ancak yapılan sunumlarda bu gösterim dinleyiciler tarafından beğenilmedi ve sezgisel olmadığı söylendi. Bütün içindeki oran yerine ilgili grup içindeki oranın gösterilmesi talep edildi.</p>
+</div></div><div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>e1 <span class="ot">&lt;-</span> AnketLise <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">c</span>(<span class="dv">20</span>,<span class="dv">44</span>,<span class="dv">45</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by_at</span>(<span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">1</span>)) <span class="sc">|&gt;</span> <span class="fu">tally</span>() <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">p1=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">|&gt;</span> <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p2=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">kampusetki</span>(e1))</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="crossTableBarChart_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+</div>
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>e2 <span class="ot">&lt;-</span> AnketLise <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">c</span>(<span class="dv">44</span>,<span class="dv">45</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by_at</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="sc">|&gt;</span> <span class="fu">tally</span>() <span class="sc">|&gt;</span>  <span class="fu">mutate</span>(<span class="at">p1=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">|&gt;</span> <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p2=</span>n<span class="sc">/</span><span class="fu">sum</span>(n))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">izmirkampus</span>(e2))</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="crossTableBarChart_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Grafiği çizen fonksiyonlar sıradan ancak grafiğe sokulan verinin hazırlanmasında birkaç ilginç nokta var. Grafiklere giren veri aynı mantıkla hazırlandığı için ikinci grafikte gösterilen verinin hazırlanmasına bakılıyor. Veride 44,45’te sırasıyla öğrencinin geldiği yer bilgisi (İzmir ya da Şehir dışı) ve kampüs ziyareti yapıp yapmadığı bilgisi (Evet, Hayır) bulunmakta. Değişken isimlerini kullanmaktansa sütun numarasına göre gruplama yapabilmek amacıyla <code>group_by_at</code> kullanıldı. Devamında <code>tally()</code> ile frekans tablosu oluşturuldu.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>AnketLise <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">c</span>(<span class="dv">44</span>,<span class="dv">45</span>)) <span class="sc">|&gt;</span> <span class="fu">group_by_at</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="sc">|&gt;</span> <span class="fu">tally</span>() </span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Geldiği Şehir </th>
+   <th style="text-align:left;"> Kampüs Ziyareti </th>
+   <th style="text-align:right;"> n </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> İzmir </td>
+   <td style="text-align:left;"> Evet </td>
+   <td style="text-align:right;"> 1008 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> İzmir </td>
+   <td style="text-align:left;"> Hayır </td>
+   <td style="text-align:right;"> 229 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Şehirdışı </td>
+   <td style="text-align:left;"> Evet </td>
+   <td style="text-align:right;"> 313 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Şehirdışı </td>
+   <td style="text-align:left;"> Hayır </td>
+   <td style="text-align:right;"> 288 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p><code>tally()</code>’nin oluşturduğu <strong>n</strong> değişkenini kullanarak göreli oranlar ilk değişkene göre hesaplanıyor.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>AnketLise <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">c</span>(<span class="dv">44</span>,<span class="dv">45</span>)) <span class="sc">|&gt;</span> <span class="fu">group_by_at</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="sc">|&gt;</span> <span class="fu">tally</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(<span class="at">p1=</span>n<span class="sc">/</span><span class="fu">sum</span>(n))</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Geldiği Şehir </th>
+   <th style="text-align:left;"> Kampüs Ziyareti </th>
+   <th style="text-align:right;"> n </th>
+   <th style="text-align:right;"> p1 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> İzmir </td>
+   <td style="text-align:left;"> Evet </td>
+   <td style="text-align:right;"> 1008 </td>
+   <td style="text-align:right;"> 0.8148747 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> İzmir </td>
+   <td style="text-align:left;"> Hayır </td>
+   <td style="text-align:right;"> 229 </td>
+   <td style="text-align:right;"> 0.1851253 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Şehirdışı </td>
+   <td style="text-align:left;"> Evet </td>
+   <td style="text-align:right;"> 313 </td>
+   <td style="text-align:right;"> 0.5207987 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Şehirdışı </td>
+   <td style="text-align:left;"> Hayır </td>
+   <td style="text-align:right;"> 288 </td>
+   <td style="text-align:right;"> 0.4792013 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>Son adımda bütüne göre oranları hesaplamak için gruplama işlemi <code>ungroup()</code> ile iptal ediliyor ve oranlar hesaplanıyor.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>AnketLise <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">c</span>(<span class="dv">44</span>,<span class="dv">45</span>)) <span class="sc">|&gt;</span>  <span class="fu">group_by_at</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="sc">|&gt;</span> <span class="fu">tally</span>() <span class="sc">|&gt;</span>  </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p1=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">|&gt;</span> <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">p2=</span>n<span class="sc">/</span><span class="fu">sum</span>(n))</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Geldiği Şehir </th>
+   <th style="text-align:left;"> Kampüs Ziyareti </th>
+   <th style="text-align:right;"> n </th>
+   <th style="text-align:right;"> p1 </th>
+   <th style="text-align:right;"> p2 </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> İzmir </td>
+   <td style="text-align:left;"> Evet </td>
+   <td style="text-align:right;"> 1008 </td>
+   <td style="text-align:right;"> 0.8148747 </td>
+   <td style="text-align:right;"> 0.5484222 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> İzmir </td>
+   <td style="text-align:left;"> Hayır </td>
+   <td style="text-align:right;"> 229 </td>
+   <td style="text-align:right;"> 0.1851253 </td>
+   <td style="text-align:right;"> 0.1245919 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Şehirdışı </td>
+   <td style="text-align:left;"> Evet </td>
+   <td style="text-align:right;"> 313 </td>
+   <td style="text-align:right;"> 0.5207987 </td>
+   <td style="text-align:right;"> 0.1702938 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Şehirdışı </td>
+   <td style="text-align:left;"> Hayır </td>
+   <td style="text-align:right;"> 288 </td>
+   <td style="text-align:right;"> 0.4792013 </td>
+   <td style="text-align:right;"> 0.1566921 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+
+
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Yeniden kullanın</h2><div quarto-reuse="quarto-reuse" class="quarto-appendix-contents"><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.tr">https://creativecommons.org/licenses/by/4.0/deed.tr</a></div></section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Alıntı</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{serkanalbayrak2022,
+  author = {Raif Serkan Albayrak},
+  title = {Bar Chart ile Çapraz Tablo Görselleştirme},
+  date = {2022-09-21},
+  langid = {tr}
+}
+</code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">Lütfen bu çalışmayı şu şekilde alıntılayın:</div><div id="ref-serkanalbayrak2022" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
+Raif Serkan Albayrak. 2022. <span>“Bar Chart ile Çapraz Tablo
+Görselleştirme.”</span> September 21, 2022.
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopyalandı");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

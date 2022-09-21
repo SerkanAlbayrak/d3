@@ -1,0 +1,172 @@
+---
+title: "Bar Chart ile Çapraz Tablo Görselleştirme"
+author: Raif Serkan Albayrak
+description: "Çapraz tabloların bar chart'lar kullanılarak nasıl görselleştirilebileceği üzerine bir yazı."
+date: 2022-09-21
+categories:
+  - ggplot
+  - bar chart
+code-fold: true
+lang: tr
+code-line-numbers: false
+toc-title: İçerik
+---
+
+Bar chart'lar veri bilimcilerin ne tercih ettiği gösterim cihazları arasındadır. Sadeliği fonksiyonellikle harmanlayan bir yapıları vardır. Bu yazıda çapraz tabloları bar chart kullanarak görselleştirme yöntemi anlatıldı. Teknik anlatımın arasına pek çok kişiye faydası olabilecek bir de tecrübe sıkıştırdık.   
+
+Anlatımda kullanılan veri 2022 YKS sonuçlarına göre İzmir Ekonomi Üniversitesi'ne yerleşen öğrencilerin öğrencilere yapılan bir ankette sorulan iki sorunun yanıtlarından oluşmaktadır. 2022 yılında ilk yerleştirmede İEU'ya 2395 öğrenci yerleşti ancak bunların 2260'ı kayıt oldu. Anket bu öğrencilerin 1989'una yapıldı. Yeni kaydolan öğrenciler, öğrenci işlerinin kayıt masalarında işlerini tamamlayıp son adımda öğrenci kartlarına teslim aldıklarından sonra YKS tanıtım sürecinde de çalışan öğrenciler arasıdan seçilen bir grup öğrencinin anketörlüğünde ankete katıldılar. 
+
+Bu yazıda ankette koşullu olarak birbirine bağlı şekilde sorulan:
+
+* 4. İzmir Ekonomi'nin kampüsünü daha önce ziyaret ettin mi?
+  * Evet
+  * Hayır
+* 5. Kampüs ziyaretin tercihinde etkili oldu mu? *
+  * Evet
+  * Hayır
+  * Kararsızım
+
+sorularına verdikleri yanıtların verisi kullanıldı.
+
+
+```{r}
+#| warnings: false
+#| message: false
+#| echo: false
+library(tidyverse)
+library(readxl)
+library(writexl)
+library(ggplot2)
+library(ggrepel)
+library(kableExtra)
+```
+
+
+
+
+```{r}
+#| echo: false
+AnketLise <-  read_excel("../../../temp/2022CrossTableBarChart/AnketLise.xlsx")
+```
+
+
+
+```{r}
+
+kampusetki <- function(e){
+  g1 <- ggplot(e,aes(fill=`Kampüs ziyaretin tercihinde etkili oldu mu?`,
+                     x=`Kampüs Ziyareti`,
+                     y=p2)) + 
+    geom_bar(stat = "identity",color="black") +
+    scale_y_continuous(labels=scales::percent,limits = c(0,1),expand = c(0,0)) + ylab("Oran") +
+    ggrepel::geom_label_repel(aes(label=ifelse(p1==1,element_blank(),paste0("%",sprintf("%1.1f", p1*100)))),
+              colour="black", size = 4,fontface = "bold",
+              position=position_stack(vjust=0.5),show.legend=FALSE) + 
+    labs(fill = "Kampüs ziyaretin \ntercihinde etkili \noldu mu?") +
+    geom_label(aes(label = paste0("%",sprintf("%1.2f", after_stat(y)*100)),
+                  group =`Kampüs Ziyareti`), stat='summary', fun=sum,
+                  vjust=-1,size=5,fill="white")
+  return(g1)
+}
+
+izmirkampus <- function(e){
+    g1 <- ggplot(e,aes(x=`Geldiği Şehir`,
+                    fill=`Kampüs Ziyareti`,
+                   y=p2)) + 
+  geom_bar(stat = "identity",color="black") +
+  scale_y_continuous(labels=scales::percent,limits = c(0,1),
+                     expand = c(0,0)) + ylab("Oran") +
+  geom_label(aes(label=ifelse(p1==1,element_blank(),
+                              paste0("%",sprintf("%1.1f",p1*100)))),
+             colour="black", size = 4,fontface = "bold",
+             position=position_stack(vjust=0.5), show.legend=FALSE)+
+      labs(fill = "Kampüs ziyareti")+
+  geom_label(aes(label = paste0("%",sprintf("%1.2f", after_stat(y)*100)),
+                  group =`Geldiği Şehir`), stat='summary', fun=sum,
+                  vjust=-1,size=5,fill="white")
+    
+  return(g1)
+}
+```
+
+Veride ilgilenilen değişkenler aşağıdaki özet tabloda sağda bulunan üç sütunda gösteriliyor. 
+
+```{r}
+AnketLise[1:10,c(1:3,20,44,45)] |> kbl() |> kable_styling()
+```
+Amaçlanan grafik aşağıda veriliyor. İlk grafikte öğrenciler kampüs ziyareti yapmalarına göre yatayda gruplandırılıyorlar. Buna göre öğrencilerin yaklaşık %72'si kampüs ziyareti yapmış. Kampüs ziyareti yaptığını belirten öğrenciler daha sonra renk kodlarıyla bu ziyaretin tercihinde etkili olup olmadığına göre gruplanıyor.
+
+Renk gruplarının içinde yazan oranlar, ilgili kısım içindeki oranı yani göreli oranı ifade ediyor. Buna göre kampüs ziyareti yapanların yaklaşık %70'i için bu ziyaret tercihinde etkili olmuş. Gri renk ile etiketlenen grup kampüs ziyaretinin etkisi konusunda hiçbir fikir belirtmek istemeyen öğrencileri gösteriyor. Kampüs ziyareti yapmayan öğrencilerin tamamı bu soruyla karşılaşmadıkları için doğal olarak bu grubun üyesi oluyor.  
+
+İkinci grafikte ise öğrencilerin İzmir'den veya şehir dışından gelmelerine göre kampüsü ziyaret etme oranları gösteriliyor. Öğrencinin geldiği yeri belirlemede ÖSYM'den yerleşen öğrencilerle ilgili gönderilen verinin adres veya nüfuse kayıtlı olduğu şehir bilgisi değil, mezun olduğu lisenin bulunduğu şehir bilgisi kullanıldığı detayını da paylaşmakta fayda var.
+
+::: {.column-margin}
+
+Tam bu noktada alternatif bir gösterim tercih edilebilirdi ve aslında anket raporunun ilk versiyonunda bu gösterim kullanıldı ve hatta kullanılmasında analist ısrarcı oldu. Bu versiyonda renkli kısımlarda gösterilen oranlar bütün içindeki oranı göstermekteydi. Buna göre kırmızı alanda %69.6 yerine %50 yazıyordu. Dolayısıyla bir çırpıda öğrencilerin yarısının kampüs ziyareti yaptığı **VE** bu ziyaretin tercihinde etkili olduğu görülebiliyordu. Ancak yapılan sunumlarda bu gösterim dinleyiciler tarafından beğenilmedi ve sezgisel olmadığı söylendi. Bütün içindeki oran yerine ilgili grup içindeki oranın gösterilmesi talep edildi.
+
+:::
+
+  
+
+
+```{r}
+#| warning: false
+e1 <- AnketLise |> select(c(20,44,45)) |> 
+  group_by_at(c(3,1)) |> tally() |> mutate(p1=n/sum(n)) |> ungroup() |> 
+  mutate(p2=n/sum(n)) 
+print(kampusetki(e1))
+e2 <- AnketLise |> select(c(44,45)) |> 
+  group_by_at(c(1,2)) |> tally() |>  mutate(p1=n/sum(n)) |> ungroup() |> 
+  mutate(p2=n/sum(n))
+print(izmirkampus(e2))
+```
+
+Grafiği çizen fonksiyonlar sıradan ancak grafiğe sokulan verinin hazırlanmasında birkaç ilginç nokta var. Grafiklere giren veri aynı mantıkla hazırlandığı için ikinci grafikte gösterilen verinin hazırlanmasına bakılıyor. Veride 44,45'te sırasıyla öğrencinin geldiği yer bilgisi (İzmir ya da Şehir dışı) ve kampüs ziyareti yapıp yapmadığı bilgisi (Evet, Hayır) bulunmakta. Değişken isimlerini kullanmaktansa sütun numarasına göre gruplama yapabilmek amacıyla `group_by_at` kullanıldı. Devamında `tally()` ile frekans tablosu oluşturuldu.
+
+
+```{r}
+#| code-fold: false
+#| eval: false
+
+AnketLise |> select(c(44,45)) |> group_by_at(c(1,2)) |> tally() 
+```
+
+```{r}
+#| echo: false
+AnketLise |> select(c(44,45)) |> 
+  group_by_at(c(1,2)) |> tally() |> kbl() |> kable_styling()
+```
+
+`tally()`'nin oluşturduğu **n** değişkenini kullanarak göreli oranlar ilk değişkene göre hesaplanıyor.
+
+```{r}
+#| code-fold: false
+#| eval: false
+
+AnketLise |> select(c(44,45)) |> group_by_at(c(1,2)) |> tally() |> 
+   mutate(p1=n/sum(n))
+```
+
+```{r}
+#| echo: false
+AnketLise |> select(c(44,45)) |> 
+  group_by_at(c(1,2)) |> tally() |> mutate(p1=n/sum(n)) |> 
+  kbl() |> kable_styling()
+```
+Son adımda bütüne göre oranları hesaplamak için gruplama işlemi `ungroup()` ile iptal ediliyor ve oranlar hesaplanıyor. Bu şekilde **p1** ile bar'ların içindeki oranlar **p2** ile barların toplam içindeki oranları hesaplanmış oluyor.
+
+```{r}
+#| code-fold: false
+#| eval: false
+
+AnketLise |> select(c(44,45)) |>  group_by_at(c(1,2)) |> tally() |>  
+  mutate(p1=n/sum(n)) |> ungroup() |> mutate(p2=n/sum(n))
+```
+
+```{r}
+#| echo: false
+AnketLise |> select(c(44,45)) |> 
+  group_by_at(c(1,2)) |> tally() |> mutate(p1=n/sum(n)) |> 
+  ungroup() |> mutate(p2=n/sum(n)) |> 
+  kbl() |> kable_styling()
+```
