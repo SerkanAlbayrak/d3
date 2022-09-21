@@ -487,7 +487,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </div>
-<p>Son adımda bütüne göre oranları hesaplamak için gruplama işlemi <code>ungroup()</code> ile iptal ediliyor ve oranlar hesaplanıyor.</p>
+<p>Son adımda bütüne göre oranları hesaplamak için gruplama işlemi <code>ungroup()</code> ile iptal ediliyor ve oranlar hesaplanıyor. Bu şekilde <strong>p1</strong> ile bar’ların içindeki oranlar <strong>p2</strong> ile barların toplam içindeki oranları hesaplanmış oluyor.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>AnketLise <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">c</span>(<span class="dv">44</span>,<span class="dv">45</span>)) <span class="sc">|&gt;</span>  <span class="fu">group_by_at</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="sc">|&gt;</span> <span class="fu">tally</span>() <span class="sc">|&gt;</span>  </span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p1=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">|&gt;</span> <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">p2=</span>n<span class="sc">/</span><span class="fu">sum</span>(n))</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>

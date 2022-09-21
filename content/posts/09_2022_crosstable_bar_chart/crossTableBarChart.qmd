@@ -7,6 +7,7 @@ categories:
   - ggplot
   - bar chart
 code-fold: true
+image: "img/preview.png"
 lang: tr
 code-line-numbers: false
 toc-title: İçerik
