@@ -539,24 +539,127 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </div>
 </div>
-<p>Bu aşamadan sonrası standard ggplot kullanmından ibaret. Geldiği şehir değişkenine göre gruplama <code>geom_label</code> içinde yapılıyor.</p>
+<p>Bu aşamadan sonra bar plot üzerinde toplam değerlerini oluşturmak gerekli.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(e,<span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Geldiği Şehir</span><span class="st">`</span>,</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">fill=</span><span class="st">`</span><span class="at">Kampüs Ziyareti</span><span class="st">`</span>,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">y=</span>p2)) <span class="sc">+</span> </span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,<span class="at">color=</span><span class="st">"black"</span>) <span class="sc">+</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>scales<span class="sc">::</span>percent,<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Oran"</span>) <span class="sc">+</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label=</span><span class="fu">ifelse</span>(p1<span class="sc">==</span><span class="dv">1</span>,<span class="fu">element_blank</span>(),</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">paste0</span>(<span class="st">"%"</span>,<span class="fu">sprintf</span>(<span class="st">"%1.1f"</span>,p1<span class="sc">*</span><span class="dv">100</span>)))),</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">4</span>,<span class="at">fontface =</span> <span class="st">"bold"</span>,</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">position=</span><span class="fu">position_stack</span>(<span class="at">vjust=</span><span class="fl">0.5</span>), <span class="at">show.legend=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"Kampüs ziyareti"</span>)<span class="sc">+</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"%"</span>,<span class="fu">sprintf</span>(<span class="st">"%1.2f"</span>, <span class="fu">after_stat</span>(y)<span class="sc">*</span><span class="dv">100</span>)),</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                  <span class="at">group =</span><span class="st">`</span><span class="at">Geldiği Şehir</span><span class="st">`</span>), <span class="at">stat=</span><span class="st">'summary'</span>, <span class="at">fun=</span>sum,</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>                  <span class="at">vjust=</span><span class="sc">-</span><span class="dv">1</span>,<span class="at">size=</span><span class="dv">5</span>,<span class="at">fill=</span><span class="st">"white"</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>AnketLise <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">c</span>(<span class="dv">44</span>,<span class="dv">45</span>)) <span class="sc">|&gt;</span>  <span class="fu">group_by_at</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="sc">|&gt;</span> <span class="fu">tally</span>() <span class="sc">|&gt;</span>  </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p1=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">|&gt;</span> <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">p2=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by_at</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span>  <span class="fu">mutate</span>(<span class="at">tot=</span><span class="fu">sum</span>(p2))</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>son.</p>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table" style="margin-left: auto; margin-right: auto;">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> Geldiği Şehir </th>
+   <th style="text-align:left;"> Kampüs Ziyareti </th>
+   <th style="text-align:right;"> n </th>
+   <th style="text-align:right;"> p1 </th>
+   <th style="text-align:right;"> p2 </th>
+   <th style="text-align:right;"> tot </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> İzmir </td>
+   <td style="text-align:left;"> Evet </td>
+   <td style="text-align:right;"> 1008 </td>
+   <td style="text-align:right;"> 0.8148747 </td>
+   <td style="text-align:right;"> 0.5484222 </td>
+   <td style="text-align:right;"> 0.6730141 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> İzmir </td>
+   <td style="text-align:left;"> Hayır </td>
+   <td style="text-align:right;"> 229 </td>
+   <td style="text-align:right;"> 0.1851253 </td>
+   <td style="text-align:right;"> 0.1245919 </td>
+   <td style="text-align:right;"> 0.6730141 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Şehirdışı </td>
+   <td style="text-align:left;"> Evet </td>
+   <td style="text-align:right;"> 313 </td>
+   <td style="text-align:right;"> 0.5207987 </td>
+   <td style="text-align:right;"> 0.1702938 </td>
+   <td style="text-align:right;"> 0.3269859 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Şehirdışı </td>
+   <td style="text-align:left;"> Hayır </td>
+   <td style="text-align:right;"> 288 </td>
+   <td style="text-align:right;"> 0.4792013 </td>
+   <td style="text-align:right;"> 0.1566921 </td>
+   <td style="text-align:right;"> 0.3269859 </td>
+  </tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<p>Grafik adım adım şu şekilde oluşturuluyor:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> AnketLise <span class="sc">|&gt;</span> <span class="fu">select</span>(<span class="fu">c</span>(<span class="dv">44</span>,<span class="dv">45</span>)) <span class="sc">|&gt;</span>  <span class="fu">group_by_at</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)) <span class="sc">|&gt;</span> <span class="fu">tally</span>() <span class="sc">|&gt;</span>  </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p1=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">|&gt;</span> <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">p2=</span>n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">|&gt;</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by_at</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span>  <span class="fu">mutate</span>(<span class="at">tot=</span><span class="fu">sum</span>(p2))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a> <span class="fu">ggplot</span>(e,<span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Geldiği Şehir</span><span class="st">`</span>,<span class="at">y=</span>p2,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">fill=</span><span class="st">`</span><span class="at">Kampüs Ziyareti</span><span class="st">`</span>)) <span class="sc">+</span> </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,<span class="at">color=</span><span class="st">"black"</span>) <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>scales<span class="sc">::</span>percent,<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Oran"</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="crossTableBarChart_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Barların içindeki oranları yazmak kolay olanı…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(e,<span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Geldiği Şehir</span><span class="st">`</span>,<span class="at">y=</span>p2,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">fill=</span><span class="st">`</span><span class="at">Kampüs Ziyareti</span><span class="st">`</span>)) <span class="sc">+</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,<span class="at">color=</span><span class="st">"black"</span>) <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>scales<span class="sc">::</span>percent,<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Oran"</span>) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label=</span><span class="fu">ifelse</span>(p1<span class="sc">==</span><span class="dv">1</span>,<span class="fu">element_blank</span>(),</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">paste0</span>(<span class="st">"%"</span>,<span class="fu">sprintf</span>(<span class="st">"%1.1f"</span>,p1<span class="sc">*</span><span class="dv">100</span>)))),</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">4</span>,<span class="at">fontface =</span> <span class="st">"bold"</span>,</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">position=</span><span class="fu">position_stack</span>(<span class="at">vjust=</span><span class="fl">0.5</span>), <span class="at">show.legend=</span><span class="cn">FALSE</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="crossTableBarChart_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Son adımda barların toplam oranı yazılıyor. Bu adımda eğer ayrı <code>aes</code> verilmezse her fill için label yazılır. Doğrusu şu şekilde…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(e,<span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Geldiği Şehir</span><span class="st">`</span>,<span class="at">y=</span>p2,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">fill=</span><span class="st">`</span><span class="at">Kampüs Ziyareti</span><span class="st">`</span>)) <span class="sc">+</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,<span class="at">color=</span><span class="st">"black"</span>) <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>scales<span class="sc">::</span>percent,<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Oran"</span>) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label=</span><span class="fu">ifelse</span>(p1<span class="sc">==</span><span class="dv">1</span>,<span class="fu">element_blank</span>(),</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">paste0</span>(<span class="st">"%"</span>,<span class="fu">sprintf</span>(<span class="st">"%1.1f"</span>,p1<span class="sc">*</span><span class="dv">100</span>)))),</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">4</span>,<span class="at">fontface =</span> <span class="st">"bold"</span>,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">position=</span><span class="fu">position_stack</span>(<span class="at">vjust=</span><span class="fl">0.5</span>), <span class="at">show.legend=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Geldiği Şehir</span><span class="st">`</span>,<span class="at">y=</span>tot,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"%"</span>,<span class="fu">sprintf</span>(<span class="st">"%1.2f"</span>, tot<span class="sc">*</span><span class="dv">100</span>))),</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size=</span><span class="dv">5</span>,<span class="at">fill=</span><span class="st">"white"</span>,<span class="at">vjust=</span><span class="sc">-</span>.<span class="dv">2</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="crossTableBarChart_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Yanlış olanı ise şu şekilde…</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(e,<span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Geldiği Şehir</span><span class="st">`</span>,<span class="at">y=</span>p2,</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">fill=</span><span class="st">`</span><span class="at">Kampüs Ziyareti</span><span class="st">`</span>)) <span class="sc">+</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>,<span class="at">color=</span><span class="st">"black"</span>) <span class="sc">+</span> <span class="fu">scale_y_continuous</span>(<span class="at">labels=</span>scales<span class="sc">::</span>percent,<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>)) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">"Oran"</span>) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label=</span><span class="fu">ifelse</span>(p1<span class="sc">==</span><span class="dv">1</span>,<span class="fu">element_blank</span>(),</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">paste0</span>(<span class="st">"%"</span>,<span class="fu">sprintf</span>(<span class="st">"%1.1f"</span>,p1<span class="sc">*</span><span class="dv">100</span>)))),</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">4</span>,<span class="at">fontface =</span> <span class="st">"bold"</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">position=</span><span class="fu">position_stack</span>(<span class="at">vjust=</span><span class="fl">0.5</span>), <span class="at">show.legend=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"%"</span>,<span class="fu">sprintf</span>(<span class="st">"%1.2f"</span>, tot<span class="sc">*</span><span class="dv">100</span>))),</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size=</span><span class="dv">5</span>,<span class="at">fill=</span><span class="st">"white"</span>,<span class="at">vjust=</span><span class="sc">-</span>.<span class="dv">2</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="crossTableBarChart_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Emin olmamakla birlikte muhtemelen doğru grafiği veren kod etiketleri “doğru” y değerinde üst üste basıyor. Sonuçta istenen grafiğin elde ediliyor olması önemli. Yazıyı tamamlıyoruz.</p>
 
 
 

@@ -172,26 +172,96 @@ AnketLise |> select(c(44,45)) |>
   kbl() |> kable_styling()
 ```
 
-Bu aşamadan sonrası standard ggplot kullanmından ibaret. Geldiği şehir değişkenine göre gruplama `geom_label` içinde yapılıyor.
+Bu aşamadan sonra bar plot üzerinde toplam değerlerini oluşturmak gerekli.
 
 ```{r}
 #| code-fold: false
 #| eval: false
+AnketLise |> select(c(44,45)) |>  group_by_at(c(1,2)) |> tally() |>  
+  mutate(p1=n/sum(n)) |> ungroup() |> mutate(p2=n/sum(n)) |> 
+  group_by_at(1) |>  mutate(tot=sum(p2))
+```
 
-ggplot(e,aes(x=`Geldiği Şehir`,
-                    fill=`Kampüs Ziyareti`,
-                   y=p2)) + 
-  geom_bar(stat = "identity",color="black") +
-  scale_y_continuous(labels=scales::percent,limits = c(0,1),
+```{r}
+#| echo: false
+AnketLise |> select(c(44,45)) |>  group_by_at(c(1,2)) |> tally() |>  
+  mutate(p1=n/sum(n)) |> ungroup() |> mutate(p2=n/sum(n)) |> 
+  group_by_at(1) |>  mutate(tot=sum(p2)) |>  
+  kbl() |> kable_styling()
+```
+
+
+Grafik adım adım şu şekilde oluşturuluyor:
+
+```{r}
+#| code-fold: false
+#| eval: true
+
+e <- AnketLise |> select(c(44,45)) |>  group_by_at(c(1,2)) |> tally() |>  
+  mutate(p1=n/sum(n)) |> ungroup() |> mutate(p2=n/sum(n)) |> 
+  group_by_at(1) |>  mutate(tot=sum(p2))
+  
+ ggplot(e,aes(x=`Geldiği Şehir`,y=p2,
+                    fill=`Kampüs Ziyareti`)) + 
+  geom_bar(stat = "identity",color="black") + scale_y_continuous(labels=scales::percent,limits = c(0,1),
+                     expand = c(0,0)) + ylab("Oran")
+
+```
+
+Barların içindeki oranları yazmak kolay olanı...
+
+```{r}
+#| code-fold: false
+#| eval: true
+
+ggplot(e,aes(x=`Geldiği Şehir`,y=p2,
+                    fill=`Kampüs Ziyareti`)) + 
+  geom_bar(stat = "identity",color="black") + scale_y_continuous(labels=scales::percent,limits = c(0,1),
                      expand = c(0,0)) + ylab("Oran") +
   geom_label(aes(label=ifelse(p1==1,element_blank(),
                               paste0("%",sprintf("%1.1f",p1*100)))),
              colour="black", size = 4,fontface = "bold",
-             position=position_stack(vjust=0.5), show.legend=FALSE)+
-      labs(fill = "Kampüs ziyareti")+
-  geom_label(aes(label = paste0("%",sprintf("%1.2f", after_stat(y)*100)),
-                  group =`Geldiği Şehir`), stat='summary', fun=sum,
-                  vjust=-1,size=5,fill="white")
+             position=position_stack(vjust=0.5), show.legend=FALSE)
+
 ```
 
-son.
+Son adımda barların toplam oranı yazılıyor. Bu adımda eğer ayrı `aes` verilmezse her fill için label yazılır. Doğrusu şu şekilde...
+
+
+```{r}
+#| code-fold: false
+#| eval: true
+
+ggplot(e,aes(x=`Geldiği Şehir`,y=p2,
+                    fill=`Kampüs Ziyareti`)) + 
+  geom_bar(stat = "identity",color="black") + scale_y_continuous(labels=scales::percent,limits = c(0,1),
+                     expand = c(0,0)) + ylab("Oran") +
+  geom_label(aes(label=ifelse(p1==1,element_blank(),
+                              paste0("%",sprintf("%1.1f",p1*100)))),
+             colour="black", size = 4,fontface = "bold",
+             position=position_stack(vjust=0.5), show.legend=FALSE) +
+  geom_label(aes(x=`Geldiği Şehir`,y=tot,
+                 label = paste0("%",sprintf("%1.2f", tot*100))),
+                  size=5,fill="white",vjust=-.2)
+```
+
+Yanlış olanı ise şu şekilde...
+
+```{r}
+#| code-fold: false
+#| eval: true
+
+ggplot(e,aes(x=`Geldiği Şehir`,y=p2,
+                    fill=`Kampüs Ziyareti`)) + 
+  geom_bar(stat = "identity",color="black") + scale_y_continuous(labels=scales::percent,limits = c(0,1),
+                     expand = c(0,0)) + ylab("Oran") +
+  geom_label(aes(label=ifelse(p1==1,element_blank(),
+                              paste0("%",sprintf("%1.1f",p1*100)))),
+             colour="black", size = 4,fontface = "bold",
+             position=position_stack(vjust=0.5), show.legend=FALSE) +
+  geom_label(aes(
+                 label = paste0("%",sprintf("%1.2f", tot*100))),
+                  size=5,fill="white",vjust=-.2)
+```
+
+Emin olmamakla birlikte muhtemelen doğru grafiği veren kod etiketleri "doğru" y değerinde üst üste basıyor. Sonuçta istenen grafiğin elde ediliyor olması önemli. Yazıyı tamamlıyoruz.
