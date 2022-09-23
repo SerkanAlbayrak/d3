@@ -101,13 +101,14 @@ Renk gruplarının içinde yazan oranlar, ilgili kısım içindeki oranı yani g
 
 İkinci grafikte ise öğrencilerin İzmir'den veya şehir dışından gelmelerine göre kampüsü ziyaret etme oranları gösteriliyor. Öğrencinin geldiği yeri belirlemede ÖSYM'den yerleşen öğrencilerle ilgili gönderilen verinin adres veya nüfuse kayıtlı olduğu şehir bilgisi değil, mezun olduğu lisenin bulunduğu şehir bilgisi kullanıldığı detayını da paylaşmakta fayda var.
 
+
+
 ::: {.column-margin}
 
 Tam bu noktada alternatif bir gösterim tercih edilebilirdi ve aslında anket raporunun ilk versiyonunda bu gösterim kullanıldı ve hatta kullanılmasında analist ısrarcı oldu. Bu versiyonda renkli kısımlarda gösterilen oranlar bütün içindeki oranı göstermekteydi. Buna göre kırmızı alanda %69.6 yerine %50 yazıyordu. Dolayısıyla bir çırpıda öğrencilerin yarısının kampüs ziyareti yaptığı **VE** bu ziyaretin tercihinde etkili olduğu görülebiliyordu. Ancak yapılan sunumlarda bu gösterim dinleyiciler tarafından beğenilmedi ve sezgisel olmadığı söylendi. Bütün içindeki oran yerine ilgili grup içindeki oranın gösterilmesi talep edildi.
 
 :::
 
-  
 
 
 ```{r}
@@ -264,4 +265,4 @@ ggplot(e,aes(x=`Geldiği Şehir`,y=p2,
                   size=5,fill="white",vjust=-.2)
 ```
 
-Emin olmamakla birlikte muhtemelen doğru grafiği veren kod etiketleri "doğru" y değerinde üst üste basıyor. Sonuçta istenen grafiğin elde ediliyor olması önemli. Yazıyı tamamlıyoruz.
+Emin olmamakla birlikte muhtemelen doğru grafiği veren kod, etiketleri "doğru" değerinde üst üste basıyor. Sonuçta istenen grafiğin elde ediliyor olması önemli. Yazıyı tamamlıyoruz.
