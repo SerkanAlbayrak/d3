@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="tr" xml:lang="tr"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.3.220">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -13,10 +13,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -55,7 +60,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -68,7 +73,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -143,22 +148,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="../../../index.html">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">zeytin</span>
-  </a>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../index.html">Ana Sayfa</a>
+    <a class="nav-link" href="../../../index.html" rel="" target="">
+ <span class="menu-text">Ana Sayfa</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../about.html">İletişim</a>
+    <a class="nav-link" href="../../../about.html" rel="" target="">
+ <span class="menu-text">İletişim</span></a>
   </li>  
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
@@ -166,8 +177,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">İçerik</h2>
    
   <ul>
@@ -191,8 +202,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul>
 </nav>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
 <main class="content column-page-right" id="quarto-document-content">
@@ -230,6 +242,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <p class="date">31 Mayıs 2022</p>
     </div>
   </div>
+  
     
   </div>
   
@@ -322,98 +335,98 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>SoruSayilari <span class="sc">|&gt;</span> <span class="fu">kbl</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"SINAV"</span>, <span class="st">"Soru Grubu"</span>, <span class="st">"Soru Sayısı"</span>),<span class="at">booktabs =</span> <span class="cn">TRUE</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;"> SINAV </th>
-   <th style="text-align:left;"> Soru Grubu </th>
-   <th style="text-align:right;"> Soru Sayısı </th>
-  </tr>
- </thead>
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">SINAV</th>
+<th style="text-align: left;">Soru Grubu</th>
+<th style="text-align: right;">Soru Sayısı</th>
+</tr>
+</thead>
 <tbody>
-  <tr>
-   <td style="text-align:left;"> TYT </td>
-   <td style="text-align:left;"> Temel Matematik </td>
-   <td style="text-align:right;"> 40 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> TYT </td>
-   <td style="text-align:left;"> Türkçe </td>
-   <td style="text-align:right;"> 40 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> TYT </td>
-   <td style="text-align:left;"> Fen Bilgisi </td>
-   <td style="text-align:right;"> 20 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> TYT </td>
-   <td style="text-align:left;"> Sosyal Bilimler </td>
-   <td style="text-align:right;"> 20 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT </td>
-   <td style="text-align:left;"> Matematik </td>
-   <td style="text-align:right;"> 40 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT </td>
-   <td style="text-align:left;"> Fizik </td>
-   <td style="text-align:right;"> 14 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT </td>
-   <td style="text-align:left;"> Kimya </td>
-   <td style="text-align:right;"> 13 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT </td>
-   <td style="text-align:left;"> Biyoloji </td>
-   <td style="text-align:right;"> 13 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT </td>
-   <td style="text-align:left;"> Türk Dili ve Edebiyatı </td>
-   <td style="text-align:right;"> 24 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT </td>
-   <td style="text-align:left;"> Tarih 1 </td>
-   <td style="text-align:right;"> 10 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT </td>
-   <td style="text-align:left;"> Coğrafya 1 </td>
-   <td style="text-align:right;"> 6 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT </td>
-   <td style="text-align:left;"> Tarih 2 </td>
-   <td style="text-align:right;"> 11 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT </td>
-   <td style="text-align:left;"> Coğrafya 2 </td>
-   <td style="text-align:right;"> 11 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT </td>
-   <td style="text-align:left;"> Felsefe Grubu </td>
-   <td style="text-align:right;"> 12 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT </td>
-   <td style="text-align:left;"> DKAB </td>
-   <td style="text-align:right;"> 6 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT </td>
-   <td style="text-align:left;"> Dil Testi </td>
-   <td style="text-align:right;"> 80 </td>
-  </tr>
+<tr class="odd">
+<td style="text-align: left;">TYT</td>
+<td style="text-align: left;">Temel Matematik</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TYT</td>
+<td style="text-align: left;">Türkçe</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TYT</td>
+<td style="text-align: left;">Fen Bilgisi</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TYT</td>
+<td style="text-align: left;">Sosyal Bilimler</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AYT</td>
+<td style="text-align: left;">Matematik</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AYT</td>
+<td style="text-align: left;">Fizik</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AYT</td>
+<td style="text-align: left;">Kimya</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AYT</td>
+<td style="text-align: left;">Biyoloji</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AYT</td>
+<td style="text-align: left;">Türk Dili ve Edebiyatı</td>
+<td style="text-align: right;">24</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AYT</td>
+<td style="text-align: left;">Tarih 1</td>
+<td style="text-align: right;">10</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AYT</td>
+<td style="text-align: left;">Coğrafya 1</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AYT</td>
+<td style="text-align: left;">Tarih 2</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AYT</td>
+<td style="text-align: left;">Coğrafya 2</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AYT</td>
+<td style="text-align: left;">Felsefe Grubu</td>
+<td style="text-align: right;">12</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AYT</td>
+<td style="text-align: left;">DKAB</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AYT</td>
+<td style="text-align: left;">Dil Testi</td>
+<td style="text-align: right;">80</td>
+</tr>
 </tbody>
 </table>
+
 
 </div>
 </div>
@@ -453,33 +466,33 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">table</span>(all<span class="sc">$</span>stuType[all<span class="sc">$</span>l50<span class="sc">&gt;</span><span class="dv">0</span>]) <span class="sc">|&gt;</span> <span class="fu">kbl</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Yerleşen Öğrencinin Öğrenim Durumu"</span>, <span class="st">"Frekans"</span>))</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Yerleşen Öğrencinin Öğrenim Durumu </th>
-   <th style="text-align:right;"> Frekans </th>
-  </tr>
- </thead>
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Yerleşen Öğrencinin Öğrenim Durumu</th>
+<th style="text-align: right;">Frekans</th>
+</tr>
+</thead>
 <tbody>
-  <tr>
-   <td style="text-align:left;"> Bir üniversiteden daha önce mezun olmuş </td>
-   <td style="text-align:right;"> 48 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Daha önce yerleşip kayıt yaptırmamış ya da kaydı silinmiş </td>
-   <td style="text-align:right;"> 425 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lise mezunu, daha önce hiç üniversiteye yerleşmemişti. </td>
-   <td style="text-align:right;"> 234 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Üniversitede öğrenci iken sınava girip buraya yerleşti </td>
-   <td style="text-align:right;"> 876 </td>
-  </tr>
+<tr class="odd">
+<td style="text-align: left;">Bir üniversiteden daha önce mezun olmuş</td>
+<td style="text-align: right;">48</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Daha önce yerleşip kayıt yaptırmamış ya da kaydı silinmiş</td>
+<td style="text-align: right;">425</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lise mezunu, daha önce hiç üniversiteye yerleşmemişti.</td>
+<td style="text-align: right;">234</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Üniversitede öğrenci iken sınava girip buraya yerleşti</td>
+<td style="text-align: right;">876</td>
+</tr>
 </tbody>
 </table>
+
 
 </div>
 </div>
@@ -490,37 +503,37 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(all<span class="sc">$</span>stuType) <span class="sc">|&gt;</span> <span class="fu">kbl</span>(<span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Yerleşen Öğrencinin Öğrenim Durumu"</span>, <span class="st">"Frekans"</span>))</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-
-<table>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Yerleşen Öğrencinin Öğrenim Durumu </th>
-   <th style="text-align:right;"> Frekans </th>
-  </tr>
- </thead>
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Yerleşen Öğrencinin Öğrenim Durumu</th>
+<th style="text-align: right;">Frekans</th>
+</tr>
+</thead>
 <tbody>
-  <tr>
-   <td style="text-align:left;"> Bir üniversiteden daha önce mezun olmuş </td>
-   <td style="text-align:right;"> 1329 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Daha önce yerleşip kayıt yaptırmamış ya da kaydı silinmiş </td>
-   <td style="text-align:right;"> 1122 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Lise mezunu, daha önce hiç üniversiteye yerleşmemişti. </td>
-   <td style="text-align:right;"> 8948 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Liseden yeni mezun ÖSYSye ilk girişinde yerleşti </td>
-   <td style="text-align:right;"> 5592 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Üniversitede öğrenci iken sınava girip buraya yerleşti </td>
-   <td style="text-align:right;"> 3078 </td>
-  </tr>
+<tr class="odd">
+<td style="text-align: left;">Bir üniversiteden daha önce mezun olmuş</td>
+<td style="text-align: right;">1329</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Daha önce yerleşip kayıt yaptırmamış ya da kaydı silinmiş</td>
+<td style="text-align: right;">1122</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lise mezunu, daha önce hiç üniversiteye yerleşmemişti.</td>
+<td style="text-align: right;">8948</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Liseden yeni mezun ÖSYSye ilk girişinde yerleşti</td>
+<td style="text-align: right;">5592</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Üniversitede öğrenci iken sınava girip buraya yerleşti</td>
+<td style="text-align: right;">3078</td>
+</tr>
 </tbody>
 </table>
+
 
 </div>
 </div>
@@ -546,86 +559,94 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 <span id="cb13-2"><a href="#cb13-2"></a><span class="fu">summ</span>(TYTModel,<span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Observations</td>
+<td style="text-align: right;">2320</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">Dependent variable</td>
+<td style="text-align: right;">SinavPuan</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Type</td>
+<td style="text-align: right;">OLS linear regression</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">F(4,2315)</td>
+<td style="text-align: right;">3063149.52204</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">R²</td>
+<td style="text-align: right;">0.99981</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Adj. R²</td>
+<td style="text-align: right;">0.99981</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Est.</th>
+<th style="text-align: right;">S.E.</th>
+<th style="text-align: right;">t val.</th>
+<th style="text-align: right;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">(Intercept)</td>
+<td style="text-align: right;">97.30995</td>
+<td style="text-align: right;">0.02600</td>
+<td style="text-align: right;">3742.64952</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`TYT Mat`</td>
+<td style="text-align: right;">4.52820</td>
+<td style="text-align: right;">0.00303</td>
+<td style="text-align: right;">1494.56400</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`TYT Türkçe`</td>
+<td style="text-align: right;">2.92197</td>
+<td style="text-align: right;">0.00147</td>
+<td style="text-align: right;">1985.94936</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`TYT Fen`</td>
+<td style="text-align: right;">3.18509</td>
+<td style="text-align: right;">0.00400</td>
+<td style="text-align: right;">796.57918</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`TYT Sosyal`</td>
+<td style="text-align: right;">2.98252</td>
+<td style="text-align: right;">0.00263</td>
+<td style="text-align: right;">1135.15370</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+</tbody><tfoot>
+<tr class="even">
+<td style="text-align: left; padding: 0;"><sup></sup> Standard errors: OLS</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tfoot>
 
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Observations </td>
-   <td style="text-align:right;"> 2320 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Dependent variable </td>
-   <td style="text-align:right;"> SinavPuan </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Type </td>
-   <td style="text-align:right;"> OLS linear regression </td>
-  </tr>
-</tbody>
-</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> F(4,2315) </td>
-   <td style="text-align:right;"> 3063149.52204 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> R² </td>
-   <td style="text-align:right;"> 0.99981 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Adj. R² </td>
-   <td style="text-align:right;"> 0.99981 </td>
-  </tr>
-</tbody>
-</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> Est. </th>
-   <th style="text-align:right;"> S.E. </th>
-   <th style="text-align:right;"> t val. </th>
-   <th style="text-align:right;"> p </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> (Intercept) </td>
-   <td style="text-align:right;"> 97.30995 </td>
-   <td style="text-align:right;"> 0.02600 </td>
-   <td style="text-align:right;"> 3742.64952 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Mat` </td>
-   <td style="text-align:right;"> 4.52820 </td>
-   <td style="text-align:right;"> 0.00303 </td>
-   <td style="text-align:right;"> 1494.56400 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Türkçe` </td>
-   <td style="text-align:right;"> 2.92197 </td>
-   <td style="text-align:right;"> 0.00147 </td>
-   <td style="text-align:right;"> 1985.94936 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Fen` </td>
-   <td style="text-align:right;"> 3.18509 </td>
-   <td style="text-align:right;"> 0.00400 </td>
-   <td style="text-align:right;"> 796.57918 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Sosyal` </td>
-   <td style="text-align:right;"> 2.98252 </td>
-   <td style="text-align:right;"> 0.00263 </td>
-   <td style="text-align:right;"> 1135.15370 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-</tbody>
-<tfoot><tr><td style="padding: 0; " colspan="100%">
-<sup></sup> Standard errors: OLS</td></tr></tfoot>
 </table>
 </div>
 <details>
@@ -664,86 +685,86 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(modeldataTYT[h,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">13</span><span class="sc">:</span><span class="dv">25</span>,<span class="dv">28</span>,<span class="dv">30</span>)]) <span class="sc">|&gt;</span> <span class="fu">kbl</span>()</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-
-<table>
+<table class="table table-sm table-striped">
 <tbody>
-  <tr>
-   <td style="text-align:left;"> ProgramKodu </td>
-   <td style="text-align:left;"> 206550021 </td>
-   <td style="text-align:left;"> 200351003 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Üniversite </td>
-   <td style="text-align:left;"> ÜSKÜDAR ÜNİV.  - (Burslu) (2 Yıllık) </td>
-   <td style="text-align:left;"> AVRASYA ÜNİV.  - (Burslu) (2 Yıllık) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Yılı </td>
-   <td style="text-align:left;"> 2021 </td>
-   <td style="text-align:left;"> 2021 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Türü </td>
-   <td style="text-align:left;"> Vakıf </td>
-   <td style="text-align:left;"> Vakıf </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Katsayı </td>
-   <td style="text-align:left;"> 0.12 </td>
-   <td style="text-align:left;"> 0.12 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> OBP </td>
-   <td style="text-align:left;"> 382.649 </td>
-   <td style="text-align:left;"> 369.700 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Puan </td>
-   <td style="text-align:left;"> 270.4194 </td>
-   <td style="text-align:left;"> 259.9283 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Yerl. </td>
-   <td style="text-align:left;"> 12 </td>
-   <td style="text-align:left;"> 9 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> TYT Türkçe </td>
-   <td style="text-align:left;"> 24.25 </td>
-   <td style="text-align:left;"> 19.50 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> TYT Sosyal </td>
-   <td style="text-align:left;"> 15.25 </td>
-   <td style="text-align:left;"> 9.25 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> TYT Mat </td>
-   <td style="text-align:left;"> 0.75 </td>
-   <td style="text-align:left;"> 2.00 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> TYT Fen </td>
-   <td style="text-align:left;"> 0.0 </td>
-   <td style="text-align:left;"> 2.5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> PuanTuru </td>
-   <td style="text-align:left;"> TYT </td>
-   <td style="text-align:left;"> TYT </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> BoluMKodu </td>
-   <td style="text-align:left;"> 30146 </td>
-   <td style="text-align:left;"> 30151 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SinavPuan </td>
-   <td style="text-align:left;"> 224.5015 </td>
-   <td style="text-align:left;"> 215.5643 </td>
-  </tr>
+<tr class="odd">
+<td style="text-align: left;">ProgramKodu</td>
+<td style="text-align: left;">206550021</td>
+<td style="text-align: left;">200351003</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Üniversite</td>
+<td style="text-align: left;">ÜSKÜDAR ÜNİV. - (Burslu) (2 Yıllık)</td>
+<td style="text-align: left;">AVRASYA ÜNİV. - (Burslu) (2 Yıllık)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Yılı</td>
+<td style="text-align: left;">2021</td>
+<td style="text-align: left;">2021</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Türü</td>
+<td style="text-align: left;">Vakıf</td>
+<td style="text-align: left;">Vakıf</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Katsayı</td>
+<td style="text-align: left;">0.12</td>
+<td style="text-align: left;">0.12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OBP</td>
+<td style="text-align: left;">382.649</td>
+<td style="text-align: left;">369.700</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Puan</td>
+<td style="text-align: left;">270.4194</td>
+<td style="text-align: left;">259.9283</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Yerl.</td>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TYT Türkçe</td>
+<td style="text-align: left;">24.25</td>
+<td style="text-align: left;">19.50</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TYT Sosyal</td>
+<td style="text-align: left;">15.25</td>
+<td style="text-align: left;">9.25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TYT Mat</td>
+<td style="text-align: left;">0.75</td>
+<td style="text-align: left;">2.00</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TYT Fen</td>
+<td style="text-align: left;">0.0</td>
+<td style="text-align: left;">2.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PuanTuru</td>
+<td style="text-align: left;">TYT</td>
+<td style="text-align: left;">TYT</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">BoluMKodu</td>
+<td style="text-align: left;">30146</td>
+<td style="text-align: left;">30151</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SinavPuan</td>
+<td style="text-align: left;">224.5015</td>
+<td style="text-align: left;">215.5643</td>
+</tr>
 </tbody>
 </table>
+
 
 </div>
 </div>
@@ -758,86 +779,94 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(TYTModel,<span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Observations</td>
+<td style="text-align: right;">2318</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">Dependent variable</td>
+<td style="text-align: right;">SinavPuan</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Type</td>
+<td style="text-align: right;">OLS linear regression</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">F(4,2313)</td>
+<td style="text-align: right;">365033785663367.31250</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">R²</td>
+<td style="text-align: right;">1.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Adj. R²</td>
+<td style="text-align: right;">1.00000</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Est.</th>
+<th style="text-align: right;">S.E.</th>
+<th style="text-align: right;">t val.</th>
+<th style="text-align: right;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">(Intercept)</td>
+<td style="text-align: right;">97.33911</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">40877845.52738</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`TYT Mat`</td>
+<td style="text-align: right;">4.52956</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">16333594.42471</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`TYT Türkçe`</td>
+<td style="text-align: right;">2.92085</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">21686245.09984</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`TYT Fen`</td>
+<td style="text-align: right;">3.18450</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">8700242.49859</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`TYT Sosyal`</td>
+<td style="text-align: right;">2.97902</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">12374553.77474</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+</tbody><tfoot>
+<tr class="even">
+<td style="text-align: left; padding: 0;"><sup></sup> Standard errors: OLS</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tfoot>
 
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Observations </td>
-   <td style="text-align:right;"> 2318 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Dependent variable </td>
-   <td style="text-align:right;"> SinavPuan </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Type </td>
-   <td style="text-align:right;"> OLS linear regression </td>
-  </tr>
-</tbody>
-</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> F(4,2313) </td>
-   <td style="text-align:right;"> 365033785663367.31250 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> R² </td>
-   <td style="text-align:right;"> 1.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Adj. R² </td>
-   <td style="text-align:right;"> 1.00000 </td>
-  </tr>
-</tbody>
-</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> Est. </th>
-   <th style="text-align:right;"> S.E. </th>
-   <th style="text-align:right;"> t val. </th>
-   <th style="text-align:right;"> p </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> (Intercept) </td>
-   <td style="text-align:right;"> 97.33911 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 40877845.52738 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Mat` </td>
-   <td style="text-align:right;"> 4.52956 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 16333594.42471 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Türkçe` </td>
-   <td style="text-align:right;"> 2.92085 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 21686245.09984 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Fen` </td>
-   <td style="text-align:right;"> 3.18450 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 8700242.49859 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Sosyal` </td>
-   <td style="text-align:right;"> 2.97902 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 12374553.77474 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-</tbody>
-<tfoot><tr><td style="padding: 0; " colspan="100%">
-<sup></sup> Standard errors: OLS</td></tr></tfoot>
 </table>
 </div>
 <details>
@@ -857,49 +886,49 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_styling</span>()</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-
-<table class="table" style="margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:left;"> Soru Grubu </th>
-   <th style="text-align:right;"> 2019 </th>
-   <th style="text-align:right;"> 2020 </th>
-   <th style="text-align:right;"> 2021 </th>
-  </tr>
- </thead>
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Soru Grubu</th>
+<th style="text-align: right;">2019</th>
+<th style="text-align: right;">2020</th>
+<th style="text-align: right;">2021</th>
+</tr>
+</thead>
 <tbody>
-  <tr>
-   <td style="text-align:left;"> Matematik </td>
-   <td style="text-align:right;"> 3.72544 </td>
-   <td style="text-align:right;"> 3.34392 </td>
-   <td style="text-align:right;"> 4.529560 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Türkçe </td>
-   <td style="text-align:right;"> 3.10474 </td>
-   <td style="text-align:right;"> 3.24011 </td>
-   <td style="text-align:right;"> 2.920850 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Fen Bilimleri </td>
-   <td style="text-align:right;"> 3.49299 </td>
-   <td style="text-align:right;"> 3.40551 </td>
-   <td style="text-align:right;"> 3.184504 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Sosyal Bilimler </td>
-   <td style="text-align:right;"> 3.02917 </td>
-   <td style="text-align:right;"> 3.65789 </td>
-   <td style="text-align:right;"> 2.979017 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SABİT </td>
-   <td style="text-align:right;"> 100.06900 </td>
-   <td style="text-align:right;"> 99.42090 </td>
-   <td style="text-align:right;"> 97.339196 </td>
-  </tr>
+<tr class="odd">
+<td style="text-align: left;">Matematik</td>
+<td style="text-align: right;">3.72544</td>
+<td style="text-align: right;">3.34392</td>
+<td style="text-align: right;">4.529560</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Türkçe</td>
+<td style="text-align: right;">3.10474</td>
+<td style="text-align: right;">3.24011</td>
+<td style="text-align: right;">2.920850</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Fen Bilimleri</td>
+<td style="text-align: right;">3.49299</td>
+<td style="text-align: right;">3.40551</td>
+<td style="text-align: right;">3.184504</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sosyal Bilimler</td>
+<td style="text-align: right;">3.02917</td>
+<td style="text-align: right;">3.65789</td>
+<td style="text-align: right;">2.979017</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SABİT</td>
+<td style="text-align: right;">100.06900</td>
+<td style="text-align: right;">99.42090</td>
+<td style="text-align: right;">97.339196</td>
+</tr>
 </tbody>
 </table>
+
 
 </div>
 </div>
@@ -917,114 +946,122 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(SAYModel,<span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Observations</td>
+<td style="text-align: right;">1455</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">Dependent variable</td>
+<td style="text-align: right;">SinavPuan</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Type</td>
+<td style="text-align: right;">OLS linear regression</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">F(8,1446)</td>
+<td style="text-align: right;">10988987483543.21484</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">R²</td>
+<td style="text-align: right;">1.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Adj. R²</td>
+<td style="text-align: right;">1.00000</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Est.</th>
+<th style="text-align: right;">S.E.</th>
+<th style="text-align: right;">t val.</th>
+<th style="text-align: right;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">(Intercept)</td>
+<td style="text-align: right;">98.19313</td>
+<td style="text-align: right;">0.00004</td>
+<td style="text-align: right;">2702320.89215</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`TYT Mat`</td>
+<td style="text-align: right;">1.75757</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">875358.41506</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`TYT Türkçe`</td>
+<td style="text-align: right;">1.13335</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">715811.60055</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`TYT Fen`</td>
+<td style="text-align: right;">1.23565</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">422010.58365</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`TYT Sosyal`</td>
+<td style="text-align: right;">1.15593</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">465868.10405</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`AYT Mat`</td>
+<td style="text-align: right;">3.40447</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">1855341.58517</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`AYT Fizik`</td>
+<td style="text-align: right;">3.47680</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">1000701.61504</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`AYT Kimya`</td>
+<td style="text-align: right;">2.46429</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">724368.04263</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`AYT Biyoloji`</td>
+<td style="text-align: right;">2.20584</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">659395.54832</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+</tbody><tfoot>
+<tr class="even">
+<td style="text-align: left; padding: 0;"><sup></sup> Standard errors: OLS</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tfoot>
 
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Observations </td>
-   <td style="text-align:right;"> 1455 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Dependent variable </td>
-   <td style="text-align:right;"> SinavPuan </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Type </td>
-   <td style="text-align:right;"> OLS linear regression </td>
-  </tr>
-</tbody>
-</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> F(8,1446) </td>
-   <td style="text-align:right;"> 10988987483543.21484 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> R² </td>
-   <td style="text-align:right;"> 1.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Adj. R² </td>
-   <td style="text-align:right;"> 1.00000 </td>
-  </tr>
-</tbody>
-</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> Est. </th>
-   <th style="text-align:right;"> S.E. </th>
-   <th style="text-align:right;"> t val. </th>
-   <th style="text-align:right;"> p </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> (Intercept) </td>
-   <td style="text-align:right;"> 98.19313 </td>
-   <td style="text-align:right;"> 0.00004 </td>
-   <td style="text-align:right;"> 2702320.89215 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Mat` </td>
-   <td style="text-align:right;"> 1.75757 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 875358.41506 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Türkçe` </td>
-   <td style="text-align:right;"> 1.13335 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 715811.60055 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Fen` </td>
-   <td style="text-align:right;"> 1.23565 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 422010.58365 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Sosyal` </td>
-   <td style="text-align:right;"> 1.15593 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 465868.10405 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Mat` </td>
-   <td style="text-align:right;"> 3.40447 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 1855341.58517 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Fizik` </td>
-   <td style="text-align:right;"> 3.47680 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 1000701.61504 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Kimya` </td>
-   <td style="text-align:right;"> 2.46429 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 724368.04263 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Biyoloji` </td>
-   <td style="text-align:right;"> 2.20584 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 659395.54832 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-</tbody>
-<tfoot><tr><td style="padding: 0; " colspan="100%">
-<sup></sup> Standard errors: OLS</td></tr></tfoot>
 </table>
 </div>
 <details>
@@ -1048,114 +1085,122 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(EAModel,<span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Observations</td>
+<td style="text-align: right;">943</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">Dependent variable</td>
+<td style="text-align: right;">SinavPuan</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Type</td>
+<td style="text-align: right;">OLS linear regression</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">F(8,934)</td>
+<td style="text-align: right;">9731342.24535</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">R²</td>
+<td style="text-align: right;">0.99999</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Adj. R²</td>
+<td style="text-align: right;">0.99999</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Est.</th>
+<th style="text-align: right;">S.E.</th>
+<th style="text-align: right;">t val.</th>
+<th style="text-align: right;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">(Intercept)</td>
+<td style="text-align: right;">92.47708</td>
+<td style="text-align: right;">0.03552</td>
+<td style="text-align: right;">2603.45109</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`TYT Mat`</td>
+<td style="text-align: right;">1.85923</td>
+<td style="text-align: right;">0.00182</td>
+<td style="text-align: right;">1023.83970</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`TYT Türkçe`</td>
+<td style="text-align: right;">1.20199</td>
+<td style="text-align: right;">0.00141</td>
+<td style="text-align: right;">849.53286</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`TYT Fen`</td>
+<td style="text-align: right;">1.30702</td>
+<td style="text-align: right;">0.00236</td>
+<td style="text-align: right;">553.10711</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`TYT Sosyal`</td>
+<td style="text-align: right;">1.22348</td>
+<td style="text-align: right;">0.00216</td>
+<td style="text-align: right;">567.08783</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`AYT Mat`</td>
+<td style="text-align: right;">3.60540</td>
+<td style="text-align: right;">0.00170</td>
+<td style="text-align: right;">2124.64803</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`AYT Türkçe`</td>
+<td style="text-align: right;">3.02357</td>
+<td style="text-align: right;">0.00172</td>
+<td style="text-align: right;">1761.62815</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`AYT Tarih1`</td>
+<td style="text-align: right;">3.34516</td>
+<td style="text-align: right;">0.00345</td>
+<td style="text-align: right;">970.18103</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`AYT Coğrafya1`</td>
+<td style="text-align: right;">2.37120</td>
+<td style="text-align: right;">0.00512</td>
+<td style="text-align: right;">463.37878</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+</tbody><tfoot>
+<tr class="even">
+<td style="text-align: left; padding: 0;"><sup></sup> Standard errors: OLS</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tfoot>
 
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Observations </td>
-   <td style="text-align:right;"> 943 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Dependent variable </td>
-   <td style="text-align:right;"> SinavPuan </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Type </td>
-   <td style="text-align:right;"> OLS linear regression </td>
-  </tr>
-</tbody>
-</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> F(8,934) </td>
-   <td style="text-align:right;"> 9731342.24535 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> R² </td>
-   <td style="text-align:right;"> 0.99999 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Adj. R² </td>
-   <td style="text-align:right;"> 0.99999 </td>
-  </tr>
-</tbody>
-</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> Est. </th>
-   <th style="text-align:right;"> S.E. </th>
-   <th style="text-align:right;"> t val. </th>
-   <th style="text-align:right;"> p </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> (Intercept) </td>
-   <td style="text-align:right;"> 92.47708 </td>
-   <td style="text-align:right;"> 0.03552 </td>
-   <td style="text-align:right;"> 2603.45109 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Mat` </td>
-   <td style="text-align:right;"> 1.85923 </td>
-   <td style="text-align:right;"> 0.00182 </td>
-   <td style="text-align:right;"> 1023.83970 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Türkçe` </td>
-   <td style="text-align:right;"> 1.20199 </td>
-   <td style="text-align:right;"> 0.00141 </td>
-   <td style="text-align:right;"> 849.53286 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Fen` </td>
-   <td style="text-align:right;"> 1.30702 </td>
-   <td style="text-align:right;"> 0.00236 </td>
-   <td style="text-align:right;"> 553.10711 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Sosyal` </td>
-   <td style="text-align:right;"> 1.22348 </td>
-   <td style="text-align:right;"> 0.00216 </td>
-   <td style="text-align:right;"> 567.08783 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Mat` </td>
-   <td style="text-align:right;"> 3.60540 </td>
-   <td style="text-align:right;"> 0.00170 </td>
-   <td style="text-align:right;"> 2124.64803 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Türkçe` </td>
-   <td style="text-align:right;"> 3.02357 </td>
-   <td style="text-align:right;"> 0.00172 </td>
-   <td style="text-align:right;"> 1761.62815 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Tarih1` </td>
-   <td style="text-align:right;"> 3.34516 </td>
-   <td style="text-align:right;"> 0.00345 </td>
-   <td style="text-align:right;"> 970.18103 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Coğrafya1` </td>
-   <td style="text-align:right;"> 2.37120 </td>
-   <td style="text-align:right;"> 0.00512 </td>
-   <td style="text-align:right;"> 463.37878 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-</tbody>
-<tfoot><tr><td style="padding: 0; " colspan="100%">
-<sup></sup> Standard errors: OLS</td></tr></tfoot>
 </table>
 </div>
 <details>
@@ -1191,87 +1236,87 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(modeldataEA[h,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">14</span><span class="sc">:</span><span class="dv">16</span>,<span class="dv">20</span><span class="sc">:</span><span class="dv">25</span>,<span class="dv">28</span>,<span class="dv">30</span>)]) <span class="sc">|&gt;</span> <span class="fu">kbl</span>()</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-
-<table>
+<table class="table table-sm table-striped">
 <tbody>
-  <tr>
-   <td style="text-align:left;"> ProgramKodu </td>
-   <td style="text-align:left;"> 408810065 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Üniversite </td>
-   <td style="text-align:left;"> ULUSLARARASI SARAYBOSNA ÜNİV.  - (%50 İndirimli) (4 Yıllık) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Yılı </td>
-   <td style="text-align:left;"> 2021 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Türü </td>
-   <td style="text-align:left;"> Yabancı </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Katsayı </td>
-   <td style="text-align:left;"> 0.12 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> OBP </td>
-   <td style="text-align:left;"> 283.049 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Puan </td>
-   <td style="text-align:left;"> 227.0003 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Yerl. </td>
-   <td style="text-align:left;"> 5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> TYT Türkçe </td>
-   <td style="text-align:left;"> 27.25 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> TYT Sosyal </td>
-   <td style="text-align:left;"> 10.75 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> TYT Mat </td>
-   <td style="text-align:left;"> 1.25 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> TYT Fen </td>
-   <td style="text-align:left;"> 0 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT Mat </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT Türkçe </td>
-   <td style="text-align:left;"> 7.75 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT Tarih1 </td>
-   <td style="text-align:left;"> 2.5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT Coğrafya1 </td>
-   <td style="text-align:left;"> 4.75 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> PuanTuru </td>
-   <td style="text-align:left;"> EA </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> BoluMKodu </td>
-   <td style="text-align:left;"> 10169 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SinavPuan </td>
-   <td style="text-align:left;"> 193.0344 </td>
-  </tr>
+<tr class="odd">
+<td style="text-align: left;">ProgramKodu</td>
+<td style="text-align: left;">408810065</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Üniversite</td>
+<td style="text-align: left;">ULUSLARARASI SARAYBOSNA ÜNİV. - (%50 İndirimli) (4 Yıllık)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Yılı</td>
+<td style="text-align: left;">2021</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Türü</td>
+<td style="text-align: left;">Yabancı</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Katsayı</td>
+<td style="text-align: left;">0.12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OBP</td>
+<td style="text-align: left;">283.049</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Puan</td>
+<td style="text-align: left;">227.0003</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Yerl.</td>
+<td style="text-align: left;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TYT Türkçe</td>
+<td style="text-align: left;">27.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TYT Sosyal</td>
+<td style="text-align: left;">10.75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TYT Mat</td>
+<td style="text-align: left;">1.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TYT Fen</td>
+<td style="text-align: left;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AYT Mat</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AYT Türkçe</td>
+<td style="text-align: left;">7.75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AYT Tarih1</td>
+<td style="text-align: left;">2.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AYT Coğrafya1</td>
+<td style="text-align: left;">4.75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PuanTuru</td>
+<td style="text-align: left;">EA</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">BoluMKodu</td>
+<td style="text-align: left;">10169</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SinavPuan</td>
+<td style="text-align: left;">193.0344</td>
+</tr>
 </tbody>
 </table>
+
 
 </div>
 </div>
@@ -1286,114 +1331,122 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(EAModel,<span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Observations</td>
+<td style="text-align: right;">942</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">Dependent variable</td>
+<td style="text-align: right;">SinavPuan</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Type</td>
+<td style="text-align: right;">OLS linear regression</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">F(8,933)</td>
+<td style="text-align: right;">370156189469389.18750</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">R²</td>
+<td style="text-align: right;">1.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Adj. R²</td>
+<td style="text-align: right;">1.00000</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Est.</th>
+<th style="text-align: right;">S.E.</th>
+<th style="text-align: right;">t val.</th>
+<th style="text-align: right;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">(Intercept)</td>
+<td style="text-align: right;">92.49283</td>
+<td style="text-align: right;">0.00001</td>
+<td style="text-align: right;">16062485.22705</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`TYT Mat`</td>
+<td style="text-align: right;">1.86088</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">6319175.50209</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`TYT Türkçe`</td>
+<td style="text-align: right;">1.19997</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">5226503.28843</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`TYT Fen`</td>
+<td style="text-align: right;">1.30829</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">3415052.81313</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`TYT Sosyal`</td>
+<td style="text-align: right;">1.22387</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">3499591.58502</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`AYT Mat`</td>
+<td style="text-align: right;">3.60460</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">13103065.48013</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`AYT Türkçe`</td>
+<td style="text-align: right;">3.02628</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">10863234.16466</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`AYT Tarih1`</td>
+<td style="text-align: right;">3.34531</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">5985598.71296</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`AYT Coğrafya1`</td>
+<td style="text-align: right;">2.36514</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">2849257.09525</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+</tbody><tfoot>
+<tr class="even">
+<td style="text-align: left; padding: 0;"><sup></sup> Standard errors: OLS</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tfoot>
 
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Observations </td>
-   <td style="text-align:right;"> 942 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Dependent variable </td>
-   <td style="text-align:right;"> SinavPuan </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Type </td>
-   <td style="text-align:right;"> OLS linear regression </td>
-  </tr>
-</tbody>
-</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> F(8,933) </td>
-   <td style="text-align:right;"> 370156189469389.18750 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> R² </td>
-   <td style="text-align:right;"> 1.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Adj. R² </td>
-   <td style="text-align:right;"> 1.00000 </td>
-  </tr>
-</tbody>
-</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> Est. </th>
-   <th style="text-align:right;"> S.E. </th>
-   <th style="text-align:right;"> t val. </th>
-   <th style="text-align:right;"> p </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> (Intercept) </td>
-   <td style="text-align:right;"> 92.49283 </td>
-   <td style="text-align:right;"> 0.00001 </td>
-   <td style="text-align:right;"> 16062485.22705 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Mat` </td>
-   <td style="text-align:right;"> 1.86088 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 6319175.50209 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Türkçe` </td>
-   <td style="text-align:right;"> 1.19997 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 5226503.28843 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Fen` </td>
-   <td style="text-align:right;"> 1.30829 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 3415052.81313 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Sosyal` </td>
-   <td style="text-align:right;"> 1.22387 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 3499591.58502 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Mat` </td>
-   <td style="text-align:right;"> 3.60460 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 13103065.48013 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Türkçe` </td>
-   <td style="text-align:right;"> 3.02628 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 10863234.16466 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Tarih1` </td>
-   <td style="text-align:right;"> 3.34531 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 5985598.71296 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Coğrafya1` </td>
-   <td style="text-align:right;"> 2.36514 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 2849257.09525 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-</tbody>
-<tfoot><tr><td style="padding: 0; " colspan="100%">
-<sup></sup> Standard errors: OLS</td></tr></tfoot>
 </table>
 </div>
 <details>
@@ -1419,135 +1472,143 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 <span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(SOZModel,<span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Observations</td>
+<td style="text-align: right;">641</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">Dependent variable</td>
+<td style="text-align: right;">SinavPuan</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Type</td>
+<td style="text-align: right;">OLS linear regression</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">F(11,629)</td>
+<td style="text-align: right;">2375763.13497</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">R²</td>
+<td style="text-align: right;">0.99998</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Adj. R²</td>
+<td style="text-align: right;">0.99998</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Est.</th>
+<th style="text-align: right;">S.E.</th>
+<th style="text-align: right;">t val.</th>
+<th style="text-align: right;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">(Intercept)</td>
+<td style="text-align: right;">92.95995</td>
+<td style="text-align: right;">0.05146</td>
+<td style="text-align: right;">1806.45264</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`TYT Mat`</td>
+<td style="text-align: right;">1.84624</td>
+<td style="text-align: right;">0.00385</td>
+<td style="text-align: right;">479.71493</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`TYT Türkçe`</td>
+<td style="text-align: right;">1.19105</td>
+<td style="text-align: right;">0.00240</td>
+<td style="text-align: right;">495.51744</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`TYT Fen`</td>
+<td style="text-align: right;">1.30602</td>
+<td style="text-align: right;">0.00620</td>
+<td style="text-align: right;">210.48377</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`TYT Sosyal`</td>
+<td style="text-align: right;">1.22121</td>
+<td style="text-align: right;">0.00429</td>
+<td style="text-align: right;">284.88322</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`AYT TDE`</td>
+<td style="text-align: right;">3.01606</td>
+<td style="text-align: right;">0.00325</td>
+<td style="text-align: right;">928.00768</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`AYT Tarih1`</td>
+<td style="text-align: right;">3.32421</td>
+<td style="text-align: right;">0.00620</td>
+<td style="text-align: right;">536.32545</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`AYT Coğrafya1`</td>
+<td style="text-align: right;">2.33997</td>
+<td style="text-align: right;">0.00881</td>
+<td style="text-align: right;">265.52474</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`AYT Tar2`</td>
+<td style="text-align: right;">4.98439</td>
+<td style="text-align: right;">0.00576</td>
+<td style="text-align: right;">864.61791</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`AYT Coğ2`</td>
+<td style="text-align: right;">2.60731</td>
+<td style="text-align: right;">0.00630</td>
+<td style="text-align: right;">413.92581</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`AYT Fel`</td>
+<td style="text-align: right;">3.65005</td>
+<td style="text-align: right;">0.00523</td>
+<td style="text-align: right;">698.22722</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`AYT Din`</td>
+<td style="text-align: right;">2.72409</td>
+<td style="text-align: right;">0.00863</td>
+<td style="text-align: right;">315.57585</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+</tbody><tfoot>
+<tr class="odd">
+<td style="text-align: left; padding: 0;"><sup></sup> Standard errors: OLS</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tfoot>
 
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Observations </td>
-   <td style="text-align:right;"> 641 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Dependent variable </td>
-   <td style="text-align:right;"> SinavPuan </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Type </td>
-   <td style="text-align:right;"> OLS linear regression </td>
-  </tr>
-</tbody>
-</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> F(11,629) </td>
-   <td style="text-align:right;"> 2375763.13497 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> R² </td>
-   <td style="text-align:right;"> 0.99998 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Adj. R² </td>
-   <td style="text-align:right;"> 0.99998 </td>
-  </tr>
-</tbody>
-</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> Est. </th>
-   <th style="text-align:right;"> S.E. </th>
-   <th style="text-align:right;"> t val. </th>
-   <th style="text-align:right;"> p </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> (Intercept) </td>
-   <td style="text-align:right;"> 92.95995 </td>
-   <td style="text-align:right;"> 0.05146 </td>
-   <td style="text-align:right;"> 1806.45264 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Mat` </td>
-   <td style="text-align:right;"> 1.84624 </td>
-   <td style="text-align:right;"> 0.00385 </td>
-   <td style="text-align:right;"> 479.71493 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Türkçe` </td>
-   <td style="text-align:right;"> 1.19105 </td>
-   <td style="text-align:right;"> 0.00240 </td>
-   <td style="text-align:right;"> 495.51744 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Fen` </td>
-   <td style="text-align:right;"> 1.30602 </td>
-   <td style="text-align:right;"> 0.00620 </td>
-   <td style="text-align:right;"> 210.48377 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Sosyal` </td>
-   <td style="text-align:right;"> 1.22121 </td>
-   <td style="text-align:right;"> 0.00429 </td>
-   <td style="text-align:right;"> 284.88322 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT TDE` </td>
-   <td style="text-align:right;"> 3.01606 </td>
-   <td style="text-align:right;"> 0.00325 </td>
-   <td style="text-align:right;"> 928.00768 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Tarih1` </td>
-   <td style="text-align:right;"> 3.32421 </td>
-   <td style="text-align:right;"> 0.00620 </td>
-   <td style="text-align:right;"> 536.32545 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Coğrafya1` </td>
-   <td style="text-align:right;"> 2.33997 </td>
-   <td style="text-align:right;"> 0.00881 </td>
-   <td style="text-align:right;"> 265.52474 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Tar2` </td>
-   <td style="text-align:right;"> 4.98439 </td>
-   <td style="text-align:right;"> 0.00576 </td>
-   <td style="text-align:right;"> 864.61791 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Coğ2` </td>
-   <td style="text-align:right;"> 2.60731 </td>
-   <td style="text-align:right;"> 0.00630 </td>
-   <td style="text-align:right;"> 413.92581 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Fel` </td>
-   <td style="text-align:right;"> 3.65005 </td>
-   <td style="text-align:right;"> 0.00523 </td>
-   <td style="text-align:right;"> 698.22722 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Din` </td>
-   <td style="text-align:right;"> 2.72409 </td>
-   <td style="text-align:right;"> 0.00863 </td>
-   <td style="text-align:right;"> 315.57585 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-</tbody>
-<tfoot><tr><td style="padding: 0; " colspan="100%">
-<sup></sup> Standard errors: OLS</td></tr></tfoot>
 </table>
 </div>
 <details>
@@ -1583,99 +1644,99 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(modeldataSOZ[h,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">13</span><span class="sc">:</span><span class="dv">17</span>,<span class="dv">25</span>,<span class="dv">28</span>,<span class="dv">30</span>)]) <span class="sc">|&gt;</span> <span class="fu">kbl</span>()</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-
-<table>
+<table class="table table-sm table-striped">
 <tbody>
-  <tr>
-   <td style="text-align:left;"> ProgramKodu </td>
-   <td style="text-align:left;"> 104310058 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Üniversite </td>
-   <td style="text-align:left;"> TOKAT GAZİOSMANPAŞA ÜNİV.  - (4 Yıllık) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Yılı </td>
-   <td style="text-align:left;"> 2021 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Türü </td>
-   <td style="text-align:left;"> Devlet </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Katsayı </td>
-   <td style="text-align:left;"> 0.12 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> OBP </td>
-   <td style="text-align:left;"> 369.5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Puan </td>
-   <td style="text-align:left;"> 302.791 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Yerl. </td>
-   <td style="text-align:left;"> 52 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> TYT Türkçe </td>
-   <td style="text-align:left;"> 20.25 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> TYT Sosyal </td>
-   <td style="text-align:left;"> 12.5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> TYT Mat </td>
-   <td style="text-align:left;"> 1.25 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> TYT Fen </td>
-   <td style="text-align:left;"> 1.75 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT Tarih1 </td>
-   <td style="text-align:left;"> 2.75 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT Coğrafya1 </td>
-   <td style="text-align:left;"> 2.25 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT TDE </td>
-   <td style="text-align:left;"> 16.5 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT Tar2 </td>
-   <td style="text-align:left;"> 2.25 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT Coğ2 </td>
-   <td style="text-align:left;"> 6 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT Fel </td>
-   <td style="text-align:left;"> 5.75 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> AYT Din </td>
-   <td style="text-align:left;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> PuanTuru </td>
-   <td style="text-align:left;"> SÖZ </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> BoluMKodu </td>
-   <td style="text-align:left;"> 10192 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SinavPuan </td>
-   <td style="text-align:left;"> 258.451 </td>
-  </tr>
+<tr class="odd">
+<td style="text-align: left;">ProgramKodu</td>
+<td style="text-align: left;">104310058</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Üniversite</td>
+<td style="text-align: left;">TOKAT GAZİOSMANPAŞA ÜNİV. - (4 Yıllık)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Yılı</td>
+<td style="text-align: left;">2021</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Türü</td>
+<td style="text-align: left;">Devlet</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Katsayı</td>
+<td style="text-align: left;">0.12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OBP</td>
+<td style="text-align: left;">369.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Puan</td>
+<td style="text-align: left;">302.791</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Yerl.</td>
+<td style="text-align: left;">52</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TYT Türkçe</td>
+<td style="text-align: left;">20.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TYT Sosyal</td>
+<td style="text-align: left;">12.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TYT Mat</td>
+<td style="text-align: left;">1.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TYT Fen</td>
+<td style="text-align: left;">1.75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AYT Tarih1</td>
+<td style="text-align: left;">2.75</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AYT Coğrafya1</td>
+<td style="text-align: left;">2.25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AYT TDE</td>
+<td style="text-align: left;">16.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AYT Tar2</td>
+<td style="text-align: left;">2.25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AYT Coğ2</td>
+<td style="text-align: left;">6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AYT Fel</td>
+<td style="text-align: left;">5.75</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AYT Din</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PuanTuru</td>
+<td style="text-align: left;">SÖZ</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BoluMKodu</td>
+<td style="text-align: left;">10192</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SinavPuan</td>
+<td style="text-align: left;">258.451</td>
+</tr>
 </tbody>
 </table>
+
 
 </div>
 </div>
@@ -1691,135 +1752,143 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(SOZModel,<span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Observations</td>
+<td style="text-align: right;">640</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">Dependent variable</td>
+<td style="text-align: right;">SinavPuan</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Type</td>
+<td style="text-align: right;">OLS linear regression</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">F(11,628)</td>
+<td style="text-align: right;">197787496242076.15625</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">R²</td>
+<td style="text-align: right;">1.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Adj. R²</td>
+<td style="text-align: right;">1.00000</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Est.</th>
+<th style="text-align: right;">S.E.</th>
+<th style="text-align: right;">t val.</th>
+<th style="text-align: right;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">(Intercept)</td>
+<td style="text-align: right;">92.89613</td>
+<td style="text-align: right;">0.00001</td>
+<td style="text-align: right;">16452129.88329</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`TYT Mat`</td>
+<td style="text-align: right;">1.85106</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">4383276.75445</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`TYT Türkçe`</td>
+<td style="text-align: right;">1.19364</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">4527165.32019</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`TYT Fen`</td>
+<td style="text-align: right;">1.30139</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">1912960.62792</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`TYT Sosyal`</td>
+<td style="text-align: right;">1.21742</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">2589814.34897</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`AYT TDE`</td>
+<td style="text-align: right;">3.01032</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">8430925.97470</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`AYT Tarih1`</td>
+<td style="text-align: right;">3.32767</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">4897752.57128</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`AYT Coğrafya1`</td>
+<td style="text-align: right;">2.35266</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">2431997.91718</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`AYT Tar2`</td>
+<td style="text-align: right;">4.98424</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">7889240.39567</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`AYT Coğ2`</td>
+<td style="text-align: right;">2.60652</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">3775806.78405</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`AYT Fel`</td>
+<td style="text-align: right;">3.64756</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">6365712.97899</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`AYT Din`</td>
+<td style="text-align: right;">2.74091</td>
+<td style="text-align: right;">0.00000</td>
+<td style="text-align: right;">2888646.49565</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+</tbody><tfoot>
+<tr class="odd">
+<td style="text-align: left; padding: 0;"><sup></sup> Standard errors: OLS</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tfoot>
 
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Observations </td>
-   <td style="text-align:right;"> 640 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Dependent variable </td>
-   <td style="text-align:right;"> SinavPuan </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Type </td>
-   <td style="text-align:right;"> OLS linear regression </td>
-  </tr>
-</tbody>
-</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> F(11,628) </td>
-   <td style="text-align:right;"> 197787496242076.15625 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> R² </td>
-   <td style="text-align:right;"> 1.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Adj. R² </td>
-   <td style="text-align:right;"> 1.00000 </td>
-  </tr>
-</tbody>
-</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> Est. </th>
-   <th style="text-align:right;"> S.E. </th>
-   <th style="text-align:right;"> t val. </th>
-   <th style="text-align:right;"> p </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> (Intercept) </td>
-   <td style="text-align:right;"> 92.89613 </td>
-   <td style="text-align:right;"> 0.00001 </td>
-   <td style="text-align:right;"> 16452129.88329 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Mat` </td>
-   <td style="text-align:right;"> 1.85106 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 4383276.75445 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Türkçe` </td>
-   <td style="text-align:right;"> 1.19364 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 4527165.32019 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Fen` </td>
-   <td style="text-align:right;"> 1.30139 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 1912960.62792 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Sosyal` </td>
-   <td style="text-align:right;"> 1.21742 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 2589814.34897 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT TDE` </td>
-   <td style="text-align:right;"> 3.01032 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 8430925.97470 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Tarih1` </td>
-   <td style="text-align:right;"> 3.32767 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 4897752.57128 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Coğrafya1` </td>
-   <td style="text-align:right;"> 2.35266 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 2431997.91718 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Tar2` </td>
-   <td style="text-align:right;"> 4.98424 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 7889240.39567 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Coğ2` </td>
-   <td style="text-align:right;"> 2.60652 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 3775806.78405 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Fel` </td>
-   <td style="text-align:right;"> 3.64756 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 6365712.97899 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `AYT Din` </td>
-   <td style="text-align:right;"> 2.74091 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 2888646.49565 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-</tbody>
-<tfoot><tr><td style="padding: 0; " colspan="100%">
-<sup></sup> Standard errors: OLS</td></tr></tfoot>
 </table>
 </div>
 <details>
@@ -1843,93 +1912,101 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summ</span>(DILModel,<span class="at">digits =</span> <span class="dv">5</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Observations</td>
+<td style="text-align: right;">233</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">Dependent variable</td>
+<td style="text-align: right;">SinavPuan</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Type</td>
+<td style="text-align: right;">OLS linear regression</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">F(5,227)</td>
+<td style="text-align: right;">17880.27217</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">R²</td>
+<td style="text-align: right;">0.99747</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">Adj. R²</td>
+<td style="text-align: right;">0.99741</td>
+</tr>
+</tbody>
+</table>
+<table class="table table-striped table-hover table-condensed table-responsive table-sm">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Est.</th>
+<th style="text-align: right;">S.E.</th>
+<th style="text-align: right;">t val.</th>
+<th style="text-align: right;">p</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">(Intercept)</td>
+<td style="text-align: right;">95.38672</td>
+<td style="text-align: right;">0.92750</td>
+<td style="text-align: right;">102.84268</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`TYT Mat`</td>
+<td style="text-align: right;">2.19473</td>
+<td style="text-align: right;">0.07459</td>
+<td style="text-align: right;">29.42411</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`TYT Türkçe`</td>
+<td style="text-align: right;">1.46405</td>
+<td style="text-align: right;">0.04615</td>
+<td style="text-align: right;">31.72700</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`TYT Fen`</td>
+<td style="text-align: right;">1.97779</td>
+<td style="text-align: right;">0.09102</td>
+<td style="text-align: right;">21.72874</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; font-weight: bold;">`TYT Sosyal`</td>
+<td style="text-align: right;">1.59498</td>
+<td style="text-align: right;">0.07370</td>
+<td style="text-align: right;">21.64091</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; font-weight: bold;">`YDT Dil`</td>
+<td style="text-align: right;">2.55899</td>
+<td style="text-align: right;">0.01354</td>
+<td style="text-align: right;">189.06071</td>
+<td style="text-align: right;">0.00000</td>
+</tr>
+</tbody><tfoot>
+<tr class="odd">
+<td style="text-align: left; padding: 0;"><sup></sup> Standard errors: OLS</td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+</tr>
+</tfoot>
 
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Observations </td>
-   <td style="text-align:right;"> 233 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Dependent variable </td>
-   <td style="text-align:right;"> SinavPuan </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Type </td>
-   <td style="text-align:right;"> OLS linear regression </td>
-  </tr>
-</tbody>
-</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> F(5,227) </td>
-   <td style="text-align:right;"> 17880.27217 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> R² </td>
-   <td style="text-align:right;"> 0.99747 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> Adj. R² </td>
-   <td style="text-align:right;"> 0.99741 </td>
-  </tr>
-</tbody>
-</table> <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
- <thead>
-  <tr>
-   <th style="text-align:left;">   </th>
-   <th style="text-align:right;"> Est. </th>
-   <th style="text-align:right;"> S.E. </th>
-   <th style="text-align:right;"> t val. </th>
-   <th style="text-align:right;"> p </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> (Intercept) </td>
-   <td style="text-align:right;"> 95.38672 </td>
-   <td style="text-align:right;"> 0.92750 </td>
-   <td style="text-align:right;"> 102.84268 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Mat` </td>
-   <td style="text-align:right;"> 2.19473 </td>
-   <td style="text-align:right;"> 0.07459 </td>
-   <td style="text-align:right;"> 29.42411 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Türkçe` </td>
-   <td style="text-align:right;"> 1.46405 </td>
-   <td style="text-align:right;"> 0.04615 </td>
-   <td style="text-align:right;"> 31.72700 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Fen` </td>
-   <td style="text-align:right;"> 1.97779 </td>
-   <td style="text-align:right;"> 0.09102 </td>
-   <td style="text-align:right;"> 21.72874 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `TYT Sosyal` </td>
-   <td style="text-align:right;"> 1.59498 </td>
-   <td style="text-align:right;"> 0.07370 </td>
-   <td style="text-align:right;"> 21.64091 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;font-weight: bold;"> `YDT Dil` </td>
-   <td style="text-align:right;"> 2.55899 </td>
-   <td style="text-align:right;"> 0.01354 </td>
-   <td style="text-align:right;"> 189.06071 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-  </tr>
-</tbody>
-<tfoot><tr><td style="padding: 0; " colspan="100%">
-<sup></sup> Standard errors: OLS</td></tr></tfoot>
 </table>
 </div>
 <details>
@@ -1966,219 +2043,219 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t</span>(modeldataDIL[h,<span class="sc">-</span><span class="fu">c</span>(<span class="dv">13</span><span class="sc">:</span><span class="dv">24</span>,<span class="dv">28</span>,<span class="dv">30</span>)]) <span class="sc">|&gt;</span> <span class="fu">kbl</span>()</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-
-<table>
+<table class="table table-sm table-striped">
 <tbody>
-  <tr>
-   <td style="text-align:left;"> ProgramKodu </td>
-   <td style="text-align:left;"> 105610088 </td>
-   <td style="text-align:left;"> 202210340 </td>
-   <td style="text-align:left;"> 110090093 </td>
-   <td style="text-align:left;"> 204090121 </td>
-   <td style="text-align:left;"> 202210344 </td>
-   <td style="text-align:left;"> 203211095 </td>
-   <td style="text-align:left;"> 107090216 </td>
-   <td style="text-align:left;"> 109290320 </td>
-   <td style="text-align:left;"> 104010025 </td>
-   <td style="text-align:left;"> 206010981 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Üniversite </td>
-   <td style="text-align:left;"> İSTANBUL ÜNİV.   - (4 Yıllık) </td>
-   <td style="text-align:left;"> İSTANBUL 29 MAYIS ÜNİV.  - (Burslu) (4 Yıllık) </td>
-   <td style="text-align:left;"> ANKARA YILDIRIM BEYAZIT ÜNİV.  - (4 Yıllık) </td>
-   <td style="text-align:left;"> KTO KARATAY ÜNİV.  - (Burslu) (4 Yıllık) </td>
-   <td style="text-align:left;"> İSTANBUL 29 MAYIS ÜNİV.  - (Burslu) (4 Yıllık) </td>
-   <td style="text-align:left;"> İSTANBUL SABAHATTİN ZAİM ÜNİV.   - (Burslu) (4 Yıllık) </td>
-   <td style="text-align:left;"> NECMETTİN ERBAKAN ÜNİV.  - (4 Yıllık) </td>
-   <td style="text-align:left;"> SÜLEYMAN DEMİREL ÜNİV.  - (4 Yıllık) </td>
-   <td style="text-align:left;"> GALATASARAY ÜNİV.  - (Fransızca) (4 Yıllık) </td>
-   <td style="text-align:left;"> YAŞAR ÜNİV.  - (İngilizce) (Burslu) (4 Yıllık) </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Yılı </td>
-   <td style="text-align:left;"> 2021 </td>
-   <td style="text-align:left;"> 2021 </td>
-   <td style="text-align:left;"> 2021 </td>
-   <td style="text-align:left;"> 2021 </td>
-   <td style="text-align:left;"> 2021 </td>
-   <td style="text-align:left;"> 2021 </td>
-   <td style="text-align:left;"> 2021 </td>
-   <td style="text-align:left;"> 2021 </td>
-   <td style="text-align:left;"> 2021 </td>
-   <td style="text-align:left;"> 2021 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Türü </td>
-   <td style="text-align:left;"> Devlet </td>
-   <td style="text-align:left;"> Vakıf </td>
-   <td style="text-align:left;"> Devlet </td>
-   <td style="text-align:left;"> Vakıf </td>
-   <td style="text-align:left;"> Vakıf </td>
-   <td style="text-align:left;"> Vakıf </td>
-   <td style="text-align:left;"> Devlet </td>
-   <td style="text-align:left;"> Devlet </td>
-   <td style="text-align:left;"> Devlet </td>
-   <td style="text-align:left;"> Vakıf </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Katsayı </td>
-   <td style="text-align:left;"> 0.12 </td>
-   <td style="text-align:left;"> 0.12 </td>
-   <td style="text-align:left;"> 0.12 </td>
-   <td style="text-align:left;"> 0.12 </td>
-   <td style="text-align:left;"> 0.12 </td>
-   <td style="text-align:left;"> 0.12 </td>
-   <td style="text-align:left;"> 0.12 </td>
-   <td style="text-align:left;"> 0.12 </td>
-   <td style="text-align:left;"> 0.12 </td>
-   <td style="text-align:left;"> 0.12 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> OBP </td>
-   <td style="text-align:left;"> 336.300 </td>
-   <td style="text-align:left;"> 410.350 </td>
-   <td style="text-align:left;"> 371.800 </td>
-   <td style="text-align:left;"> 357.150 </td>
-   <td style="text-align:left;"> 434.169 </td>
-   <td style="text-align:left;"> 379.000 </td>
-   <td style="text-align:left;"> 341.150 </td>
-   <td style="text-align:left;"> 299.850 </td>
-   <td style="text-align:left;"> 493.319 </td>
-   <td style="text-align:left;"> 395.744 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Puan </td>
-   <td style="text-align:left;"> 363.1316 </td>
-   <td style="text-align:left;"> 467.4378 </td>
-   <td style="text-align:left;"> 291.6421 </td>
-   <td style="text-align:left;"> 302.7523 </td>
-   <td style="text-align:left;"> 437.2313 </td>
-   <td style="text-align:left;"> 428.7592 </td>
-   <td style="text-align:left;"> 327.8465 </td>
-   <td style="text-align:left;"> 295.2964 </td>
-   <td style="text-align:left;"> 457.4196 </td>
-   <td style="text-align:left;"> 395.5457 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Yerl. </td>
-   <td style="text-align:left;"> 82 </td>
-   <td style="text-align:left;"> 5 </td>
-   <td style="text-align:left;"> 62 </td>
-   <td style="text-align:left;"> 15 </td>
-   <td style="text-align:left;"> 6 </td>
-   <td style="text-align:left;"> 5 </td>
-   <td style="text-align:left;"> 41 </td>
-   <td style="text-align:left;"> 62 </td>
-   <td style="text-align:left;"> 31 </td>
-   <td style="text-align:left;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> TYT Türkçe </td>
-   <td style="text-align:left;"> 17.25 </td>
-   <td style="text-align:left;"> 29.00 </td>
-   <td style="text-align:left;"> 16.00 </td>
-   <td style="text-align:left;"> 12.25 </td>
-   <td style="text-align:left;"> 32.50 </td>
-   <td style="text-align:left;"> 26.50 </td>
-   <td style="text-align:left;"> 17.25 </td>
-   <td style="text-align:left;"> 9.00 </td>
-   <td style="text-align:left;"> 33.75 </td>
-   <td style="text-align:left;"> 9.25 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> TYT Sosyal </td>
-   <td style="text-align:left;"> 9.50 </td>
-   <td style="text-align:left;"> 14.00 </td>
-   <td style="text-align:left;"> 3.25 </td>
-   <td style="text-align:left;"> 7.75 </td>
-   <td style="text-align:left;"> 14.00 </td>
-   <td style="text-align:left;"> 5.00 </td>
-   <td style="text-align:left;"> 6.50 </td>
-   <td style="text-align:left;"> 5.75 </td>
-   <td style="text-align:left;"> 16.50 </td>
-   <td style="text-align:left;"> 11.50 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> TYT Mat </td>
-   <td style="text-align:left;"> 1.00 </td>
-   <td style="text-align:left;"> 10.75 </td>
-   <td style="text-align:left;"> 3.25 </td>
-   <td style="text-align:left;"> -0.75 </td>
-   <td style="text-align:left;"> 0.00 </td>
-   <td style="text-align:left;"> 8.75 </td>
-   <td style="text-align:left;"> 2.00 </td>
-   <td style="text-align:left;"> 2.00 </td>
-   <td style="text-align:left;"> 0.00 </td>
-   <td style="text-align:left;"> 5.25 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> TYT Fen </td>
-   <td style="text-align:left;"> 0.00 </td>
-   <td style="text-align:left;"> 5.50 </td>
-   <td style="text-align:left;"> 0.00 </td>
-   <td style="text-align:left;"> 0.00 </td>
-   <td style="text-align:left;"> 9.25 </td>
-   <td style="text-align:left;"> 4.25 </td>
-   <td style="text-align:left;"> 0.00 </td>
-   <td style="text-align:left;"> 1.00 </td>
-   <td style="text-align:left;"> 8.25 </td>
-   <td style="text-align:left;"> 6.25 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> YDT Dil </td>
-   <td style="text-align:left;"> 67.75 </td>
-   <td style="text-align:left;"> 78.75 </td>
-   <td style="text-align:left;"> 43.00 </td>
-   <td style="text-align:left;"> 51.00 </td>
-   <td style="text-align:left;"> 72.50 </td>
-   <td style="text-align:left;"> 76.25 </td>
-   <td style="text-align:left;"> 55.75 </td>
-   <td style="text-align:left;"> 50.75 </td>
-   <td style="text-align:left;"> 73.75 </td>
-   <td style="text-align:left;"> 73.75 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> PuanTuru </td>
-   <td style="text-align:left;"> DİL </td>
-   <td style="text-align:left;"> DİL </td>
-   <td style="text-align:left;"> DİL </td>
-   <td style="text-align:left;"> DİL </td>
-   <td style="text-align:left;"> DİL </td>
-   <td style="text-align:left;"> DİL </td>
-   <td style="text-align:left;"> DİL </td>
-   <td style="text-align:left;"> DİL </td>
-   <td style="text-align:left;"> DİL </td>
-   <td style="text-align:left;"> DİL </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> BoluMKodu </td>
-   <td style="text-align:left;"> 10007 </td>
-   <td style="text-align:left;"> 97105 </td>
-   <td style="text-align:left;"> 97105 </td>
-   <td style="text-align:left;"> 97106 </td>
-   <td style="text-align:left;"> 10008 </td>
-   <td style="text-align:left;"> 10008 </td>
-   <td style="text-align:left;"> 10008 </td>
-   <td style="text-align:left;"> 10008 </td>
-   <td style="text-align:left;"> 10075 </td>
-   <td style="text-align:left;"> 72100 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> SinavPuan </td>
-   <td style="text-align:left;"> 322.7756 </td>
-   <td style="text-align:left;"> 418.1958 </td>
-   <td style="text-align:left;"> 247.0261 </td>
-   <td style="text-align:left;"> 259.8943 </td>
-   <td style="text-align:left;"> 385.1310 </td>
-   <td style="text-align:left;"> 383.2792 </td>
-   <td style="text-align:left;"> 286.9085 </td>
-   <td style="text-align:left;"> 259.3144 </td>
-   <td style="text-align:left;"> 398.2213 </td>
-   <td style="text-align:left;"> 348.0565 </td>
-  </tr>
+<tr class="odd">
+<td style="text-align: left;">ProgramKodu</td>
+<td style="text-align: left;">105610088</td>
+<td style="text-align: left;">202210340</td>
+<td style="text-align: left;">110090093</td>
+<td style="text-align: left;">204090121</td>
+<td style="text-align: left;">202210344</td>
+<td style="text-align: left;">203211095</td>
+<td style="text-align: left;">107090216</td>
+<td style="text-align: left;">109290320</td>
+<td style="text-align: left;">104010025</td>
+<td style="text-align: left;">206010981</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Üniversite</td>
+<td style="text-align: left;">İSTANBUL ÜNİV. - (4 Yıllık)</td>
+<td style="text-align: left;">İSTANBUL 29 MAYIS ÜNİV. - (Burslu) (4 Yıllık)</td>
+<td style="text-align: left;">ANKARA YILDIRIM BEYAZIT ÜNİV. - (4 Yıllık)</td>
+<td style="text-align: left;">KTO KARATAY ÜNİV. - (Burslu) (4 Yıllık)</td>
+<td style="text-align: left;">İSTANBUL 29 MAYIS ÜNİV. - (Burslu) (4 Yıllık)</td>
+<td style="text-align: left;">İSTANBUL SABAHATTİN ZAİM ÜNİV. - (Burslu) (4 Yıllık)</td>
+<td style="text-align: left;">NECMETTİN ERBAKAN ÜNİV. - (4 Yıllık)</td>
+<td style="text-align: left;">SÜLEYMAN DEMİREL ÜNİV. - (4 Yıllık)</td>
+<td style="text-align: left;">GALATASARAY ÜNİV. - (Fransızca) (4 Yıllık)</td>
+<td style="text-align: left;">YAŞAR ÜNİV. - (İngilizce) (Burslu) (4 Yıllık)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Yılı</td>
+<td style="text-align: left;">2021</td>
+<td style="text-align: left;">2021</td>
+<td style="text-align: left;">2021</td>
+<td style="text-align: left;">2021</td>
+<td style="text-align: left;">2021</td>
+<td style="text-align: left;">2021</td>
+<td style="text-align: left;">2021</td>
+<td style="text-align: left;">2021</td>
+<td style="text-align: left;">2021</td>
+<td style="text-align: left;">2021</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Türü</td>
+<td style="text-align: left;">Devlet</td>
+<td style="text-align: left;">Vakıf</td>
+<td style="text-align: left;">Devlet</td>
+<td style="text-align: left;">Vakıf</td>
+<td style="text-align: left;">Vakıf</td>
+<td style="text-align: left;">Vakıf</td>
+<td style="text-align: left;">Devlet</td>
+<td style="text-align: left;">Devlet</td>
+<td style="text-align: left;">Devlet</td>
+<td style="text-align: left;">Vakıf</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Katsayı</td>
+<td style="text-align: left;">0.12</td>
+<td style="text-align: left;">0.12</td>
+<td style="text-align: left;">0.12</td>
+<td style="text-align: left;">0.12</td>
+<td style="text-align: left;">0.12</td>
+<td style="text-align: left;">0.12</td>
+<td style="text-align: left;">0.12</td>
+<td style="text-align: left;">0.12</td>
+<td style="text-align: left;">0.12</td>
+<td style="text-align: left;">0.12</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OBP</td>
+<td style="text-align: left;">336.300</td>
+<td style="text-align: left;">410.350</td>
+<td style="text-align: left;">371.800</td>
+<td style="text-align: left;">357.150</td>
+<td style="text-align: left;">434.169</td>
+<td style="text-align: left;">379.000</td>
+<td style="text-align: left;">341.150</td>
+<td style="text-align: left;">299.850</td>
+<td style="text-align: left;">493.319</td>
+<td style="text-align: left;">395.744</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Puan</td>
+<td style="text-align: left;">363.1316</td>
+<td style="text-align: left;">467.4378</td>
+<td style="text-align: left;">291.6421</td>
+<td style="text-align: left;">302.7523</td>
+<td style="text-align: left;">437.2313</td>
+<td style="text-align: left;">428.7592</td>
+<td style="text-align: left;">327.8465</td>
+<td style="text-align: left;">295.2964</td>
+<td style="text-align: left;">457.4196</td>
+<td style="text-align: left;">395.5457</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Yerl.</td>
+<td style="text-align: left;">82</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">62</td>
+<td style="text-align: left;">15</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">41</td>
+<td style="text-align: left;">62</td>
+<td style="text-align: left;">31</td>
+<td style="text-align: left;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TYT Türkçe</td>
+<td style="text-align: left;">17.25</td>
+<td style="text-align: left;">29.00</td>
+<td style="text-align: left;">16.00</td>
+<td style="text-align: left;">12.25</td>
+<td style="text-align: left;">32.50</td>
+<td style="text-align: left;">26.50</td>
+<td style="text-align: left;">17.25</td>
+<td style="text-align: left;">9.00</td>
+<td style="text-align: left;">33.75</td>
+<td style="text-align: left;">9.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TYT Sosyal</td>
+<td style="text-align: left;">9.50</td>
+<td style="text-align: left;">14.00</td>
+<td style="text-align: left;">3.25</td>
+<td style="text-align: left;">7.75</td>
+<td style="text-align: left;">14.00</td>
+<td style="text-align: left;">5.00</td>
+<td style="text-align: left;">6.50</td>
+<td style="text-align: left;">5.75</td>
+<td style="text-align: left;">16.50</td>
+<td style="text-align: left;">11.50</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TYT Mat</td>
+<td style="text-align: left;">1.00</td>
+<td style="text-align: left;">10.75</td>
+<td style="text-align: left;">3.25</td>
+<td style="text-align: left;">-0.75</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">8.75</td>
+<td style="text-align: left;">2.00</td>
+<td style="text-align: left;">2.00</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">5.25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TYT Fen</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">5.50</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">9.25</td>
+<td style="text-align: left;">4.25</td>
+<td style="text-align: left;">0.00</td>
+<td style="text-align: left;">1.00</td>
+<td style="text-align: left;">8.25</td>
+<td style="text-align: left;">6.25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">YDT Dil</td>
+<td style="text-align: left;">67.75</td>
+<td style="text-align: left;">78.75</td>
+<td style="text-align: left;">43.00</td>
+<td style="text-align: left;">51.00</td>
+<td style="text-align: left;">72.50</td>
+<td style="text-align: left;">76.25</td>
+<td style="text-align: left;">55.75</td>
+<td style="text-align: left;">50.75</td>
+<td style="text-align: left;">73.75</td>
+<td style="text-align: left;">73.75</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PuanTuru</td>
+<td style="text-align: left;">DİL</td>
+<td style="text-align: left;">DİL</td>
+<td style="text-align: left;">DİL</td>
+<td style="text-align: left;">DİL</td>
+<td style="text-align: left;">DİL</td>
+<td style="text-align: left;">DİL</td>
+<td style="text-align: left;">DİL</td>
+<td style="text-align: left;">DİL</td>
+<td style="text-align: left;">DİL</td>
+<td style="text-align: left;">DİL</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BoluMKodu</td>
+<td style="text-align: left;">10007</td>
+<td style="text-align: left;">97105</td>
+<td style="text-align: left;">97105</td>
+<td style="text-align: left;">97106</td>
+<td style="text-align: left;">10008</td>
+<td style="text-align: left;">10008</td>
+<td style="text-align: left;">10008</td>
+<td style="text-align: left;">10008</td>
+<td style="text-align: left;">10075</td>
+<td style="text-align: left;">72100</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SinavPuan</td>
+<td style="text-align: left;">322.7756</td>
+<td style="text-align: left;">418.1958</td>
+<td style="text-align: left;">247.0261</td>
+<td style="text-align: left;">259.8943</td>
+<td style="text-align: left;">385.1310</td>
+<td style="text-align: left;">383.2792</td>
+<td style="text-align: left;">286.9085</td>
+<td style="text-align: left;">259.3144</td>
+<td style="text-align: left;">398.2213</td>
+<td style="text-align: left;">348.0565</td>
+</tr>
 </tbody>
 </table>
+
 
 </div>
 </div>
@@ -2349,28 +2426,28 @@ TYT_{Sınav} = TYT_{Yerleştirme}-(0.12\: veya\: 0.18)\cdot OBP
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Dipnotlar</h2>
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Dipnotlar</h2>
 
 <ol>
-<li id="fn1" role="doc-endnote"><p>SAY, EA, SÖZ, DİL, TYT<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>Tabloda görülmemesine rağmen aslında yüklenen sayfada puanların da bulunduğunu görmek için sayfanın kaynak koduna bakılabilir.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p><a href="https://yokatlas.yok.gov.tr/2020/netler-tablo.php?b=19001" class="uri">https://yokatlas.yok.gov.tr/2020/netler-tablo.php?b=19001</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4" role="doc-endnote"><p>Regresyon modeli hemen her lisans programında gösterilen en temel istatistiki modeldir. Viki sayfası için <a href="https://tr.wikipedia.org/wiki/Regresyon_analizi">tıklayınız.</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5" role="doc-endnote"><p>2021 yılında 150 puan barajı uygulanmıştır.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6" role="doc-endnote"><p>YÖK ATLAS sayfasında EA puanı için bu soru grubu AYT Türkçe olarak nitelendirilmişken, SÖZ puan soru grubu için AYT TDE olarak kullanılıyor.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7" role="doc-endnote"><p>YKS kataloğu Tablo 1C, 1D, 1E<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8" role="doc-endnote"><p><a href="https://www.yok.gov.tr/Documents/AnaSayfa/yuksekogretim_kurumlari_sinavi_sss_ve_cevaplari_puan_turleri_ile.pdf">YOK’ün konuyla ilgili resmi açıklaması için tıklayınız</a><a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>SAY, EA, SÖZ, DİL, TYT<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Tabloda görülmemesine rağmen aslında yüklenen sayfada puanların da bulunduğunu görmek için sayfanın kaynak koduna bakılabilir.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p><a href="https://yokatlas.yok.gov.tr/2020/netler-tablo.php?b=19001" class="uri">https://yokatlas.yok.gov.tr/2020/netler-tablo.php?b=19001</a><a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>Regresyon modeli hemen her lisans programında gösterilen en temel istatistiki modeldir. Viki sayfası için <a href="https://tr.wikipedia.org/wiki/Regresyon_analizi">tıklayınız.</a><a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>2021 yılında 150 puan barajı uygulanmıştır.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>YÖK ATLAS sayfasında EA puanı için bu soru grubu AYT Türkçe olarak nitelendirilmişken, SÖZ puan soru grubu için AYT TDE olarak kullanılıyor.<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>YKS kataloğu Tablo 1C, 1D, 1E<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p><a href="https://www.yok.gov.tr/Documents/AnaSayfa/yuksekogretim_kurumlari_sinavi_sss_ve_cevaplari_puan_turleri_ile.pdf">YOK’ün konuyla ilgili resmi açıklaması için tıklayınız</a><a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Yeniden kullanın</h2><div quarto-reuse="quarto-reuse" class="quarto-appendix-contents"><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.tr">https://creativecommons.org/licenses/by/4.0/deed.tr</a></div></section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Alıntı</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{serkanalbayrak2022,
-  author = {Raif Serkan Albayrak},
+</section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Yeniden kullanın</h2><div id="quarto-reuse" class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.tr">https://creativecommons.org/licenses/by/4.0/deed.tr</a></div></div></section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Alıntı</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{serkanalbayrak,
+  author = {SerkanAlbayrak, Raif},
   title = {YKS Puanı Hesaplama Formülleri-1: Modeller ve Tutulmayan
     Sözler},
-  date = {2022-05-31},
+  date = {},
   langid = {tr}
 }
-</code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">Lütfen bu çalışmayı şu şekilde alıntılayın:</div><div id="ref-serkanalbayrak2022" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
-Raif Serkan Albayrak. 2022. <span>“YKS Puanı Hesaplama Formülleri-1:
-Modeller ve Tutulmayan Sözler.”</span> May 31, 2022.
+</code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">Lütfen bu çalışmayı şu şekilde alıntılayın:</div><div id="ref-serkanalbayrak" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
+SerkanAlbayrak, Raif. n.d. <span>“YKS Puanı Hesaplama Formülleri-1:
+Modeller ve Tutulmayan Sözler.”</span>
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -2413,7 +2490,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Kopyalandı");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopyalandı");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -2441,31 +2535,136 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>

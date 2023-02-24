@@ -26,27 +26,25 @@ library(gt)
 
 # Giriş
 
-Bu raporda sınav sisteminin değiştiği 2018 yılından itibaren yayınlanan YKS verisi kullanılmıştır. Her fakülte için 2018-2022 yıllarında Bölüm bazında İzmir Ekonomi Üniversitesi'nin Kontenjanları, bölüme yerleşen öğrencilerin **ortalama** YKS puanına göre vakıf üniversiteleri arasında sıralama ve vakıf üniversitelerinde bulunan aktif bölüm sayısı tabloları verilmiştir. Özellikle sıralamalar hesaplanırken birbirine yakın veya farklı isimlere sahip bölümlerin beraber değerlendirilmesi gerekmektedir. Örneğin Ekonomi bölümleri arasında yapılan sıralamaya İktisat bölümleri de dahil edilmiştir. Bu raporda aşağıda maddelenen eşleşmeler kullanılmıştır.     
+Bu raporda sınav sisteminin değiştiği 2018 yılından itibaren yayınlanan YKS verisi kullanılmıştır. Her fakülte için 2018-2022 yıllarında Bölüm bazında İzmir Ekonomi Üniversitesi'nin Kontenjanları, bölüme yerleşen öğrencilerin **ortalama** YKS puanına göre vakıf üniversiteleri arasında sıralama ve vakıf üniversitelerinde bulunan aktif bölüm sayısı tabloları verilmiştir. Özellikle sıralamalar hesaplanırken birbirine yakın veya farklı isimlere sahip bölümlerin beraber değerlendirilmesi gerekmektedir. Örneğin Ekonomi bölümleri arasında yapılan sıralamaya İktisat bölümleri de dahil edilmiştir. Bu raporda aşağıda maddelenen eşleşmeler kullanılmıştır.
 
-* EKONOMİ - İKTİSAT
-* SİYASET BİLİMİ VE ULUSLARARASI İLİŞKİLER - SİYASET BİLİMİ - ULUSLARARASI İLİŞKİLER
-* HALKLA İLİŞKİLER VE REKLAMCILIK - REKLAMCILIK VE HALKLA İLİŞKİLER - HALKLA İLİŞKİLER VE TANITIM    
-
+-   EKONOMİ - İKTİSAT
+-   SİYASET BİLİMİ VE ULUSLARARASI İLİŞKİLER - SİYASET BİLİMİ - ULUSLARARASI İLİŞKİLER
+-   HALKLA İLİŞKİLER VE REKLAMCILIK - REKLAMCILIK VE HALKLA İLİŞKİLER - HALKLA İLİŞKİLER VE TANITIM
 
 Raporun en sonunda tablolarla ilgili daha detaylı bilgilerin bulunduğu VERİ TABLOSU bulunmakta. Bu tabloda filtrelemeleri kullanarak tablolarda özetlenen bilgilerin detayına ulaşabilirsiniz.
 
-Sıralamaların nasıl hesaplandığına dair hazırladığımız teknik raporu [burada](../07_2022_yks_puan_hesaplama3/puan3.html)  bulabilirsiniz.  
+Sıralamaların nasıl hesaplandığına dair hazırladığımız teknik raporu [burada](../07_2022_yks_puan_hesaplama3/puan3.html) bulabilirsiniz.
 
-Bu raporun hazırlanmasında kullanılan R kodlarını dokümanın içinde bulabilirsiniz. 
+Bu raporun hazırlanmasında kullanılan R kodlarını dokümanın içinde bulabilirsiniz.
 
 ```{r}
 rankData <- read_excel("../../../temp/2022YKS/CalculatedRankings.xlsx")
-rankData <- rankData |> mutate(YIL = as.factor(YIL),
+rankData <- rankData %>%  mutate(YIL = as.factor(YIL),
                                FAKÜLTE=as.factor(FAKÜLTE),
                                BÖLÜM=as.factor(BÖLÜM),
                                ENDEKS=round(ENDEKS,1))
 ```
-
 
 ```{r}
 #| results: asis
@@ -66,10 +64,10 @@ for (f in levels(faRank1$FAKÜLTE)){
   cat(paste("## ",f,"\n","\n"))
   
   KontenjanTablosu <- faRank1 |> filter(FAKÜLTE==f) |> select(c(2,3:7)) |> 
-    gt() |> 
+    gt() %>% 
     cols_label(Kont._2018="2018",Kont._2019="2019",
-               Kont._2020="2020",Kont._2021="2021",Kont._2022="2022") |> 
-    tab_header(title = md("**2018-2022** Kontenjanlar")) |> sub_missing(missing_text = "---") |> 
+               Kont._2020="2020",Kont._2021="2021",Kont._2022="2022") %>% 
+    tab_header(title = md("**2018-2022** Kontenjanlar")) |> sub_missing(missing_text = "---") %>%  
     cols_align(align = "right",columns = BÖLÜM)
   
   RankingTablosu <- faRank1 |> filter(FAKÜLTE==f) |> select(c(2,8:12)) |> 
@@ -96,7 +94,6 @@ for (f in levels(faRank1$FAKÜLTE)){
 
 ```
 
-
 # Detaylı Veri Tablosu
 
 ```{r}
@@ -108,6 +105,5 @@ datatable(ieu.table.data, filter = 'top', rownames = FALSE,
             pageLength = 25, autoWidth = TRUE,
             columnDefs = list(list(targets = c(2,3,4,5,6), searchable = FALSE))
           )
-) |> formatStyle(columns = c(2,3,4,5),fontSize="90%")
+) %>%  formatStyle(columns = c(2,3,4,5),fontSize="90%")
 ```
-

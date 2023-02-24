@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="tr" xml:lang="tr"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.3.220">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -13,10 +13,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 </style>
 
 
@@ -67,22 +72,28 @@ ul.task-list{list-style: none;}
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="../../../index.html">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">zeytin</span>
-  </a>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../index.html">Ana Sayfa</a>
+    <a class="nav-link" href="../../../index.html" rel="" target="">
+ <span class="menu-text">Ana Sayfa</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../about.html">İletişim</a>
+    <a class="nav-link" href="../../../about.html" rel="" target="">
+ <span class="menu-text">İletişim</span></a>
   </li>  
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
@@ -90,8 +101,8 @@ ul.task-list{list-style: none;}
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">İçerik</h2>
    
   <ul>
@@ -104,8 +115,9 @@ ul.task-list{list-style: none;}
   </ul>
 </nav>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
 <main class="content column-page-right" id="quarto-document-content">
@@ -142,6 +154,7 @@ ul.task-list{list-style: none;}
       <p class="date">24 Haziran 2022</p>
     </div>
   </div>
+  
     
   </div>
   
@@ -163,7 +176,7 @@ ul.task-list{list-style: none;}
 <div id="fig-puanlama" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="../05_2022_yks_puan_diagram/img/preview.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figür 1: Puanların hesaplanmasında soru gruplarının ağırlığı</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figür&nbsp;1: Puanların hesaplanmasında soru gruplarının ağırlığı</figcaption><p></p>
 </figure>
 </div>
 <ul>
@@ -174,7 +187,7 @@ ul.task-list{list-style: none;}
 <div id="fig-sonucbelgesi" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="../05_2022_yks_puan_diagram/img/d2.jpeg" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figür 2: Sınav sonuç belgesi örneği</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figür&nbsp;2: Sınav sonuç belgesi örneği</figcaption><p></p>
 </figure>
 </div>
 </section>
@@ -190,13 +203,13 @@ ul.task-list{list-style: none;}
 <div id="fig-dist1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="img/preview.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figür 3: Hukuk Fakültelerine yerleşen öğrencilerin sıralamalarının dağılımı</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figür&nbsp;3: Hukuk Fakültelerine yerleşen öğrencilerin sıralamalarının dağılımı</figcaption><p></p>
 </figure>
 </div>
 <p>2020 ve 2021 yıllarında ise eğriler 125 bin barajında sonlanmaktadır. 2018-2019 yıllarında Hukuk Fakültesi kontenjanlarının yaklaşık %56’sı devlet üniversitelerindedir (<a href="#tbl-t1">Tablo&nbsp;1</a>). Bu kontenjanlara yerleşen öğrenciler arasında en sonda gelenin sıralaması 2018 yılında 42 bin ve 2019 yılında 40 bin olmuştur. Tabloda kontenjanların jemen altında yerleşen sayıları ve dololuk oranları da verilmiştir.</p>
 <div id="tbl-t1" class="anchored">
 <table class="table">
-<caption>Tablo 1: Kontenjan ve Yerleşme Bilgileri</caption>
+<caption>Tablo&nbsp;1: Kontenjan ve Yerleşme Bilgileri</caption>
 <tbody>
 <tr class="odd">
 <td><img src="img/t1.PNG" class="img-fluid"></td>
@@ -224,7 +237,7 @@ ul.task-list{list-style: none;}
 <p><a href="#tbl-t2">Tablo&nbsp;2</a>’de verilen sayılar ÖSYM tablolarından elde edilmiştir. 2018 yılında EA ile yerleşen toplam öğrenci sayısı yaklaşık 133 bindir. Bu öğrencilerin 57 bini ilk 190 bin sıralama içinde kapanan bölümlere yerleşmiştir. Ayrıca bu 57 bin öğrenci arasından 15,500’ü Hukuk geri kalan 41,500 ise Hukuk dışında diğer EA programlara yerleşmiştir. Diğer bir deyişle 2018 yılında sınav sonuç belgesinde EA türünde sıralaması 190 bin yazan öğrencinin EA programına yerleşen tüm öğrenciler arasında sıralaması sadece 57 bindi.</p>
 <div id="tbl-t2" class="anchored">
 <table class="table">
-<caption>Tablo 2: EA puanı ile yerleşenlerin sıralamaları 2018-2021</caption>
+<caption>Tablo&nbsp;2: EA puanı ile yerleşenlerin sıralamaları 2018-2021</caption>
 <tbody>
 <tr class="odd">
 <td><img src="img/t2.PNG" class="img-fluid"></td>
@@ -234,7 +247,7 @@ ul.task-list{list-style: none;}
 </div>
 <p>2019 yılına gelindiğinde EA türünde 190 bininci sıranın gerçekte karşılığı 54,500 oldu. Dolayısıyla bir önceki yıla göre yaklaşık 2500 daha az öğrenci Hukuk Fakültesi tercihi yapabilme şansı elde etti. Bu iki yıl karşılaştırıldığında 2019 yılında SAY ve EA puanlarının birbiri içine girişiminin 2018’e göre daha fazla olduğu görülmektedir. Bu durumun arkasında yatan nedenden<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> bağımsız olarak, 2019 yılındaki 2500 öğrenci arasından biri bile, istemesine rağmen Hukuk Fakültesi tercihi yapamadıysa, bunun nedeni öğrencinin başarısız olması değildir. Baraj sıralamasının 125 bine çekildiği 2020 ve 2021 yıllarında da benzer bir durum gerçekleşmiştir. 2021 yılında 2020’ye göre 3000 daha az sayıda öğrencinin Hukuk Fakültesi tercihi yapabilme şansı olmuştur.</p>
 <p>2020 yılında baraj sıralamasının kâğıt üzerinde 190 binden 125 bine çekilmesi, gerçekte 57 binden 43 bine çekilmesi anlamına gelir. Aynı cümle 2018, 2019 veya 2021 için kurulsaydı sayılar bambaşka olacaktı. Aradaki farklar; 2500 veya 3000 sayıları, Hukuk Fakültelerine yerleşen öğrencilerin toplamının %20’sine denk gelmektedir.</p>
-<div class="callout-note callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-note callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -252,7 +265,7 @@ Not
 <div id="fig-dist2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="img/Derivative.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figür 4: Hukuk Fakültelerine yerleşen öğrencilerin sıralamalarının türevsel dağılımı</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figür&nbsp;4: Hukuk Fakültelerine yerleşen öğrencilerin sıralamalarının türevsel dağılımı</figcaption><p></p>
 </figure>
 </div>
 <p>Sınıf tasarımı ve eğitimin kalitesi ile ilgili bazı parametreleri düzenleme amacıyla öğrenciler arasındaki sıralama farkını kontrol altına almaya çalışmanın haklı bir gerekçe olduğunu kabul ediyoruz. Bununla birlikte, birincil sıralamalar üzerinde tanımlanan baraj sıralaması kuralının, uygulamada yıllar arasında adaletsiz durumlara sebep verdiği de görülmektedir. 2018-2019 ve 2020-2021 yılları arasındaki karşılaştırmalarda, aynı baraj sıralamasının sonuçlarının uygulamada ne kadar farklı olduğu ortadadır.</p>
@@ -278,15 +291,15 @@ Not
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Dipnotlar</h2>
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Dipnotlar</h2>
 
 <ol>
-<li id="fn1" role="doc-endnote"><p>Ancak bu bölümler için herhangi bir sıralama şartı olmadığı için Yabancı Dil Testi bu yazının kapsamı dışında kalmaktadır.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>https://www.milliyet.com.tr/yazarlar/abbas-guclu/yks-2021de-neler-oldu-2022de-neler-bekleniyor-6758919<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn3" role="doc-endnote"><p>Bu tablo, tercihler ile ilgili hiçbir amaca hizmet etmez.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn4" role="doc-endnote"><p>https://www.yok.gov.tr/Sayfalar/Haberler/2019/yok-universiteye-giriste-basari-sirasi-citasini-yukseltti.aspx<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn5" role="doc-endnote"><p>Bu değişimin nedeni, ilgili yılın sınav dinamikleri nedeniyle, farklı puan türleri arasındaki yukarıda açıklanan girişimin sıralamalar üzerindeki etkisidir. Yıldan yıla alan spesifik soruların zorluğu ve/veya ek süre verilip verilmemesi gibi faktörler, farklı puan türleri arasındaki girişimi etkilemektedir. Örneğin 2021 yılındaki sınavda, Matematik sorularının geçmiş yıllara göre daha zor olması, sayısal öğrencilerin eşit ağırlık puan türünde ekstra avantajlı olmasına yol açmış ve eşit ağırlık öğrencilerinin önceki yıllara oranla sıralamada geriye düşmelerine sebep olmuştur. 2019 yılında eşit ağırlık öğrencilerinin lehine bir sınav sayesinde bu durumun tersinin gerçekleştiğini rahatlıkla söyleyebiliriz. Dolayısıyla hukuk fakülteleri özelinde yaptığımız bu tartışmanın aslında baraj sıralamasının olduğu tüm bölümler için de geçerli olduğu açıktır.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn6" role="doc-endnote"><p>Baraj sıralamasının 190 binden 125 bine düşürülmesiyle ilgili olarak;</p>
+<li id="fn1"><p>Ancak bu bölümler için herhangi bir sıralama şartı olmadığı için Yabancı Dil Testi bu yazının kapsamı dışında kalmaktadır.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>https://www.milliyet.com.tr/yazarlar/abbas-guclu/yks-2021de-neler-oldu-2022de-neler-bekleniyor-6758919<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Bu tablo, tercihler ile ilgili hiçbir amaca hizmet etmez.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn4"><p>https://www.yok.gov.tr/Sayfalar/Haberler/2019/yok-universiteye-giriste-basari-sirasi-citasini-yukseltti.aspx<a href="#fnref4" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn5"><p>Bu değişimin nedeni, ilgili yılın sınav dinamikleri nedeniyle, farklı puan türleri arasındaki yukarıda açıklanan girişimin sıralamalar üzerindeki etkisidir. Yıldan yıla alan spesifik soruların zorluğu ve/veya ek süre verilip verilmemesi gibi faktörler, farklı puan türleri arasındaki girişimi etkilemektedir. Örneğin 2021 yılındaki sınavda, Matematik sorularının geçmiş yıllara göre daha zor olması, sayısal öğrencilerin eşit ağırlık puan türünde ekstra avantajlı olmasına yol açmış ve eşit ağırlık öğrencilerinin önceki yıllara oranla sıralamada geriye düşmelerine sebep olmuştur. 2019 yılında eşit ağırlık öğrencilerinin lehine bir sınav sayesinde bu durumun tersinin gerçekleştiğini rahatlıkla söyleyebiliriz. Dolayısıyla hukuk fakülteleri özelinde yaptığımız bu tartışmanın aslında baraj sıralamasının olduğu tüm bölümler için de geçerli olduğu açıktır.<a href="#fnref5" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn6"><p>Baraj sıralamasının 190 binden 125 bine düşürülmesiyle ilgili olarak;</p>
 <blockquote class="blockquote">
 <p>Bu değişiklik, hukuk fakültelerini daha çalışkan ve donanımlı öğrencilerin kazanabilecekleri anlamına gelmektedir. Aynı zamanda devlet üniversitelerindeki hukuk fakülteleriyle, vakıf üniversitesi hukuk fakülteleri arasındaki eğitimin niteliğini doğrudan etkileyen makas daralmış olacak, bu da öğrenim kalitesindeki yetersizlik nedeniyle tercih edilmeyen üniversitelerin, çalışkan ve bilgili öğrenciler tarafından tercih edebildiği hukuk fakültelerine dönüşmelerine fırsat yaratacaktır.”</p>
 </blockquote>
@@ -296,19 +309,19 @@ Not
 <p>“Hukuk fakültelerine yerleştirmedeki başarı sıralaması şartı YÖK Genel Kurulunca 2021-2022 yılı öğrenci yerleştirmelerinde geçerli olmak üzere 125.000’den 100.000’e yükseltilmiştir. Eğitim öğretim kalitesinin yükselmesini sağlayacak, yeni fakülte açılması taleplerini azaltacak, boş kalacak kontenjanlar sebebiyle mevcut bazılarının da birleşmesi veya kapanması sonucunu zaman içerisinde doğuracak bu önemli kararı destekliyor ve teşekkür ediyoruz.”</p>
 </blockquote>
 <p>(https://www.barobirlik.org.tr/Haberler/feyzioglu-yokun-hukuk-fakulteleri-onemli-kararini-destekliyorum-81612)<a href="#fnref6" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn7" role="doc-endnote"><p>https://www.yok.gov.tr/Sayfalar/Haberler/2021/hukuk-fakultesi-basari-sarti.aspx<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn8" role="doc-endnote"><p>Maalesef vakıf üniversitelerine danışmadan, hiçbir açıklama yapmadan ve itiraz hakkı tanımadan.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn9" role="doc-endnote"><p>http://www.idare.gen.tr/oder-fakulte-kurma.pdf<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn7"><p>https://www.yok.gov.tr/Sayfalar/Haberler/2021/hukuk-fakultesi-basari-sarti.aspx<a href="#fnref7" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn8"><p>Maalesef vakıf üniversitelerine danışmadan, hiçbir açıklama yapmadan ve itiraz hakkı tanımadan.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn9"><p>http://www.idare.gen.tr/oder-fakulte-kurma.pdf<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Yeniden kullanın</h2><div quarto-reuse="quarto-reuse" class="quarto-appendix-contents"><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.tr">https://creativecommons.org/licenses/by/4.0/deed.tr</a></div></section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Alıntı</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{serkanalbayrak2022,
-  author = {Raif Serkan Albayrak},
+</section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Yeniden kullanın</h2><div id="quarto-reuse" class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.tr">https://creativecommons.org/licenses/by/4.0/deed.tr</a></div></div></section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Alıntı</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{serkanalbayrak,
+  author = {SerkanAlbayrak, Raif},
   title = {YKS Baraj Sıralamaları Üzerine},
-  date = {2022-06-24},
+  date = {},
   langid = {tr}
 }
-</code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">Lütfen bu çalışmayı şu şekilde alıntılayın:</div><div id="ref-serkanalbayrak2022" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
-Raif Serkan Albayrak. 2022. <span>“YKS Baraj Sıralamaları
-Üzerine.”</span> June 24, 2022.
+</code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">Lütfen bu çalışmayı şu şekilde alıntılayın:</div><div id="ref-serkanalbayrak" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
+SerkanAlbayrak, Raif. n.d. <span>“YKS Baraj Sıralamaları
+Üzerine.”</span>
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -351,7 +364,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Kopyalandı");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopyalandı");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -379,31 +409,136 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>

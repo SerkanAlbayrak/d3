@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="tr" xml:lang="tr"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.3.220">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -13,10 +13,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -55,7 +60,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -68,7 +73,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -141,22 +146,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="../../../index.html">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../../index.html">
     <span class="navbar-title">zeytin</span>
-  </a>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../../../index.html">Ana Sayfa</a>
+    <a class="nav-link" href="../../../index.html" rel="" target="">
+ <span class="menu-text">Ana Sayfa</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../../about.html">İletişim</a>
+    <a class="nav-link" href="../../../about.html" rel="" target="">
+ <span class="menu-text">İletişim</span></a>
   </li>  
 </ul>
-              <div id="quarto-search" class="" title="Search"></div>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
@@ -164,8 +175,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">İçerik</h2>
    
   <ul>
@@ -178,8 +189,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul>
 </nav>
 </nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
 <main class="content column-page-right" id="quarto-document-content">
@@ -215,6 +227,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <p class="date">25 Haziran 2022</p>
     </div>
   </div>
+  
     
   </div>
   
@@ -277,7 +290,6 @@ Ne var ki özellikle vakıf üniversiteleri söz konusu olduğunda bölüm bazı
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">method =</span> <span class="st">"render"</span>)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-
 <div class="container st-container">
 <h3 class="anchored">Data Frame Summary</h3>
 <strong>
@@ -287,139 +299,493 @@ hukuk
 <strong>Dimensions</strong>: 169 x 15
   <br><strong>Duplicates</strong>: 0
 <br>
-<table class="table table-striped table-bordered st-table st-table-striped st-table-bordered st-multiline ">
-  <thead>
-    <tr>
-      <th align="center" class="st-protect-top-border"><strong>No</strong></th>
-      <th align="center" class="st-protect-top-border"><strong>Variable</strong></th>
-      <th align="center" class="st-protect-top-border"><strong>Stats / Values</strong></th>
-      <th align="center" class="st-protect-top-border"><strong>Freqs (% of Valid)</strong></th>
-      <th align="center" class="st-protect-top-border"><strong>Graph</strong></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td align="center">1</td>
-      <td align="left">Ortalama OBP
-[numeric]</td>
-      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 431.6 (15.4)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">390.5 ≤ 431 ≤ 482.8</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 18 (0)</td></tr></tbody></table></td>
-      <td align="left" style="vertical-align:middle">169 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAJhJREFUaN7t18sJwCAQRVFbMCUkHcT+ewvBcTEg428Wwdy3cXd4qIgTAplJNHLmxHY6sCu9ucHAwLbE5LnwwbKSwMDAwMDAwMD+gqm/VME65rEqppSCpXZBMDAwMDAwMDAwMLDPYNY4MIxZBcFWsdo4N43VlHHMqGRhh751ghmKieme+2GyWT5Y9Wx9MOnpg8mi79liApnJA8H1DRld0Ta9AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA3LTMwVDIyOjM3OjI1KzAwOjAw0Xlb+QAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNy0zMFQyMjozNzoyNSswMDowMKAk40UAAAAASUVORK5CYII="></td>
-    </tr>
-    <tr>
-      <td align="center">2</td>
-      <td align="left">TYT Temel Matematik (40 soruda)
-[numeric]</td>
-      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 14.3 (3.6)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">8.8 ≤ 13.6 ≤ 27.3</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 4.1 (0.2)</td></tr></tbody></table></td>
-      <td align="left" style="vertical-align:middle">87 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAIlJREFUaN7t2MENgCAMQFFWgA3EDez+u5lIL00IIBAS5f9Lw8GXHgXnqCefK6YO31oJO+UJDAwMbA0WTYOYfm4HGBgYGBgYGNiemP5gzcHSuMDAwMDAforZW/kgVlDAwMDAwFZhDdeBdkzqC4J9DbMP8wkJenqNSWbPoKdBTFeag9mxFxan5KinG8D4OODTdPx6AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA3LTMwVDIyOjM3OjI1KzAwOjAw0Xlb+QAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNy0zMFQyMjozNzoyNSswMDowMKAk40UAAAAASUVORK5CYII="></td>
-    </tr>
-    <tr>
-      <td align="center">3</td>
-      <td align="left">TYT Türkçe (40 soruda)
-[numeric]</td>
-      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 27.6 (1.7)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">21.8 ≤ 27.4 ≤ 32.9</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1.8 (0.1)</td></tr></tbody></table></td>
-      <td align="left" style="vertical-align:middle">63 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAKJJREFUaN7t11sKgCAURVGnYDNIZ6Dzn1uhgoLhmxLa56MfL4vrg0ohyEhkKcpF1tOCaXvH/ARrWLl2zNb7AwMDAwMDAwMDAwMDA9scK14Ue7Fif2BgYGBgYH2Y+0SdizD3BAPbEfN/Y4swx1iwD7Aj7uMCLDKvYCq+b/081ASmY3++2oCtwMLOtGJJ9ROW1RexdDBg6ZmZxvL5T3c2G0FGcgFSidmnbd2X1wAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNy0zMFQyMjozNzoyNSswMDowMNF5W/kAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDCgJONFAAAAAElFTkSuQmCC"></td>
-    </tr>
-    <tr>
-      <td align="center">4</td>
-      <td align="left">TYT Fen Bilimleri (20 soruda)
-[numeric]</td>
-      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 4.6 (2.3)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">0.6 ≤ 4 ≤ 15.3</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1.7 (0.5)</td></tr></tbody></table></td>
-      <td align="left" style="vertical-align:middle">65 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAIJJREFUaN7t2UEKgCAQQFGvYDdIb6D3v5tBjYsGGZts1f8bIfS1iBA0BPIUpSRFR3cs17MCBgYGBgYGNo/JZryvwK6xgoGBgYGBgYGBgYGBgYGBgYEdPbkHMbH+AOxLrH+zFVhWa/+ObePTSAc2/mvBLCypXmBqapnH+vtNLC0pkKcGRbPT1atuiEgAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDDReVv5AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTMwVDIyOjM3OjI1KzAwOjAwoCTjRQAAAABJRU5ErkJggg=="></td>
-    </tr>
-    <tr>
-      <td align="center">5</td>
-      <td align="left">TYT Sosyal Bilimler (20 soruda)
-[numeric]</td>
-      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 14.2 (1.3)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">5.8 ≤ 14.1 ≤ 17.8</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1.3 (0.1)</td></tr></tbody></table></td>
-      <td align="left" style="vertical-align:middle">45 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAJBJREFUaN7t2cEJwCAMhWFXaDdo3KDuv1vRgi0hBzX2Yv93EET8iKAIGgIZydacXXIOc6wfSzlgK2Flf8gkLObmBAMDAwMDAwMDAwMDAwMDWxDTTwguTJcHBgYGBgbW5JTbaBZWBTAf9vqH8mOlD/ZbTOoZt7F7vBHTk+3+F5j99/assAuL+syqogYq8yaQkVxshJ3udZXcaQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNy0zMFQyMjozNzoyNSswMDowMNF5W/kAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDCgJONFAAAAAElFTkSuQmCC"></td>
-    </tr>
-    <tr>
-      <td align="center">6</td>
-      <td align="left">AYT Matematik (40 soruda)
-[numeric]</td>
-      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 14.9 (4.9)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">6.1 ≤ 14.6 ≤ 32.7</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 6 (0.3)</td></tr></tbody></table></td>
-      <td align="left" style="vertical-align:middle">108 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAH5JREFUaN7t2csNgCAQRVFawA4cO5D+e3M5b6ERZvxEc++KhZyQGBZAKRSpepN5cx1qB2se2MuY/FhLY4sPVzAwMDAwMDAwMDAwsC9iekhKYzoLDAwMDAwMDAwMLIV1XOf3Y+18lWBPYQcvcDFMxmB/wnT/pzH95A7MLqlQpA2Da3q1pZD9/QAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNy0zMFQyMjozNzoyNSswMDowMNF5W/kAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDCgJONFAAAAAElFTkSuQmCC"></td>
-    </tr>
-    <tr>
-      <td align="center">7</td>
-      <td align="left">AYT Türk Dili ve Edebiyatı (24 soruda)
-[numeric]</td>
-      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 16.7 (1.6)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">11.3 ≤ 16.5 ≤ 22</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1.8 (0.1)</td></tr></tbody></table></td>
-      <td align="left" style="vertical-align:middle">56 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAJ1JREFUaN7t2EEKgCAQhWGvkDdIb5D3v1ugs5goMnUWYv9bCIp+DCKIOkd6sr3Hh5y9Mu0jlnLWxWS3jLCsHGBgYGBgYIZY7V5vwmKlPjAwMDAwMDAwMDAwMLD5sfJQDDZYaY9FsKC+e4exqBgwMLBn7PJxNYqVzjBWajLC9NDvMa+3dhhLtzVtmL4LOzBZLpg+iB2YDE2PBZM40pMTtaH/4KTWNXQAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDDReVv5AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTMwVDIyOjM3OjI1KzAwOjAwoCTjRQAAAABJRU5ErkJggg=="></td>
-    </tr>
-    <tr>
-      <td align="center">8</td>
-      <td align="left">AYT Tarih-1 (10 soruda)
-[numeric]</td>
-      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 4.9 (0.9)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2.8 ≤ 4.8 ≤ 8.1</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 1 (0.2)</td></tr></tbody></table></td>
-      <td align="left" style="vertical-align:middle">39 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAJ5JREFUaN7t2EEOQDAQQNFegRsYN6j7301MJa2gSkcQ/y9smr7MqpRzdKVmO9G6prA81g9TYGBgYGB3YK0e2FaYMmBgYGBgYL/AwqXHCNOnBwMDA/saFq4TYoQp4MHAHsEK3uvl2HA8HxgYGBiYAZY9vM9i2fkWWPL9U4+tdoHZYRLrqrFkcQOT+JP9JJYMKTO2s6sASxdfj4lJjq40Aout5mY29LFWAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA3LTMwVDIyOjM3OjI1KzAwOjAw0Xlb+QAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNy0zMFQyMjozNzoyNSswMDowMKAk40UAAAAASUVORK5CYII="></td>
-    </tr>
-    <tr>
-      <td align="center">9</td>
-      <td align="left">Uni
-[character]</td>
-      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. ALTINBAŞ ÜNİVERSİTESİ (İS</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. ANKARA MEDİPOL ÜNİVERSİTE</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">3. ANKARA SOSYAL BİLİMLER ÜN</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">4. ATILIM ÜNİVERSİTESİ (ANKA</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">5. BAHÇEŞEHİR ÜNİVERSİTESİ (</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">6. BAŞKENT ÜNİVERSİTESİ (ANK</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">7. BEYKENT ÜNİVERSİTESİ (İST</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">8. ÇANKAYA ÜNİVERSİTESİ (ANK</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">9. DOĞU AKDENİZ ÜNİVERSİTESİ</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">10. DOĞUŞ ÜNİVERSİTESİ (İSTAN</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">[ 78 others ]</td></tr></tbody></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">4</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">2.4%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">3</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">1.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">138</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">81.7%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></tbody></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAIcAAAEKBAMAAADKkFuLAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAALRJREFUeNrt1bENwzAQA0CP4GxgyxvY+++WJikCqIr0ACEcB7jiCTy3TXpp7fV/9g9y3RAIBLIaMuU9DhDLIu2cgFwQCASyHDLlPQ4QiYjJgEAgkDrE7hTdJKdiCAQCiULsTtFNciqGQCAQkxGO2B0IBALpInanCLE7EAgE0kXsTtFNciqGQCCQKMTuFN0kp2IIBAKJQuxO0U1yKoZAIBCTEY60kRzfip+BQCAQSCQy5T3Kb969p9u9fwiCJQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNy0zMFQyMjozNzoyNSswMDowMNF5W/kAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDCgJONFAAAAAElFTkSuQmCC"></td>
-    </tr>
-    <tr>
-      <td align="center">10</td>
-      <td align="left">Burs
-[character]</td>
-      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. %25 İndirimli</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. %50 İndirimli</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">3. Burslu</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">4. Ücretli</td></tr></tbody></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">10</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">8.3%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">35</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">29.2%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">48</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">40.0%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">27</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">22.5%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></tbody></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAEkAAABmBAMAAAB1p6EMAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAGRJREFUSMft08EJACEMRFFL0A5W7UD7721R1EMIElhWEpl/fhdl4pzeUi8GPj9Uri0oqFuUbPdh2x8qsfFvJBUoKKtKtvvz9/jlamfP7idWUFDWlGz3Cu6RVfSNBQrKtJLtXmMv4SSGJoCqz4YAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDDReVv5AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTMwVDIyOjM3OjI1KzAwOjAwoCTjRQAAAABJRU5ErkJggg=="></td>
-    </tr>
-    <tr>
-      <td align="center">11</td>
-      <td align="left">Statu
-[character]</td>
-      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1. DEVLET</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">2. KKTC VAKIF</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">3. VAKIF</td></tr></tbody></table></td>
-      <td align="left" style="padding:0;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">52</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">30.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">21</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">12.4%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr><tr style="background-color:transparent"><td style="padding:0 5px 0 7px;margin:0;border:0" align="right">96</td><td style="padding:0 2px 0 0;border:0;" align="left">(</td><td style="padding:0;border:0" align="right">56.8%</td><td style="padding:0 4px 0 2px;border:0" align="left">)</td></tr></tbody></table></td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAGIAAABOBAMAAAAp5d5wAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAFRJREFUSMft1cENABAMRmErGEFtwP67ubhpSk9K3jv7DiR/pPRPolfy2hS1qyEQiLDCv/N8Xmhh3tV+XQQCcUX4V7s994iQ8+zfQKkhEIgQwr/zHxoAhoz1ERYBrwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNy0zMFQyMjozNzoyNSswMDowMNF5W/kAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDCgJONFAAAAAElFTkSuQmCC"></td>
-    </tr>
-    <tr>
-      <td align="center">12</td>
-      <td align="left">min
-[numeric]</td>
-      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 350.3 (36.8)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">309.7 ≤ 345.7 ≤ 487.3</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 49.5 (0.1)</td></tr></tbody></table></td>
-      <td align="left" style="vertical-align:middle">169 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAI9JREFUaN7t11EKgCAQhGGvUDfIbtDe/25BbsSAlKxCUP+8DPnwsSkJpUQiySXL1BXHVjsCBgYG9j4Wvd2qWHROMDCwC/OPUp/aTcWqBQYGBgYGBgYGBgYGBgbm5b+dY7BSGxgY2A+whsujHbPnAb+KzbqRnZguBrFzJJOTjmImi17vYvp+ndhdOZaHJJFIdi22MXBwh7waAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA3LTMwVDIyOjM3OjI1KzAwOjAw0Xlb+QAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNy0zMFQyMjozNzoyNSswMDowMKAk40UAAAAASUVORK5CYII="></td>
-    </tr>
-    <tr>
-      <td align="center">13</td>
-      <td align="left">max
-[numeric]</td>
-      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 390 (46.7)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">313.6 ≤ 382 ≤ 547.9</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 61.3 (0.1)</td></tr></tbody></table></td>
-      <td align="left" style="vertical-align:middle">169 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAK9JREFUaN7t2GsKgCAQRlG3UDvIdpD731ulgdFDcZpI434/AgUPPghrjCGSdDF2zdBJcsZGtwSsBqwvPdgk5gon2Rzmd8sqYf4xgYGBgX2NFVwEeazgtgIDAwMDAwOTYeEvTguLgxvDwjZoYb4TDKwNLJYmFLDYBgMDAwOrANuVn3NYopyzYfeDT5jvrBezl999Qmy8PIt6sONaH2HH6YH9AwtvhBIW2m9gViWGSDIDWlVNCtHqN/8AAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDDReVv5AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTMwVDIyOjM3OjI1KzAwOjAwoCTjRQAAAABJRU5ErkJggg=="></td>
-    </tr>
-    <tr>
-      <td align="center">14</td>
-      <td align="left">Kont
-[numeric]</td>
-      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 94.5 (101.4)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">3 ≤ 60 ≤ 550</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 110 (1.1)</td></tr></tbody></table></td>
-      <td align="left" style="vertical-align:middle">89 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAIhJREFUaN7t2bENwCAMAEFWyAiYDcL+u0UJFLiIItsIIeW/oHBxgoYCUiJP0jpidazUuxMMDAwMDAwMDAwMDAwMDAxsIRZ83dBYcH9gYGA/xdpFlOdgz1rBwMD2xBzfKu9Ysd9HazHLYT8xy/7AwDbCZChHsXGkMOVHMTVyYOORRY06JlNK5OkC7E6TMgtWbAoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDDReVv5AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTMwVDIyOjM3OjI1KzAwOjAwoCTjRQAAAABJRU5ErkJggg=="></td>
-    </tr>
-    <tr>
-      <td align="center">15</td>
-      <td align="left">Yer
-[numeric]</td>
-      <td align="left" style="padding:8;vertical-align:middle"><table style="border-collapse:collapse;border:none;margin:0"><tbody><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">Mean (sd) : 91.9 (102.8)</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">min ≤ med ≤ max:</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">1 ≤ 56 ≤ 550</td></tr><tr style="background-color:transparent"><td style="padding:0;margin:0;border:0" align="left">IQR (CV) : 110 (1.1)</td></tr></tbody></table></td>
-      <td align="left" style="vertical-align:middle">95 distinct values</td>
-      <td align="left" style="vertical-align:middle;padding:0;background-color:transparent;"><img style="border:none;background-color:transparent;padding:0;max-width:max-content;" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAI5JREFUaN7t2UEKgCAQQFGvUDdovEHe/25RulAoptGBkP5ftHDxyEUjWAjUk+SWsQoW09kOBgYGBgYGBgYGBgYGBgYGBvYfbPB6qcUG3w8MDGweLM+OzQe7ngkMbFJstRylKmb5XJ+x8vfIB+sYJGBgHph20piwqEyAL7C8wRus2flLrF6SumapYOJSoJ4OVSmJZNI4XuoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDDReVv5AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTMwVDIyOjM3OjI1KzAwOjAwoCTjRQAAAABJRU5ErkJggg=="></td>
-    </tr>
-  </tbody>
+
+<table class="table table-striped table-bordered st-table st-table-striped st-table-bordered st-multiline">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th class="st-protect-top-border" style="text-align: center;"><strong>No</strong></th>
+<th class="st-protect-top-border" style="text-align: center;"><strong>Variable</strong></th>
+<th class="st-protect-top-border" style="text-align: center;"><strong>Stats / Values</strong></th>
+<th class="st-protect-top-border" style="text-align: center;"><strong>Freqs (% of Valid)</strong></th>
+<th class="st-protect-top-border" style="text-align: center;"><strong>Graph</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: left;">Ortalama OBP [numeric]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 431.6 (15.4)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">390.5 ≤ 431 ≤ 482.8</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 18 (0)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle;">169 distinct values</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAJhJREFUaN7t18sJwCAQRVFbMCUkHcT+ewvBcTEg428Wwdy3cXd4qIgTAplJNHLmxHY6sCu9ucHAwLbE5LnwwbKSwMDAwMDAwMD+gqm/VME65rEqppSCpXZBMDAwMDAwMDAwMLDPYNY4MIxZBcFWsdo4N43VlHHMqGRhh751ghmKieme+2GyWT5Y9Wx9MOnpg8mi79liApnJA8H1DRld0Ta9AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA3LTMwVDIyOjM3OjI1KzAwOjAw0Xlb+QAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNy0zMFQyMjozNzoyNSswMDowMKAk40UAAAAASUVORK5CYII=" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: left;">TYT Temel Matematik (40 soruda) [numeric]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 14.3 (3.6)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">8.8 ≤ 13.6 ≤ 27.3</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 4.1 (0.2)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle;">87 distinct values</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAIlJREFUaN7t2MENgCAMQFFWgA3EDez+u5lIL00IIBAS5f9Lw8GXHgXnqCefK6YO31oJO+UJDAwMbA0WTYOYfm4HGBgYGBgYGNiemP5gzcHSuMDAwMDAforZW/kgVlDAwMDAwFZhDdeBdkzqC4J9DbMP8wkJenqNSWbPoKdBTFeag9mxFxan5KinG8D4OODTdPx6AAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA3LTMwVDIyOjM3OjI1KzAwOjAw0Xlb+QAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNy0zMFQyMjozNzoyNSswMDowMKAk40UAAAAASUVORK5CYII=" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: left;">TYT Türkçe (40 soruda) [numeric]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 27.6 (1.7)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">21.8 ≤ 27.4 ≤ 32.9</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 1.8 (0.1)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle;">63 distinct values</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAKJJREFUaN7t11sKgCAURVGnYDNIZ6Dzn1uhgoLhmxLa56MfL4vrg0ohyEhkKcpF1tOCaXvH/ARrWLl2zNb7AwMDAwMDAwMDAwMDA9scK14Ue7Fif2BgYGBgYH2Y+0SdizD3BAPbEfN/Y4swx1iwD7Aj7uMCLDKvYCq+b/081ASmY3++2oCtwMLOtGJJ9ROW1RexdDBg6ZmZxvL5T3c2G0FGcgFSidmnbd2X1wAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNy0zMFQyMjozNzoyNSswMDowMNF5W/kAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDCgJONFAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: left;">TYT Fen Bilimleri (20 soruda) [numeric]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 4.6 (2.3)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">0.6 ≤ 4 ≤ 15.3</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 1.7 (0.5)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle;">65 distinct values</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAIJJREFUaN7t2UEKgCAQQFGvYDdIb6D3v5tBjYsGGZts1f8bIfS1iBA0BPIUpSRFR3cs17MCBgYGBgYGNo/JZryvwK6xgoGBgYGBgYGBgYGBgYGBgYEdPbkHMbH+AOxLrH+zFVhWa/+ObePTSAc2/mvBLCypXmBqapnH+vtNLC0pkKcGRbPT1atuiEgAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDDReVv5AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTMwVDIyOjM3OjI1KzAwOjAwoCTjRQAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: left;">TYT Sosyal Bilimler (20 soruda) [numeric]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 14.2 (1.3)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">5.8 ≤ 14.1 ≤ 17.8</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 1.3 (0.1)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle;">45 distinct values</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAJBJREFUaN7t2cEJwCAMhWFXaDdo3KDuv1vRgi0hBzX2Yv93EET8iKAIGgIZydacXXIOc6wfSzlgK2Flf8gkLObmBAMDAwMDAwMDAwMDAwMDWxDTTwguTJcHBgYGBgbW5JTbaBZWBTAf9vqH8mOlD/ZbTOoZt7F7vBHTk+3+F5j99/assAuL+syqogYq8yaQkVxshJ3udZXcaQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNy0zMFQyMjozNzoyNSswMDowMNF5W/kAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDCgJONFAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: left;">AYT Matematik (40 soruda) [numeric]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 14.9 (4.9)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">6.1 ≤ 14.6 ≤ 32.7</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 6 (0.3)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle;">108 distinct values</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAH5JREFUaN7t2csNgCAQRVFawA4cO5D+e3M5b6ERZvxEc++KhZyQGBZAKRSpepN5cx1qB2se2MuY/FhLY4sPVzAwMDAwMDAwMDAwsC9iekhKYzoLDAwMDAwMDAwMLIV1XOf3Y+18lWBPYQcvcDFMxmB/wnT/pzH95A7MLqlQpA2Da3q1pZD9/QAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNy0zMFQyMjozNzoyNSswMDowMNF5W/kAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDCgJONFAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td style="text-align: left;">AYT Türk Dili ve Edebiyatı (24 soruda) [numeric]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 16.7 (1.6)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">11.3 ≤ 16.5 ≤ 22</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 1.8 (0.1)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle;">56 distinct values</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAJ1JREFUaN7t2EEKgCAQhWGvkDdIb5D3v1ugs5goMnUWYv9bCIp+DCKIOkd6sr3Hh5y9Mu0jlnLWxWS3jLCsHGBgYGBgYIZY7V5vwmKlPjAwMDAwMDAwMDAwMLD5sfJQDDZYaY9FsKC+e4exqBgwMLBn7PJxNYqVzjBWajLC9NDvMa+3dhhLtzVtmL4LOzBZLpg+iB2YDE2PBZM40pMTtaH/4KTWNXQAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDDReVv5AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTMwVDIyOjM3OjI1KzAwOjAwoCTjRQAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td style="text-align: left;">AYT Tarih-1 (10 soruda) [numeric]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 4.9 (0.9)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">2.8 ≤ 4.8 ≤ 8.1</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 1 (0.2)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle;">39 distinct values</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAJ5JREFUaN7t2EEOQDAQQNFegRsYN6j7301MJa2gSkcQ/y9smr7MqpRzdKVmO9G6prA81g9TYGBgYGB3YK0e2FaYMmBgYGBgYL/AwqXHCNOnBwMDA/saFq4TYoQp4MHAHsEK3uvl2HA8HxgYGBiYAZY9vM9i2fkWWPL9U4+tdoHZYRLrqrFkcQOT+JP9JJYMKTO2s6sASxdfj4lJjq40Aout5mY29LFWAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA3LTMwVDIyOjM3OjI1KzAwOjAw0Xlb+QAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNy0zMFQyMjozNzoyNSswMDowMKAk40UAAAAASUVORK5CYII=" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">9</td>
+<td style="text-align: left;">Uni [character]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">1. ALTINBAŞ ÜNİVERSİTESİ (İS</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">2. ANKARA MEDİPOL ÜNİVERSİTE</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">3. ANKARA SOSYAL BİLİMLER ÜN</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">4. ATILIM ÜNİVERSİTESİ (ANKA</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">5. BAHÇEŞEHİR ÜNİVERSİTESİ (</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">6. BAŞKENT ÜNİVERSİTESİ (ANK</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">7. BEYKENT ÜNİVERSİTESİ (İST</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">8. ÇANKAYA ÜNİVERSİTESİ (ANK</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">9. DOĞU AKDENİZ ÜNİVERSİTESİ</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">10. DOĞUŞ ÜNİVERSİTESİ (İSTAN</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">[ 78 others ]</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; padding: 0; vertical-align: middle;"><table class="table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">4</td>
+<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0; border: 0;">2.4%</td>
+<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">3</td>
+<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0; border: 0;">1.8%</td>
+<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">3</td>
+<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0; border: 0;">1.8%</td>
+<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">3</td>
+<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0; border: 0;">1.8%</td>
+<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">3</td>
+<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0; border: 0;">1.8%</td>
+<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">3</td>
+<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0; border: 0;">1.8%</td>
+<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">3</td>
+<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0; border: 0;">1.8%</td>
+<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">3</td>
+<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0; border: 0;">1.8%</td>
+<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">3</td>
+<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0; border: 0;">1.8%</td>
+<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">3</td>
+<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0; border: 0;">1.8%</td>
+<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">138</td>
+<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0; border: 0;">81.7%</td>
+<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAIcAAAEKBAMAAADKkFuLAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAALRJREFUeNrt1bENwzAQA0CP4GxgyxvY+++WJikCqIr0ACEcB7jiCTy3TXpp7fV/9g9y3RAIBLIaMuU9DhDLIu2cgFwQCASyHDLlPQ4QiYjJgEAgkDrE7hTdJKdiCAQCiULsTtFNciqGQCAQkxGO2B0IBALpInanCLE7EAgE0kXsTtFNciqGQCCQKMTuFN0kp2IIBAKJQuxO0U1yKoZAIBCTEY60kRzfip+BQCAQSCQy5T3Kb969p9u9fwiCJQAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNy0zMFQyMjozNzoyNSswMDowMNF5W/kAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDCgJONFAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td style="text-align: left;">Burs [character]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">1. %25 İndirimli</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">2. %50 İndirimli</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">3. Burslu</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">4. Ücretli</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; padding: 0; vertical-align: middle;"><table class="table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">10</td>
+<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0; border: 0;">8.3%</td>
+<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">35</td>
+<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0; border: 0;">29.2%</td>
+<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">48</td>
+<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0; border: 0;">40.0%</td>
+<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">27</td>
+<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0; border: 0;">22.5%</td>
+<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAEkAAABmBAMAAAB1p6EMAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAGRJREFUSMft08EJACEMRFFL0A5W7UD7721R1EMIElhWEpl/fhdl4pzeUi8GPj9Uri0oqFuUbPdh2x8qsfFvJBUoKKtKtvvz9/jlamfP7idWUFDWlGz3Cu6RVfSNBQrKtJLtXmMv4SSGJoCqz4YAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDDReVv5AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTMwVDIyOjM3OjI1KzAwOjAwoCTjRQAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">11</td>
+<td style="text-align: left;">Statu [character]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">1. DEVLET</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">2. KKTC VAKIF</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">3. VAKIF</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; padding: 0; vertical-align: middle;"><table class="table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">52</td>
+<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0; border: 0;">30.8%</td>
+<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">21</td>
+<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0; border: 0;">12.4%</td>
+<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: right; padding: 0 5px 0 7px; margin: 0; border: 0;">96</td>
+<td style="text-align: left; padding: 0 2px 0 0; border: 0;">(</td>
+<td style="text-align: right; padding: 0; border: 0;">56.8%</td>
+<td style="text-align: left; padding: 0 4px 0 2px; border: 0;">)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAGIAAABOBAMAAAAp5d5wAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAFRJREFUSMft1cENABAMRmErGEFtwP67ubhpSk9K3jv7DiR/pPRPolfy2hS1qyEQiLDCv/N8Xmhh3tV+XQQCcUX4V7s994iQ8+zfQKkhEIgQwr/zHxoAhoz1ERYBrwAAACV0RVh0ZGF0ZTpjcmVhdGUAMjAyMi0wNy0zMFQyMjozNzoyNSswMDowMNF5W/kAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDCgJONFAAAAAElFTkSuQmCC" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">12</td>
+<td style="text-align: left;">min [numeric]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 350.3 (36.8)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">309.7 ≤ 345.7 ≤ 487.3</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 49.5 (0.1)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle;">169 distinct values</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAI9JREFUaN7t11EKgCAQhGGvUDfIbtDe/25BbsSAlKxCUP+8DPnwsSkJpUQiySXL1BXHVjsCBgYG9j4Wvd2qWHROMDCwC/OPUp/aTcWqBQYGBgYGBgYGBgYGBgbm5b+dY7BSGxgY2A+whsujHbPnAb+KzbqRnZguBrFzJJOTjmImi17vYvp+ndhdOZaHJJFIdi22MXBwh7waAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIyLTA3LTMwVDIyOjM3OjI1KzAwOjAw0Xlb+QAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMi0wNy0zMFQyMjozNzoyNSswMDowMKAk40UAAAAASUVORK5CYII=" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">13</td>
+<td style="text-align: left;">max [numeric]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 390 (46.7)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">313.6 ≤ 382 ≤ 547.9</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 61.3 (0.1)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle;">169 distinct values</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAK9JREFUaN7t2GsKgCAQRlG3UDvIdpD731ulgdFDcZpI434/AgUPPghrjCGSdDF2zdBJcsZGtwSsBqwvPdgk5gon2Rzmd8sqYf4xgYGBgX2NFVwEeazgtgIDAwMDAwOTYeEvTguLgxvDwjZoYb4TDKwNLJYmFLDYBgMDAwOrANuVn3NYopyzYfeDT5jvrBezl999Qmy8PIt6sONaH2HH6YH9AwtvhBIW2m9gViWGSDIDWlVNCtHqN/8AAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDDReVv5AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTMwVDIyOjM3OjI1KzAwOjAwoCTjRQAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">14</td>
+<td style="text-align: left;">Kont [numeric]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 94.5 (101.4)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">3 ≤ 60 ≤ 550</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 110 (1.1)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle;">89 distinct values</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAIhJREFUaN7t2bENwCAMAEFWyAiYDcL+u0UJFLiIItsIIeW/oHBxgoYCUiJP0jpidazUuxMMDAwMDAwMDAwMDAwMDAxsIRZ83dBYcH9gYGA/xdpFlOdgz1rBwMD2xBzfKu9Ysd9HazHLYT8xy/7AwDbCZChHsXGkMOVHMTVyYOORRY06JlNK5OkC7E6TMgtWbAoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDDReVv5AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTMwVDIyOjM3OjI1KzAwOjAwoCTjRQAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">15</td>
+<td style="text-align: left;">Yer [numeric]</td>
+<td style="text-align: left; padding: 8; vertical-align: middle;"><table class="table">
+<tbody>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">Mean (sd) : 91.9 (102.8)</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">min ≤ med ≤ max:</td>
+</tr>
+<tr class="odd" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">1 ≤ 56 ≤ 550</td>
+</tr>
+<tr class="even" style="background-color:transparent">
+<td style="text-align: left; padding: 0; margin: 0; border: 0;">IQR (CV) : 110 (1.1)</td>
+</tr>
+</tbody>
+</table></td>
+<td style="text-align: left; vertical-align: middle;">95 distinct values</td>
+<td style="text-align: left; vertical-align: middle; padding: 0; background-color: transparent;"><img src="data:image/png;base64,%20iVBORw0KGgoAAAANSUhEUgAAAJgAAABuBAMAAAApJ8cWAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAD1BMVEX////9/v2mpqbw8PD///+xh0SBAAAAAnRSTlMAAHaTzTgAAAABYktHRACIBR1IAAAAB3RJTUUH5gceFiUZmhwJZgAAAI5JREFUaN7t2UEKgCAQQFGvUDdovEHe/25RulAoptGBkP5ftHDxyEUjWAjUk+SWsQoW09kOBgYGBgYGBgYGBgYGBgYGBvYfbPB6qcUG3w8MDGweLM+OzQe7ngkMbFJstRylKmb5XJ+x8vfIB+sYJGBgHph20piwqEyAL7C8wRus2flLrF6SumapYOJSoJ4OVSmJZNI4XuoAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjItMDctMzBUMjI6Mzc6MjUrMDA6MDDReVv5AAAAJXRFWHRkYXRlOm1vZGlmeQAyMDIyLTA3LTMwVDIyOjM3OjI1KzAwOjAwoCTjRQAAAABJRU5ErkJggg==" class="img-fluid" style="border:none;background-color:transparent;padding:0;max-width:max-content;"></td>
+</tr>
+</tbody>
 </table>
+
 <p>Generated by <a href="https://github.com/dcomtois/summarytools">summarytools</a> 1.0.1 (<a href="https://www.r-project.org/">R</a> version 4.2.1)<br>2022-07-31</p>
 </div>
 </div>
@@ -1393,22 +1759,22 @@ F-statistic:  8608 on 2 and 115 DF,  p-value: &lt; 2.2e-16</code></pre>
 </section>
 
 
-<div id="quarto-appendix" class="default"><section class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Dipnotlar</h2>
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Dipnotlar</h2>
 
 <ol>
-<li id="fn1" role="doc-endnote"><p>Örneğin Burslu ve %50 İndirimli kontenjanla öğrenci alan<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2" role="doc-endnote"><p>Altınbaş Ü için Hukuk’ta iki farklı bölüm (Standart ve UOLP-Köln) var ancak ayırma zahmetine girmiyoruz.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Örneğin Burslu ve %50 İndirimli kontenjanla öğrenci alan<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Altınbaş Ü için Hukuk’ta iki farklı bölüm (Standart ve UOLP-Köln) var ancak ayırma zahmetine girmiyoruz.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Yeniden kullanın</h2><div quarto-reuse="quarto-reuse" class="quarto-appendix-contents"><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.tr">https://creativecommons.org/licenses/by/4.0/deed.tr</a></div></section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Alıntı</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{serkanalbayrak2022,
-  author = {Raif Serkan Albayrak},
+</section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Yeniden kullanın</h2><div id="quarto-reuse" class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.tr">https://creativecommons.org/licenses/by/4.0/deed.tr</a></div></div></section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Alıntı</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{serkanalbayrak,
+  author = {SerkanAlbayrak, Raif},
   title = {YKS Puanı Hesaplama Formülleri-2: Bölüm Bazlı Üniversite
     Sıralamaları},
-  date = {2022-06-25},
+  date = {},
   langid = {tr}
 }
-</code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">Lütfen bu çalışmayı şu şekilde alıntılayın:</div><div id="ref-serkanalbayrak2022" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
-Raif Serkan Albayrak. 2022. <span>“YKS Puanı Hesaplama Formülleri-2:
-Bölüm Bazlı Üniversite Sıralamaları.”</span> June 25, 2022.
+</code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">Lütfen bu çalışmayı şu şekilde alıntılayın:</div><div id="ref-serkanalbayrak" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
+SerkanAlbayrak, Raif. n.d. <span>“YKS Puanı Hesaplama Formülleri-2:
+Bölüm Bazlı Üniversite Sıralamaları.”</span>
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -1451,7 +1817,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Kopyalandı");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopyalandı");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -1479,31 +1862,136 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
