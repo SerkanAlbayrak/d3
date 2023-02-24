@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="tr" xml:lang="tr"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Raif Serkan Albayrak">
+<meta name="description" content="R’ın en esnek veri yapısı olan list veri yapısından tutulan veriye ulaşma, formatlama ve dönüştürme üzerine en sık kullandığım yöntemleri yazıyorum.">
+
+<title>zeytin - List veri yapısı üzerine üzerine notlar ve map Fonksiyonu</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../../">
+<link href="../../../images/olive_fav.png" rel="icon" type="image/png">
+<script src="../../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Sonuç yok",
+    "search-matching-documents-text": "eşleşen belgeler",
+    "search-copy-link-title": "Aramak için bağlantıyı kopyalayın",
+    "search-hide-matches-text": "Ek eşleşmeleri gizle",
+    "search-more-match-text": "bu belgede daha fazla eşleşme",
+    "search-more-matches-text": "bu belgede daha fazla eşleşmeler",
+    "search-clear-button-title": "Temizle",
+    "search-detached-cancel-button-title": "İptal et",
+    "search-submit-button-title": "Göndermek"
+  }
+}</script>
+<script src="../../../site_libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
+<link href="../../../site_libs/jsoneditor-5.25.6/jsoneditor.min.css" rel="stylesheet">
+<script src="../../../site_libs/jsoneditor-5.25.6/jsoneditor.min.js"></script>
+<script src="../../../site_libs/jsonedit-binding-3.0.0/jsonedit.js"></script>
+
+
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+
+<body class="floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../../index.html">
+    <span class="navbar-title">zeytin</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../../index.html">
+ <span class="menu-text">Ana Sayfa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../../about.html">
+ <span class="menu-text">İletişim</span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">İçerik</h2>
+   
+  <ul>
+  <li><a href="#tibble-veya-dataframeden-list-oluşturmak" id="toc-tibble-veya-dataframeden-list-oluşturmak" class="nav-link active" data-scroll-target="#tibble-veya-dataframeden-list-oluşturmak">Tibble veya DataFrame’den List Oluşturmak</a>
+  <ul class="collapse">
+  <li><a href="#split" id="toc-split" class="nav-link" data-scroll-target="#split">Split</a></li>
+  <li><a href="#nest" id="toc-nest" class="nav-link" data-scroll-target="#nest">Nest</a></li>
+  </ul></li>
+  <li><a href="#modify_depth" id="toc-modify_depth" class="nav-link" data-scroll-target="#modify_depth">Modify_depth</a></li>
+  <li><a href="#nft-datasını-dönüştürmek" id="toc-nft-datasını-dönüştürmek" class="nav-link" data-scroll-target="#nft-datasını-dönüştürmek">NFT Datasını Dönüştürmek</a>
+  <ul class="collapse">
+  <li><a href="#map---enframe---unnest" id="toc-map---enframe---unnest" class="nav-link" data-scroll-target="#map---enframe---unnest">Map - Enframe - Unnest</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content column-page-right" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">List veri yapısı üzerine üzerine notlar ve map Fonksiyonu</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">purrr</div>
+    <div class="quarto-category">map</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    R’ın en esnek veri yapısı olan list veri yapısından tutulan veriye ulaşma, formatlama ve dönüştürme üzerine en sık kullandığım yöntemleri yazıyorum.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Yazar</div>
+    <div class="quarto-title-meta-contents">
+             <p>Raif Serkan Albayrak </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Yayınlanma Tarihi</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">11 Aralık 2022</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.4.0     ✔ purrr   1.0.1
+✔ tibble  3.1.8     ✔ dplyr   1.1.0
+✔ tidyr   1.3.0     ✔ stringr 1.5.0
+✔ readr   2.1.3     ✔ forcats 1.0.0
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+</div>
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(listviewer)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Liste veri yapısı her ne kadar R’ın bildiğim kadarıyla en esnek veri yapısı olsa da, filtrelenmesi, endekslenmesi ve hata veri girişi konusu karışık ve az biliniyor. Özellikler JSON tipi veri liste dönüştüğünde katmanlı ve düzensiz bir yapıya sahip olabiliyor. Bu gibi durumlarda istenen herhangi bir katmandaki tüm veriyi çekmek veya ihtiyaç duyulan filtrelemeleri yapmak kolay değil. Bunlardan sonra daha detaylı analizler için zaten list’i tibble veya dataframe’e dönüştürmek gerekiyor. O kısım da bu yazının konusu.</p>
+<p>Yazıya ters yönlü transformasyonla başlamak en iyi seçenek gibi görünmeyebilir ama aslında yazı boyunca kullanılabilecek örnek list verisi oluşturabilmek için de tibble’dan list’e dönüşüm ile başlıyorum.</p>
+<section id="tibble-veya-dataframeden-list-oluşturmak" class="level1">
+<h1>Tibble veya DataFrame’den List Oluşturmak</h1>
+<p>Tibble’dan list’e dönüşüm bir veya daha fazla kategorik değişken üzerinden yürütülür. Örneğin <code>mtcars</code> verisinde silindir değişkeni ile veriyi üçe parçalamak mümkün.</p>
+<section id="split" class="level2">
+<h2 class="anchored" data-anchor-id="split">Split</h2>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mtList <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">split</span>(.<span class="sc">$</span>cyl)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">jsonedit</span>(mtList)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div class="jsonedit html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-0bf56469326b3c584269" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-0bf56469326b3c584269">{"x":{"data":{"4":{"mpg":[22.8,24.4,22.8,32.4,30.4,33.9,21.5,27.3,26,30.4,21.4],"cyl":[4,4,4,4,4,4,4,4,4,4,4],"disp":[108,146.7,140.8,78.7,75.7,71.1,120.1,79,120.3,95.1,121],"hp":[93,62,95,66,52,65,97,66,91,113,109],"drat":[3.85,3.69,3.92,4.08,4.93,4.22,3.7,4.08,4.43,3.77,4.11],"wt":[2.32,3.19,3.15,2.2,1.615,1.835,2.465,1.935,2.14,1.513,2.78],"qsec":[18.61,20,22.9,19.47,18.52,19.9,20.01,18.9,16.7,16.9,18.6],"vs":[1,1,1,1,1,1,1,1,0,1,1],"am":[1,0,0,1,1,1,0,1,1,1,1],"gear":[4,4,4,4,4,4,3,4,5,5,4],"carb":[1,2,2,1,2,1,1,1,2,2,2]},"6":{"mpg":[21,21,21.4,18.1,19.2,17.8,19.7],"cyl":[6,6,6,6,6,6,6],"disp":[160,160,258,225,167.6,167.6,145],"hp":[110,110,110,105,123,123,175],"drat":[3.9,3.9,3.08,2.76,3.92,3.92,3.62],"wt":[2.62,2.875,3.215,3.46,3.44,3.44,2.77],"qsec":[16.46,17.02,19.44,20.22,18.3,18.9,15.5],"vs":[0,0,1,1,1,1,0],"am":[1,1,0,0,0,0,1],"gear":[4,4,3,3,4,4,5],"carb":[4,4,1,1,4,4,6]},"8":{"mpg":[18.7,14.3,16.4,17.3,15.2,10.4,10.4,14.7,15.5,15.2,13.3,19.2,15.8,15],"cyl":[8,8,8,8,8,8,8,8,8,8,8,8,8,8],"disp":[360,360,275.8,275.8,275.8,472,460,440,318,304,350,400,351,301],"hp":[175,245,180,180,180,205,215,230,150,150,245,175,264,335],"drat":[3.15,3.21,3.07,3.07,3.07,2.93,3,3.23,2.76,3.15,3.73,3.08,4.22,3.54],"wt":[3.44,3.57,4.07,3.73,3.78,5.25,5.424,5.345,3.52,3.435,3.84,3.845,3.17,3.57],"qsec":[17.02,15.84,17.4,17.6,18,17.98,17.82,17.42,16.87,17.3,15.41,17.05,14.5,14.6],"vs":[0,0,0,0,0,0,0,0,0,0,0,0,0,0],"am":[0,0,0,0,0,0,0,0,0,0,0,0,1,1],"gear":[3,3,3,3,3,3,3,3,3,3,3,3,5,5],"carb":[2,4,3,3,3,4,4,4,2,2,4,2,4,8]}},"options":{"mode":"tree","modes":["code","form","text","tree","view"]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<p><br></p>
+<p>Bir diğer örnek <code>CO2</code> verisi üzerinde olacak.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(CO2)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Plant   Type  Treatment conc uptake
+1   Qn1 Quebec nonchilled   95   16.0
+2   Qn1 Quebec nonchilled  175   30.4
+3   Qn1 Quebec nonchilled  250   34.8
+4   Qn1 Quebec nonchilled  350   37.2
+5   Qn1 Quebec nonchilled  500   35.3
+6   Qn1 Quebec nonchilled  675   39.2</code></pre>
+</div>
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(CO2)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>     Plant             Type         Treatment       conc          uptake     
+ Qn1    : 7   Quebec     :42   nonchilled:42   Min.   :  95   Min.   : 7.70  
+ Qn2    : 7   Mississippi:42   chilled   :42   1st Qu.: 175   1st Qu.:17.90  
+ Qn3    : 7                                    Median : 350   Median :28.30  
+ Qc1    : 7                                    Mean   : 435   Mean   :27.21  
+ Qc3    : 7                                    3rd Qu.: 675   3rd Qu.:37.12  
+ Qc2    : 7                                    Max.   :1000   Max.   :45.50  
+ (Other):42                                                                  </code></pre>
+</div>
+</div>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>CO2List <span class="ot">&lt;-</span> <span class="fu">split</span>(CO2, <span class="at">f =</span> <span class="fu">list</span>(CO2<span class="sc">$</span>Type, CO2<span class="sc">$</span>Treatment))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(CO2List,head)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>$Quebec.nonchilled
+  Plant   Type  Treatment conc uptake
+1   Qn1 Quebec nonchilled   95   16.0
+2   Qn1 Quebec nonchilled  175   30.4
+3   Qn1 Quebec nonchilled  250   34.8
+4   Qn1 Quebec nonchilled  350   37.2
+5   Qn1 Quebec nonchilled  500   35.3
+6   Qn1 Quebec nonchilled  675   39.2
+
+$Mississippi.nonchilled
+   Plant        Type  Treatment conc uptake
+43   Mn1 Mississippi nonchilled   95   10.6
+44   Mn1 Mississippi nonchilled  175   19.2
+45   Mn1 Mississippi nonchilled  250   26.2
+46   Mn1 Mississippi nonchilled  350   30.0
+47   Mn1 Mississippi nonchilled  500   30.9
+48   Mn1 Mississippi nonchilled  675   32.4
+
+$Quebec.chilled
+   Plant   Type Treatment conc uptake
+22   Qc1 Quebec   chilled   95   14.2
+23   Qc1 Quebec   chilled  175   24.1
+24   Qc1 Quebec   chilled  250   30.3
+25   Qc1 Quebec   chilled  350   34.6
+26   Qc1 Quebec   chilled  500   32.5
+27   Qc1 Quebec   chilled  675   35.4
+
+$Mississippi.chilled
+   Plant        Type Treatment conc uptake
+64   Mc1 Mississippi   chilled   95   10.5
+65   Mc1 Mississippi   chilled  175   14.9
+66   Mc1 Mississippi   chilled  250   18.1
+67   Mc1 Mississippi   chilled  350   18.9
+68   Mc1 Mississippi   chilled  500   19.5
+69   Mc1 Mississippi   chilled  675   22.2</code></pre>
+</div>
+</div>
+<p>Burada split işlemini geri almak da mümkün ama işlevsiz f argümanı o aşamada elde olması pek mümkün olmayan bir veri.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dfCO2 <span class="ot">&lt;-</span> <span class="fu">unsplit</span>(CO2List,<span class="at">f =</span> <span class="fu">list</span>(CO2<span class="sc">$</span>Type,CO2<span class="sc">$</span>Treatment))</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="nest" class="level2">
+<h2 class="anchored" data-anchor-id="nest">Nest</h2>
+<p>Nest ile de list oluşturmak mümkün. Nasıl çalıştığını görmek için önce çok basit bir örnek üzerinde uyguluyoruz. BU örnek orjinal yardım dosyasından.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>), <span class="at">y =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">z =</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">1</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Note that we get one row of output for each unique combination of</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># non-nested variables</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>df_nested <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">nest</span>(<span class="at">data =</span> <span class="fu">c</span>(y, z))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>df_nested</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+      x data            
+  &lt;dbl&gt; &lt;list&gt;          
+1     1 &lt;tibble [3 × 2]&gt;
+2     2 &lt;tibble [2 × 2]&gt;
+3     3 &lt;tibble [1 × 2]&gt;</code></pre>
+</div>
+</div>
+<p>nest edilmeyen değişkenlerim her kombinasyonu bir satırda gösteriliyor.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df_nested[<span class="dv">1</span>,<span class="dv">2</span>][[<span class="dv">1</span>]]</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+# A tibble: 3 × 2
+      y     z
+  &lt;int&gt; &lt;int&gt;
+1     1     6
+2     2     5
+3     3     4</code></pre>
+</div>
+</div>
+<p>chop benzeri bir işlem yapar ama kolonları da tutar, birleştirmez.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># chop does something similar, but retains individual columns</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>df_chop <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> <span class="fu">chop</span>(<span class="fu">c</span>(y, z))</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>df_chop</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+      x           y           z
+  &lt;dbl&gt; &lt;list&lt;int&gt;&gt; &lt;list&lt;int&gt;&gt;
+1     1         [3]         [3]
+2     2         [2]         [2]
+3     3         [1]         [1]</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="modify_depth" class="level1">
+<h1>Modify_depth</h1>
+<p>https://purrr.tidyverse.org/reference/modify.html adresinde konu ile ilgili detaylı açıklama ve çok sayıda örnek mevcut,</p>
+<p>Aşağıdaki örnekte bir nested list içinde, 2 seviye içeriden tüm değerleri çekmek için modify depth kullanılabilir.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>l1 <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">obj1 =</span> <span class="fu">list</span>(</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">prop1 =</span> <span class="fu">list</span>(<span class="at">param1 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">param2 =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>),</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">prop2 =</span> <span class="fu">list</span>(<span class="at">param1 =</span> <span class="dv">5</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">param2 =</span> <span class="dv">7</span><span class="sc">:</span><span class="dv">8</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">obj2 =</span> <span class="fu">list</span>(</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">prop1 =</span> <span class="fu">list</span>(<span class="at">param1 =</span> <span class="dv">9</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">param2 =</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">12</span>),</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">prop2 =</span> <span class="fu">list</span>(<span class="at">param1 =</span> <span class="dv">12</span><span class="sc">:</span><span class="dv">14</span>, <span class="at">param2 =</span> <span class="dv">15</span><span class="sc">:</span><span class="dv">17</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>l2 <span class="ot">&lt;-</span> l1 <span class="sc">%&gt;%</span> <span class="fu">modify_depth</span>(<span class="dv">2</span>, <span class="st">"param1"</span>)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>l2</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>$obj1
+$obj1$prop1
+[1] 1 2
+
+$obj1$prop2
+[1] 5 6
+
+
+$obj2
+$obj2$prop1
+[1]  9 10
+
+$obj2$prop2
+[1] 12 13 14</code></pre>
+</div>
+</div>
+</section>
+<section id="nft-datasını-dönüştürmek" class="level1">
+<h1>NFT Datasını Dönüştürmek</h1>
+<p>NFT Datasının içinden trait verileri alıp bir tibble’a dönüştürme işiyla başlıyoruz. Aslında verinin içinde trait alt listesinin yapısı son derece düzgün. Amaç bunu dönüştürmek. Temel sıkıntı tekrar etmesi gereken name değerleri var.</p>
+<div class="cell">
+<details>
+<summary>Kod</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"nft_traits.rda"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">jsonedit</span>(rc_traits_data)</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+
+<div class="jsonedit html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f30a1d10259471391b41" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-f30a1d10259471391b41">{"x":{"data":{"collection":{"editors":["0x184d2b149ff1a39444a01df2ef47ad4e4a89dc43","0xdc714dba9b94474b815e9d556454d0e4fe2253ae","0x83c2a6ffd992b3775da96eca53a779144dc56b9d","0x429ed25bcd3b0ac3632dab6b32c21a78c67ea8e6"],"payment_tokens":[{"id":13689077,"symbol":"ETH","address":"0x0000000000000000000000000000000000000000","image_url":"https://openseauserdata.com/files/6f8e2979d428180222796ff4a33ab929.svg","name":"Ether","decimals":18,"eth_price":1,"usd_price":1645.48},{"id":12182941,"symbol":"DAI","address":"0x6b175474e89094c44da98b954eedeac495271d0f","image_url":"https://openseauserdata.com/files/dai-ethereum.svg","name":"Dai Stablecoin","decimals":18,"eth_price":0.00060775,"usd_price":1},{"id":4645681,"symbol":"WETH","address":"0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2","image_url":"https://openseauserdata.com/files/accae6b6fb3888cbff27a013729c22dc.svg","name":"Wrapped Ether","decimals":18,"eth_price":1,"usd_price":1645.48},{"id":4403908,"symbol":"USDC","address":"0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48","image_url":"https://openseauserdata.com/files/749015f009a66abcb3bbb3502ae2f1ce.svg","name":"USD Coin","decimals":6,"eth_price":0.00060773,"usd_price":1}],"is_collection_offers_enabled":true,"primary_asset_contracts":[{"address":"0xcfff4c8c0df0e2431977eba7df3d3de857f4b76e","asset_contract_type":"non-fungible","created_date":"2021-08-15T05:34:52.669499","name":"RiverMen","nft_version":"3.0","opensea_version":[],"owner":260090723,"schema_name":"ERC721","symbol":"RM","total_supply":"0","description":"Rivermen is a gamified NFT collection based on blockchain technology, created by the Cthuwork&NA team using elements from the voxel version of the “Along the River During Qingming Festival”. The voxel version of “Along the River During Qingming Festival” is a 3D artwork reinterpreting this long scroll, as one of the top ten famous Chinese paintings.\nThe RIVER refers to the \"Bian River\" in this ancient painting scroll. Each person in this scene has a unique identity. The Rivermen are the good neighbors and cool folks living in the \"Bianriverse\".\nThey are not ancient nor modern, but aboriginal people of the \"Bianriverse\", which is a metaverse based on \"Along the River During the Qingming Festival\". They will spend some quality time together in the Bianriverse.\nRiverSpace：https://opensea.io/collection/river-space\nRiverEstate：https://opensea.io/collection/riverestate\nRiverArt：https://opensea.io/collection/riverart\nRivermenGift：https://opensea.io/collection/rivermengift","external_link":"https://rivermen.io/","image_url":"https://i.seadn.io/gae/Kc96kxOK06q1eJ5n_xEp_xExRvEue0NdN2NdjAvleeru1k8XoBhgMkqLayoKKiBpYyvPnva2IPhlFbMw0IW1_-YOL96r-zvtIA_DcA?w=500&auto=format","default_to_fiat":false,"dev_buyer_fee_basis_points":0,"dev_seller_fee_basis_points":500,"only_proxied_transfers":false,"opensea_buyer_fee_basis_points":0,"opensea_seller_fee_basis_points":0,"buyer_fee_basis_points":0,"seller_fee_basis_points":500,"payout_address":"0x53ecf0b18b27d3d06a4ed24b095694c5adca8ab7"}],"traits":{"Type":{"human 3":1774,"zombie":1983,"human 4":1061,"human 1":2292,"human 2":1792,"ghost":1098},"Hat":{"crown":415,"top hat":384,"orchid (potted plant)":176,"pavilion headwear":172,"buddha halo":190,"helmet":397,"centre parting":604,"long winged officer hat":198,"winged cap":315,"double tail":597,"silk thread towel":189,"chrysanthemum (potted plant)":206,"bamboo hat":507,"imperial crown":405,"plum (potted plant)":209,"tilted frisette":601,"bamboo (potted plant)":210,"flag head":340,"single ponytail":520,"golden phoenix crown":192,"double hair updo":344,"cloudy updo":364,"blue phoenix crown":184,"red phoenix crown":197,"miao silver":383,"none":16,"low hat":341,"diaochan hat":348,"taoist hat":357,"haetae hat":337,"literati hat":302},"Head":{"dazed expression":2956,"smiley face":2531,"embarrassed expression":2027,"nine barrels":45,"surprised expression":1632,"kirin":173,"steamed stuffed bun":34,"buddha":81,"noodle":23,"chinese dragon":73,"rice dumpling":29,"dumplings":20,"three barrels":14,"a barrel":25,"facial design of beijing opera":128,"rice":21,"two barrels":25,"eight barrels":27,"six barrels":16,"steamed bun":34,"seven barrels":28,"teapot":10,"four barrels":14,"five barrels":15,"cup":19},"Jacket":{"blue contrast jacket":496,"dark red sweater":374,"brown jacket":315,"orange contrast jacket":408,"dark blue sweater":470,"purple contrast jacket":190,"black and green jacket":475,"dark blue contrast jacket":247,"dark gray sweater":280,"black coat":345,"dark green sweater":167,"green contrast jacket":359,"off-white color matching short sleeves":316,"purple jacket":377,"green jacket":180,"red contrast jacket":375,"green color matching short sleeves":478,"red coat":352,"red jacket":157,"dark green jacket":463,"pink coat":268,"deep purple sweatshirt":384,"blue coat":383,"light green color matching short sleeves":177,"sky blue color matching short sleeves":303,"blue jacket":256,"lavender color matching short sleeves":409,"light blue color matching short sleeves":254,"dark green sweatshirt":385,"light green jacket":357},"Trousers":{"orange trousers":350,"sky blue shorts":386,"black shorts":365,"purple overalls":389,"green shorts":491,"black functional pants":333,"rose red trousers":502,"blue striped pants":283,"purple trousers":268,"yellow-green striped pants":463,"blue and white overalls":293,"purple functional pants":170,"blue and green cargo pants":338,"brown striped pants":364,"pink and green functional pants":370,"pink functional pants":441,"black trousers":360,"orange shorts":288,"grey trousers":380,"blue and white striped pants":356,"light yellow shorts":183,"grey overalls":468,"blue functional pants":329,"denim shorts":359,"grey striped pants":353,"sky blue trousers":169,"khaki overalls":348,"blue grey cargo pants":178,"green functional pants":254,"fuchsia striped pants":169},"Shoes":{"zijin dynasty skate shoes":197,"yellow boots":203,"night city army boots":195,"tropical beach shoes":202,"blue and purple beach shoes":134,"macaron army boots":117,"void tooling shoes":176,"pink and white beach shoes":164,"brown martin boots":179,"grey martin boots":233,"red leather shoes":196,"blue and gray leather shoes":230,"red skate shoes":162,"dark brown army boots":160,"avocado army boots":137,"pink sandals":181,"sky blue basketball shoes":88,"heat tooling shoes":183,"blue and green boots":180,"blue sandals":221,"summer martin boots":133,"purple martin boots":94,"white boots":86,"red sandals":172,"red and blue beach shoes":234,"brown skate shoes":244,"red boots":175,"green basketball shoes":197,"grey sandals":85,"orange martin boots":173,"brown leather shoes":128,"night city tooling shoes":129,"blue basketball shoes":157,"blue and black boots":159,"purple sweet potato military boots":174,"macaron tooling shoes":94,"martin boots":194,"yellow leather shoes":75,"retro style skate shoes":86,"pink basketball shoes":200,"gypsy tooling shoes":168,"light brown army boots":213,"orange boots":144,"turquoise skateboard shoes":124,"summer beach shoes":180,"red and blue boots":264,"grey skate shoes":165,"ice cream boots":208,"green leather shoes":191,"light green basketball shoes":137,"ice cream beach shoes":67,"orange basketball shoes":269,"green boots":234,"mamba tooling shoes":230,"novice boots":137,"green sandals":172,"eskimo boots":82,"khaki sandals":132,"pink leather shoes":207,"blue boots":149},"USED":{"yes":5091,"no":4909},"Identity":{"the pedestrian":50,"tax officer a":55,"boatman a":50,"the restaurant owner":50,"the fortune-telling customer a":49,"the director":50,"the passing-by wooden-luggage porter":55,"the traveler on the bridge":49,"the vendor":50,"carter c":49,"a passer-by with a burden":50,"wine-carrying solider a":55,"the waiting coachman":50,"the restaurant customer":50,"restaurant guest b":49,"servant b":50,"chatting teahouse guest b":50,"the bellman":55,"a father and a son":50,"chatting teahouse guest, a":50,"sculling boatman b":49,"bystander d":50,"the house horse-leading servant":55,"the delivery boaters":50,"idle soldier d":49,"the store owner":50,"restaurant guest a":50,"the following porter":50,"the cake stand owner":50,"the walking-by porter":50,"warning boatman a":50,"the house pole-carrying servant":50,"the palanquin-carrier of the civil official":50,"the hotel waiter":50,"the vegetable farmer":50,"the caravan leader":50,"the child-holding woman":50,"the absent-minded pedestrian":50,"the barge haulers":50,"traveler b":50,"idle soldier a":50,"the babycaring maid":50,"silk store customer a":50,"warning boatman c":50,"teahouse guest b":50,"the coachman of the civil official":50,"the young farmer":49,"monks":10,"the shoes-trying-on customers":49,"the pedestrians":50,"the shading scholar":50,"chatting teahouse guest c":50,"the horse-chasing coachman":50,"the wheaten food vendor":49,"restaurant guest c":50,"barge hauler a":49,"water carrier b":49,"confucian student a":49,"the taciturn seller":15,"the palanquin-carrier":55,"the scholar in white":49,"the beauty in red":49,"the cordage stall owner":50,"the cart hauler":50,"the walking officer":50,"traveler a":50,"the laundering old woman":50,"ship passenger b":50,"the lamb stall owner":15,"the bargaining drinker":50,"drinker b":50,"the furniture store owner":50,"the rich student":15,"the treating teenager":50,"warning boatman b":50,"cash-in-transit guard a":50,"arguing scholar b":55,"traveler c":50,"caravan followers":50,"carter a":49,"the clinic doctor":50,"the horse-riding passer-by":50,"the old shaving man":50,"barge hauler b":50,"the lookers-on":49,"ship passenger a":50,"the divination interpreter":50,"the herb-drinks vendor":50,"the easy porter":55,"shipmate b":50,"the inviting scholar":55,"the flower buyer":50,"carter b":49,"the audience":50,"sculler-holding boatman d":49,"the bodyguard servant":50,"the old donkey-riding lady":50,"teahouse guest c":50,"the tea drinking customers":50,"the poling boatman":50,"fortune teller a":50,"the way-asking countryman":50,"the wine cart fella":50,"the sacrificing boatman":50,"tax officer c":55,"the touring scholar":53,"bystander c":49,"the boatman-in-command":50,"sculler-holding boatman a":50,"boatman b":50,"the drinking customer":49,"the teenage farmer":50,"the old seller":50,"the wandering -around passersby":55,"the halting passer-by":50,"the inn owner":50,"wine-carrying solider b":54,"the shipowner":49,"troubled carter b":50,"confucian student b":50,"the cart puller":50,"the buyer":50,"the flower seller":50,"the palanquin-carrying servants":50,"the matchmaker":52,"silk store customer b":49,"the smuggler":49,"the wine carter":50,"water carrier a":50,"the paraffin oil buyer":50,"the soldier":50,"sculling boatman c":48,"the pondering scholar":55,"the fortune-telling customer":50,"the old charcoal seller":15,"the toy vendor":50,"farmer b":50,"cash-in-transit guard b":50,"cake stand customers":50,"the arguing carter":54,"the restaurant waiter":50,"the horse-riding master":50,"servant a":50,"the flower-buying hostess":50,"the accompanying women":49,"the military official":15,"teahouse guest a":50,"the horse-leading servant":50,"the panicking baby-holding woman":50,"the rest-taking porter":49,"the fortune-telling looker-on":50,"the discontent bystander":50,"the wheel carpenters":50,"the pole-carrying servant":49,"idle soldier c":50,"bystander a":50,"shipmate a":50,"water carrier c":50,"the delivery man":50,"the old donkey-riding man":50,"the mysterious hostess":54,"the salt store owner":50,"idle soldier b":49,"the audience with a child":50,"the bending bystander":50,"troubled carter a":50,"the annoyed scholar":55,"tax officer b":55,"the flower stall owner":50,"the storyteller":50,"the exhausted porter":55,"drinker a":50,"sculler-holding boatman b":50,"the fan-holding scholar":55,"the luggage-carrying coachman":50,"the tavern waiter":50,"the rest-taking boatman":50,"the paper horse vendor":50,"the following servant":50,"the prayer-holding host":50,"bystander b":49,"the traveling scholar":50,"arguing scholar a":54,"the refuged porter":50,"the begging monk":49,"farmer a":50,"the wood-milling carpenter":50,"the rich man":50,"the cordage stall customers":49,"the shaving customer":50,"the passing-by porter":50,"the inquirying woman":50,"the deputy military official":50,"the bow-shooting officer":55,"the sheep butcher":50,"drunk soldier a":48,"drunk soldier b":50,"the fortune teller":49,"the noble lady":50,"sculler-holding boatman c":49,"the guiding doorkeeper":50,"sculling boatman a":50},"Background":{"background 2":1378,"background 7":1310,"background 5":1432,"background 4":1501,"background 1":1485,"background 6":1416,"background 3":1478}},"stats":{"one_hour_volume":1.7488,"one_hour_change":1.73249995708466,"one_hour_sales":22,"one_hour_sales_change":1.75,"one_hour_average_price":0.0794909090909091,"one_hour_difference":1.1088,"six_hour_volume":4.5098,"six_hour_change":1.29623222351074,"six_hour_sales":57,"six_hour_sales_change":1.27999997138977,"six_hour_average_price":0.0791192982456141,"six_hour_difference":2.5458,"one_day_volume":233.862440000001,"one_day_change":0.282648205757141,"one_day_sales":198,"one_day_sales_change":0.131428569555283,"one_day_average_price":1.18112343434344,"one_day_difference":51.5346300000013,"seven_day_volume":537.388870000004,"seven_day_change":1246.13128336042,"seven_day_sales":525,"seven_day_average_price":1.02359784761905,"seven_day_difference":536.957970000004,"thirty_day_volume":538.975470000004,"thirty_day_change":272.911404177468,"thirty_day_sales":551,"thirty_day_average_price":0.978176896551731,"thirty_day_difference":537.007770000004,"total_volume":1833.24677959707,"total_sales":5741,"total_supply":9992,"count":9992,"num_owners":1528,"average_price":0.319325340462824,"num_reports":1,"market_cap":10227.7896934096,"floor_price":0.08},"banner_image_url":"https://i.seadn.io/gae/VZowVg9mtZOBs0NGB9Mq6q4I2ZS1_drtc9K_0QPgBtgAvuoaOdfnwr7zQrqujj9sWfuiJCoiLImSDaLjCNnf05TCbAFl_EarqG_dTw?w=500&auto=format","chat_url":[],"created_date":"2021-08-15T08:00:37.309132+00:00","default_to_fiat":false,"description":"Rivermen is a gamified NFT collection based on blockchain technology, created by the Cthuwork&NA team using elements from the voxel version of the “Along the River During Qingming Festival”. The voxel version of “Along the River During Qingming Festival” is a 3D artwork reinterpreting this long scroll, as one of the top ten famous Chinese paintings.\nThe RIVER refers to the \"Bian River\" in this ancient painting scroll. Each person in this scene has a unique identity. The Rivermen are the good neighbors and cool folks living in the \"Bianriverse\".\nThey are not ancient nor modern, but aboriginal people of the \"Bianriverse\", which is a metaverse based on \"Along the River During the Qingming Festival\". They will spend some quality time together in the Bianriverse.\nRiverSpace：https://opensea.io/collection/river-space\nRiverEstate：https://opensea.io/collection/riverestate\nRiverArt：https://opensea.io/collection/riverart\nRivermenGift：https://opensea.io/collection/rivermengift","dev_buyer_fee_basis_points":"0","dev_seller_fee_basis_points":"500","discord_url":"https://discord.gg/rivermen","display_data":{"card_display_style":"contain","images":[]},"external_url":"https://rivermen.io/","featured":false,"featured_image_url":"https://i.seadn.io/gae/wz2X5eupdm0HzsTRFvpqI86VBNEGgq1XH9V4kKAs5-rppnBpM2gASLp2bDvJpLzYzDlIHRLwqsi2GMOpI71jLL56-wN67VGl7XBCPBQ?w=500&auto=format","hidden":false,"safelist_request_status":"verified","image_url":"https://i.seadn.io/gae/Kc96kxOK06q1eJ5n_xEp_xExRvEue0NdN2NdjAvleeru1k8XoBhgMkqLayoKKiBpYyvPnva2IPhlFbMw0IW1_-YOL96r-zvtIA_DcA?w=500&auto=format","is_subject_to_whitelist":false,"large_image_url":"https://i.seadn.io/gae/wz2X5eupdm0HzsTRFvpqI86VBNEGgq1XH9V4kKAs5-rppnBpM2gASLp2bDvJpLzYzDlIHRLwqsi2GMOpI71jLL56-wN67VGl7XBCPBQ?w=500&auto=format","medium_username":"Rivermen","name":"Rivermen","only_proxied_transfers":false,"opensea_buyer_fee_basis_points":"0","opensea_seller_fee_basis_points":0,"payout_address":"0x53ecf0b18b27d3d06a4ed24b095694c5adca8ab7","require_email":false,"short_description":[],"slug":"rivermen","telegram_url":"https://t.me/RivermenEN","twitter_username":"RivermenNFT","instagram_username":"rivermen_nft/","wiki_url":[],"is_nsfw":false,"fees":{"seller_fees":{"0x53ecf0b18b27d3d06a4ed24b095694c5adca8ab7":500},"opensea_fees":{}},"is_rarity_enabled":false,"is_creator_fees_enforced":false}},"options":{"mode":"tree","modes":["code","form","text","tree","view"]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<section id="map---enframe---unnest" class="level3">
+<h3 class="anchored" data-anchor-id="map---enframe---unnest">Map - Enframe - Unnest</h3>
+<p>Enframe ile baştan bir yapı empoze edilebiliyor.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>d0 <span class="ot">&lt;-</span> rc_traits_data<span class="sc">$</span>collection<span class="sc">$</span>traits</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> d0 <span class="sc">%&gt;%</span> <span class="fu">enframe</span>(<span class="at">name =</span> <span class="st">"name"</span>, <span class="at">value =</span> <span class="st">"values"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>d1</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 2
+  name       values            
+  &lt;chr&gt;      &lt;list&gt;            
+1 Type       &lt;named list [6]&gt;  
+2 Hat        &lt;named list [31]&gt; 
+3 Head       &lt;named list [25]&gt; 
+4 Jacket     &lt;named list [30]&gt; 
+5 Trousers   &lt;named list [30]&gt; 
+6 Shoes      &lt;named list [60]&gt; 
+7 USED       &lt;named list [2]&gt;  
+8 Identity   &lt;named list [202]&gt;
+9 Background &lt;named list [7]&gt;  </code></pre>
+</div>
+</div>
+<p>Amaç values sütununda bulunan her list’i tibble’a dönüştürmek. Aşağıdaki kodu anlamak çok kritik. Tibble içinde map işlemi nasıl yapılır onu gösteriyor. İki farklı şekilde aynı sonuca ulaşıyorum. Birincisinde satır bazında her list’in uzunluğunu hesaplatıyorum. İkincisinde ise tek defada bütün values kolonuna işlem uygulayıp yeni değişken oluşturuyorum.</p>
+<p>Daha basitleştirmek için şu örneği düşünün: bir tibble içinde bir değişkeni iki ile çarparak yeni bir değişken oluşturmak isteniyor. Nasıl yapılır? İki yolu var. Birincisi, satır bazında işlem yapılır. Excel’de olduğu gibi. Yan hücrenin iki katını al, aşağıya şek. Eğer hücre bazına indirmeden length hesaplamaya kalkılırsa bütün kolonunun length’i hesaplanıp her hücreye yazılır ki bu bir hatadır. İkinci yol ise vektör operasyonu kullanmak. Değişkeni bir vektör olarak alıp, vektörü iki ile çarpıp, sonucu tibble’a yeni bir değişken olarak yerleştirmek. İşte <code>map</code> ile yapılan ikincisi. Bu işlem çok daha hızlı oluyor.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>d2<span class="fl">.0</span> <span class="ot">&lt;-</span> d1 <span class="sc">%&gt;%</span> <span class="fu">rowwise</span>() <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">n_t=</span><span class="fu">length</span>(values))</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>d2<span class="fl">.0</span></span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 3
+# Rowwise: 
+  name       values               n_t
+  &lt;chr&gt;      &lt;list&gt;             &lt;int&gt;
+1 Type       &lt;named list [6]&gt;       6
+2 Hat        &lt;named list [31]&gt;     31
+3 Head       &lt;named list [25]&gt;     25
+4 Jacket     &lt;named list [30]&gt;     30
+5 Trousers   &lt;named list [30]&gt;     30
+6 Shoes      &lt;named list [60]&gt;     60
+7 USED       &lt;named list [2]&gt;       2
+8 Identity   &lt;named list [202]&gt;   202
+9 Background &lt;named list [7]&gt;       7</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>d2.<span class="fl">0.</span>error <span class="ot">&lt;-</span> d1 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">n_t=</span><span class="fu">length</span>(values))</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>d2.<span class="fl">0.</span>error</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 3
+  name       values               n_t
+  &lt;chr&gt;      &lt;list&gt;             &lt;int&gt;
+1 Type       &lt;named list [6]&gt;       9
+2 Hat        &lt;named list [31]&gt;      9
+3 Head       &lt;named list [25]&gt;      9
+4 Jacket     &lt;named list [30]&gt;      9
+5 Trousers   &lt;named list [30]&gt;      9
+6 Shoes      &lt;named list [60]&gt;      9
+7 USED       &lt;named list [2]&gt;       9
+8 Identity   &lt;named list [202]&gt;     9
+9 Background &lt;named list [7]&gt;       9</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> d1 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">n_t =</span> <span class="fu">map_int</span>(values,length))</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>d2</span></code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 9 × 3
+  name       values               n_t
+  &lt;chr&gt;      &lt;list&gt;             &lt;int&gt;
+1 Type       &lt;named list [6]&gt;       6
+2 Hat        &lt;named list [31]&gt;     31
+3 Head       &lt;named list [25]&gt;     25
+4 Jacket     &lt;named list [30]&gt;     30
+5 Trousers   &lt;named list [30]&gt;     30
+6 Shoes      &lt;named list [60]&gt;     60
+7 USED       &lt;named list [2]&gt;       2
+8 Identity   &lt;named list [202]&gt;   202
+9 Background &lt;named list [7]&gt;       7</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Yeniden kullanın</h2><div quarto-reuse="quarto-reuse" class="quarto-appendix-contents"><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.tr">https://creativecommons.org/licenses/by/4.0/deed.tr</a></div></section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Alıntı</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{serkanalbayrak2022,
+  author = {Raif Serkan Albayrak},
+  title = {List veri yapısı üzerine üzerine notlar ve map Fonksiyonu},
+  date = {2022-11-12},
+  langid = {tr}
+}
+</code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">Lütfen bu çalışmayı şu şekilde alıntılayın:</div><div id="ref-serkanalbayrak2022" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
+Raif Serkan Albayrak. 2022. <span>“List veri yapısı üzerine üzerine
+notlar ve map Fonksiyonu.”</span> November 12, 2022.
+</div></div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopyalandı");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopyalandı");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

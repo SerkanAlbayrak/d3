@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.38">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,10 +11,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 </style>
 
 
@@ -97,19 +102,23 @@ ul.task-list{list-style: none;}
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="../index.html">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">zeytin</span>
-  </a>
+    </a>
+  </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html">Ana Sayfa</a>
+    <a class="nav-link" href="../index.html">
+ <span class="menu-text">Ana Sayfa</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html">İletişim</a>
+    <a class="nav-link" href="../about.html">
+ <span class="menu-text">İletişim</span></a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -123,7 +132,7 @@ ul.task-list{list-style: none;}
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(9)</span></div><div class="category" data-category="Modelleme">Modelleme <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Puan türleri">Puan türleri <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Simülasyon">Simülasyon <span class="quarto-category-count">(1)</span></div><div class="category" data-category="YKS">YKS <span class="quarto-category-count">(7)</span></div><div class="category" data-category="Zaman Serisi">Zaman Serisi <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bar chart">bar chart <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ggplot">ggplot <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Üniversite Analitiği">Üniversite Analitiği <span class="quarto-category-count">(5)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(10)</span></div><div class="category" data-category="Modelleme">Modelleme <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Puan türleri">Puan türleri <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Simülasyon">Simülasyon <span class="quarto-category-count">(1)</span></div><div class="category" data-category="YKS">YKS <span class="quarto-category-count">(7)</span></div><div class="category" data-category="Zaman Serisi">Zaman Serisi <span class="quarto-category-count">(1)</span></div><div class="category" data-category="bar chart">bar chart <span class="quarto-category-count">(1)</span></div><div class="category" data-category="ggplot">ggplot <span class="quarto-category-count">(1)</span></div><div class="category" data-category="map">map <span class="quarto-category-count">(1)</span></div><div class="category" data-category="purrr">purrr <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Üniversite Analitiği">Üniversite Analitiği <span class="quarto-category-count">(5)</span></div></div></div>
 <!-- main -->
 <main class="content column-page-left" id="quarto-document-content">
 
@@ -137,6 +146,7 @@ ul.task-list{list-style: none;}
 <div class="quarto-title-meta">
 
     
+  
     
   </div>
   
@@ -149,7 +159,41 @@ ul.task-list{list-style: none;}
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-posts">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="ggplot,bar chart" data-listing-date-sort="1663707600000" data-listing-file-modified-sort="1663936078872" data-listing-reading-time-sort="8.495">
+<div class="quarto-post image-right" data-index="0" data-categories="purrr,map" data-listing-date-sort="1670706000000" data-listing-file-modified-sort="1677223574735" data-listing-reading-time-sort="2.75">
+<div class="thumbnail">
+<p><a href="../content/posts/12_2022_list_type_and_map_function/listandmap.html"> <img src="../content/posts/12_2022_list_type_and_map_function/img/preview.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="../content/posts/12_2022_list_type_and_map_function/listandmap.html">
+<h3 class="no-anchor listing-title">
+List veri yapısı üzerine üzerine notlar ve map Fonksiyonu
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('purrr'); return false;">
+purrr
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('map'); return false;">
+map
+</div>
+</div>
+<a href="../content/posts/12_2022_list_type_and_map_function/listandmap.html"> </a>
+</div>
+<div class="metadata">
+<a href="../content/posts/12_2022_list_type_and_map_function/listandmap.html">
+<div class="listing-date">
+Dec 11, 2022
+</div>
+<div class="listing-reading-time">
+2 min
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="ggplot,bar chart" data-listing-date-sort="1663707600000" data-listing-file-modified-sort="1663936078872" data-listing-reading-time-sort="8.495">
 <div class="thumbnail">
 <p><a href="../content/posts/09_2022_crosstable_bar_chart/crossTableBarChart.html"> <img src="../content/posts/09_2022_crosstable_bar_chart/img/preview.png" class="thumnail-image"> </a></p>
 </div>
@@ -183,7 +227,7 @@ Sep 21, 2022
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="YKS,Üniversite Analitiği" data-listing-date-sort="1662930000000" data-listing-file-modified-sort="1663335125676" data-listing-reading-time-sort="2.95">
+<div class="quarto-post image-right" data-index="2" data-categories="YKS,Üniversite Analitiği" data-listing-date-sort="1662930000000" data-listing-file-modified-sort="1663335125676" data-listing-reading-time-sort="2.95">
 <div class="thumbnail">
 <p><a href="../content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html"> <img src="../content/posts/09_2022_yks_ieu_ranks/img/ieu.png" class="thumnail-image"> </a></p>
 </div>
@@ -217,7 +261,7 @@ Sep 12, 2022
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="YKS,Üniversite Analitiği" data-listing-date-sort="1659906000000" data-listing-file-modified-sort="1660222054304" data-listing-reading-time-sort="13.81">
+<div class="quarto-post image-right" data-index="3" data-categories="YKS,Üniversite Analitiği" data-listing-date-sort="1659906000000" data-listing-file-modified-sort="1660222054304" data-listing-reading-time-sort="13.81">
 <div class="thumbnail">
 <p><a href="../content/posts/07_2022_yks_puan_hesaplama3/puan3.html"> <img src="../content/posts/07_2022_yks_puan_hesaplama3/img/preview.png" class="thumnail-image"> </a></p>
 </div>
@@ -251,7 +295,7 @@ Aug 8, 2022
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="Zaman Serisi,R,Modelleme" data-listing-date-sort="1656968400000" data-listing-file-modified-sort="1658488389845" data-listing-reading-time-sort="5.955">
+<div class="quarto-post image-right" data-index="4" data-categories="Zaman Serisi,R,Modelleme" data-listing-date-sort="1656968400000" data-listing-file-modified-sort="1658488389845" data-listing-reading-time-sort="5.955">
 <div class="thumbnail">
 <p><a href="../content/posts/06_2022_yilsonu_enflasyon_tahminleri/enflasyon.html"> <img src="../content/posts/06_2022_yilsonu_enflasyon_tahminleri/img/preview.png" class="thumnail-image"> </a></p>
 </div>
@@ -288,7 +332,7 @@ Jul 5, 2022
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="YKS,Üniversite Analitiği" data-listing-date-sort="1656104400000" data-listing-file-modified-sort="1659947606553" data-listing-reading-time-sort="11.315">
+<div class="quarto-post image-right" data-index="5" data-categories="YKS,Üniversite Analitiği" data-listing-date-sort="1656104400000" data-listing-file-modified-sort="1659947606553" data-listing-reading-time-sort="11.315">
 <div class="thumbnail">
 <p><a href="../content/posts/06_2022_yks_puan_hesaplama2/puan_hesaplama2.html"> <img src="../content/posts/06_2022_yks_puan_hesaplama2/img/preview.png" class="thumnail-image"> </a></p>
 </div>
@@ -322,7 +366,7 @@ Jun 25, 2022
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-categories="Üniversite Analitiği,YKS,Simülasyon" data-listing-date-sort="1656018000000" data-listing-file-modified-sort="1656073636106" data-listing-reading-time-sort="16.565">
+<div class="quarto-post image-right" data-index="6" data-categories="Üniversite Analitiği,YKS,Simülasyon" data-listing-date-sort="1656018000000" data-listing-file-modified-sort="1656073636106" data-listing-reading-time-sort="16.565">
 <div class="thumbnail">
 <p><a href="../content/posts/05_2022_ yks_baraj/yksBaraj.html"> <img src="../content/posts/05_2022_ yks_baraj/img/preview.png" class="thumnail-image"> </a></p>
 </div>
@@ -359,7 +403,7 @@ Jun 24, 2022
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="6" data-categories="YKS,Modelleme,R,Üniversite Analitiği" data-listing-date-sort="1653944400000" data-listing-file-modified-sort="1656574051976" data-listing-reading-time-sort="17.775">
+<div class="quarto-post image-right" data-index="7" data-categories="YKS,Modelleme,R,Üniversite Analitiği" data-listing-date-sort="1653944400000" data-listing-file-modified-sort="1656574051976" data-listing-reading-time-sort="17.775">
 <div class="thumbnail">
 <p><a href="../content/posts/05_2022_yks_puan hesaplama/puan_hesaplama.html"> <img src="../content/posts/05_2022_yks_puan hesaplama/img/preview.png" class="thumnail-image"> </a></p>
 </div>
@@ -399,7 +443,7 @@ May 31, 2022
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="7" data-categories="YKS,Modelleme,R" data-listing-date-sort="1653598800000" data-listing-file-modified-sort="1655971654999" data-listing-reading-time-sort="8.275">
+<div class="quarto-post image-right" data-index="8" data-categories="YKS,Modelleme,R" data-listing-date-sort="1653598800000" data-listing-file-modified-sort="1655971654999" data-listing-reading-time-sort="8.275">
 <div class="thumbnail">
 <p><a href="../content/posts/05_2022_yks_siralama_dagilim/rank_dist.html"> <img src="../content/posts/05_2022_yks_siralama_dagilim/img/preview.png" class="thumnail-image"> </a></p>
 </div>
@@ -436,7 +480,7 @@ May 27, 2022
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="8" data-categories="YKS,Puan türleri" data-listing-date-sort="1653253200000" data-listing-file-modified-sort="1656097980247" data-listing-reading-time-sort="4.125">
+<div class="quarto-post image-right" data-index="9" data-categories="YKS,Puan türleri" data-listing-date-sort="1653253200000" data-listing-file-modified-sort="1656097980247" data-listing-reading-time-sort="4.125">
 <div class="thumbnail">
 <p><a href="../content/posts/05_2022_yks_puan_diagram/yks_puan_diagram.html"> <img src="../content/posts/05_2022_yks_puan_diagram/img/preview.png" class="thumnail-image"> </a></p>
 </div>
@@ -516,7 +560,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -544,31 +605,50 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
