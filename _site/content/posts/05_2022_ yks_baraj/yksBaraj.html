@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="tr" xml:lang="tr"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.220">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -19,7 +19,7 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
 </style>
@@ -58,7 +58,8 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "bu belgede daha fazla eşleşmeler",
     "search-clear-button-title": "Temizle",
     "search-detached-cancel-button-title": "İptal et",
-    "search-submit-button-title": "Göndermek"
+    "search-submit-button-title": "Göndermek",
+    "search-label": "Aramak"
   }
 }</script>
 
@@ -77,8 +78,8 @@ ul.task-list li input[type="checkbox"] {
     <span class="navbar-title">zeytin</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Aramak"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Gezinmeyi değiştir" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -120,7 +121,7 @@ ul.task-list li input[type="checkbox"] {
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
     </div>
 <!-- main -->
-<main class="content column-page-right" id="quarto-document-content">
+<main class="content page-columns page-full column-page-right" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -176,7 +177,7 @@ ul.task-list li input[type="checkbox"] {
 <div id="fig-puanlama" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="../05_2022_yks_puan_diagram/img/preview.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figür&nbsp;1: Puanların hesaplanmasında soru gruplarının ağırlığı</figcaption><p></p>
+<figcaption class="figure-caption">Figür&nbsp;1: Puanların hesaplanmasında soru gruplarının ağırlığı</figcaption>
 </figure>
 </div>
 <ul>
@@ -187,7 +188,7 @@ ul.task-list li input[type="checkbox"] {
 <div id="fig-sonucbelgesi" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="../05_2022_yks_puan_diagram/img/d2.jpeg" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figür&nbsp;2: Sınav sonuç belgesi örneği</figcaption><p></p>
+<figcaption class="figure-caption">Figür&nbsp;2: Sınav sonuç belgesi örneği</figcaption>
 </figure>
 </div>
 </section>
@@ -203,7 +204,7 @@ ul.task-list li input[type="checkbox"] {
 <div id="fig-dist1" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="img/preview.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figür&nbsp;3: Hukuk Fakültelerine yerleşen öğrencilerin sıralamalarının dağılımı</figcaption><p></p>
+<figcaption class="figure-caption">Figür&nbsp;3: Hukuk Fakültelerine yerleşen öğrencilerin sıralamalarının dağılımı</figcaption>
 </figure>
 </div>
 <p>2020 ve 2021 yıllarında ise eğriler 125 bin barajında sonlanmaktadır. 2018-2019 yıllarında Hukuk Fakültesi kontenjanlarının yaklaşık %56’sı devlet üniversitelerindedir (<a href="#tbl-t1">Tablo&nbsp;1</a>). Bu kontenjanlara yerleşen öğrenciler arasında en sonda gelenin sıralaması 2018 yılında 42 bin ve 2019 yılında 40 bin olmuştur. Tabloda kontenjanların jemen altında yerleşen sayıları ve dololuk oranları da verilmiştir.</p>
@@ -247,12 +248,12 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>2019 yılına gelindiğinde EA türünde 190 bininci sıranın gerçekte karşılığı 54,500 oldu. Dolayısıyla bir önceki yıla göre yaklaşık 2500 daha az öğrenci Hukuk Fakültesi tercihi yapabilme şansı elde etti. Bu iki yıl karşılaştırıldığında 2019 yılında SAY ve EA puanlarının birbiri içine girişiminin 2018’e göre daha fazla olduğu görülmektedir. Bu durumun arkasında yatan nedenden<a href="#fn5" class="footnote-ref" id="fnref5" role="doc-noteref"><sup>5</sup></a> bağımsız olarak, 2019 yılındaki 2500 öğrenci arasından biri bile, istemesine rağmen Hukuk Fakültesi tercihi yapamadıysa, bunun nedeni öğrencinin başarısız olması değildir. Baraj sıralamasının 125 bine çekildiği 2020 ve 2021 yıllarında da benzer bir durum gerçekleşmiştir. 2021 yılında 2020’ye göre 3000 daha az sayıda öğrencinin Hukuk Fakültesi tercihi yapabilme şansı olmuştur.</p>
 <p>2020 yılında baraj sıralamasının kâğıt üzerinde 190 binden 125 bine çekilmesi, gerçekte 57 binden 43 bine çekilmesi anlamına gelir. Aynı cümle 2018, 2019 veya 2021 için kurulsaydı sayılar bambaşka olacaktı. Aradaki farklar; 2500 veya 3000 sayıları, Hukuk Fakültelerine yerleşen öğrencilerin toplamının %20’sine denk gelmektedir.</p>
-<div class="callout callout-style-default callout-note callout-captioned">
+<div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 Not
 </div>
 </div>
@@ -265,7 +266,7 @@ Not
 <div id="fig-dist2" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="img/Derivative.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figür&nbsp;4: Hukuk Fakültelerine yerleşen öğrencilerin sıralamalarının türevsel dağılımı</figcaption><p></p>
+<figcaption class="figure-caption">Figür&nbsp;4: Hukuk Fakültelerine yerleşen öğrencilerin sıralamalarının türevsel dağılımı</figcaption>
 </figure>
 </div>
 <p>Sınıf tasarımı ve eğitimin kalitesi ile ilgili bazı parametreleri düzenleme amacıyla öğrenciler arasındaki sıralama farkını kontrol altına almaya çalışmanın haklı bir gerekçe olduğunu kabul ediyoruz. Bununla birlikte, birincil sıralamalar üzerinde tanımlanan baraj sıralaması kuralının, uygulamada yıllar arasında adaletsiz durumlara sebep verdiği de görülmektedir. 2018-2019 ve 2020-2021 yılları arasındaki karşılaştırmalarda, aynı baraj sıralamasının sonuçlarının uygulamada ne kadar farklı olduğu ortadadır.</p>
@@ -289,10 +290,8 @@ Not
 
 
 </section>
-
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Dipnotlar</h2>
-
+<aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
 <ol>
 <li id="fn1"><p>Ancak bu bölümler için herhangi bir sıralama şartı olmadığı için Yabancı Dil Testi bu yazının kapsamı dışında kalmaktadır.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>https://www.milliyet.com.tr/yazarlar/abbas-guclu/yks-2021de-neler-oldu-2022de-neler-bekleniyor-6758919<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
@@ -313,15 +312,17 @@ Not
 <li id="fn8"><p>Maalesef vakıf üniversitelerine danışmadan, hiçbir açıklama yapmadan ve itiraz hakkı tanımadan.<a href="#fnref8" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn9"><p>http://www.idare.gen.tr/oder-fakulte-kurma.pdf<a href="#fnref9" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Yeniden kullanın</h2><div id="quarto-reuse" class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.tr">https://creativecommons.org/licenses/by/4.0/deed.tr</a></div></div></section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Alıntı</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{serkanalbayrak,
-  author = {SerkanAlbayrak, Raif},
+</aside>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Yeniden kullanın</h2><div id="quarto-reuse" class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.tr">https://creativecommons.org/licenses/by/4.0/deed.tr</a></div></div></section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Alıntı</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{serkan albayrak2022,
+  author = {Serkan Albayrak, Raif},
   title = {YKS Baraj Sıralamaları Üzerine},
-  date = {},
+  date = {2022-06-24},
   langid = {tr}
 }
-</code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">Lütfen bu çalışmayı şu şekilde alıntılayın:</div><div id="ref-serkanalbayrak" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
-SerkanAlbayrak, Raif. n.d. <span>“YKS Baraj Sıralamaları
-Üzerine.”</span>
+</code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">Lütfen bu çalışmayı şu şekilde alıntılayın:</div><div id="ref-serkan albayrak2022" class="csl-entry quarto-appendix-citeas" role="listitem">
+Serkan Albayrak, Raif. 2022. <span>“YKS Baraj Sıralamaları
+Üzerine.”</span> June 24, 2022.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -350,9 +351,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {

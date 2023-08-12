@@ -80,8 +80,6 @@ df_chop <- df %>% chop(c(y, z))
 df_chop
 ```
 
-
-
 # Modify_depth
 
 https://purrr.tidyverse.org/reference/modify.html adresinde konu ile ilgili detaylı açıklama ve çok sayıda örnek mevcut,
@@ -103,9 +101,11 @@ l1 <- list(
 l2 <- l1 %>% modify_depth(2, "param1")
 l2
 ```
+
 # NFT Datasını Dönüştürmek
 
 NFT Datasının içinden trait verileri alıp bir tibble'a dönüştürme işiyla başlıyoruz. Aslında verinin içinde trait alt listesinin yapısı son derece düzgün. Amaç bunu dönüştürmek. Temel sıkıntı tekrar etmesi gereken name değerleri var.
+
 ```{r}
 
 load("nft_traits.rda")
@@ -122,7 +122,8 @@ d0 <- rc_traits_data$collection$traits
 d1 <- d0 %>% enframe(name = "name", value = "values")
 d1
 ```
-Amaç values sütununda bulunan her list'i tibble'a dönüştürmek. Aşağıdaki kodu anlamak çok kritik. Tibble içinde map işlemi nasıl yapılır onu gösteriyor. İki farklı şekilde aynı sonuca ulaşıyorum. Birincisinde satır bazında her list'in uzunluğunu hesaplatıyorum. İkincisinde ise tek defada bütün values kolonuna işlem uygulayıp yeni değişken oluşturuyorum. 
+
+Amaç values sütununda bulunan her list'i tibble'a dönüştürmek. Aşağıdaki kodu anlamak çok kritik. Tibble içinde map işlemi nasıl yapılır onu gösteriyor. İki farklı şekilde aynı sonuca ulaşıyorum. Birincisinde satır bazında her list'in uzunluğunu hesaplatıyorum. İkincisinde ise tek defada bütün values kolonuna işlem uygulayıp yeni değişken oluşturuyorum.
 
 Daha basitleştirmek için: bir tibble içinde bir değişkeni iki ile çarparak yeni bir değişken oluşturmak istensin. Nasıl yapılır? İki yolu var. Birincisi, satır bazında işlem yapılır. Excel'de olduğu gibi. Yan hücrenin iki katını al, aşağıya şek. Eğer hücre bazına indirmeden length hesaplamaya kalkılırsa bütün kolonunun length'i hesaplanıp her hücreye yazılır ki bu bir hatadır. İkinci yol ise vektör operasyonu kullanmak. Değişkeni bir vektör olarak alıp, vektörü iki ile çarpıp, sonucu tibble'a yeni bir değişken olarak yerleştirmek. İşte `map` ile yapılan ikincisi. Bu işlem çok daha hızlı oluyor.
 
@@ -134,5 +135,92 @@ d2.0.error <- d1 %>% mutate(n_t=length(values))
 d2.0.error
 d2 <- d1 %>% mutate(n_t = map_int(values,length))
 d2
+```
+
+# Rectangling
+
+Burada https://tidyr.tidyverse.org/articles/rectangle.html adresindeki örnekleri detaylandıracağım.
+
+
+```{r}
+library(tidyr)
+library(dplyr)
+library(repurrrsive)
+```
+
+
+```{r}
+users <- tibble(user = gh_users)
+```
+
+```{r}
+jsonedit(users)
+```
+
+List tipinde veriyi indekleme konusunu sık sık unutuyorum.
+
+```{r}
+l1 <- users[[1]][[1]]
+l1
+```
+
+Aslında `l1` en temel list tipi olan vector'den ibaret. Daha doğrusu named vector. 
+
+```{r}
+l1v <- unlist(l1)
+l1v["followers"]
+```
+
+
+Each `user` is a named list, where each element represents a column.
+```{r}
+names(users$user[[1]])
+```
+
+There are two ways to turn the list components into columns. unnest_wider() takes every component and makes a new column:
+```{r}
+userswide <- users %>% unnest_wider(user)
+userswide
+```
+
+
+But in this case, there are many components and we don’t need most of them so we can instead use hoist(). hoist() allows us to pull out selected components using the same syntax as purrr::pluck():
+
+```{r}
+users %>% hoist(user, 
+  followers = "followers", 
+  login = "login", 
+  url = "html_url"
+)
+
+```
+
+Bu acaip bir şey. Elde eğer her satırda list olan bir yapı varsa, içinden parça parça değişken çıkartabiliyoruz. 
+
+We start off gh_repos similarly, by putting it in a tibble:
+
+```{r}
+repos <- tibble(repo = gh_repos)
+repos
+```
+
+This time the elements of repos are a list of repositories that belong to that user. These are observations, so should become new rows, so we use unnest_longer() rather than unnest_wider():
+
+```{r}
+repos0 <- repos %>% unnest_longer(repo)
+repos0
+```
+
+Aslına bu şekilde 6 kullanıcınında repolarını alt alta koyduk ve devamında unnest_wider veya hoist kullanarak verileri dışarı çıkarabilir. Ama eğer mesela sadece birinci user'ın repoları ile çalışmak isteseydik önce o user'ın olduğu list'i tibble yapmak gerekecekti. 
+
+```{r}
+firstUser <- tibble(repo=repos[[1]][[1]])
+firstUser
+
+```
+Eğer devamında unnest_longer denirse bu durumda alt seviye tamamen dışarıya çıkıyor.
+
+```{r}
+firstUser %>% unnest_longer(repo)
 ```
 

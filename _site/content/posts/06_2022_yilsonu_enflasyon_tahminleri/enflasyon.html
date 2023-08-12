@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="tr" xml:lang="tr"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.220">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -19,9 +19,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -48,43 +49,13 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -121,10 +92,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     "search-more-matches-text": "bu belgede daha fazla eşleşmeler",
     "search-clear-button-title": "Temizle",
     "search-detached-cancel-button-title": "İptal et",
-    "search-submit-button-title": "Göndermek"
+    "search-submit-button-title": "Göndermek",
+    "search-label": "Aramak"
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../../styles.css">
@@ -141,8 +114,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <span class="navbar-title">zeytin</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+            <div id="quarto-search" class="" title="Aramak"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Gezinmeyi değiştir" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -244,12 +217,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </details>
 </div>
 <p>Veri üzerinde ilk yapılacak işlem <em>Tarih</em> değişkenini R’a tanıtmak. Bu amaçla başlangıçta <code>Lubridate</code> kütüphanesi yüklenmişti. Metinden tarihe dönüştürme fonksiyonları için bu <a href="https://rawgit.com/rstudio/cheatsheets/main/lubridate.pdf">hatırlama kağıdı</a> kullanılabilir.</p>
-<div class="callout callout-style-default callout-caution callout-captioned">
+<div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 R içinde tarih değişkenleriyle işlemler ve format
 </div>
 </div>
@@ -357,7 +330,7 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#ojibboyyrl .gt_table {
+:where(#ojibboyyrl) .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -382,7 +355,7 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   border-left-color: #D3D3D3;
 }
 
-#ojibboyyrl .gt_heading {
+:where(#ojibboyyrl) .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -394,7 +367,7 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   border-right-color: #D3D3D3;
 }
 
-#ojibboyyrl .gt_title {
+:where(#ojibboyyrl) .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -406,7 +379,7 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   border-bottom-width: 0;
 }
 
-#ojibboyyrl .gt_subtitle {
+:where(#ojibboyyrl) .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -418,13 +391,13 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   border-top-width: 0;
 }
 
-#ojibboyyrl .gt_bottom_border {
+:where(#ojibboyyrl) .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ojibboyyrl .gt_col_headings {
+:where(#ojibboyyrl) .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -439,7 +412,7 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   border-right-color: #D3D3D3;
 }
 
-#ojibboyyrl .gt_col_heading {
+:where(#ojibboyyrl) .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -459,7 +432,7 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   overflow-x: hidden;
 }
 
-#ojibboyyrl .gt_column_spanner_outer {
+:where(#ojibboyyrl) .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -471,15 +444,15 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   padding-right: 4px;
 }
 
-#ojibboyyrl .gt_column_spanner_outer:first-child {
+:where(#ojibboyyrl) .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ojibboyyrl .gt_column_spanner_outer:last-child {
+:where(#ojibboyyrl) .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ojibboyyrl .gt_column_spanner {
+:where(#ojibboyyrl) .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -491,7 +464,7 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   width: 100%;
 }
 
-#ojibboyyrl .gt_group_heading {
+:where(#ojibboyyrl) .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -516,7 +489,7 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   vertical-align: middle;
 }
 
-#ojibboyyrl .gt_empty_group_heading {
+:where(#ojibboyyrl) .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -531,15 +504,15 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   vertical-align: middle;
 }
 
-#ojibboyyrl .gt_from_md > :first-child {
+:where(#ojibboyyrl) .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ojibboyyrl .gt_from_md > :last-child {
+:where(#ojibboyyrl) .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ojibboyyrl .gt_row {
+:where(#ojibboyyrl) .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -558,7 +531,7 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   overflow-x: hidden;
 }
 
-#ojibboyyrl .gt_stub {
+:where(#ojibboyyrl) .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -571,7 +544,7 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   padding-right: 5px;
 }
 
-#ojibboyyrl .gt_stub_row_group {
+:where(#ojibboyyrl) .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -585,11 +558,11 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   vertical-align: top;
 }
 
-#ojibboyyrl .gt_row_group_first td {
+:where(#ojibboyyrl) .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ojibboyyrl .gt_summary_row {
+:where(#ojibboyyrl) .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -599,16 +572,16 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   padding-right: 5px;
 }
 
-#ojibboyyrl .gt_first_summary_row {
+:where(#ojibboyyrl) .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ojibboyyrl .gt_first_summary_row.thick {
+:where(#ojibboyyrl) .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ojibboyyrl .gt_last_summary_row {
+:where(#ojibboyyrl) .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -618,7 +591,7 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   border-bottom-color: #D3D3D3;
 }
 
-#ojibboyyrl .gt_grand_summary_row {
+:where(#ojibboyyrl) .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -628,7 +601,7 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   padding-right: 5px;
 }
 
-#ojibboyyrl .gt_first_grand_summary_row {
+:where(#ojibboyyrl) .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -638,11 +611,11 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   border-top-color: #D3D3D3;
 }
 
-#ojibboyyrl .gt_striped {
+:where(#ojibboyyrl) .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ojibboyyrl .gt_table_body {
+:where(#ojibboyyrl) .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -651,7 +624,7 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   border-bottom-color: #D3D3D3;
 }
 
-#ojibboyyrl .gt_footnotes {
+:where(#ojibboyyrl) .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -665,7 +638,7 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   border-right-color: #D3D3D3;
 }
 
-#ojibboyyrl .gt_footnote {
+:where(#ojibboyyrl) .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -674,7 +647,7 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   padding-right: 5px;
 }
 
-#ojibboyyrl .gt_sourcenotes {
+:where(#ojibboyyrl) .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -688,7 +661,7 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   border-right-color: #D3D3D3;
 }
 
-#ojibboyyrl .gt_sourcenote {
+:where(#ojibboyyrl) .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -696,36 +669,36 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   padding-right: 5px;
 }
 
-#ojibboyyrl .gt_left {
+:where(#ojibboyyrl) .gt_left {
   text-align: left;
 }
 
-#ojibboyyrl .gt_center {
+:where(#ojibboyyrl) .gt_center {
   text-align: center;
 }
 
-#ojibboyyrl .gt_right {
+:where(#ojibboyyrl) .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ojibboyyrl .gt_font_normal {
+:where(#ojibboyyrl) .gt_font_normal {
   font-weight: normal;
 }
 
-#ojibboyyrl .gt_font_bold {
+:where(#ojibboyyrl) .gt_font_bold {
   font-weight: bold;
 }
 
-#ojibboyyrl .gt_font_italic {
+:where(#ojibboyyrl) .gt_font_italic {
   font-style: italic;
 }
 
-#ojibboyyrl .gt_super {
+:where(#ojibboyyrl) .gt_super {
   font-size: 65%;
 }
 
-#ojibboyyrl .gt_two_val_uncert {
+:where(#ojibboyyrl) .gt_two_val_uncert {
   display: inline-block;
   line-height: 1em;
   text-align: right;
@@ -734,68 +707,82 @@ e_t=\prod_{i=0}^{11}\left(1+a_{t-i}\right)-1
   margin-left: 0.1em;
 }
 
-#ojibboyyrl .gt_footnote_marks {
+:where(#ojibboyyrl) .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#ojibboyyrl .gt_asterisk {
+:where(#ojibboyyrl) .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ojibboyyrl .gt_slash_mark {
+:where(#ojibboyyrl) .gt_slash_mark {
   font-size: 0.7em;
   line-height: 0.7em;
   vertical-align: 0.15em;
 }
 
-#ojibboyyrl .gt_fraction_numerator {
+:where(#ojibboyyrl) .gt_fraction_numerator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: 0.45em;
 }
 
-#ojibboyyrl .gt_fraction_denominator {
+:where(#ojibboyyrl) .gt_fraction_denominator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: -0.05em;
 }
 </style>
-
-Enflasyon Oranları
-Aylık Bileşik Faiz Hesabı Olarak Yıllık Enflasyon
-Tarih
-Ay
-Yıl
-Hesap
-January 1, 2022
-11.104%
-48.691%
-48.691%
-February 1, 2022
-4.809%
-54.439%
-54.439%
-March 1, 2022
-5.464%
-61.145%
-61.145%
-April 1, 2022
-7.248%
-69.971%
-69.971%
-May 1, 2022
-2.981%
-73.496%
-73.496%
-June 1, 2022
-4.952%
-78.618%
-78.618%
-
+<table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="4" class="gt_heading gt_title gt_font_normal" style="">Enflasyon Oranları</th>
+    </tr>
+    <tr>
+      <th colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="">Aylık Bileşik Faiz Hesabı Olarak Yıllık Enflasyon</th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Tarih</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Ay</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Yıl</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Hesap</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">January 1, 2022</td>
+<td class="gt_row gt_right">11.104%</td>
+<td class="gt_row gt_right">48.691%</td>
+<td class="gt_row gt_right">48.691%</td></tr>
+    <tr><td class="gt_row gt_left">February 1, 2022</td>
+<td class="gt_row gt_right">4.809%</td>
+<td class="gt_row gt_right">54.439%</td>
+<td class="gt_row gt_right">54.439%</td></tr>
+    <tr><td class="gt_row gt_left">March 1, 2022</td>
+<td class="gt_row gt_right">5.464%</td>
+<td class="gt_row gt_right">61.145%</td>
+<td class="gt_row gt_right">61.145%</td></tr>
+    <tr><td class="gt_row gt_left">April 1, 2022</td>
+<td class="gt_row gt_right">7.248%</td>
+<td class="gt_row gt_right">69.971%</td>
+<td class="gt_row gt_right">69.971%</td></tr>
+    <tr><td class="gt_row gt_left">May 1, 2022</td>
+<td class="gt_row gt_right">2.981%</td>
+<td class="gt_row gt_right">73.496%</td>
+<td class="gt_row gt_right">73.496%</td></tr>
+    <tr><td class="gt_row gt_left">June 1, 2022</td>
+<td class="gt_row gt_right">4.952%</td>
+<td class="gt_row gt_right">78.618%</td>
+<td class="gt_row gt_right">78.618%</td></tr>
+  </tbody>
+  
+  
+</table>
 </div>
 </div>
 </div>
@@ -850,7 +837,7 @@ June 1, 2022
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#tajmmbyjub .gt_table {
+:where(#tajmmbyjub) .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -875,7 +862,7 @@ June 1, 2022
   border-left-color: #D3D3D3;
 }
 
-#tajmmbyjub .gt_heading {
+:where(#tajmmbyjub) .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -887,7 +874,7 @@ June 1, 2022
   border-right-color: #D3D3D3;
 }
 
-#tajmmbyjub .gt_title {
+:where(#tajmmbyjub) .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -899,7 +886,7 @@ June 1, 2022
   border-bottom-width: 0;
 }
 
-#tajmmbyjub .gt_subtitle {
+:where(#tajmmbyjub) .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -911,13 +898,13 @@ June 1, 2022
   border-top-width: 0;
 }
 
-#tajmmbyjub .gt_bottom_border {
+:where(#tajmmbyjub) .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#tajmmbyjub .gt_col_headings {
+:where(#tajmmbyjub) .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -932,7 +919,7 @@ June 1, 2022
   border-right-color: #D3D3D3;
 }
 
-#tajmmbyjub .gt_col_heading {
+:where(#tajmmbyjub) .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -952,7 +939,7 @@ June 1, 2022
   overflow-x: hidden;
 }
 
-#tajmmbyjub .gt_column_spanner_outer {
+:where(#tajmmbyjub) .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -964,15 +951,15 @@ June 1, 2022
   padding-right: 4px;
 }
 
-#tajmmbyjub .gt_column_spanner_outer:first-child {
+:where(#tajmmbyjub) .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#tajmmbyjub .gt_column_spanner_outer:last-child {
+:where(#tajmmbyjub) .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#tajmmbyjub .gt_column_spanner {
+:where(#tajmmbyjub) .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -984,7 +971,7 @@ June 1, 2022
   width: 100%;
 }
 
-#tajmmbyjub .gt_group_heading {
+:where(#tajmmbyjub) .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1009,7 +996,7 @@ June 1, 2022
   vertical-align: middle;
 }
 
-#tajmmbyjub .gt_empty_group_heading {
+:where(#tajmmbyjub) .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1024,15 +1011,15 @@ June 1, 2022
   vertical-align: middle;
 }
 
-#tajmmbyjub .gt_from_md > :first-child {
+:where(#tajmmbyjub) .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#tajmmbyjub .gt_from_md > :last-child {
+:where(#tajmmbyjub) .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#tajmmbyjub .gt_row {
+:where(#tajmmbyjub) .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1051,7 +1038,7 @@ June 1, 2022
   overflow-x: hidden;
 }
 
-#tajmmbyjub .gt_stub {
+:where(#tajmmbyjub) .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1064,7 +1051,7 @@ June 1, 2022
   padding-right: 5px;
 }
 
-#tajmmbyjub .gt_stub_row_group {
+:where(#tajmmbyjub) .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1078,11 +1065,11 @@ June 1, 2022
   vertical-align: top;
 }
 
-#tajmmbyjub .gt_row_group_first td {
+:where(#tajmmbyjub) .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#tajmmbyjub .gt_summary_row {
+:where(#tajmmbyjub) .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1092,16 +1079,16 @@ June 1, 2022
   padding-right: 5px;
 }
 
-#tajmmbyjub .gt_first_summary_row {
+:where(#tajmmbyjub) .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#tajmmbyjub .gt_first_summary_row.thick {
+:where(#tajmmbyjub) .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#tajmmbyjub .gt_last_summary_row {
+:where(#tajmmbyjub) .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1111,7 +1098,7 @@ June 1, 2022
   border-bottom-color: #D3D3D3;
 }
 
-#tajmmbyjub .gt_grand_summary_row {
+:where(#tajmmbyjub) .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1121,7 +1108,7 @@ June 1, 2022
   padding-right: 5px;
 }
 
-#tajmmbyjub .gt_first_grand_summary_row {
+:where(#tajmmbyjub) .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1131,11 +1118,11 @@ June 1, 2022
   border-top-color: #D3D3D3;
 }
 
-#tajmmbyjub .gt_striped {
+:where(#tajmmbyjub) .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#tajmmbyjub .gt_table_body {
+:where(#tajmmbyjub) .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1144,7 +1131,7 @@ June 1, 2022
   border-bottom-color: #D3D3D3;
 }
 
-#tajmmbyjub .gt_footnotes {
+:where(#tajmmbyjub) .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1158,7 +1145,7 @@ June 1, 2022
   border-right-color: #D3D3D3;
 }
 
-#tajmmbyjub .gt_footnote {
+:where(#tajmmbyjub) .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -1167,7 +1154,7 @@ June 1, 2022
   padding-right: 5px;
 }
 
-#tajmmbyjub .gt_sourcenotes {
+:where(#tajmmbyjub) .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1181,7 +1168,7 @@ June 1, 2022
   border-right-color: #D3D3D3;
 }
 
-#tajmmbyjub .gt_sourcenote {
+:where(#tajmmbyjub) .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1189,36 +1176,36 @@ June 1, 2022
   padding-right: 5px;
 }
 
-#tajmmbyjub .gt_left {
+:where(#tajmmbyjub) .gt_left {
   text-align: left;
 }
 
-#tajmmbyjub .gt_center {
+:where(#tajmmbyjub) .gt_center {
   text-align: center;
 }
 
-#tajmmbyjub .gt_right {
+:where(#tajmmbyjub) .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#tajmmbyjub .gt_font_normal {
+:where(#tajmmbyjub) .gt_font_normal {
   font-weight: normal;
 }
 
-#tajmmbyjub .gt_font_bold {
+:where(#tajmmbyjub) .gt_font_bold {
   font-weight: bold;
 }
 
-#tajmmbyjub .gt_font_italic {
+:where(#tajmmbyjub) .gt_font_italic {
   font-style: italic;
 }
 
-#tajmmbyjub .gt_super {
+:where(#tajmmbyjub) .gt_super {
   font-size: 65%;
 }
 
-#tajmmbyjub .gt_two_val_uncert {
+:where(#tajmmbyjub) .gt_two_val_uncert {
   display: inline-block;
   line-height: 1em;
   text-align: right;
@@ -1227,240 +1214,254 @@ June 1, 2022
   margin-left: 0.1em;
 }
 
-#tajmmbyjub .gt_footnote_marks {
+:where(#tajmmbyjub) .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#tajmmbyjub .gt_asterisk {
+:where(#tajmmbyjub) .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#tajmmbyjub .gt_slash_mark {
+:where(#tajmmbyjub) .gt_slash_mark {
   font-size: 0.7em;
   line-height: 0.7em;
   vertical-align: 0.15em;
 }
 
-#tajmmbyjub .gt_fraction_numerator {
+:where(#tajmmbyjub) .gt_fraction_numerator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: 0.45em;
 }
 
-#tajmmbyjub .gt_fraction_denominator {
+:where(#tajmmbyjub) .gt_fraction_denominator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: -0.05em;
 }
 </style>
-
-Enflasyon Oranları
-Aylık Bileşik Faiz Hesabı Olarak Yıllık Enflasyon
-Tarih
-Yıl
-Yıl2
-Yıl3
-Yıl4
-Yıl5
-Yıl6
-Yıl7
-September 1, 2021
-19.583%
-NA
-NA
-NA
-NA
-NA
-NA
-October 1, 2021
-19.890%
-NA
-NA
-NA
-NA
-NA
-NA
-November 1, 2021
-21.313%
-NA
-NA
-NA
-NA
-NA
-NA
-December 1, 2021
-36.081%
-NA
-NA
-NA
-NA
-NA
-NA
-January 1, 2022
-48.691%
-NA
-NA
-NA
-NA
-NA
-NA
-February 1, 2022
-54.439%
-NA
-NA
-NA
-NA
-NA
-NA
-March 1, 2022
-61.145%
-NA
-NA
-NA
-NA
-NA
-NA
-April 1, 2022
-69.971%
-NA
-NA
-NA
-NA
-NA
-NA
-May 1, 2022
-73.496%
-NA
-NA
-NA
-NA
-NA
-NA
-June 1, 2022
-78.618%
-NA
-NA
-NA
-NA
-NA
-NA
-July 1, 2022
-NA
-78.961%
-80.716%
-82.470%
-84.225%
-85.979%
-87.734%
-August 1, 2022
-NA
-80.519%
-84.076%
-87.668%
-91.294%
-94.955%
-98.651%
-September 1, 2022
-NA
-81.852%
-87.253%
-92.760%
-98.374%
-104.096%
-109.927%
-October 1, 2022
-NA
-81.153%
-88.362%
-95.784%
-103.423%
-111.284%
-119.371%
-November 1, 2022
-NA
-78.507%
-87.430%
-96.707%
-106.348%
-116.363%
-126.763%
-December 1, 2022
-NA
-60.314%
-69.978%
-80.123%
-90.768%
-101.932%
-113.635%
-January 1, 2023
-NA
-47.177%
-57.579%
-68.606%
-80.287%
-92.655%
-105.743%
-February 1, 2023
-NA
-43.233%
-54.860%
-67.305%
-80.616%
-94.845%
-110.045%
-March 1, 2023
-NA
-38.528%
-51.242%
-64.982%
-79.821%
-95.835%
-113.104%
-April 1, 2023
-NA
-31.749%
-45.251%
-59.985%
-76.051%
-93.555%
-112.610%
-May 1, 2023
-NA
-30.495%
-45.278%
-61.569%
-79.503%
-99.230%
-120.908%
-June 1, 2023
-NA
-26.824%
-42.576%
-60.103%
-79.586%
-101.220%
-125.219%
-July 1, 2023
-NA
-26.824%
-42.576%
-60.103%
-79.586%
-101.220%
-125.219%
-August 1, 2023
-NA
-26.824%
-42.576%
-60.103%
-79.586%
-101.220%
-125.219%
-
+<table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="8" class="gt_heading gt_title gt_font_normal" style="">Enflasyon Oranları</th>
+    </tr>
+    <tr>
+      <th colspan="8" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="">Aylık Bileşik Faiz Hesabı Olarak Yıllık Enflasyon</th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1">Tarih</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Yıl</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Yıl2</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Yıl3</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Yıl4</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Yıl5</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Yıl6</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1">Yıl7</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">September 1, 2021</td>
+<td class="gt_row gt_right">19.583%</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td></tr>
+    <tr><td class="gt_row gt_left">October 1, 2021</td>
+<td class="gt_row gt_right">19.890%</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td></tr>
+    <tr><td class="gt_row gt_left">November 1, 2021</td>
+<td class="gt_row gt_right">21.313%</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td></tr>
+    <tr><td class="gt_row gt_left">December 1, 2021</td>
+<td class="gt_row gt_right">36.081%</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td></tr>
+    <tr><td class="gt_row gt_left">January 1, 2022</td>
+<td class="gt_row gt_right">48.691%</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td></tr>
+    <tr><td class="gt_row gt_left">February 1, 2022</td>
+<td class="gt_row gt_right">54.439%</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td></tr>
+    <tr><td class="gt_row gt_left">March 1, 2022</td>
+<td class="gt_row gt_right">61.145%</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td></tr>
+    <tr><td class="gt_row gt_left">April 1, 2022</td>
+<td class="gt_row gt_right">69.971%</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td></tr>
+    <tr><td class="gt_row gt_left">May 1, 2022</td>
+<td class="gt_row gt_right">73.496%</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td></tr>
+    <tr><td class="gt_row gt_left">June 1, 2022</td>
+<td class="gt_row gt_right">78.618%</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">NA</td></tr>
+    <tr><td class="gt_row gt_left">July 1, 2022</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">78.961%</td>
+<td class="gt_row gt_right">80.716%</td>
+<td class="gt_row gt_right">82.470%</td>
+<td class="gt_row gt_right">84.225%</td>
+<td class="gt_row gt_right">85.979%</td>
+<td class="gt_row gt_right">87.734%</td></tr>
+    <tr><td class="gt_row gt_left">August 1, 2022</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">80.519%</td>
+<td class="gt_row gt_right">84.076%</td>
+<td class="gt_row gt_right">87.668%</td>
+<td class="gt_row gt_right">91.294%</td>
+<td class="gt_row gt_right">94.955%</td>
+<td class="gt_row gt_right">98.651%</td></tr>
+    <tr><td class="gt_row gt_left">September 1, 2022</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">81.852%</td>
+<td class="gt_row gt_right">87.253%</td>
+<td class="gt_row gt_right">92.760%</td>
+<td class="gt_row gt_right">98.374%</td>
+<td class="gt_row gt_right">104.096%</td>
+<td class="gt_row gt_right">109.927%</td></tr>
+    <tr><td class="gt_row gt_left">October 1, 2022</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">81.153%</td>
+<td class="gt_row gt_right">88.362%</td>
+<td class="gt_row gt_right">95.784%</td>
+<td class="gt_row gt_right">103.423%</td>
+<td class="gt_row gt_right">111.284%</td>
+<td class="gt_row gt_right">119.371%</td></tr>
+    <tr><td class="gt_row gt_left">November 1, 2022</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">78.507%</td>
+<td class="gt_row gt_right">87.430%</td>
+<td class="gt_row gt_right">96.707%</td>
+<td class="gt_row gt_right">106.348%</td>
+<td class="gt_row gt_right">116.363%</td>
+<td class="gt_row gt_right">126.763%</td></tr>
+    <tr><td class="gt_row gt_left">December 1, 2022</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">60.314%</td>
+<td class="gt_row gt_right">69.978%</td>
+<td class="gt_row gt_right">80.123%</td>
+<td class="gt_row gt_right">90.768%</td>
+<td class="gt_row gt_right">101.932%</td>
+<td class="gt_row gt_right">113.635%</td></tr>
+    <tr><td class="gt_row gt_left">January 1, 2023</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">47.177%</td>
+<td class="gt_row gt_right">57.579%</td>
+<td class="gt_row gt_right">68.606%</td>
+<td class="gt_row gt_right">80.287%</td>
+<td class="gt_row gt_right">92.655%</td>
+<td class="gt_row gt_right">105.743%</td></tr>
+    <tr><td class="gt_row gt_left">February 1, 2023</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">43.233%</td>
+<td class="gt_row gt_right">54.860%</td>
+<td class="gt_row gt_right">67.305%</td>
+<td class="gt_row gt_right">80.616%</td>
+<td class="gt_row gt_right">94.845%</td>
+<td class="gt_row gt_right">110.045%</td></tr>
+    <tr><td class="gt_row gt_left">March 1, 2023</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">38.528%</td>
+<td class="gt_row gt_right">51.242%</td>
+<td class="gt_row gt_right">64.982%</td>
+<td class="gt_row gt_right">79.821%</td>
+<td class="gt_row gt_right">95.835%</td>
+<td class="gt_row gt_right">113.104%</td></tr>
+    <tr><td class="gt_row gt_left">April 1, 2023</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">31.749%</td>
+<td class="gt_row gt_right">45.251%</td>
+<td class="gt_row gt_right">59.985%</td>
+<td class="gt_row gt_right">76.051%</td>
+<td class="gt_row gt_right">93.555%</td>
+<td class="gt_row gt_right">112.610%</td></tr>
+    <tr><td class="gt_row gt_left">May 1, 2023</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">30.495%</td>
+<td class="gt_row gt_right">45.278%</td>
+<td class="gt_row gt_right">61.569%</td>
+<td class="gt_row gt_right">79.503%</td>
+<td class="gt_row gt_right">99.230%</td>
+<td class="gt_row gt_right">120.908%</td></tr>
+    <tr><td class="gt_row gt_left">June 1, 2023</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">26.824%</td>
+<td class="gt_row gt_right">42.576%</td>
+<td class="gt_row gt_right">60.103%</td>
+<td class="gt_row gt_right">79.586%</td>
+<td class="gt_row gt_right">101.220%</td>
+<td class="gt_row gt_right">125.219%</td></tr>
+    <tr><td class="gt_row gt_left">July 1, 2023</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">26.824%</td>
+<td class="gt_row gt_right">42.576%</td>
+<td class="gt_row gt_right">60.103%</td>
+<td class="gt_row gt_right">79.586%</td>
+<td class="gt_row gt_right">101.220%</td>
+<td class="gt_row gt_right">125.219%</td></tr>
+    <tr><td class="gt_row gt_left">August 1, 2023</td>
+<td class="gt_row gt_right">NA</td>
+<td class="gt_row gt_right">26.824%</td>
+<td class="gt_row gt_right">42.576%</td>
+<td class="gt_row gt_right">60.103%</td>
+<td class="gt_row gt_right">79.586%</td>
+<td class="gt_row gt_right">101.220%</td>
+<td class="gt_row gt_right">125.219%</td></tr>
+  </tbody>
+  
+  
+</table>
 </div>
 </div>
 </div>
@@ -1510,15 +1511,15 @@ NA
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Yeniden kullanın</h2><div id="quarto-reuse" class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.tr">https://creativecommons.org/licenses/by/4.0/deed.tr</a></div></div></section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Alıntı</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{serkanalbayrak2022,
-  author = {SerkanAlbayrak, Raif},
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Yeniden kullanın</h2><div id="quarto-reuse" class="quarto-appendix-contents"><div><a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.tr">https://creativecommons.org/licenses/by/4.0/deed.tr</a></div></div></section><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">Alıntı</h2><div><div class="quarto-appendix-secondary-label">BibTeX</div><pre class="sourceCode code-with-copy quarto-appendix-bibtex"><code class="sourceCode bibtex">@online{serkan albayrak2022,
+  author = {Serkan Albayrak, Raif},
   title = {2022 Yıl Sonu Enflasyon Tahminleri},
-  date = {},
+  date = {2022-07-05},
   langid = {tr}
 }
-</code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">Lütfen bu çalışmayı şu şekilde alıntılayın:</div><div id="ref-serkanalbayrak2022" class="csl-entry quarto-appendix-citeas" role="doc-biblioentry">
-SerkanAlbayrak, Raif. n.d. <span>“2022 Yıl Sonu Enflasyon
-Tahminleri.”</span>
+</code><button title="Panoya Kopyala" class="code-copy-button"><i class="bi"></i></button></pre><div class="quarto-appendix-secondary-label">Lütfen bu çalışmayı şu şekilde alıntılayın:</div><div id="ref-serkan albayrak2022" class="csl-entry quarto-appendix-citeas" role="listitem">
+Serkan Albayrak, Raif. 2022. <span>“2022 Yıl Sonu Enflasyon
+Tahminleri.”</span> July 5, 2022.
 </div></div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -1547,9 +1548,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {

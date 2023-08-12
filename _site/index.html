@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.220">
+<meta name="generator" content="quarto-1.3.433">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,7 +17,7 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
 </style>
@@ -57,7 +57,8 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <script>
@@ -90,6 +91,7 @@ ul.task-list li input[type="checkbox"] {
   })
   </script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
@@ -140,9 +142,36 @@ ul.task-list li input[type="checkbox"] {
 <!--Sayfanın mimarisinde <https://github.com/WillemSleegers/willemsleegers-quarto/blob/main/index.qmd> adresindeki yapıyı kopyalayacağım. Mantık partial page kullanma üzerine. Blog listesi yapmanın yolu listing oluşturulan bir sayfa belirlemek. Onu about sayfasında yapmış. Ben farklı bir yerde yapmayı planlıyorum.-->
 <div id="listing-posts" class="quarto-listing quarto-listing-container-default">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="purrr,map" data-listing-date-sort="1670706000000" data-listing-file-modified-sort="1677223691183" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2.735">
+<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1683234000000" data-listing-file-modified-sort="1683279955930" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
 <div class="thumbnail">
-<p><a href="./content/posts/12_2022_list_type_and_map_function/listandmap.html"> <img src="./content/posts/12_2022_list_type_and_map_function/img/preview.png" class="thumnail-image"> </a></p>
+<p><a href="./content/posts/05_2023_taslak/taslak.html"> <p class="card-img-top"><img src="content\posts\05_2023_taslak\taslak_files\figure-html\unnamed-chunk-2-1.png"  class="thumbnail-image card-img"/></p> </a></p>
+</div>
+<div class="body">
+<a href="./content/posts/05_2023_taslak/taslak.html">
+<h3 class="no-anchor listing-title">
+taslak
+</h3>
+<div class="listing-subtitle">
+</div>
+<div class="listing-description">
+Not centered text. You can place the CSS block below to the top of the presentation
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./content/posts/05_2023_taslak/taslak.html">
+<div class="listing-date">
+May 5, 2023
+</div>
+<div class="listing-reading-time">
+1 min
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="purrr,map" data-listing-date-sort="1670706000000" data-listing-file-modified-sort="1691869210092" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
+<div class="thumbnail">
+<p><a href="./content/posts/12_2022_list_type_and_map_function/listandmap.html"> <img src="./content/posts/12_2022_list_type_and_map_function/img/preview.png" class="thumbnail-image"> </a></p>
 </div>
 <div class="body">
 <a href="./content/posts/12_2022_list_type_and_map_function/listandmap.html">
@@ -172,14 +201,14 @@ map
 Dec 11, 2022
 </div>
 <div class="listing-reading-time">
-2 min
+4 min
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="ggplot,bar chart" data-listing-date-sort="1663707600000" data-listing-file-modified-sort="1663936078872" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8.495">
+<div class="quarto-post image-right" data-index="2" data-categories="ggplot,bar chart" data-listing-date-sort="1663707600000" data-listing-file-modified-sort="1663936078872" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9">
 <div class="thumbnail">
-<p><a href="./content/posts/09_2022_crosstable_bar_chart/crossTableBarChart.html"> <img src="./content/posts/09_2022_crosstable_bar_chart/img/preview.png" class="thumnail-image"> </a></p>
+<p><a href="./content/posts/09_2022_crosstable_bar_chart/crossTableBarChart.html"> <img src="./content/posts/09_2022_crosstable_bar_chart/img/preview.png" class="thumbnail-image"> </a></p>
 </div>
 <div class="body">
 <a href="./content/posts/09_2022_crosstable_bar_chart/crossTableBarChart.html">
@@ -209,14 +238,14 @@ bar chart
 Sep 21, 2022
 </div>
 <div class="listing-reading-time">
-8 min
+9 min
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="2" data-categories="YKS,Üniversite Analitiği" data-listing-date-sort="1662930000000" data-listing-file-modified-sort="1677225742611" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2.93">
+<div class="quarto-post image-right" data-index="3" data-categories="YKS,Üniversite Analitiği" data-listing-date-sort="1662930000000" data-listing-file-modified-sort="1677225742611" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
 <div class="thumbnail">
-<p><a href="./content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html"> <img src="./content/posts/09_2022_yks_ieu_ranks/img/ieu.png" class="thumnail-image"> </a></p>
+<p><a href="./content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html"> <img src="./content/posts/09_2022_yks_ieu_ranks/img/ieu.png" class="thumbnail-image"> </a></p>
 </div>
 <div class="body">
 <a href="./content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html">
@@ -246,14 +275,14 @@ YKS
 Sep 12, 2022
 </div>
 <div class="listing-reading-time">
-2 min
+3 min
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="YKS,Üniversite Analitiği" data-listing-date-sort="1659906000000" data-listing-file-modified-sort="1660222054304" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="13.81">
+<div class="quarto-post image-right" data-index="4" data-categories="YKS,Üniversite Analitiği" data-listing-date-sort="1659906000000" data-listing-file-modified-sort="1660222054304" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14">
 <div class="thumbnail">
-<p><a href="./content/posts/07_2022_yks_puan_hesaplama3/puan3.html"> <img src="./content/posts/07_2022_yks_puan_hesaplama3/img/preview.png" class="thumnail-image"> </a></p>
+<p><a href="./content/posts/07_2022_yks_puan_hesaplama3/puan3.html"> <img src="./content/posts/07_2022_yks_puan_hesaplama3/img/preview.png" class="thumbnail-image"> </a></p>
 </div>
 <div class="body">
 <a href="./content/posts/07_2022_yks_puan_hesaplama3/puan3.html">
@@ -283,14 +312,14 @@ YKS
 Aug 8, 2022
 </div>
 <div class="listing-reading-time">
-13 min
+14 min
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="Zaman Serisi,R,Modelleme" data-listing-date-sort="1656968400000" data-listing-file-modified-sort="1658488389845" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5.955">
+<div class="quarto-post image-right" data-index="5" data-categories="Zaman Serisi,R,Modelleme" data-listing-date-sort="1656968400000" data-listing-file-modified-sort="1658488389845" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6">
 <div class="thumbnail">
-<p><a href="./content/posts/06_2022_yilsonu_enflasyon_tahminleri/enflasyon.html"> <img src="./content/posts/06_2022_yilsonu_enflasyon_tahminleri/img/preview.png" class="thumnail-image"> </a></p>
+<p><a href="./content/posts/06_2022_yilsonu_enflasyon_tahminleri/enflasyon.html"> <img src="./content/posts/06_2022_yilsonu_enflasyon_tahminleri/img/preview.png" class="thumbnail-image"> </a></p>
 </div>
 <div class="body">
 <a href="./content/posts/06_2022_yilsonu_enflasyon_tahminleri/enflasyon.html">
@@ -323,14 +352,14 @@ Modelleme
 Jul 5, 2022
 </div>
 <div class="listing-reading-time">
-5 min
+6 min
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-categories="YKS,Üniversite Analitiği" data-listing-date-sort="1656104400000" data-listing-file-modified-sort="1659947606553" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="11.315">
+<div class="quarto-post image-right" data-index="6" data-categories="YKS,Üniversite Analitiği" data-listing-date-sort="1656104400000" data-listing-file-modified-sort="1659947606553" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12">
 <div class="thumbnail">
-<p><a href="./content/posts/06_2022_yks_puan_hesaplama2/puan_hesaplama2.html"> <img src="./content/posts/06_2022_yks_puan_hesaplama2/img/preview.png" class="thumnail-image"> </a></p>
+<p><a href="./content/posts/06_2022_yks_puan_hesaplama2/puan_hesaplama2.html"> <img src="./content/posts/06_2022_yks_puan_hesaplama2/img/preview.png" class="thumbnail-image"> </a></p>
 </div>
 <div class="body">
 <a href="./content/posts/06_2022_yks_puan_hesaplama2/puan_hesaplama2.html">
@@ -360,14 +389,14 @@ YKS
 Jun 25, 2022
 </div>
 <div class="listing-reading-time">
-11 min
+12 min
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="6" data-categories="Üniversite Analitiği,YKS,Simülasyon" data-listing-date-sort="1656018000000" data-listing-file-modified-sort="1656073636106" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="16.565">
+<div class="quarto-post image-right" data-index="7" data-categories="Üniversite Analitiği,YKS,Simülasyon" data-listing-date-sort="1656018000000" data-listing-file-modified-sort="1656073636106" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="17">
 <div class="thumbnail">
-<p><a href="./content/posts/05_2022_ yks_baraj/yksBaraj.html"> <img src="./content/posts/05_2022_ yks_baraj/img/preview.png" class="thumnail-image"> </a></p>
+<p><a href="./content/posts/05_2022_ yks_baraj/yksBaraj.html"> <img src="./content/posts/05_2022_ yks_baraj/img/preview.png" class="thumbnail-image"> </a></p>
 </div>
 <div class="body">
 <a href="./content/posts/05_2022_ yks_baraj/yksBaraj.html">
@@ -400,14 +429,14 @@ Simülasyon
 Jun 24, 2022
 </div>
 <div class="listing-reading-time">
-16 min
+17 min
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="7" data-categories="YKS,Modelleme,R,Üniversite Analitiği" data-listing-date-sort="1653944400000" data-listing-file-modified-sort="1656574051976" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="17.775">
+<div class="quarto-post image-right" data-index="8" data-categories="YKS,Modelleme,R,Üniversite Analitiği" data-listing-date-sort="1653944400000" data-listing-file-modified-sort="1656574051976" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="18">
 <div class="thumbnail">
-<p><a href="./content/posts/05_2022_yks_puan hesaplama/puan_hesaplama.html"> <img src="./content/posts/05_2022_yks_puan hesaplama/img/preview.png" class="thumnail-image"> </a></p>
+<p><a href="./content/posts/05_2022_yks_puan hesaplama/puan_hesaplama.html"> <img src="./content/posts/05_2022_yks_puan hesaplama/img/preview.png" class="thumbnail-image"> </a></p>
 </div>
 <div class="body">
 <a href="./content/posts/05_2022_yks_puan hesaplama/puan_hesaplama.html">
@@ -443,14 +472,14 @@ R
 May 31, 2022
 </div>
 <div class="listing-reading-time">
-17 min
+18 min
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="8" data-categories="YKS,Modelleme,R" data-listing-date-sort="1653598800000" data-listing-file-modified-sort="1655971654999" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8.275">
+<div class="quarto-post image-right" data-index="9" data-categories="YKS,Modelleme,R" data-listing-date-sort="1653598800000" data-listing-file-modified-sort="1655971654999" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9">
 <div class="thumbnail">
-<p><a href="./content/posts/05_2022_yks_siralama_dagilim/rank_dist.html"> <img src="./content/posts/05_2022_yks_siralama_dagilim/img/preview.png" class="thumnail-image"> </a></p>
+<p><a href="./content/posts/05_2022_yks_siralama_dagilim/rank_dist.html"> <img src="./content/posts/05_2022_yks_siralama_dagilim/img/preview.png" class="thumbnail-image"> </a></p>
 </div>
 <div class="body">
 <a href="./content/posts/05_2022_yks_siralama_dagilim/rank_dist.html">
@@ -483,14 +512,14 @@ R
 May 27, 2022
 </div>
 <div class="listing-reading-time">
-8 min
+9 min
 </div>
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="9" data-categories="YKS,Puan türleri" data-listing-date-sort="1653253200000" data-listing-file-modified-sort="1656097980247" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4.125">
+<div class="quarto-post image-right" data-index="10" data-categories="YKS,Puan türleri" data-listing-date-sort="1653253200000" data-listing-file-modified-sort="1656097980247" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
 <div class="thumbnail">
-<p><a href="./content/posts/05_2022_yks_puan_diagram/yks_puan_diagram.html"> <img src="./content/posts/05_2022_yks_puan_diagram/img/preview.png" class="thumnail-image"> </a></p>
+<p><a href="./content/posts/05_2022_yks_puan_diagram/yks_puan_diagram.html"> <img src="./content/posts/05_2022_yks_puan_diagram/img/preview.png" class="thumbnail-image"> </a></p>
 </div>
 <div class="body">
 <a href="./content/posts/05_2022_yks_puan_diagram/yks_puan_diagram.html">
@@ -520,7 +549,7 @@ Puan türleri
 May 23, 2022
 </div>
 <div class="listing-reading-time">
-4 min
+5 min
 </div>
 </a>
 </div>
@@ -556,9 +585,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {

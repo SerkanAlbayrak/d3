@@ -1,0 +1,16 @@
+{
+  "hash": "9bea4897e5c9a5f832846719c28454e6",
+  "result": {
+    "markdown": "---\ntitle: \"taslak\"\ndate: 2023-05-05\nauthor: Raif Serkan Albayrak\n---\n\n\n## Slide title\n\nNot centered text. You can place the CSS block below to the top of the presentation\n\n\n::: {.cell}\n\n```{.css .cell-code}\n.center {\n  text-align: center;\n}\n```\n\n\n<style type=\"text/css\">\n.center {\n  text-align: center;\n}\n</style>\n:::\n\n\n:::{.center}\n\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software lik\n\n:::\n\n\n::: {.cell}\n\n```{.r .cell-code}\nplot(cyl~disp, data=mtcars)\n```\n\n::: {.cell-output-display}\n![](taslak_files/figure-html/unnamed-chunk-2-1.png){width=50%}\n:::\n:::\n\n\n:::\n\n",
+    "supporting": [
+      "taslak_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

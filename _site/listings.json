@@ -1,7 +1,8 @@
 [
   {
-    "listing": "/content/blog.html",
+    "listing": "/index.html",
     "items": [
+      "/content/posts/05_2023_taslak/taslak.html",
       "/content/posts/12_2022_list_type_and_map_function/listandmap.html",
       "/content/posts/09_2022_crosstable_bar_chart/crossTableBarChart.html",
       "/content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html",
@@ -15,8 +16,9 @@
     ]
   },
   {
-    "listing": "/index.html",
+    "listing": "/content/blog.html",
     "items": [
+      "/content/posts/05_2023_taslak/taslak.html",
       "/content/posts/12_2022_list_type_and_map_function/listandmap.html",
       "/content/posts/09_2022_crosstable_bar_chart/crossTableBarChart.html",
       "/content/posts/09_2022_yks_ieu_ranks/2022YKS_ieurankings.html",
