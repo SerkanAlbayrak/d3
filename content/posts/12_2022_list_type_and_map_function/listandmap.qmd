@@ -6,7 +6,7 @@ date: 2022-12-11
 categories:
   - purrr
   - map
-code-fold: true
+code-fold: false
 image: "img/preview.png"
 lang: tr
 code-line-numbers: false
