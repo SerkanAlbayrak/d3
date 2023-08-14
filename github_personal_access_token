@@ -1,14 +1,8 @@
 rfsrkn@outlook hesabı
 
-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
+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
 
 Token'ı install etmek için;
 - gitcreds::gitcreds_set()
 - 2
 - paste obove credential
-
-## or store it manually in '.Renviron':
-usethis::edit_r_environ()
-## store your personal access token in the file that opens in your editor with:
-## GITHUB_PAT=xxxyyyzzz
-## and make sure '.Renviron' ends with a newline

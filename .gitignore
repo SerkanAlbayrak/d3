@@ -3,7 +3,8 @@
 .RData
 .Ruserdata
 .Renviron
-github_personal_access_token.txt
+
+.txt
 
 /.quarto/
 /temp/
