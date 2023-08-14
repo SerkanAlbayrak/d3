@@ -150,16 +150,22 @@ library(repurrrsive)
 
 
 ```{r}
+#| code-fold: false
 users <- tibble(user = gh_users)
 ```
 
 ```{r}
+#| code-fold: false
 jsonedit(users)
 ```
 
-List tipinde veriyi indekleme konusunu sık sık unutuyorum.
+::: {.callout-tip collapse="true"}
+
+
+## List tipinde veriyi indekleme konusunu sık sık unutuyorum.
 
 ```{r}
+#| code-fold: false
 l1 <- users[[1]][[1]]
 l1
 ```
@@ -167,6 +173,7 @@ l1
 Aslında `l1` en temel list tipi olan vector'den ibaret. Daha doğrusu named vector. 
 
 ```{r}
+#| code-fold: false
 l1v <- unlist(l1)
 l1v["followers"]
 ```
@@ -174,11 +181,14 @@ l1v["followers"]
 
 Each `user` is a named list, where each element represents a column.
 ```{r}
+#| code-fold: false
 names(users$user[[1]])
 ```
+:::
 
 There are two ways to turn the list components into columns. unnest_wider() takes every component and makes a new column:
 ```{r}
+#| code-fold: false
 userswide <- users %>% unnest_wider(user)
 userswide
 ```
@@ -187,6 +197,7 @@ userswide
 But in this case, there are many components and we don’t need most of them so we can instead use hoist(). hoist() allows us to pull out selected components using the same syntax as purrr::pluck():
 
 ```{r}
+#| code-fold: false
 users %>% hoist(user, 
   followers = "followers", 
   login = "login", 
@@ -200,6 +211,7 @@ Bu acaip bir şey. Elde eğer her satırda list olan bir yapı varsa, içinden p
 We start off gh_repos similarly, by putting it in a tibble:
 
 ```{r}
+#| code-fold: false
 repos <- tibble(repo = gh_repos)
 repos
 ```
@@ -207,6 +219,7 @@ repos
 This time the elements of repos are a list of repositories that belong to that user. These are observations, so should become new rows, so we use unnest_longer() rather than unnest_wider():
 
 ```{r}
+#| code-fold: false
 repos0 <- repos %>% unnest_longer(repo)
 repos0
 ```
@@ -214,6 +227,7 @@ repos0
 Aslına bu şekilde 6 kullanıcınında repolarını alt alta koyduk ve devamında unnest_wider veya hoist kullanarak verileri dışarı çıkarabilir. Ama eğer mesela sadece birinci user'ın repoları ile çalışmak isteseydik önce o user'ın olduğu list'i tibble yapmak gerekecekti. 
 
 ```{r}
+#| code-fold: false
 firstUser <- tibble(repo=repos[[1]][[1]])
 firstUser
 
@@ -221,11 +235,13 @@ firstUser
 Eğer devamında unnest_longer denirse bu durumda alt seviye tamamen dışarıya çıkıyor.
 
 ```{r}
+#| code-fold: false
 firstUser %>% unnest_longer(repo)
 ```
 Ama kısmen değerlere hoist veya unnest_wider ile mümkün. Önce hoist kodunu veriyorum çünkü bu zaten sitede de var.
 
 ```{r}
+#| code-fold: false
 firstUser %>% hoist(repo, 
   login = c("owner", "login"), 
   name = "name",
@@ -236,6 +252,7 @@ firstUser %>% hoist(repo,
 Bu da unnest_wider kodu;
 
 ```{r}
+#| code-fold: false
 firstUser %>% unnest_wider(repo)
 ```
 
