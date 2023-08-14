@@ -223,4 +223,19 @@ Eğer devamında unnest_longer denirse bu durumda alt seviye tamamen dışarıya
 ```{r}
 firstUser %>% unnest_longer(repo)
 ```
+Ama kısmen değerlere hoist veya unnest_wider ile mümkün. Önce hoist kodunu veriyorum çünkü bu zaten sitede de var.
+
+```{r}
+firstUser %>% hoist(repo, 
+  login = c("owner", "login"), 
+  name = "name",
+  homepage = "homepage",
+  watchers = "watchers_count"
+)
+```
+Bu da unnest_wider kodu;
+
+```{r}
+firstUser %>% unnest_wider(repo)
+```
 
