@@ -4,8 +4,6 @@
 .Ruserdata
 .Renviron
 
-github_personal_access_token.*
-
 /.quarto/
 /temp/
 
