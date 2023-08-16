@@ -16,6 +16,8 @@ toc-title: İçerik
 ```{r}
 library(tidyverse)
 library(listviewer)
+library(DT)
+library(repurrrsive)
 ```
 
 Liste veri yapısı her ne kadar R'ın bildiğim kadarıyla en esnek veri yapısı olsa da, filtrelenmesi, endekslenmesi ve hata veri girişi konusu karışık ve az biliniyor. Özellikler JSON tipi veri liste dönüştüğünde katmanlı ve düzensiz bir yapıya sahip olabiliyor. Bu gibi durumlarda istenen herhangi bir katmandaki tüm veriyi çekmek veya ihtiyaç duyulan filtrelemeleri yapmak kolay değil. Bunlardan sonra daha detaylı analizler için zaten list'i tibble veya dataframe'e dönüştürmek gerekiyor. O kısım da bu yazının konusu.
@@ -24,67 +26,91 @@ Yazıya ters yönlü transformasyonla başlamak en iyi seçenek gibi görünmeye
 
 # Tibble veya DataFrame'den List Oluşturmak
 
-Tibble'dan list'e dönüşüm bir veya daha fazla kategorik değişken üzerinden yürütülür. Örneğin `mtcars` verisinde silindir değişkeni ile veriyi üçe parçalamak mümkün.
+Tibble'dan list'e dönüşüm bir veya daha fazla kategorik değişken üzerinden yürütülür. Örneğin `mtcars` verisinde silindir değişkeni ile veriyi üçe parçalamak mümkün. Sonuçta bir list elde edilir.
 
 ## Split
 
 ```{r}
 mtList <- mtcars %>%
   split(.$cyl)
-jsonedit(mtList)
+# Daha anlaşılır formatta aynı komut şöyle de yazılabilirdi:
+mtList <- split(mtcars, f = mtcars$cyl)
+
+reactjson(mtList, collapsed = 1, height = 200) 
+
 ```
 
 <br>
 
-Bir diğer örnek `CO2` verisi üzerinde olacak.
+Bir diğer örnek `CO2` verisi üzerinde olacak. Önce veriyi tanıtıyorum.
 
 ```{r}
-head(CO2)
-summary(CO2)
+CO2 <- CO2
+datatable(CO2)
+
 ```
+
+Aynı verinin reactjson ile gösterimi aşağıda verildi. Aslında reactjson list görselleştirmesinde kullanılıyor ama her tibble veya dataframe için kolon'un bir list ile eşdeğer olduğunu hatırlamak için buraya koydum. Yukarıda DataTable ile gösterilen ile aşağıda reactjson ile gösterilen birebir aynı veri.
+```{r}
+reactjson(CO2,collapsed = 1,height = 250)
+```
+
+Yukarıda data `Type` ve `Treatment` değişkenleri etrafında dağıtıldığında;
 
 ```{r}
 CO2List <- split(CO2, f = list(CO2$Type, CO2$Treatment))
-map(CO2List,head)
+reactjson(CO2List,collapsed=2)
+
 ```
 
-Burada split işlemini geri almak da mümkün ama işlevsiz f argümanı o aşamada elde olması pek mümkün olmayan bir veri.
-
+Burada split işlemini geri almak da mümkün ama işlevsiz çünkü f argümanı o aşamada elde olması pek mümkün olmayan bir veri. CO2 verisi o aşamada çoğunlukla elde değil zaten. 
 ```{r}
 dfCO2 <- unsplit(CO2List,f = list(CO2$Type,CO2$Treatment))
+head(dfCO2)
 ```
+
+Sonuç itibariyle pek de anlamlı olmadığını düşündüğüm unsplit, list'i rectangular forma sokmak için bir yöntem. Ama fonksiyonun içinde `f` argümanı olarak ne yazılacak?    
+
+Öte yandan `split` fonksiyonu oldukça faydalı. Ancak bir sonraki bölümde anlatılan `nest` kesinlikle daha iyi.
 
 ## Nest
 
-Nest ile de list oluşturmak mümkün. Nasıl çalıştığını görmek için önce çok basit bir örnek üzerinde uyguluyoruz. BU örnek orjinal yardım dosyasından.
+Nest ile de list oluşturmak mümkün. Yukarıdaki örneklere uyguluyorum. Aşağıda da görüleceği üzere silindir etrafında tüm veriyi dağıtıyor. Daha doğru bir ifade ile "nest" kelimesinin anlamından yola çıkarak, aslında silindir değişkeni *dışında* tüm değişkenleri saklıyor. Sonuçta 3x2 boyutunda bir tibble çıkıyor. 
 
 ```{r}
-df <- tibble(x = c(1, 1, 1, 2, 2, 3), y = 1:6, z = 6:1)
-# Note that we get one row of output for each unique combination of
-# non-nested variables
-df_nested <- df %>% nest(data = c(y, z))
-df_nested
+mt_nest <- mtcars %>% nest(data=!cyl)
+mt_nest
 ```
 
-nest edilmeyen değişkenlerim her kombinasyonu bir satırda gösteriliyor.
+Bu yapıyı dikkatlice incelemekte fayda var çünkü herhangi bir list üzerinde tibble() konutu uygulandığında doğrudan bu yapıyla karşılaşıyorum. Yani en dışta etiketler sonra aynı dataframe yapısı (değişkenler) tekrar ediyor. 
+
+
+İşin aslı veri genellikle aşağıda yapay bir şekilde oluşturduğum formda geliyor, yani list yapısında.
 
 ```{r}
-df_nested[1,2][[1]]
+mt_nest_List <- list('4' = mt_nest$data[[1]],'6' = mt_nest$data[[2]],'8' = mt_nest$data[[3]])
+mt_nest_List
 ```
 
-chop benzeri bir işlem yapar ama kolonları da tutar, birleştirmez.
+Bu arada yukarıda bu işin `split` komutuyla nasıl hızlıca yapıldığı gösterilmişti. Ama şu aşamada vurgulamak istediğim genellikle webcrawling sonrası json veya list tipinde veri alıyorum ve amaç bu veriyi formatlamak. İşte eğer sanal olarak oluşturulan bu listin webcrawling sonucu elde edildiğini varsayarsak, `tibble` komutu ile yukarıda bahsettiğim forma ulaşabiliyorum.
 
 ```{r}
-# chop does something similar, but retains individual columns
-df_chop <- df %>% chop(c(y, z))
-df_chop
+tibble(names(mt_nest_List),(mt_nest_List))
 ```
 
+Bu işi nest'ten daha iyi yapan komut `enframe`. Aşağıda onunla çalıştım.
+
+::: {.callout-tip collapse="true"}
 # Modify_depth
 
-https://purrr.tidyverse.org/reference/modify.html adresinde konu ile ilgili detaylı açıklama ve çok sayıda örnek mevcut,
+Zaman zaman veriyi rectangular forma dönüştürmeden de list'in çeşitli seviyelerinden veri çekme ihtiyacı olabiliyor.
 
-Aşağıdaki örnekte bir nested list içinde, 2 seviye içeriden tüm değerleri çekmek için modify depth kullanılabilir.
+
+https://purrr.tidyverse.org/reference/modify.html adresinde konu ile ilgili detaylı açıklama ve çok sayıda örnek mevcut.
+
+Aşağıdaki örnekte bir nested list içinde, obj birinci seviye, prop ikinci seviye ve param üçüncü seviye.
+
+2. seviyeden (prop) tüm değerleri çekmek için modify depth kullanılabilir.
 
 ```{r}
 l1 <- list(
@@ -101,23 +127,22 @@ l1 <- list(
 l2 <- l1 %>% modify_depth(2, "param1")
 l2
 ```
+:::
 
-# NFT Datasını Dönüştürmek
+# Enframe
 
-NFT Datasının içinden trait verileri alıp bir tibble'a dönüştürme işiyla başlıyoruz. Aslında verinin içinde trait alt listesinin yapısı son derece düzgün. Amaç bunu dönüştürmek. Temel sıkıntı tekrar etmesi gereken name değerleri var.
+NFT Datasının içinden trait verileri alıp bir tibble'a dönüştürme işiyla başlıyorum. Aslında verinin içinde trait alt listesinin yapısı son derece düzgün. Amaç bunu dönüştürmek. Temel sıkıntı tekrar etmesi gereken name değerleri var.
 
 ```{r}
 
 load("nft_traits.rda")
-jsonedit(rc_traits_data)
+reactjson(rc_traits_data,collapsed = 2)
 ```
 
-### Map - Enframe - Unnest
 
 Enframe ile baştan bir yapı empoze edilebiliyor.
 
 ```{r}
-#| code-fold: false
 d0 <- rc_traits_data$collection$traits
 d1 <- d0 %>% enframe(name = "name", value = "values")
 d1
@@ -128,7 +153,6 @@ Amaç values sütununda bulunan her list'i tibble'a dönüştürmek. Aşağıdak
 Daha basitleştirmek için: bir tibble içinde bir değişkeni iki ile çarparak yeni bir değişken oluşturmak istensin. Nasıl yapılır? İki yolu var. Birincisi, satır bazında işlem yapılır. Excel'de olduğu gibi. Yan hücrenin iki katını al, aşağıya şek. Eğer hücre bazına indirmeden length hesaplamaya kalkılırsa bütün kolonunun length'i hesaplanıp her hücreye yazılır ki bu bir hatadır. İkinci yol ise vektör operasyonu kullanmak. Değişkeni bir vektör olarak alıp, vektörü iki ile çarpıp, sonucu tibble'a yeni bir değişken olarak yerleştirmek. İşte `map` ile yapılan ikincisi. Bu işlem çok daha hızlı oluyor.
 
 ```{r}
-#| code-fold: false
 d2.0 <- d1 %>% rowwise() %>% mutate(n_t=length(values))
 d2.0
 d2.0.error <- d1 %>% mutate(n_t=length(values))
@@ -136,63 +160,56 @@ d2.0.error
 d2 <- d1 %>% mutate(n_t = map_int(values,length))
 d2
 ```
+Yazının devamında bu yapıyı `unnest_longer kullanarak düzenliyorum`
 
 # Rectangling
 
-Burada https://tidyr.tidyverse.org/articles/rectangle.html adresindeki örnekleri detaylandıracağım.
+## purrr::list_.
 
+Eğer split, nest veya enframe benzeri bir şekilde oluşturulan yapıya benzer (en dış isimler, bir alt seviye dataframeler) bir listten tibble'a dönüşüm gerekirse; en kolayı `purrr` kütüphanesi içinde `list_rbind` kullanmak. Ancak bu gerçekten çok spesifik bir durum. Çünkü ikinci seviyede tüm elemanların data.frame olması şart, vektör olmaları yetmez.
 
 ```{r}
-library(tidyr)
-library(dplyr)
-library(repurrrsive)
+head(purrr::list_rbind(CO2List))
+
 ```
 
+Daha da ilginci ve daha sık kullanılma potansiyeli olan ise `name` argümanını da devreye sokmak:
+
+```{r}
+head(purrr::list_rbind(CO2List,names_to = "names"))
+```
+Elbette yukarıdaki örnekler içinde bu yöntemin çalışacağı diğer örnek split ile oluşturulan mtList.
+```{r}
+head(purrr::list_rbind(mtList))
+```
+
+
+## tidyr
+
+List yapısını en başarılı şekilde matris formuna dönüştüren kütüphane. Kullanmayı iyi bir şekilde öğrenmem gereken topu topu 3 fonksiyon var.
+
+Burada https://tidyr.tidyverse.org/articles/rectangle.html adresindeki örnekleri detaylandıracağım. `gh_users` verisi github kullanıcısı 6 kişinin bilgilerini içeriyor. İki seviye list şeklinde ama anadallardan itibaren içerisinin formu her dal için aynı. 
+
+```{r}
+data(gh_users)
+reactjson(gh_users,collapsed = 2)
+```
+
+Önce list'i tibble formatına getiriyoruz.Bu en dıştaki seviyeyi ortadan kaldırıyor. İçeride vektör formunda birbirinin aynı yapılar var.
 
 ```{r}
 #| code-fold: false
 users <- tibble(user = gh_users)
+users
 ```
 
-```{r}
-#| code-fold: false
-jsonedit(users)
-```
+unnest_wider() fonksiyonunu ile hali hazırda düzenli olan yapıyı bir seviye dışarı taşıyoruz.
 
-::: {.callout-tip collapse="true"}
-
-
-## List tipinde veriyi indekleme konusunu sık sık unutuyorum.
-
-```{r}
-#| code-fold: false
-l1 <- users[[1]][[1]]
-l1
-```
-
-Aslında `l1` en temel list tipi olan vector'den ibaret. Daha doğrusu named vector. 
-
-```{r}
-#| code-fold: false
-l1v <- unlist(l1)
-l1v["followers"]
-```
-
-
-Each `user` is a named list, where each element represents a column.
-```{r}
-#| code-fold: false
-names(users$user[[1]])
-```
-:::
-
-There are two ways to turn the list components into columns. unnest_wider() takes every component and makes a new column:
 ```{r}
 #| code-fold: false
 userswide <- users %>% unnest_wider(user)
 userswide
 ```
-
 
 But in this case, there are many components and we don’t need most of them so we can instead use hoist(). hoist() allows us to pull out selected components using the same syntax as purrr::pluck():
 
@@ -206,7 +223,43 @@ users %>% hoist(user,
 
 ```
 
-Bu acaip bir şey. Elde eğer her satırda list olan bir yapı varsa, içinden parça parça değişken çıkartabiliyoruz. 
+Bu acaip bir şey. Elde eğer her satırda list olan bir yapı varsa, içinden parça parça değişken çıkartabiliyoruz.  
+Düzenlemek istediğimiz list'in içi dataframe ise unnest_wider çalışmıyor. Örneğin mt_nest,
+
+```{r}
+mt_nest_wide <- mt_nest %>% unnest_wider(data)
+mt_nest_wide
+```
+
+Düzgün görünmüyor bile, içerisini şu şekilde:
+
+```{r}
+datatable(mt_nest_wide)
+```
+
+
+Bu gözlem çok kritik. Biz ne istiyoruz? Virgülle ayrılan değerlerin ayrı satırlara yazılmasını, en sağda ise her gözlem için ilgili değerin tekrarlamasını istiyoruz. İşte bu işi yapan ise `unnest_longer`
+
+```{r}
+mt_nest_long <- mt_nest %>% unnest_longer(data)
+mt_nest_long
+```
+
+Yukarıdaki NFT datası da içiçe listlerden oluşuyor. Bunu daha önce şu şekilde tibble formuna dönüştürdüm. 
+
+```{r}
+d2
+```
+
+Şimdi `unnest_longer` kullanarak bir seviye içeriyi dışarı çıkarıyorum.
+
+```{r}
+d22 <- d2 %>% unnest_longer(values)
+d22
+```
+
+
+Unnest_longer ve unnest_wider beraber kullanılan bir örneğe bakıyorum son olarak.
 
 We start off gh_repos similarly, by putting it in a tibble:
 
